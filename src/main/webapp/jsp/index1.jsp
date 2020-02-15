@@ -53,36 +53,54 @@
 		</ul>
 
 		<ul class="layui-nav layui-layout-right">
-
-			<li class="layui-nav-item" lay-unselect>
-				<a href="javascript:;" data-refresh="刷新"><i class="fa fa-refresh"></i></a>
-			</li>
-			<li class="layui-nav-item" lay-unselect>
-				<a href="javascript:;" data-clear="清理" class="layuimini-clear"><i class="fa fa-trash-o"></i></a>
-			</li>
-			<li class="layui-nav-item mobile layui-hide-xs" lay-unselect>
-				<a href="javascript:;" data-check-screen="full"><i class="fa fa-arrows-alt"></i></a>
-			</li>
-			<li class="layui-nav-item layuimini-setting">
-				<a href="javascript:;">admin</a>
+			<li class="layui-nav-item">
+				<a href="javascript:;">
+					<img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+					宇宙大帅哥
+				</a>
 				<dl class="layui-nav-child">
-					<dd>
-						<a href="javascript:;" data-iframe-tab="page/user-setting.html" data-title="基本资料"
-						   data-icon="fa fa-gears">基本资料</a>
-					</dd>
-					<dd>
-						<a href="javascript:;" data-iframe-tab="page/user-password.html" data-title="修改密码"
-						   data-icon="fa fa-gears">修改密码</a>
-					</dd>
-					<dd>
-						<a href="javascript:;" class="login-out">退出登录</a>
-					</dd>
+					<dd><a href="">基本资料</a></dd>
+					<dd><a href="">安全设置</a></dd>
 				</dl>
 			</li>
-			<li class="layui-nav-item layuimini-select-bgcolor mobile layui-hide-xs" lay-unselect>
-				<a href="javascript:;" data-bgcolor="配色方案"><i class="fa fa-ellipsis-v"></i></a>
-			</li>
+			<li class="layui-nav-item"><a href="">注销</a></li>
 		</ul>
+
+<%--		<ul class="layui-nav layui-layout-right">--%>
+
+<%--			顶部右侧菜单按钮--%>
+<%--			<li class="layui-nav-item" lay-unselect>--%>
+<%--				<a href="javascript:;" data-refresh="刷新"><i class="fa fa-refresh"></i></a>--%>
+<%--			</li>--%>
+<%--			<li class="layui-nav-item" lay-unselect>--%>
+<%--				<a href="javascript:;" data-clear="清理" class="layuimini-clear"><i class="fa fa-trash-o"></i></a>--%>
+<%--			</li>--%>
+<%--			<li class="layui-nav-item mobile layui-hide-xs" lay-unselect>--%>
+<%--				<a href="javascript:;" data-check-screen="full"><i class="fa fa-arrows-alt"></i></a>--%>
+<%--			</li>--%>
+
+<%--			<li class="layui-nav-item layuimini-setting">--%>
+<%--				<a href="javascript:;">admin</a>--%>
+<%--				<dl class="layui-nav-child">--%>
+<%--					<dd>--%>
+<%--						<a href="javascript:;" data-iframe-tab="page/user-setting.html" data-title="基本资料"--%>
+<%--						   data-icon="fa fa-gears">基本资料</a>--%>
+<%--					</dd>--%>
+<%--					<dd>--%>
+<%--						<a href="javascript:;" data-iframe-tab="page/user-password.html" data-title="修改密码"--%>
+<%--						   data-icon="fa fa-gears">修改密码</a>--%>
+<%--					</dd>--%>
+<%--					<dd>--%>
+<%--						<a href="javascript:;" class="login-out">退出登录</a>--%>
+<%--					</dd>--%>
+<%--				</dl>--%>
+<%--			</li>--%>
+
+<%--配色方案角标--%>
+<%--			<li class="layui-nav-item layuimini-select-bgcolor mobile layui-hide-xs" lay-unselect>--%>
+<%--				<a href="javascript:;" data-bgcolor="配色方案"><i class="fa fa-ellipsis-v"></i></a>--%>
+<%--			</li>--%>
+<%--		</ul>--%>
 	</div>
 
 	<div class="layui-side layui-bg-black">
@@ -106,6 +124,7 @@
 					</dl>
 				</li>
 			</ul>
+
 			<div class="layui-tab-content clildFrame">
 				<div id="layuiminiHomeTabIframe" class="layui-tab-item layui-show">
 				</div>
