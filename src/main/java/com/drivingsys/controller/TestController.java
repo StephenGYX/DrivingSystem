@@ -1,9 +1,10 @@
 package com.drivingsys.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.drivingsys.service.MyServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * 测试
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController
 {
+	@Resource
+	private MyServiceImpl myServiceImpl;
+
 	@ResponseBody
 	@RequestMapping("/hello")
 	public String testMain(){
@@ -22,4 +26,13 @@ public class TestController
 	public String index(){
 		return "Getting start from spring boot!";
 	}
+
+
+
+	@RequestMapping("/reg")
+	public void reg(@RequestParam("username")String account,@RequestParam("password")String pass,@RequestParam("password1")String pass1)
+	{
+		myServiceImpl.adduser(account,pass);
+	}
+
 }
