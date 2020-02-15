@@ -4,8 +4,11 @@ import com.drivingsys.bean.Backstage;
 import com.drivingsys.service.BackStageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.View;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +17,7 @@ import java.util.Map;
  * 后台管理员控制层
  */
 
-@RestController()
+@Controller
 @RequestMapping("/back")
 public class BackStageController
 {
@@ -22,11 +25,15 @@ public class BackStageController
 	@Autowired
 	private BackStageService backStageService;
 
+	@ResponseBody
 	@RequestMapping("/backLogin")
-	public String backLogin(@RequestParam Map<String,String> reqMap){
+	public String backLogin(@RequestParam Map<String,String> reqMap, HttpServletRequest request){
 
 		//调用service查找账户的方法
 		Backstage backstage = backStageService.queryBackStageAccount(reqMap);
+
+		//将该用户放入session域中
+		request.getSession().setAttribute("backstage",backstage);
 
 		//响应前端
 		String msg = "";
@@ -36,6 +43,11 @@ public class BackStageController
 			msg = "2";
 		}
 		return msg;
+	}
+
+	@RequestMapping("/logOut")
+	public String logOut(){
+		return "/backlogin";
 	}
 
 }

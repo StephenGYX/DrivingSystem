@@ -56,15 +56,15 @@
 		<ul class="layui-nav layui-layout-right">
 			<li class="layui-nav-item">
 				<a href="javascript:;">
-					<img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-					宇宙大帅哥
+					<img src=<%=path+"/images/headphoto.jpg"%> class="layui-nav-img">
+					${sessionScope.backstage.bname}
 				</a>
 				<dl class="layui-nav-child">
 					<dd><a href="">基本资料</a></dd>
 					<dd><a href="">安全设置</a></dd>
 				</dl>
 			</li>
-			<li class="layui-nav-item"><a href="">注销</a></li>
+			<li class="layui-nav-item"><a href="<%=path+"/back/logOut"%>">注销</a></li>
 		</ul>
 
 <%--		<ul class="layui-nav layui-layout-right">--%>
