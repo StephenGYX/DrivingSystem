@@ -51,7 +51,7 @@
 <div class="layui-container">
 	<div class="admin-login-background">
 		<div class="layui-form login-form">
-			<form class="layui-form" action="<%=path+"/back/backLogin"%>">
+			<form class="layui-form" action="" method="post">
 				<div class="layui-form-item logo-title">
 					<h1>驾考后台管理系统</h1>
 				</div>
@@ -86,6 +86,7 @@
 <script src="<%=path+"/lib/jquery-3.4.1/jquery-3.4.1.min.js"%>" charset="utf-8"></script>
 <script src="<%=path+"/lib/layui-v2.5.5/layui.js"%>" charset="utf-8"></script>
 <script src="<%=path+"/lib/jq-module/jquery.particleground.min.js"%>" charset="utf-8"></script>
+<script src="<%=path+"/js/json2.js"%>" charset="utf-8"></script>
 <script src="<%=path+"/js/backlogin.js"%>" charset="utf-8"></script>
 
 </body>

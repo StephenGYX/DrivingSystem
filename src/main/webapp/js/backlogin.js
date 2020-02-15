@@ -4,7 +4,7 @@ var path;
 window.onload = function () {
 	hidNode = document.getElementById("hid");
 	path = hidNode.value;
-	alert(path+'/back/backLogin');
+	// alert(path+'/back/backLogin');
 };
 
 layui.use(['form'], function () {
