@@ -60,7 +60,7 @@ layui.use(['form'], function () {
 					}
 				}
 				,error:function () {
-					alert("服务器正忙.....");
+					layer.alert("服务器正忙.....");
 				}
 			});
 			return false;

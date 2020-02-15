@@ -12,19 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
  * 后台管理员控制层
  */
 
-@RestController("/back")
+@RestController()
+@RequestMapping("/back")
 public class BackStageController
 {
 
 	@Autowired
 	private BackStageService backStageService;
-
-	/**
-	 * 后台管理员登录
-	 * @param account
-	 * @param password
-	 * @param captcha
-	 */
 
 
 	@RequestMapping("/backLogin")
