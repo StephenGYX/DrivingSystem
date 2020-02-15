@@ -57,15 +57,15 @@
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-icon layui-icon-username"></label>
-					<input type="text" name="account" lay-verify="required|account" placeholder="请输入账号" autocomplete="off" class="layui-input">
+					<input type="text" name="account" lay-verify="required|account" placeholder="请输入账号" autocomplete="off" class="layui-input" value="gaoyaoxin">
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-icon layui-icon-password"></label>
-					<input type="password" name="password" lay-verify="required|password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+					<input type="password" name="password" lay-verify="required|password" placeholder="请输入密码" autocomplete="off" class="layui-input" value="gaoyaoxin">
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-icon layui-icon-vercode"></label>
-					<input type="text" name="captcha" lay-verify="required|captcha" placeholder="请输入验证码" autocomplete="off" class="layui-input verification captcha">
+					<input type="text" name="captcha" lay-verify="required|captcha" placeholder="请输入验证码" autocomplete="off" class="layui-input verification captcha" value="xszg">
 					<div class="captcha-img">
 						<img id="captchaPic" src="<%=path+"/images/captcha.jpg"%>">
 					</div>
