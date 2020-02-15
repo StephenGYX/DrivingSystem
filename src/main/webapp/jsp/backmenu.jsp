@@ -12,7 +12,7 @@
 %>
 <html>
 <head>
-	<title>LayuiMini - 基于Layui的后台管理系统前端模板</title>
+	<title>驾考后台管理系统</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -29,6 +29,7 @@
 	<!--[if lt IE 9]>
 	<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
 	<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+
 	<![endif]-->
 	<style id="layuimini-bg-color"></style>
 </head>
