@@ -9,6 +9,7 @@ public interface TestMapper
 {
 
 	@Select("select * from practise where paccount=#{username} and ppassword=#{password}")
-	public Practise queryPractiseAccount(Map<String, String> map);
+	public Practise queryAccount(Map<String, String> map);
+
 
 }
