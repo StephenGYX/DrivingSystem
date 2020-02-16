@@ -67,7 +67,11 @@
 			<li class="layui-nav-item"><a href="<%=path+"/back/logOut"%>">注销</a></li>
 		</ul>
 
-
+<%--配色方案角标--%>
+<%--			<li class="layui-nav-item layuimini-select-bgcolor mobile layui-hide-xs" lay-unselect>--%>
+<%--				<a href="javascript:;" data-bgcolor="配色方案"><i class="fa fa-ellipsis-v"></i></a>--%>
+<%--			</li>--%>
+<%--		</ul>--%>
 	</div>
 
 	<div class="layui-side layui-bg-black">
