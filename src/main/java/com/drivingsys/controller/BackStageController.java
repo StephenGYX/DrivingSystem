@@ -1,7 +1,9 @@
 package com.drivingsys.controller;
 
+import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlShowGrantsStatement;
 import com.drivingsys.bean.Backstage;
 import com.drivingsys.bean.RoleMenu;
+import com.drivingsys.bean.backmenu.BackMenu;
 import com.drivingsys.service.BackMenuService;
 import com.drivingsys.service.BackStageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import javax.swing.text.View;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.awt.SystemColor.menu;
 
 /**
  * @author Stephen
@@ -38,13 +42,6 @@ public class BackStageController
 		//调用service查找账户的方法
 		Backstage backstage = backStageService.queryBackStageAccount(reqMap);
 
-
-
-		//获取改角色类型的菜单目录
-		List<RoleMenu> roleMenus = backMenuService.queryRoleMenu(backstage.getRid());
-
-		System.out.println(roleMenus.toString());
-
 		//将该用户放入session域中
 		request.getSession().setAttribute("backstage",backstage);
 
@@ -58,9 +55,13 @@ public class BackStageController
 		return msg;
 	}
 
+	/**
+	 * 注销登录
+	 * @return
+	 */
 	@RequestMapping("/logOut")
 	public String logOut(){
-		return "/backlogin";
+		return "backlogin";
 	}
 
 }
