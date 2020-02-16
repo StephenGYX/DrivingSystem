@@ -20,10 +20,4 @@ public interface BackMenuMapper
 	 */
 	public List<RoleMenu> queryRoleMenu(int rid);
 
-	/**
-	 * 获取一级菜单信息
-	 * @param rid
-	 * @return
-	 */
-	public List<MenuDetail> queryFirstMenuByRole(int rid);
 }

@@ -9,10 +9,5 @@
 		where A.mid =B.mparent and B.mid =C.mid and C.rid=#{rid} and C.fallocation=1
 	</select>
 
-    <select id="queryFirstMenuByRole" resultType="com.drivingsys.bean.backmenu.MenuDetail" parameterType="integer">
-		select A.mname title,A.mlink href,A.micon icon,A.mtarget target from menu A,filiation B where A.mid=B.mid and A.mparent=0 and B.rid=#{rid} and B.fallocation=1
-	</select>
-
-
 </mapper>
 	
