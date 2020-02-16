@@ -27,10 +27,9 @@ public class FrontLoginController
 	private FrontLoginService frontLoginService;
 
 
-	@RequestMapping("hello")
+	@RequestMapping("frontLogin")
 	public String testMain(@RequestParam Map<String,String> reqMap, HttpServletRequest request){
 		System.out.println(reqMap);
-//		System.out.println("hellos");
 		String roleid=request.getSession().getAttribute("roleid")+"";
 
 		if (roleid.equals("null")){
@@ -44,7 +43,7 @@ public class FrontLoginController
 		}else{
 			System.out.println("找到了");
 		};
-		 		return "index.jsp";
+		 		return "jsp/index";
 
 	}
 	@RequestMapping("roleid")
@@ -55,7 +54,7 @@ public class FrontLoginController
 		roleid1=roleid;
 		request.getSession().setAttribute("roleid",roleid1);
 		System.out.println(roleid1);
-return roleid1;
+		return roleid1;
 	}
 
 	@RequestMapping("/index")

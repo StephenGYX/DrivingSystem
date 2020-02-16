@@ -26,6 +26,7 @@
 	<link rel="icon" href="<%=path+"/images/favicon.ico"%>">
 	<link rel="stylesheet" href="<%=path+"/lib/layui-v2.5.5/css/layui.css"%>" media="all">
 	<link rel="stylesheet" href="<%=path+"/css/layuimini.css"%>" media="all">
+	<link rel="stylesheet" href="<%=path+"/css/frontlogin.css"%>" media="all">
 	<link rel="stylesheet" href="<%=path+"/lib/font-awesome-4.7.0/css/font-awesome.min.css"%>" media="all">
 	<script src="<%=path+"/lib/layui-v2.5.5/layui.js"%>"></script>
 	<!--[if lt IE 9]>
@@ -35,15 +36,12 @@
 	<style id="layuimini-bg-color"></style>
 </head>
 <body>
-<div class="layui-row">
-<div class="layui-col-md5 " style="background-color: #00FFFF">
+<div class="layui-row ">
 
-<%--	<div class="layui-side-scroll">--%>
-<%--		<div id="aside" style="float:left;display: block">--%>
+<div class="layui-col-md5 " style="background-color: #00FFFF">
 	<span>左边</span>
-<%--		</div>--%>
-<%--	</div>--%>
 </div>
+
 	<div class="layui-col-md7 " >
 <div class="layui-tab" lay-filter="tab-all" >
 
@@ -51,32 +49,24 @@
 		<li data-status="4" class="layui-this">学员</li>
 		<li data-status="2">驾校</li>
 		<li data-status="3">教练</li>
-
 	</ul>
+
 	<div class="layui-tab-content" >
-		<%--		<div class="layui-tab-item layui-show">--%>
 
-		<%--		</div>--%>
-		<%--		<div class="layui-tab-item">--%>
-
-		<%--		</div>--%>
-<%--				<div style="text-align: center">--%>
-		<form class="layui-form" action="<%=path+"/fact/hello"%>" method="post" >
-			<div class="layui-input-inline">
-				<label class="layui-form-label">账号</label>
-				<div class="layui-input-block">
-					<input type="text" name="username" required lay-verify="required" placeholder="请输入你的账号"
-					       autocomplete="off"
-					       class="layui-input" value="admin">
-				</div>
-			</div>
+		<form class="layui-form" action="<%=path+"/fact/frontLogin"%>" method="post" >
 			<div class="layui-form-item">
-				<label class="layui-form-label">密码</label>
+				<label class="layui-form-label">输入框</label>
 				<div class="layui-input-inline">
-					<input type="password" name="password" required lay-verify="required" placeholder="请输入您的密码"
-					       autocomplete="off" class="layui-input" value="admin">
+					<input type="text" name="account" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
 				</div>
 				<div class="layui-form-mid layui-word-aux">辅助文字</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">密码框</label>
+				<div class="layui-input-inline">
+					<input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+				</div>
+
 			</div>
 
 
@@ -87,10 +77,13 @@
 				</div>
 			</div>
 		</form>
-<%--				</div>--%>
+
+
+
 	</div>
 
 </div>
+
 </div>
 </div>
 <script>
