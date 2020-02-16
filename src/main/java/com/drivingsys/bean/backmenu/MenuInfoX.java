@@ -1,23 +1,26 @@
 package com.drivingsys.bean.backmenu;
 
-public class MenuDetail
-{
+import java.util.ArrayList;
 
+public class MenuInfoX
+{
 	private String title;
 	private String href;
 	private String icon;
 	private String target;
+	private ArrayList<MenuInfoX> child;
 
-	public MenuDetail()
+	public MenuInfoX()
 	{
 	}
 
-	public MenuDetail(String title, String href, String icon, String target)
+	public MenuInfoX(String title, String href, String icon, String target, ArrayList<MenuInfoX> child)
 	{
 		this.title = title;
 		this.href = href;
 		this.icon = icon;
 		this.target = target;
+		this.child = child;
 	}
 
 	public String getTitle()
@@ -60,9 +63,13 @@ public class MenuDetail
 		this.target = target;
 	}
 
-	@Override
-	public String toString()
+	public ArrayList<MenuInfoX> getChild()
 	{
-		return "MenuDetail{" + "title='" + title + '\'' + ", href='" + href + '\'' + ", icon='" + icon + '\'' + ", target='" + target + '\'' + '}';
+		return child;
+	}
+
+	public void setChild(ArrayList<MenuInfoX> child)
+	{
+		this.child = child;
 	}
 }

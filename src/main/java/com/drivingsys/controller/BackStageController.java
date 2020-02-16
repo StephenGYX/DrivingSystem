@@ -1,7 +1,9 @@
 package com.drivingsys.controller;
 
+import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlShowGrantsStatement;
 import com.drivingsys.bean.Backstage;
 import com.drivingsys.bean.RoleMenu;
+import com.drivingsys.bean.backmenu.BackMenu;
 import com.drivingsys.service.BackMenuService;
 import com.drivingsys.service.BackStageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.awt.SystemColor.menu;
 
 /**
  * @author Stephen
@@ -34,21 +38,19 @@ public class BackStageController
 
 	@ResponseBody
 	@RequestMapping("/backLogin")
-	public HashMap<String, ArrayList<RoleMenu>> backLogin(@RequestParam Map<String,String> reqMap, HttpServletRequest request){
+	public String backLogin(@RequestParam Map<String,String> reqMap, HttpServletRequest request){
 
 		//调用service查找账户的方法
 		Backstage backstage = backStageService.queryBackStageAccount(reqMap);
 
-		//获取改角色类型的菜单目录
-		HashMap<String, ArrayList<RoleMenu>> menu = backMenuService.queryRoleMenu(backstage.getRid());
-
 		//将该用户放入session域中
 		request.getSession().setAttribute("backstage",backstage);
 
-		//将该角色的菜单存入session域中
-		request.getSession().setAttribute("menu",menu);
+		//获取该角色类型的菜单目录
+//		BackMenu backMenu = backMenuService.queryRoleMenu(backstage.getRid());
 
-		System.out.println(menu.toString());
+		//将该角色的菜单存入session域中
+//		request.getSession().setAttribute("menu",menu);
 
 		//响应前端
 		String msg = "";
@@ -57,9 +59,13 @@ public class BackStageController
 		}else {
 			msg = "2";
 		}
-		return menu;
+		return msg;
 	}
 
+	/**
+	 * 注销登录
+	 * @return
+	 */
 	@RequestMapping("/logOut")
 	public String logOut(){
 		return "/backlogin";

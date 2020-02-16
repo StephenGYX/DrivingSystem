@@ -2,9 +2,9 @@ package com.drivingsys.bean.backmenu;
 
 public class LogoInfo
 {
-	private String title;
-	private String image;
-	private String href;
+	private String title = "驾考后台管理系统";
+	private String image = "images/logo.png";
+	private String href = "";
 
 	public LogoInfo()
 	{

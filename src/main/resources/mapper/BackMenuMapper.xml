@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.drivingsys.dao.BackMenuMapper">
-	
+
     <select id="queryRoleMenu" resultType="com.drivingsys.bean.RoleMenu" parameterType="integer">
-		select C.rid,C.fallocation,A.mname first,B.mname second,B.mlink from  menu A ,menu B,filiation C
-where A.mid =B.mparent and B.mid =C.mid and C.rid=#{rid} and C.fallocation=1
+		select C.rid,C.fallocation,A.mname firtitle,B.mname sectitle,A.mlink firURL,B.mlink secURL,A.micon firicon,B.micon secicon,A.mtarget firtarget,B.mtarget sectarget from  menu A ,menu B,filiation C
+		where A.mid =B.mparent and B.mid =C.mid and C.rid=#{rid} and C.fallocation=1
 	</select>
+
+    <select id="queryFirstMenuByRole" resultType="com.drivingsys.bean.backmenu.MenuDetail" parameterType="integer">
+		select A.mname title,A.mlink href,A.micon icon,A.mtarget target from menu A,filiation B where A.mid=B.mid and A.mparent=0 and B.rid=#{rid} and B.fallocation=1
+	</select>
+
 
 </mapper>
 	

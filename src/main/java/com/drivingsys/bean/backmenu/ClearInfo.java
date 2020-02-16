@@ -2,7 +2,7 @@ package com.drivingsys.bean.backmenu;
 
 public class ClearInfo
 {
-	private String ClearUrl;
+	private String ClearUrl = "api/clear.json";
 
 	public ClearInfo()
 	{
