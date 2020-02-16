@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.text.View;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,12 +45,6 @@ public class BackStageController
 		//将该用户放入session域中
 		request.getSession().setAttribute("backstage",backstage);
 
-		//获取该角色类型的菜单目录
-//		BackMenu backMenu = backMenuService.queryRoleMenu(backstage.getRid());
-
-		//将该角色的菜单存入session域中
-//		request.getSession().setAttribute("menu",menu);
-
 		//响应前端
 		String msg = "";
 		if(backstage!=null){
@@ -68,7 +61,7 @@ public class BackStageController
 	 */
 	@RequestMapping("/logOut")
 	public String logOut(){
-		return "/backlogin";
+		return "backlogin";
 	}
 
 }

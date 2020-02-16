@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Service("backMenuService")
@@ -94,11 +93,5 @@ public class BackMenuServiceImpl implements BackMenuService
 		//插入数据库查找的一二级目录，并且返回
 		backMenu.getMenuInfo().getCurrency().setChild(menuInfos);
 		return backMenu;
-	}
-
-	@Override
-	public void queryMenuByRole()
-	{
-
 	}
 }

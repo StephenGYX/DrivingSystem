@@ -25,8 +25,6 @@ public class BackMenuController
 		Backstage backstage = (Backstage) request.getSession().getAttribute("backstage");
 		int rid = 0;
 
-//		System.out.println("角色Id:"+rid);
-
 		//获取该角色类型的菜单目录
 		BackMenu backMenu = backMenuService.queryRoleMenu(rid);
 		return backMenu;

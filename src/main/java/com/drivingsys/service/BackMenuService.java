@@ -3,8 +3,6 @@ package com.drivingsys.service;
 import com.drivingsys.bean.RoleMenu;
 import com.drivingsys.bean.backmenu.BackMenu;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public interface BackMenuService
@@ -16,5 +14,4 @@ public interface BackMenuService
 	 */
 	public BackMenu queryRoleMenu(int rid);
 
-	public void queryMenuByRole();
 }
