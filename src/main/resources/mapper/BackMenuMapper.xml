@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="java.com.drivingsys.dao.BackMenuMapper">
-    <select id="querySingleUser" resultType="bean.UserInfo">
-		select * from user_info where USER_ACCOUNT=#{user_Account} and USER_PASSWORD=#{user_Password}
+<mapper namespace="com.drivingsys.dao.BackMenuMapper">
+	
+    <select id="queryRoleMenu" resultType="com.drivingsys.bean.RoleMenu" parameterType="integer">
+		select C.rid,C.fallocation,A.mname first,B.mname second,B.mlink from  menu A ,menu B,filiation C
+where A.mid =B.mparent and B.mid =C.mid and C.rid=#{rid} and C.fallocation=1
 	</select>
+
 </mapper>
 	
