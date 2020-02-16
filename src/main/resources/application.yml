@@ -33,7 +33,7 @@ spring:
   mvc:
     view:
       suffix: .jsp
-      prefix: /jsp
+      prefix: /
 
 mybatis:
   config-location: classpath:SqlMapConfig.xml
