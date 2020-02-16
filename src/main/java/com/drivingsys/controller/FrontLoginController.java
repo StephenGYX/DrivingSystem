@@ -1,5 +1,6 @@
 package com.drivingsys.controller;
 
+
 import com.drivingsys.bean.Practise;
 import com.drivingsys.service.BackStageService;
 import com.drivingsys.service.FrontLoginService;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * 测试
+ * 学员端、驾校段、教练端登录
  */
 
 @Controller
@@ -43,7 +44,7 @@ public class FrontLoginController
 		}else{
 			System.out.println("找到了");
 		};
-		 		return "jsp/index";
+		 		return "index";
 
 	}
 	@RequestMapping("roleid")

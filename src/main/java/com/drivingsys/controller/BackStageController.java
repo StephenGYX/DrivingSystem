@@ -60,7 +60,7 @@ public class BackStageController
 
 	@RequestMapping("/logOut")
 	public String logOut(){
-		return "jsp/backlogin";
+		return "backlogin";
 	}
 
 }
