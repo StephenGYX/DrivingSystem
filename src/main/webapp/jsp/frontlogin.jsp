@@ -10,6 +10,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String path = application.getContextPath();
+	String roleid = session.getAttribute("roleid") + "";
 %>
 <html>
 <head>
@@ -34,9 +35,17 @@
 	<style id="layuimini-bg-color"></style>
 </head>
 <body>
+<div class="layui-row">
+<div class="layui-col-md5 " style="background-color: #00FFFF">
 
-
-<div class="layui-tab" lay-filter="tab-all">
+<%--	<div class="layui-side-scroll">--%>
+<%--		<div id="aside" style="float:left;display: block">--%>
+	<span>左边</span>
+<%--		</div>--%>
+<%--	</div>--%>
+</div>
+	<div class="layui-col-md7 " >
+<div class="layui-tab" lay-filter="tab-all" >
 
 	<ul class="layui-tab-title">
 		<li data-status="4" class="layui-this">学员</li>
@@ -44,15 +53,15 @@
 		<li data-status="3">教练</li>
 
 	</ul>
-	<div class="layui-tab-content">
-<%--		<div class="layui-tab-item layui-show">--%>
+	<div class="layui-tab-content" >
+		<%--		<div class="layui-tab-item layui-show">--%>
 
-<%--		</div>--%>
-<%--		<div class="layui-tab-item">--%>
+		<%--		</div>--%>
+		<%--		<div class="layui-tab-item">--%>
 
-<%--		</div>--%>
-<%--		<div class="layui-tab-item">--%>
-			<form class="layui-form" action="<%=path+"/admin/hello"%>" method="post">
+		<%--		</div>--%>
+<%--				<div style="text-align: center">--%>
+		<form class="layui-form" action="<%=path+"/fact/hello"%>" method="post" >
 			<div class="layui-input-inline">
 				<label class="layui-form-label">账号</label>
 				<div class="layui-input-block">
@@ -78,10 +87,11 @@
 				</div>
 			</div>
 		</form>
-<%--		</div>--%>
+<%--				</div>--%>
 	</div>
 
-
+</div>
+</div>
 </div>
 <script>
 	//一般直接写在一个js文件中
@@ -97,9 +107,30 @@
 			// console.log(data.elem);   // 得到当前的Tab大容器
 			// alert("点击选项卡");
 
-			var status = $(this).attr('data-status');
-			alert(status);
-			sessionStorage.setItem("roleid",status);
+			var roleid = $(this).attr('data-status');
+			alert(roleid);
+			$.ajax({
+				// contentType:"application/json",
+				type: "post"
+				, url: '<%=path+"/fact/roleid"%>'
+				//预期服务器返回的数据类型;
+				, datatype: "json"
+				//从该js会发出到服务器的数据
+				, data: {"roleid": roleid}
+				//从servlet接收的数据
+				, success: function (msg) {
+					alert(msg+"suc");
+					layer.msg("已经变更角色id")
+				}
+				, error: function (msg) {
+					alert(msg+"error");
+					layer.alert("服务器正忙.....");
+				}
+			});
+			<%--<%=--%>
+			<%--session.setAttribute("roleid",status);--%>
+			<%--%>--%>
+			// sessionStorage.setItem("roleid", roleid);
 			// var position = '#order_all';
 			// switch (status) {
 			// 	case '2': position = '#order_pay';
