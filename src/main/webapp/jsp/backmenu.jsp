@@ -35,8 +35,9 @@
 </head>
 <body class="layui-layout-body layuimini-all">
 
-<div class="layui-layout layui-layout-admin">
+<input type="hidden" id="hid" value=<%=path%>>
 
+<div class="layui-layout layui-layout-admin">
 	<div class="layui-header header">
 		<div class="layui-logo"></div>
 		<a>
@@ -110,17 +111,21 @@
 	var _hmt = _hmt || [];
 	(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?d97abf6d61c21d773f97835defbdef4e";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm, s);})();
 </script>
-<!--百度统计代码-结束-->
 
+<!--百度统计代码-结束-->
 <script src="<%=path+"/lib/layui-v2.5.5/layui.js?v=1.0.4"%>" charset="utf-8"></script>
 <script src="<%=path+"/js/lay-config.js?v=1.0.4"%>" charset="utf-8"></script>
+<script src="<%=path+"/js/backmenu.js"%>" charset="utf-8"></script>
+
 <script>
 	layui.use(['element', 'layer', 'layuimini'], function () {
 		var $ = layui.jquery,
 			element = layui.element,
 			layer = layui.layer;
 
-		layuimini.init('<%=path+"/api/init.json"%>');
+		<%--layuimini.init('<%=path+"/api/init.json"%>');--%>
+		<%--layuimini.init(<%=path+"/menu/queryRoleMenu"%>);--%>
+		layuimini.init("/springboot/menu/queryRoleMenu");
 
 		$('.login-out').on("click", function () {
 			layer.msg('退出登录成功', function () {

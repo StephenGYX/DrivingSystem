@@ -2,9 +2,9 @@ package com.drivingsys.bean.backmenu;
 
 public class HomeInfo
 {
-	private String title;
-	private String icon;
-	private String href;
+	private String title = "首页";
+	private String icon = "fa fa-home";
+	private String href = "back/page/welcome-1.html?mpi=m-p-i-0";
 
 	public HomeInfo()
 	{
