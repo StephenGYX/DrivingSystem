@@ -7,5 +7,5 @@ public interface UserMapper
 {
 
 
-   public void adduser(String account,String pass);
+	public void adduser(String account,String pass);
 }
