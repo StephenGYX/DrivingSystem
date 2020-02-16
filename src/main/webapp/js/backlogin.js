@@ -49,6 +49,8 @@ layui.use(['form'], function () {
 				,data:{"account":account,"password":password,"captcha":captcha}
 				//从servlet接收的数据
 				,success:function (msg) {
+					console.log(msg);
+
 					if(msg==="1"){
 						layer.msg('登录成功', function () {
 							window.location = path+'/jsp/backmenu.jsp';
