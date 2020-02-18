@@ -2,9 +2,7 @@ package com.drivingsys.controller;
 
 
 import com.drivingsys.bean.Drivingschool;
-import com.drivingsys.bean.Practise;
 import com.drivingsys.bean.tableParam;
-import com.drivingsys.service.DrivingSchoolManageService;
 import com.drivingsys.service.ManageDSCService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

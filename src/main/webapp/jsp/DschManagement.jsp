@@ -121,7 +121,7 @@
 				{
 					field: 'address', width: 80, title: '住址'
 					, templet: function (d) {
-						return d.dprovinceid.toString() + d.dcityid.toString();
+						return d.dprovince.toString() + d.dcity.toString();
 					}
 				},
 				{title: '操作', minWidth: 50, templet: '#currentTableBar', fixed: "right", align: "center"}

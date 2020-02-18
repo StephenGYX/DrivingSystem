@@ -1,27 +1,18 @@
 package com.drivingsys.controller;
 
 
-import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Practise;
 import com.drivingsys.bean.tableParam;
 import com.drivingsys.service.DrivingSchoolManageService;
-import com.drivingsys.service.FrontLoginService;
-import com.drivingsys.service.ManageDSCService;
 
-import net.sf.json.JSONObject;
 import org.apache.ibatis.session.RowBounds;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 学员端、驾校段、教练端登录

@@ -1,6 +1,5 @@
 package com.drivingsys.dao;
 
-import com.drivingsys.bean.Backstage;
 import com.drivingsys.bean.Consumer;
 import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Practise;
