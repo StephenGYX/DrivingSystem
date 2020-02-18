@@ -29,15 +29,13 @@ layui.use(['form'], function () {
 		var password = formData.password;
 		var captcha = formData.captcha;
 
-		console.log(formData);
-
-		if (formData.account == '') {
+		if (formData.account === '') {
 			layer.msg('用户名不能为空');
 			return false;
-		}else if (formData.password == '') {
+		}else if (formData.password === '') {
 			layer.msg('密码不能为空');
 			return false;
-		} else if (formData.captcha == '') {
+		} else if (formData.captcha === '') {
 			layer.msg('验证码不能为空');
 			return false;
 		}else {
@@ -51,16 +49,16 @@ layui.use(['form'], function () {
 				,data:{"account":account,"password":password,"captcha":captcha}
 				//从servlet接收的数据
 				,success:function (msg) {
-					if(msg===1){
+					if(msg==="1"){
 						layer.msg('登录成功', function () {
-							window.location = '/backmenu.jsp';
+							window.location = path+'/jsp/backmenu.jsp';
 						});
 					}else {
 						layer.msg("账号或密码有误，请重新输入");
 					}
 				}
 				,error:function () {
-					alert("服务器正忙.....");
+					layer.alert("服务器正忙.....");
 				}
 			});
 			return false;

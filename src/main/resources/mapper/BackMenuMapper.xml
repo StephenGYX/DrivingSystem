@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.drivingsys.dao.BackMenuMapper">
+
+    <select id="queryRoleMenu" resultType="com.drivingsys.bean.RoleMenu" parameterType="integer">
+		select C.rid,C.fallocation,A.mname firtitle,B.mname sectitle,A.mlink firURL,B.mlink secURL,A.micon firicon,B.micon secicon,A.mtarget firtarget,B.mtarget sectarget from  menu A ,menu B,filiation C
+		where A.mid =B.mparent and B.mid =C.mid and C.rid=#{rid} and C.fallocation=1
+	</select>
+
+	<select id="initMenuChange" resultType="com.drivingsys.bean.backmenu.ZtreeMenu" parameterType="integer">
+		select A.mid id,A.mparent pid, A.mname name,B.fallocation checked from menu A,filiation B where A.mid=B.mid and B.rid=#{rid}
+	</select>
+
+<!--	初始化该角色的菜单权限-->
+	<update id="initMenuToZero" parameterType="integer">
+		update filiation set fallocation=0 where rid = #{rid}
+	</update>
+
+	<!--	更新已被勾选的菜单-->
+	<update id="updateMenu"  parameterType="java.util.List">
+			update filiation set fallocation=1 where rid=#{rid} and mid in
+		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</update>
+</mapper>
+	

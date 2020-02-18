@@ -1,36 +1,67 @@
 package com.drivingsys.controller;
 
+import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlShowGrantsStatement;
+import com.drivingsys.bean.Backstage;
+import com.drivingsys.bean.RoleMenu;
+import com.drivingsys.bean.backmenu.BackMenu;
+import com.drivingsys.service.BackMenuService;
 import com.drivingsys.service.BackStageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.View;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static java.awt.SystemColor.menu;
 
 /**
  * @author Stephen
  * 后台管理员控制层
  */
 
-@RestController("/back")
+@Controller
+@RequestMapping("/back")
 public class BackStageController
 {
 
 	@Autowired
 	private BackStageService backStageService;
 
-	/**
-	 * 后台管理员登录
-	 * @param account
-	 * @param password
-	 * @param captcha
-	 */
+	@Autowired
+	private BackMenuService backMenuService;
 
-
+	@ResponseBody
 	@RequestMapping("/backLogin")
-	public void backLogin(String account,String password,String captcha){
-		System.out.println(account);
-		System.out.println("控制层：后台管理员登录");
+	public String backLogin(@RequestParam Map<String,String> reqMap, HttpServletRequest request){
+
+		//调用service查找账户的方法
+		Backstage backstage = backStageService.queryBackStageAccount(reqMap);
+
+		//将该用户放入session域中
+		request.getSession().setAttribute("backstage",backstage);
+
+		//响应前端
+		String msg = "";
+		if(backstage!=null){
+			msg = "1";
+		}else {
+			msg = "2";
+		}
+		return msg;
+	}
+
+	/**
+	 * 注销登录
+	 * @return
+	 */
+	@RequestMapping("/logOut")
+	public String logOut(){
+		return "backlogin";
 	}
 
 }
