@@ -23,14 +23,14 @@ public class Practise {
   private long pevaluatescore;
   private long rid;
   private String pregtime;
-  private String premark1;
+  private int paccountstate;
   private String premark2;
 
   public Practise()
   {
   }
 
-  public Practise(long pid, String paccount, String ppassword, String psex, long page, long pphone, String pemail, String pname, String pidcard, long pprovinceid, long pcityid, long pareaid, long pdrivingid, String presume, String pworkexperience, long penrollnum, long pgraduationnum, long pevaluatescore, long rid, String pregtime, String premark1, String premark2)
+  public Practise(long pid, String paccount, String ppassword, String psex, long page, long pphone, String pemail, String pname, String pidcard, long pprovinceid, long pcityid, long pareaid, long pdrivingid, String presume, String pworkexperience, long penrollnum, long pgraduationnum, long pevaluatescore, long rid, String pregtime, int paccountstate, String premark2)
   {
     this.pid = pid;
     this.paccount = paccount;
@@ -52,7 +52,7 @@ public class Practise {
     this.pevaluatescore = pevaluatescore;
     this.rid = rid;
     this.pregtime = pregtime;
-    this.premark1 = premark1;
+    this.paccountstate = paccountstate;
     this.premark2 = premark2;
   }
 
@@ -236,14 +236,15 @@ public class Practise {
   }
 
 
-  public String getPremark1() {
-    return premark1;
+  public int getPaccountstate()
+  {
+    return paccountstate;
   }
 
-  public void setPremark1(String premark1) {
-    this.premark1 = premark1;
+  public void setPaccountstate(int paccountstate)
+  {
+    this.paccountstate = paccountstate;
   }
-
 
   public String getPremark2() {
     return premark2;
