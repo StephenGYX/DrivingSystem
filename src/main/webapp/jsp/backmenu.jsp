@@ -124,6 +124,7 @@
 			layer = layui.layer;
 
 		<%--layuimini.init('<%=path+"/api/init.json"%>');--%>
+		<%--layuimini.init(<%=path+"/menu/queryRoleMenu"%>);--%>
 		layuimini.init("/springboot/menu/queryRoleMenu");
 
 		$('.login-out').on("click", function () {
