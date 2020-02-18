@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link rel="stylesheet" href="<%=path+"/lib/layui-v2.5.5/css/layui.css"%>" media="all">
 	<link rel="stylesheet" href="<%=path+"/css/public.css"%>" media="all">
-	<script src="<%=path+"/js/drivingSchoolStudentTable.css"%>" charset="utf-8"></script>
+	<script src="<%=path+"/js/drivingSchoolStudentTable.js"%>" charset="utf-8"></script>
 </head>
 <body>
 
