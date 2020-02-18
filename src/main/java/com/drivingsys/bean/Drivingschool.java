@@ -11,9 +11,9 @@ public class Drivingschool {
   private long dtelephone;
   private long dphone;
   private String demail;
-  private long dprovinceid;
-  private long dcityid;
-  private long dareaid;
+  private String dprovince;
+  private String dcity;
+  private String darea;
   private String daddress;
   private String drecruit;
   private long dprice;
@@ -28,11 +28,8 @@ public class Drivingschool {
   private String dremark1;
   private String dremark2;
 
-  public Drivingschool()
-  {
-  }
 
-  public Drivingschool(long did, String daccount, String dpassword, String dname, String dcontacts, long dtelephone, long dphone, String demail, long dprovinceid, long dcityid, long dareaid, String daddress, String drecruit, long dprice, String dsynopsis, String daccountstate, String drecruitstate, long denrollnum, long dgraduationnum, long devaluatescore, long rid, String dregtime, String dremark1, String dremark2)
+  public Drivingschool(long did, String daccount, String dpassword, String dname, String dcontacts, long dtelephone, long dphone, String demail, String dprovince, String dcity, String darea, String daddress, String drecruit, long dprice, String dsynopsis, String daccountstate, String drecruitstate, long denrollnum, long dgraduationnum, long devaluatescore, long rid, String dregtime, String dremark1, String dremark2)
   {
     this.did = did;
     this.daccount = daccount;
@@ -42,9 +39,9 @@ public class Drivingschool {
     this.dtelephone = dtelephone;
     this.dphone = dphone;
     this.demail = demail;
-    this.dprovinceid = dprovinceid;
-    this.dcityid = dcityid;
-    this.dareaid = dareaid;
+    this.dprovince = dprovince;
+    this.dcity = dcity;
+    this.darea = darea;
     this.daddress = daddress;
     this.drecruit = drecruit;
     this.dprice = dprice;
@@ -58,6 +55,10 @@ public class Drivingschool {
     this.dregtime = dregtime;
     this.dremark1 = dremark1;
     this.dremark2 = dremark2;
+  }
+
+  public Drivingschool()
+  {
   }
 
   public long getDid() {
@@ -132,30 +133,30 @@ public class Drivingschool {
   }
 
 
-  public long getDprovinceid() {
-    return dprovinceid;
+  public String getDprovince() {
+    return dprovince;
   }
 
-  public void setDprovinceid(long dprovinceid) {
-    this.dprovinceid = dprovinceid;
-  }
-
-
-  public long getDcityid() {
-    return dcityid;
-  }
-
-  public void setDcityid(long dcityid) {
-    this.dcityid = dcityid;
+  public void setDprovince(String dprovince) {
+    this.dprovince = dprovince;
   }
 
 
-  public long getDareaid() {
-    return dareaid;
+  public String getDcity() {
+    return dcity;
   }
 
-  public void setDareaid(long dareaid) {
-    this.dareaid = dareaid;
+  public void setDcity(String dcity) {
+    this.dcity = dcity;
+  }
+
+
+  public String getDarea() {
+    return darea;
+  }
+
+  public void setDarea(String darea) {
+    this.darea = darea;
   }
 
 
