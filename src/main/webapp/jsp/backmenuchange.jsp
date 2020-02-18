@@ -14,86 +14,56 @@
 <head>
 	<TITLE>菜单权限管理</TITLE>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" href="<%=path+"/lib/layui-v2.5.5/css/layui.css"%>" media="all">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+	<link rel="stylesheet" href="<%=path+"/lib/layui-v2.5.5/css/layui.css"%>" media="all">
 	<link rel="stylesheet" href="<%=path+"/css/ztreedemo.css"%>" type="text/css">
 	<link rel="stylesheet" href="<%=path+"/css/zTreeStyle/zTreeStyle.css"%>" type="text/css">
+	<link rel="stylesheet" href="<%=path+"/css/public.css"%>" media="all">
 
 </head>
 <body>
 
 <input type="hidden" id="hid" value=<%=path%>>
 
-<div class="content_wrap">
-	<div class="zTreeDemoBackground left">
-		<ul id="treeDemo" class="ztree"></ul>
+<form class="layui-form" action="" lay-filter="frm">
+
+	<br>
+	<div class="layui-form-item">
+		<label class="layui-form-label">角色</label>
+		<div class="layui-input-inline">
+			<select name="role" id="role" lay-filter="rolemenu">
+				<option value="0" selected="">超级管理员</option>
+				<option value="1">普通管理员</option>
+				<option value="2">驾校</option>
+				<option value="3">教练</option>
+			</select>
+		</div>
 	</div>
-</div>
+
+	<div class="content_wrap" style="padding-left: 70px">
+		<div class="zTreeDemoBackground left">
+			<ul id="treeDemo" class="ztree"></ul>
+		</div>
+	</div>
+	<br>
+	<div class="layui-form-item" style="padding-left: 25px">
+		<div class="layui-input-block">
+			<button class="layui-btn" lay-submit="" lay-filter="demo1">保存修改</button>
+		</div>
+	</div>
+</form>
+
 
 <script type="text/javascript" src="<%=path+"/js/jquery-3.4.1.js"%>"></script>
+<script type="text/javascript" src="<%=path+"/lib/layui-v2.5.5/layui.js"%>" charset="utf-8"></script>
 <script type="text/javascript" src="<%=path+"/js/ztree/jquery.ztree.core.js"%>"></script>
 <script type="text/javascript" src="<%=path+"/js/ztree/jquery.ztree.excheck.js"%>"></script>
+<script type="text/javascript" src="<%=path+"/js/ztree/jquery.ztree.exedit.js"%>"></script>
+<script type="text/javascript" src="<%=path+"/js/back.js"%>"></script>
 
-<SCRIPT type="text/javascript">
-	<!--
-	var setting = {
-		check: {
-			enable: true
-		},
-		data: {
-			simpleData: {
-				enable: true
-			}
-		}
-	};
-
-	var zNodes =[
-		{ id:1, pId:0, name:"用户管理", open:true},
-		{ id:11, pId:1, name:"管理员登录", open:true},
-		{ id:12, pId:1, name:"用户查询", open:true},
-		{ id:13, pId:1, name:"用户管控", open:true},
-
-		{ id:2, pId:0, name:"文档管理", open:true},
-		{ id:21, pId:2, name:"管理员登录", open:true},
-		{ id:22, pId:2, name:"用户查询", open:true},
-
-		{ id:3, pId:0, name:"日志管理", open:true},
-		{ id:31, pId:3, name:"日志列表", open:true},
-
-		{ id:4, pId:0, name:"系统配置", open:true},
-		{ id:41, pId:4, name:"上传奖励配置", open:true},
-		{ id:42, pId:4, name:"注册奖励配置", open:true}
-	];
-
-	var code;
-
-	function setCheck() {
-		var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
-			py = $("#py").attr("checked")? "p":"",
-			sy = $("#sy").attr("checked")? "s":"",
-			pn = $("#pn").attr("checked")? "p":"",
-			sn = $("#sn").attr("checked")? "s":"",
-			type = { "Y":py + sy, "N":pn + sn};
-		zTree.setting.check.chkboxType = type;
-		showCode('setting.check.chkboxType = { "Y" : "' + type.Y + '", "N" : "' + type.N + '" };');
-	}
-
-	function showCode(str) {
-		if (!code) code = $("#code");
-		code.empty();
-		code.append("<li>"+str+"</li>");
-	}
-
-	$(document).ready(function(){
-		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
-		setCheck();
-		$("#py").bind("change", setCheck);
-		$("#sy").bind("change", setCheck);
-		$("#pn").bind("change", setCheck);
-		$("#sn").bind("change", setCheck);
-	});
-	//-->
-</SCRIPT>
 
 </body>
 </html>
