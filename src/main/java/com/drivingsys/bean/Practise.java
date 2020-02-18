@@ -16,8 +16,8 @@ public class Practise {
   private long pcityid;
   private long pareaid;
   private long pdrivingid;
-  private String presume;
-  private String pworkexperience;
+  private String presume; //简介
+  private String pworkexperience;//工作经验
   private long penrollnum;
   private long pgraduationnum;
   private long pevaluatescore;

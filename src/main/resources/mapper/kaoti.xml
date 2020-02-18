@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drivingsys.dao.KaotiMapper">
+
+    <select id="selectAll" parameterType="map" resultType="com.drivingsys.bean.Kaoti" >
+        select * from itembank
+    </select>
+
+    <select id="selectAllks" parameterType="map" resultType="com.drivingsys.bean.Kaoti" >
+        select * from ksbank
+    </select>
+    <select id="selectRand" parameterType="map" resultType="com.drivingsys.bean.Kaoti" >
+    SELECT *
+    FROM itembank AS t1 JOIN (SELECT ROUND(RAND() * (SELECT MAX(iid) FROM itembank)) AS id) AS t2
+    WHERE t1.iid >= t2.id
+    ORDER BY t1.iid ASC LIMIT 100;
+</select>
+    <insert id="cuotiAdd" parameterType="com.drivingsys.bean.Cuoti"  >
+    INSERT INTO wrong(cid, iid,  sum,kemu) VALUES(#{cid},#{iid},1,#{kemu}) ON DUPLICATE KEY UPDATE sum=sum+1;
+    </insert>
+    <select id="selectWrong" parameterType="map" resultType="com.drivingsys.bean.Kaoti" >
+    select ${tableName}.*,wrong.sum from ${tableName} inner join wrong where ${tableName}.iid=wrong.iid and cid=#{cid} and wrong.kemu=#{kemu}
+    </select>
+</mapper>

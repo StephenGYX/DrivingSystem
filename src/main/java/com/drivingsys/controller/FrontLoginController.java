@@ -1,16 +1,14 @@
 package com.drivingsys.controller;
 
-
+import com.drivingsys.bean.Consumer;
+import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Practise;
-import com.drivingsys.service.BackStageService;
 import com.drivingsys.service.FrontLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -36,16 +34,48 @@ public class FrontLoginController
 		if (roleid.equals("null")){
 			roleid="4";
 		}
-		System.out.println("roleid="+roleid);
-		 Practise practise = frontLoginService.queryPractiseAccount(reqMap);
-		if (practise == null)
+		System.out.println("roleid=" + roleid);
+		if (roleid.equals("3"))
 		{
-			System.out.println("没找到");
-		}else{
-			System.out.println("找到了");
-		};
-		 		return "index";
 
+			Practise practise = frontLoginService.queryPractiseAccount(reqMap);
+			if (practise == null)
+			{
+				System.out.println("没找到教练");
+				return "frontlogin";
+			} else
+			{
+				System.out.println("找到了教练");
+				return "index";
+			}
+
+
+		} else if (roleid.equals("2"))
+		{
+			Drivingschool drivingschool = frontLoginService.queryDrivingschool(reqMap);
+			if (drivingschool == null)
+			{
+				System.out.println("没找到驾校");
+				return "frontlogin";
+			} else
+			{
+				System.out.println("找到了驾校");
+				return "index";
+			}
+		} else if (roleid.equals("4"))
+		{
+			Consumer consumer = frontLoginService.queryConsumer(reqMap);
+			if (consumer == null)
+			{
+				System.out.println("没找到学生");
+				return "frontlogin";
+			} else
+			{
+				System.out.println("找到了学生");
+				return "index";
+			}
+		}
+		return "frontlogin";
 	}
 	@RequestMapping("roleid")
 	@ResponseBody

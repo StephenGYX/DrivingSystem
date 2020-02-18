@@ -3,9 +3,11 @@ package com.drivingsys.service;
 import com.drivingsys.bean.RoleMenu;
 import com.drivingsys.bean.backmenu.BackMenu;
 import com.drivingsys.bean.backmenu.MenuInfoX;
+import com.drivingsys.bean.backmenu.ZtreeMenu;
 import com.drivingsys.dao.BackMenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.nio.cs.ISO_8859_2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,5 +95,28 @@ public class BackMenuServiceImpl implements BackMenuService
 		//插入数据库查找的一二级目录，并且返回
 		backMenu.getMenuInfo().getCurrency().setChild(menuInfos);
 		return backMenu;
+	}
+
+	@Override
+	public List<ZtreeMenu> initMenuChange(int rid)
+	{
+		List<ZtreeMenu> ztreeMenus = backMenuMapper.initMenuChange(rid);
+		return ztreeMenus;
+	}
+
+	@Override
+	public int updateMenu(int rid, ArrayList<Integer> list)
+	{
+		//将该角色的所有菜单全部归零
+		int i1 = backMenuMapper.initMenuToZero(rid);
+
+		//更新勾选菜单
+		int i2 = backMenuMapper.updateMenu(rid, list);
+		int result=0;
+
+		if(i1>0&&i2>0){
+			result=1;
+		}
+		return result;
 	}
 }
