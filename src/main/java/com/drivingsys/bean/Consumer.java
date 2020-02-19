@@ -16,7 +16,7 @@ public class Consumer {
   private String cstate;
   private String cregtime;
   private String cwechat;
-  private String cremark1;
+  private String cpritiseid;
   private String cremark2;
 
 
@@ -137,14 +137,15 @@ public class Consumer {
   }
 
 
-  public String getCremark1() {
-    return cremark1;
+  public String getCpritiseid()
+  {
+    return cpritiseid;
   }
 
-  public void setCremark1(String cremark1) {
-    this.cremark1 = cremark1;
+  public void setCpritiseid(String cpritiseid)
+  {
+    this.cpritiseid = cpritiseid;
   }
-
 
   public String getCremark2() {
     return cremark2;

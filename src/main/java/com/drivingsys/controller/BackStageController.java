@@ -39,6 +39,7 @@ public class BackStageController
 	@RequestMapping("/backLogin")
 	public String backLogin(@RequestParam Map<String,String> reqMap, HttpServletRequest request){
 
+		System.out.println("方法进来了！");
 		//调用service查找账户的方法
 		Backstage backstage = backStageService.queryBackStageAccount(reqMap);
 
