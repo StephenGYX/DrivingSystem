@@ -130,9 +130,50 @@
 	<!--学员的账号启用禁用，修改密码，逻辑删除-->
 
 
+	<!--通过驾校ID和教练ID，查看该教练是否存在-->
+	<select id="queryCoachByPidAndDid" resultType="com.drivingsys.bean.Practise" parameterType="map">
+		select * from practise
+		<where>
+		 and	pid = #{selectParam.pid} and 	pdrivingid =#{selectParam.did}
+		</where>
+	</select>
+	<!--通过驾校ID和教练ID，查看该教练是否存在-->
 
+	<!--修改学员表的所属教练一栏，将其和教练绑定-->
+	<update id="updateStudentTheCoachId"  parameterType="java.util.Map">
+		update consumer
+		<set>
+			cpritiseid =#{selectParam.pid}
+			<where>
+				cid =#{selectParam.cid}
+			</where>
+		</set>
+	</update>
+	<!--修改学员表的所属教练一栏，将其和教练绑定-->
 
+	<!--修改订单表的教练一栏，将其和教练绑定-->
+	<update id="updateOrderTheCoachId"  parameterType="java.util.Map">
+		update examination
+		<set>
+			pid =#{selectParam.pid}
+			<where>
+				cid =#{selectParam.cid}
+			</where>
+		</set>
+	</update>
+	<!--修改订单表的教练一栏，将其和教练绑定-->
 
+	<!--根据审核的情况，修改订单表的订单状态一栏-->
+	<update id="updateOrderState"  parameterType="java.util.Map">
+		update examination
+		<set>
+			eorderstate =#{selectParam.orderState}
+			<where>
+				cid =#{selectParam.cid}
+			</where>
+		</set>
+	</update>
+	<!--根据审核的情况，修改订单表的订单状态一栏-->
 
 
 </mapper>

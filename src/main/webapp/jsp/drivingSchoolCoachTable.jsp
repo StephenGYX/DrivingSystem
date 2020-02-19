@@ -78,7 +78,7 @@
 
 				{{#  }
 				else if(d.paccountstate == 1 ){ }}
-				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="stop">禁用</a>
+				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="stop">禁用</a>
 				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
 				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="seeMyStudent">查看学员</a>

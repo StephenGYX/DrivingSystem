@@ -35,4 +35,16 @@ public interface DrivingSchoolManageMapper
 	//对本驾校的教练进行重置密码操作
 	public int updateStudentPwdByCid( @Param("cid")int cid,@Param("cpassword")String ppassword) ;
 
+	//通过驾校ID和教练ID，查看该教练
+	public Practise queryCoachByPidAndDid(@Param("selectParam") HashMap selectParam) ;
+
+
+	//修改学员表的所属教练一栏，将其和教练绑定
+	public int updateStudentTheCoachId(@Param("selectParam") HashMap selectParam) ;
+	//修改订单表的教练一栏，将其和教练绑定
+	public int updateOrderTheCoachId( @Param("selectParam") HashMap selectParam) ;
+
+	//根据审核的情况，修改订单表的订单状态一栏
+	public int updateOrderState( @Param("selectParam") HashMap selectParam) ;
+
 }

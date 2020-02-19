@@ -47,7 +47,6 @@
 </head>
 <body>
 <input type="hidden" id="hid" value=<%=path%>>
-
 <div class="layui-container">
 	<div class="admin-login-background">
 		<div class="layui-form login-form">

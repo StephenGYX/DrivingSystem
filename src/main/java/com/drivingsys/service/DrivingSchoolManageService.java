@@ -3,6 +3,7 @@ package com.drivingsys.service;
 
 import com.drivingsys.bean.Consumer;
 import com.drivingsys.bean.Practise;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import java.util.HashMap;
@@ -33,4 +34,18 @@ public interface DrivingSchoolManageService
 	 */
 	public int updateStudentStateByCid(int cid,int studentState );
 	public int updateStudentPwdByCid(int cid,String pwd );
+
+
+	//通过驾校ID和教练ID，查看该教练
+	public Practise queryCoachByPidAndDid(HashMap selectParam) ;
+
+	//修改学员表的所属教练一栏，将其和教练绑定
+	public int updateStudentTheCoachId(HashMap selectParam) ;
+	//修改订单表的教练一栏，将其和教练绑定
+	public int updateOrderTheCoachId(HashMap selectParam) ;
+
+
+	//修改订单表的教练一栏，将其和教练绑定
+	public int updateOrderState(HashMap selectParam) ;
+
 }

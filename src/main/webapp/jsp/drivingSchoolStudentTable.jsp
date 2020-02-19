@@ -70,11 +70,11 @@
 		<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
 		<script type="text/html" id="currentTableBar">
-			{{#  if(d.cstate == 0 && (d.cpritiseid == null || d.cpritiseid == '') ){ }}
+			{{#  if(d.cstate == 0 && (d.cpritiseid == null || d.cpritiseid.trim() == '') ){ }}
 <%--			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="start">启用</a>--%>
 <%--			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>--%>
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="examinePass">审核通过</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="examineNoPass">审核不通过</a>
+			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="examineNoPass">审核不通过</a>
 
 			{{#  }
 			else if(d.cstate == 0 && d.cpritiseid != null){ }}
@@ -84,11 +84,11 @@
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="coachEvaluate">教练评价</a>
 			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 			{{#  }
-			else if(d.cstate == 1 && (d.cpritiseid == null || d.cpritiseid == '') ){ }}
+			else if(d.cstate == 1 && (d.cpritiseid == null || d.cpritiseid.trim()  == '') ){ }}
 <%--			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="stop">禁用</a>--%>
 <%--			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>--%>
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="examinePass">审核通过</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="examineNoPass">审核不通过</a>
+			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="examineNoPass">审核不通过</a>
 			{{#  }
 			else if(d.cstate == 1 && d.cpritiseid != null){ }}
 			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="stop">禁用</a>
@@ -98,6 +98,8 @@
 			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 
 			{{#  }
+
+
 			else if(d.cstate == 2){ }}
 			---------已删除----------
 			{{#  }
@@ -150,7 +152,7 @@
 				{field: 'cphone', width: 120, title: '电话', sort: true},
 				{field: 'cemail', width: 150, title: '邮箱', sort: true},
 				{field: 'cidcard', width: 150, title: '身份证'},
-				{field: 'cstate', width: 120, title: '账号状态', sort: true
+				{field: 'cstate', width: 130, title: '账号状态', sort: true
 					,templet: function (a)
 					{
 						if (a.cstate==1){
@@ -213,6 +215,8 @@
 				var row_data = data  // 整行的数据
 					,cid = row_data.cid ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
 				layer.confirm("您确定要启用用户 ："+row_data.cname+" 吗?", function (index) {
+
+
 					$(function() {
 						$.ajax({
 							method : "POST",
@@ -341,6 +345,7 @@
 						data: {
 							"cid":cid,
 							"do": "delete"
+
 						},
 						success:function(msg){
 							if(msg>0){
@@ -369,7 +374,104 @@
 
 
 				});
+			}else if(layEvent === 'examinePass'){
+				var layer = layui.layer, $ = layui.jquery;
+				var row_data = data  // 整行的数据
+					,cid = row_data.cid ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
+				layer.confirm("您确定要通过对用户 ："+row_data.cname+" 的审核吗?", function (index) {
+					layer.close(index);
+
+					layer.prompt({
+						formType: 2,
+						value: '',
+						title: '请输入您为用户： '+row_data.cname+ '分配的教练工号'
+					}, function(value, index1, elem){
+						$.ajax({
+							method : "POST",
+							url:"<%=path%>"+"/drivingSchool/StudentTableOperation",
+							type:'post',
+							data: {
+								"cid":cid,
+								"do": "examinePass",
+								"pid":value
+							},
+							success:function(msg){
+								if(msg=="2"){
+
+									layer.alert("用户 ："+row_data.cname+" 已经通过审核！");
+									layer.close(index1);
+									//执行重载
+									table.reload('currentTableId', {
+										page: {
+											curr: 1 //重新从第 1 页开始
+										}
+										,where: {
+											userAccount:$("#userAccount").val(),
+											username:$("#username").val(),
+											startTime:$("#startTime").val(),
+											stopTime:$("#stopTime").val()
+										}
+									});
+								}else if(msg=="404"){
+									layer.alert("该教练不存在，请查询后输入");
+								}
+
+							},error:function (err) {
+
+								alert("服务器正忙");
+							}
+						});
+
+
+
+					});
+
+				});
+			}else if(layEvent === 'examineNoPass'){
+				var layer = layui.layer, $ = layui.jquery;
+				var row_data = data  // 整行的数据
+					,cid = row_data.cid ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
+				layer.confirm("您确定不通过对用户 ："+row_data.cname+" 的审核吗?", function (index) {
+
+					$.ajax({
+						method : "POST",
+						url:"<%=path%>"+"/drivingSchool/StudentTableOperation",
+						type:'post',
+						data: {
+							"cid":cid,
+							"do": "examineNoPass"
+
+						},
+						success:function(msg){
+							if(msg>0){
+
+								layer.alert("用户 ："+row_data.cname+" 未通过审核！");
+								layer.close(index);
+								//执行重载
+								table.reload('currentTableId', {
+									page: {
+										curr: 1 //重新从第 1 页开始
+									}
+									,where: {
+										userAccount:$("#userAccount").val(),
+										username:$("#username").val(),
+										startTime:$("#startTime").val(),
+										stopTime:$("#stopTime").val()
+									}
+								});
+							}
+
+						},error:function (err) {
+
+							alert("服务器正忙");
+						}
+					});
+
+
+				});
 			}
+
+
 
 		// 监听删除操作
 		$(".data-delete-btn").on("click", function () {
