@@ -1,5 +1,6 @@
 package com.drivingsys.controller;
 
+import com.drivingsys.aspectJ.Log;
 import com.drivingsys.bean.Backstage;
 import com.drivingsys.bean.backmenu.BackMenu;
 import com.drivingsys.bean.backmenu.ZtreeMenu;
@@ -22,6 +23,7 @@ public class BackMenuController
 
 	@ResponseBody
 	@RequestMapping("/queryRoleMenu")
+	@Log(operationType = "查询操作", operationName = "查询菜单权限")
 	public BackMenu queryRoleMenu(HttpServletRequest request){
 
 		Backstage backstage = (Backstage) request.getSession().getAttribute("backstage");
@@ -35,6 +37,7 @@ public class BackMenuController
 
 	@ResponseBody
 	@RequestMapping("/initMenuChange")
+	@Log(operationType = "查询操作", operationName = "查询菜单权限")
 	public List<ZtreeMenu> initMenuChange(HttpServletRequest request,int rid){
 
 		List<ZtreeMenu> ztreeMenus = backMenuService.initMenuChange(rid);
@@ -43,6 +46,7 @@ public class BackMenuController
 
 	@ResponseBody
 	@RequestMapping("/changeMenu")
+	@Log(operationType = "修改操作", operationName = "修改角色菜单")
 	public int changeMenu(HttpServletRequest request, int rid, String checkList){
 
 		//获取勾选的菜单list
@@ -58,6 +62,7 @@ public class BackMenuController
 	 * @return
 	 */
 	@RequestMapping("/menuRight")
+	@Log(operationType = "无数据操作", operationName = "跳转菜单权限")
 	public String logOut(){
 		return "backmenuchange";
 	}

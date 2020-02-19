@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drivingsys.dao.LogMapper">
+
+    <insert id="insertNewLog" parameterType="com.drivingsys.bean.Log">
+        insert into log(loperatorid, lrole, ltype, lbehavior, lip, ltime, lmethod)
+        values (#{loperatorid},#{lrole},#{ltype},#{lbehavior},#{lip},#{ltime},#{lmethod})
+<!--        <if test=" loperatorid!=null and loperatorid!=''">#{loperatorid},</if>-->
+<!--        <if test=" lrole!=null and lrole!='' ">#{lrole},</if>-->
+<!--        <if test=" ltype!=null and ltype!=''">#{ltype},</if>-->
+<!--        <if test=" lbehavior!=null and lbehavior!=''">#{lbehavior},</if>-->
+<!--        <if test=" lip!=null and lip!=''">#{lip},</if>-->
+<!--        <if test=" ltime!=null and ltime!=''">#{ltime},</if>-->
+<!--        <if test=" lmethod!=null and lmethod!=''">#{lmethod})</if>-->
+    </insert>
+
+</mapper>
+	
