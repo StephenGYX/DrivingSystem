@@ -150,10 +150,24 @@
 				{field: 'cphone', width: 120, title: '电话', sort: true},
 				{field: 'cemail', width: 150, title: '邮箱', sort: true},
 				{field: 'cidcard', width: 150, title: '身份证'},
-				{field: 'cstate', width: 120, title: '账号状态', sort: true},
+				{field: 'cstate', width: 120, title: '账号状态', sort: true
+					,templet: function (a)
+					{
+						if (a.cstate==1){
+							return "启用";
+						} else if (a.cstate==0) {
+							return "禁用";
+						}
+						else if (a.cstate==2) {
+							return "已删除";
+						}
+					}
+			},
 				{field: 'cregtime', width: 200, title: '注册时间', sort: true},
 				{field: 'cwechat', width: 135, title: '微信号', sort: true},
 				{field: 'cpritiseid', width: 120, title: '所属教练ID', sort: true},
+
+
 				// {field: 'cpritiseid', title: '所属教练ID', minWidth: 25},
 				{title: '操作', minWidth: 150, templet: '#currentTableBar', fixed: "right", align: "center"}
 			]],

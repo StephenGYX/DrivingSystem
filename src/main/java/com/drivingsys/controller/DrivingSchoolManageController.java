@@ -73,8 +73,7 @@ public class DrivingSchoolManageController
 		List<Practise> practises = drivingSchoolManageService.queryCoachByMySchool(rowBounds,paramMap);
 		long coachCount = drivingSchoolManageService.queryCoachByMySchoolCount(paramMap);
 
-		System.out.println("返回的表格       "+practises);
-		System.out.println("返回的表格数量       "+coachCount);
+
 		tableParam tableParam = new tableParam();
 
 		//0表示成功
