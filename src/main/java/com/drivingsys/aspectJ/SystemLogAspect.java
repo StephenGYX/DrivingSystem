@@ -1,6 +1,7 @@
 package com.drivingsys.aspectJ;
 
-import com.drivingsys.bean.LogInfo;
+import com.drivingsys.bean.*;
+import com.drivingsys.service.LogService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
+import java.net.InetAddress;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -21,29 +24,72 @@ import java.util.HashMap;
 public class SystemLogAspect
 {
 
-//	@Autowired
-//	private LogService logService;
+	@Autowired
+	private LogService logService;
 
-	@Pointcut("execution(* *..UserController.testAOP(..))")
-	//    @Pointcut("execution(public * *.*(..))")
-	public void logPointcut() {
+	@Autowired
+	private HttpServletRequest request;
+
+	@Pointcut("within(com.drivingsys.controller.BackStageController || com.drivingsys.controller.BackMenuController)")
+	public void backStagePointcut()
+	{
 	}
 
-	//自定义注解的处理
-	@After(value = "logPointcut()")
+	/**
+	 * 自定义注解的处理
+	 *
+	 * @param joinPoint
+	 * @throws Exception
+	 */
+	@After(value = "backStagePointcut()")
 	public void after(JoinPoint joinPoint) throws Exception
 	{
-		System.out.println("方法进来了！");
+		System.out.println("backStagePointcut方法进来了！");
 
 		//获取目标对象的类名
 		String targetClassName = joinPoint.getTarget().getClass().getName();
+		System.out.println("类名：" + targetClassName);
+
 		//获取方法名称
 		String methodName = joinPoint.getSignature().getName();
+		System.out.println("方法名：" + methodName);
+
 		//获取参数值
 		Object[] args = joinPoint.getArgs();
+		System.out.println("参数：" + args);
+
+		//获取访问id
+		String s = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().lastIndexOf("/") + 1);
+		System.out.println("登录ip：" + s);
+
+		//判断调用的角色
+		int role = -1;
+		Backstage backstage = (Backstage) request.getSession().getAttribute("backstage");
+		Drivingschool drivingschool = (Drivingschool) request.getSession().getAttribute("drivingschool");
+		Consumer consumer = (Consumer) request.getSession().getAttribute("consumer");
+		Practise practise = (Practise) request.getSession().getAttribute("practise");
+
+		//判断是哪个
+		if (backstage != null)
+		{
+			role = 0;//管理员
+		} else if (drivingschool != null)
+		{
+			role = 1;//驾校
+		} else if (consumer != null)
+		{
+			role = 2;//教练
+		} else if (practise != null)
+		{
+			role = 3;//学员
+		}
+
+		System.out.println("登录的用户名：" + backstage.getBname());
+		System.out.println("登录的角色：" + backstage.getRid());
 
 		//日志对象
 		LogInfo logInfo = new LogInfo();
+		com.drivingsys.bean.Log log = new com.drivingsys.bean.Log();
 		int j = 0;
 
 		Class targetClass = Class.forName(targetClassName);
@@ -77,29 +123,72 @@ public class SystemLogAspect
 						break;
 					}
 
-//					System.out.println(method.getAnnotation(Log.class).operationType());
+					//					System.out.println(method.getAnnotation(Log.class).operationType());
 
-//					if (!isMatch)
-//					{
-//						continue;
-//					}
+					//					if (!isMatch)
+					//					{
+					//						continue;
+					//					}
 
 					operationType = method.getAnnotation(Log.class).operationType();
 					operationName = method.getAnnotation(Log.class).operationName();
 
-					System.out.println(operationType);
-					System.out.println(operationName);
+					System.out.println("操作类型：" + operationType);
+					System.out.println("操作名称：" + operationName);
 
-					int userId = (int) args[0];
+					//					int userId = (int) args[0];
+					int userId = 1;
 					logInfo.setUser_Id(userId);
 					logInfo.setLog_Type(operationName);
-					logInfo.setLog_Time(new Date().toLocaleString());
+					//					logInfo.setLog_Time(new Date().toLocaleString());
 
-					ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
-//					LogService logServiceImpl = ac.getBean("logServiceImpl", LogService.class);
-//					int i1 = logServiceImpl.insertNewLog(logInfo);
-//					System.out.println("插入成功："+i1);
+					//操作时间
+					Date date = new Date();
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
 
+					//判断是哪个角色
+					switch (role)
+					{
+						//管理员角色
+						case 0:
+							log.setLoperatorid(backstage.getBid());
+							log.setLrole(backstage.getRid());
+							break;
+
+						//驾校角色
+						case 1:
+							log.setLoperatorid((int) drivingschool.getDid());
+							log.setLrole((int) drivingschool.getRid());
+							break;
+
+						//教练
+						case 2:
+							log.setLoperatorid((int) practise.getPid());
+							log.setLrole((int) practise.getRid());
+							break;
+
+						//学员
+						case 3:
+							log.setLoperatorid((int) consumer.getCid());
+							log.setLrole((int) consumer.getRid());
+							break;
+
+						//异常情况（无用户登录）
+						default:
+							log.setLoperatorid(-1);
+							log.setLrole(-1);
+							break;
+					}
+
+					//要存入的log对象
+					log.setLip(s);
+					log.setLtime(dateFormat.format(date));
+					log.setLtype(operationType);
+					log.setLbehavior(operationName);
+					log.setLmethod(targetClassName + "." + methodName);
+
+					int i = logService.insertNewLog(log);
+					System.out.println("插入成功：" + i);
 				}
 			}
 		}
