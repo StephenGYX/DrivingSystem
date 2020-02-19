@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8181
   servlet:
     context-path: /springboot
 
@@ -33,7 +33,7 @@ spring:
   mvc:
     view:
       suffix: .jsp
-      prefix: /jsp
+      prefix: /jsp/
 
 mybatis:
   config-location: classpath:SqlMapConfig.xml
