@@ -15,8 +15,8 @@
             <if test="dcontacts!=null and dcontacts!=''">
                 and dcontacts like '%${dcontacts}%'
             </if>
-            <if test="dcontacts!=null and dcontacts!=''">
-                and dcontacts like '%${dcontacts}%'
+            <if test="daccountstate!=null and daccountstate!=''">
+                and daccountstate = #{daccountstate}
             </if>
         </where>
     </select>

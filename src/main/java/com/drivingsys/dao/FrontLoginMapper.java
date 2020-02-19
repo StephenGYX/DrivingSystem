@@ -3,6 +3,7 @@ package com.drivingsys.dao;
 import com.drivingsys.bean.Consumer;
 import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Practise;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -14,12 +15,16 @@ import java.util.Map;
 public interface FrontLoginMapper
 {
 
-	@Select("select * from practise where paccount=#{username} and ppassword=#{password}")
+	@Select("select * from practise where paccount=#{account} and ppassword=#{password}")
 	public Practise queryPractiseAccount(Map<String, String> map);
 
-	@Select("select * from drivingschool where daccount=#{username} and dpassword=#{password}")
+	@Select("select * from drivingschool where daccount=#{account} and dpassword=#{password}")
 	public Drivingschool queryDrivingschool(Map<String, String> map);
 
-	@Select("select * from consumer where caccount=#{username} and cpassword=#{password}")
+	@Select("select * from consumer where caccount=#{account} and cpassword=#{password}")
 	public Consumer queryConsumer(Map<String, String> map);
+
+	@Insert("INSERT INTO drivingschool (daccount, dpassword, dname, dcontacts, dtelephone, dphone, demail, dprovince, dcity, darea, dprice, dsynopsis) " +
+			"VALUES (#{username}, #{password}, #{dname}, #{dcontacts}, #{phone}, #{phone}, #{email}, #{province}, #{city}, #{county}, #{cost}, #{remark})")
+	public int instertDSC(Map<String, Object> del);
 }

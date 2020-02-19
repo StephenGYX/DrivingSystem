@@ -12,10 +12,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link rel="stylesheet" href="<%=path+"/lib/layui-v2.5.5/css/layui.css"%>" media="all">
 	<link rel="stylesheet" href="<%=path+"/css/public.css"%>" media="all">
-
+<%--	<link rel="stylesheet" href="<%=path+"/css/frontlogin.css"%>" >--%>
 </head>
 <body>
-<div class="layuimini-container">
+<div class="layuimini-container" style="height: 100%">
 	<div class="layuimini-main">
 
 		<fieldset class="table-search-fieldset">
@@ -39,8 +39,15 @@
 						<div class="layui-inline">
 							<label class="layui-form-label">用户状态</label>
 							<div class="layui-input-inline">
-								<input type="text" name="daccountstate" id="daccountstate" autocomplete="off"
-								       class="layui-input">
+								<%--								<input type="text" name="daccountstate" id="daccountstate" autocomplete="off"--%>
+								<%--								       class="layui-input">--%>
+								<select name="daccountstate" >
+									<option value="">未选择</option>
+									<option value="1">启用</option>
+									<option value="2">禁用</option>
+									<option value="3">已删除</option>
+
+								</select>
 							</div>
 						</div>
 						<%--							<div class="layui-inline">--%>
@@ -121,7 +128,7 @@
 				{
 					field: 'address', width: 80, title: '住址'
 					, templet: function (d) {
-						return d.dprovince.toString() + d.dcity.toString();
+						return d.dprovince;
 					}
 				},
 				{title: '操作', minWidth: 50, templet: '#currentTableBar', fixed: "right", align: "center"}
@@ -161,9 +168,9 @@
 				type: 2,
 				shade: 0.2,
 				maxmin: true,
-				shadeClose: true,
-				area: ['40%', '30%'],
-				content: 'index.jsp'
+				shadeClose: false,
+				area: ['70%', '70%'],
+				content: 'area.jsp'
 			});
 			$(window).on("resize", function () {
 				layer.full(index);
@@ -173,14 +180,12 @@
 		});
 
 
-
-
 		//监听事件
-		table.on('toolbar(currentTableFilter)', function(obj){
+		table.on('toolbar(currentTableFilter)', function (obj) {
 
 			var checkStatus = table.checkStatus(obj.config.id),
-			data = checkStatus.data;
-			switch(obj.event){
+				data = checkStatus.data;
+			switch (obj.event) {
 				case 'add':
 					layer.msg('添加');
 					break;
@@ -205,7 +210,6 @@
 											// searchParams: JSON.stringify(data)
 										}
 									}
-
 								);
 								return false;
 
@@ -220,12 +224,9 @@
 				case 'update':
 					layer.msg('编辑');
 					break;
-			};
+			}
+			;
 		});
-
-
-
-
 
 
 		<%--// 监听删除操作--%>
