@@ -31,11 +31,13 @@ public class SystemLogAspect
 	private HttpServletRequest request;
 
 	@Pointcut("within(com.drivingsys.controller.BackStageController || com.drivingsys.controller.BackMenuController)")
-	public void backStagePointcut(){
+	public void backStagePointcut()
+	{
 	}
 
 	/**
 	 * 自定义注解的处理
+	 *
 	 * @param joinPoint
 	 * @throws Exception
 	 */
@@ -46,19 +48,19 @@ public class SystemLogAspect
 
 		//获取目标对象的类名
 		String targetClassName = joinPoint.getTarget().getClass().getName();
-		System.out.println("类名："+targetClassName);
+		System.out.println("类名：" + targetClassName);
 
 		//获取方法名称
 		String methodName = joinPoint.getSignature().getName();
-		System.out.println("方法名："+methodName);
+		System.out.println("方法名：" + methodName);
 
 		//获取参数值
 		Object[] args = joinPoint.getArgs();
-		System.out.println("参数："+args);
+		System.out.println("参数：" + args);
 
 		//获取访问id
 		String s = InetAddress.getLocalHost().toString().substring(InetAddress.getLocalHost().toString().lastIndexOf("/") + 1);
-		System.out.println("登录ip："+s);
+		System.out.println("登录ip：" + s);
 
 		//判断调用的角色
 		int role = -1;
@@ -68,18 +70,22 @@ public class SystemLogAspect
 		Practise practise = (Practise) request.getSession().getAttribute("practise");
 
 		//判断是哪个
-		if(backstage!=null){
-			role=0;//管理员
-		}else if(drivingschool!=null){
-			role=1;//驾校
-		}else if(consumer!=null){
-			role=2;//教练
-		}else if(practise!=null){
-			role=3;//学员
+		if (backstage != null)
+		{
+			role = 0;//管理员
+		} else if (drivingschool != null)
+		{
+			role = 1;//驾校
+		} else if (consumer != null)
+		{
+			role = 2;//教练
+		} else if (practise != null)
+		{
+			role = 3;//学员
 		}
 
-		System.out.println("登录的用户名："+backstage.getBname());
-		System.out.println("登录的角色："+backstage.getRid());
+		System.out.println("登录的用户名：" + backstage.getBname());
+		System.out.println("登录的角色：" + backstage.getRid());
 
 		//日志对象
 		LogInfo logInfo = new LogInfo();
@@ -117,46 +123,60 @@ public class SystemLogAspect
 						break;
 					}
 
-//					System.out.println(method.getAnnotation(Log.class).operationType());
+					//					System.out.println(method.getAnnotation(Log.class).operationType());
 
-//					if (!isMatch)
-//					{
-//						continue;
-//					}
+					//					if (!isMatch)
+					//					{
+					//						continue;
+					//					}
 
 					operationType = method.getAnnotation(Log.class).operationType();
 					operationName = method.getAnnotation(Log.class).operationName();
 
-					System.out.println("操作类型："+operationType);
-					System.out.println("操作名称："+operationName);
+					System.out.println("操作类型：" + operationType);
+					System.out.println("操作名称：" + operationName);
 
-//					int userId = (int) args[0];
-					int userId=1;
+					//					int userId = (int) args[0];
+					int userId = 1;
 					logInfo.setUser_Id(userId);
 					logInfo.setLog_Type(operationName);
-//					logInfo.setLog_Time(new Date().toLocaleString());
+					//					logInfo.setLog_Time(new Date().toLocaleString());
 
 					//操作时间
 					Date date = new Date();
-					SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
 
 					//判断是哪个角色
-					switch (role){
-						case 0:  //管理员角色
+					switch (role)
+					{
+						//管理员角色
+						case 0:
 							log.setLoperatorid(backstage.getBid());
 							log.setLrole(backstage.getRid());
 							break;
-						case 1:  //驾校角色
+
+						//驾校角色
+						case 1:
 							log.setLoperatorid((int) drivingschool.getDid());
 							log.setLrole((int) drivingschool.getRid());
 							break;
-						case 2:  //教练
+
+						//教练
+						case 2:
 							log.setLoperatorid((int) practise.getPid());
 							log.setLrole((int) practise.getRid());
 							break;
-						case 3: //学员
+
+						//学员
+						case 3:
 							log.setLoperatorid((int) consumer.getCid());
 							log.setLrole((int) consumer.getRid());
+							break;
+
+						//异常情况（无用户登录）
+						default:
+							log.setLoperatorid(-1);
+							log.setLrole(-1);
 							break;
 					}
 
@@ -165,10 +185,10 @@ public class SystemLogAspect
 					log.setLtime(dateFormat.format(date));
 					log.setLtype(operationType);
 					log.setLbehavior(operationName);
-					log.setLmethod(targetClassName+"."+methodName);
+					log.setLmethod(targetClassName + "." + methodName);
 
 					int i = logService.insertNewLog(log);
-					System.out.println("插入成功："+i);
+					System.out.println("插入成功：" + i);
 				}
 			}
 		}
