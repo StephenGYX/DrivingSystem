@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-public interface BackStageUserService
+public interface BackStageMyService
 {
 
 	public void adduser(String account,String pass,String phone,String sex,int age,String name,String email,String idcard,String wechat);

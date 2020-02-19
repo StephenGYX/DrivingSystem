@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper
 @Repository
-public interface BackStageUserMapper
+public interface BackStageMyMapper
 {
 	@Select("insert into consumer (caccount,cpassword,cphone,csex,cage,cname,cemail,cidcard,cwechat) values(#{account},#{pass},#{phone},#{sex},#{age},#{name},#{email},#{idcard},#{wechat})")
 	public void adduser(String account,String pass,String phone,String sex,int age,String name,String email,String idcard,String wechat);
