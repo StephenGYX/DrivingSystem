@@ -11,23 +11,55 @@ public class Drivingschool {
   private long dtelephone;
   private long dphone;
   private String demail;
-  private long dprovinceid;
-  private long dcityid;
-  private long dareaid;
+  private String dprovince;
+  private String dcity;
+  private String darea;
   private String daddress;
   private String drecruit;
   private long dprice;
-  private String dsynopsis;
-  private String daccountstate;
-  private String drecruitstate;
-  private long denrollnum;
-  private long dgraduationnum;
-  private long devaluatescore;
+  private String dsynopsis;//概要
+  private String daccountstate;//账号状态
+  private String drecruitstate;//招生状态
+  private long denrollnum;//注册人数
+  private long dgraduationnum;//毕业人数
+  private long devaluatescore;//评分
   private long rid;
   private String dregtime;
   private String dremark1;
   private String dremark2;
 
+
+  public Drivingschool(long did, String daccount, String dpassword, String dname, String dcontacts, long dtelephone, long dphone, String demail, String dprovince, String dcity, String darea, String daddress, String drecruit, long dprice, String dsynopsis, String daccountstate, String drecruitstate, long denrollnum, long dgraduationnum, long devaluatescore, long rid, String dregtime, String dremark1, String dremark2)
+  {
+    this.did = did;
+    this.daccount = daccount;
+    this.dpassword = dpassword;
+    this.dname = dname;
+    this.dcontacts = dcontacts;
+    this.dtelephone = dtelephone;
+    this.dphone = dphone;
+    this.demail = demail;
+    this.dprovince = dprovince;
+    this.dcity = dcity;
+    this.darea = darea;
+    this.daddress = daddress;
+    this.drecruit = drecruit;
+    this.dprice = dprice;
+    this.dsynopsis = dsynopsis;
+    this.daccountstate = daccountstate;
+    this.drecruitstate = drecruitstate;
+    this.denrollnum = denrollnum;
+    this.dgraduationnum = dgraduationnum;
+    this.devaluatescore = devaluatescore;
+    this.rid = rid;
+    this.dregtime = dregtime;
+    this.dremark1 = dremark1;
+    this.dremark2 = dremark2;
+  }
+
+  public Drivingschool()
+  {
+  }
 
   public long getDid() {
     return did;
@@ -101,30 +133,30 @@ public class Drivingschool {
   }
 
 
-  public long getDprovinceid() {
-    return dprovinceid;
+  public String getDprovince() {
+    return dprovince;
   }
 
-  public void setDprovinceid(long dprovinceid) {
-    this.dprovinceid = dprovinceid;
-  }
-
-
-  public long getDcityid() {
-    return dcityid;
-  }
-
-  public void setDcityid(long dcityid) {
-    this.dcityid = dcityid;
+  public void setDprovince(String dprovince) {
+    this.dprovince = dprovince;
   }
 
 
-  public long getDareaid() {
-    return dareaid;
+  public String getDcity() {
+    return dcity;
   }
 
-  public void setDareaid(long dareaid) {
-    this.dareaid = dareaid;
+  public void setDcity(String dcity) {
+    this.dcity = dcity;
+  }
+
+
+  public String getDarea() {
+    return darea;
+  }
+
+  public void setDarea(String darea) {
+    this.darea = darea;
   }
 
 

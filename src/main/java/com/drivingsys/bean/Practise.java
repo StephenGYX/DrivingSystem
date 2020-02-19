@@ -3,12 +3,13 @@ package com.drivingsys.bean;
 
 public class Practise {
 
+
   private long pid;
   private String paccount;
   private String ppassword;
   private String psex;
   private long page;
-  private long pphone;
+  private String pphone;
   private String pemail;
   private String pname;
   private String pidcard;
@@ -23,38 +24,9 @@ public class Practise {
   private long pevaluatescore;
   private long rid;
   private String pregtime;
-  private String premark1;
+  private long paccountstate;
   private String premark2;
 
-  public Practise()
-  {
-  }
-
-  public Practise(long pid, String paccount, String ppassword, String psex, long page, long pphone, String pemail, String pname, String pidcard, long pprovinceid, long pcityid, long pareaid, long pdrivingid, String presume, String pworkexperience, long penrollnum, long pgraduationnum, long pevaluatescore, long rid, String pregtime, String premark1, String premark2)
-  {
-    this.pid = pid;
-    this.paccount = paccount;
-    this.ppassword = ppassword;
-    this.psex = psex;
-    this.page = page;
-    this.pphone = pphone;
-    this.pemail = pemail;
-    this.pname = pname;
-    this.pidcard = pidcard;
-    this.pprovinceid = pprovinceid;
-    this.pcityid = pcityid;
-    this.pareaid = pareaid;
-    this.pdrivingid = pdrivingid;
-    this.presume = presume;
-    this.pworkexperience = pworkexperience;
-    this.penrollnum = penrollnum;
-    this.pgraduationnum = pgraduationnum;
-    this.pevaluatescore = pevaluatescore;
-    this.rid = rid;
-    this.pregtime = pregtime;
-    this.premark1 = premark1;
-    this.premark2 = premark2;
-  }
 
   public long getPid() {
     return pid;
@@ -101,11 +73,11 @@ public class Practise {
   }
 
 
-  public long getPphone() {
+  public String getPphone() {
     return pphone;
   }
 
-  public void setPphone(long pphone) {
+  public void setPphone(String pphone) {
     this.pphone = pphone;
   }
 
@@ -236,12 +208,12 @@ public class Practise {
   }
 
 
-  public String getPremark1() {
-    return premark1;
+  public long getPaccountstate() {
+    return paccountstate;
   }
 
-  public void setPremark1(String premark1) {
-    this.premark1 = premark1;
+  public void setPaccountstate(long paccountstate) {
+    this.paccountstate = paccountstate;
   }
 
 
