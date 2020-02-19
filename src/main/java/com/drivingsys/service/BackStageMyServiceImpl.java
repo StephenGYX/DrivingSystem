@@ -7,9 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("BackStageUserService")
-
-public class BackStageMyServiceImpl implements BackStageUserService
+@Service("BackStageMyService")
+public class BackStageMyServiceImpl implements BackStageMyService
 {
 	@Autowired
 	private BackStageUserMapper backStageUserMapper;
