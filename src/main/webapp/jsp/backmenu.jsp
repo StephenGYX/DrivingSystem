@@ -35,8 +35,9 @@
 </head>
 <body class="layui-layout-body layuimini-all">
 
-<div class="layui-layout layui-layout-admin">
+<input type="hidden" id="hid" value=<%=path%>>
 
+<div class="layui-layout layui-layout-admin">
 	<div class="layui-header header">
 		<div class="layui-logo"></div>
 		<a>
@@ -66,36 +67,6 @@
 			</li>
 			<li class="layui-nav-item"><a href="<%=path+"/back/logOut"%>">注销</a></li>
 		</ul>
-
-<%--		<ul class="layui-nav layui-layout-right">--%>
-
-<%--			顶部右侧菜单按钮--%>
-<%--			<li class="layui-nav-item" lay-unselect>--%>
-<%--				<a href="javascript:;" data-refresh="刷新"><i class="fa fa-refresh"></i></a>--%>
-<%--			</li>--%>
-<%--			<li class="layui-nav-item" lay-unselect>--%>
-<%--				<a href="javascript:;" data-clear="清理" class="layuimini-clear"><i class="fa fa-trash-o"></i></a>--%>
-<%--			</li>--%>
-<%--			<li class="layui-nav-item mobile layui-hide-xs" lay-unselect>--%>
-<%--				<a href="javascript:;" data-check-screen="full"><i class="fa fa-arrows-alt"></i></a>--%>
-<%--			</li>--%>
-
-<%--			<li class="layui-nav-item layuimini-setting">--%>
-<%--				<a href="javascript:;">admin</a>--%>
-<%--				<dl class="layui-nav-child">--%>
-<%--					<dd>--%>
-<%--						<a href="javascript:;" data-iframe-tab="page/user-setting.html" data-title="基本资料"--%>
-<%--						   data-icon="fa fa-gears">基本资料</a>--%>
-<%--					</dd>--%>
-<%--					<dd>--%>
-<%--						<a href="javascript:;" data-iframe-tab="page/user-password.html" data-title="修改密码"--%>
-<%--						   data-icon="fa fa-gears">修改密码</a>--%>
-<%--					</dd>--%>
-<%--					<dd>--%>
-<%--						<a href="javascript:;" class="login-out">退出登录</a>--%>
-<%--					</dd>--%>
-<%--				</dl>--%>
-<%--			</li>--%>
 
 <%--配色方案角标--%>
 <%--			<li class="layui-nav-item layuimini-select-bgcolor mobile layui-hide-xs" lay-unselect>--%>
@@ -140,17 +111,21 @@
 	var _hmt = _hmt || [];
 	(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?d97abf6d61c21d773f97835defbdef4e";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm, s);})();
 </script>
-<!--百度统计代码-结束-->
 
+<!--百度统计代码-结束-->
 <script src="<%=path+"/lib/layui-v2.5.5/layui.js?v=1.0.4"%>" charset="utf-8"></script>
 <script src="<%=path+"/js/lay-config.js?v=1.0.4"%>" charset="utf-8"></script>
+<script src="<%=path+"/js/backmenu.js"%>" charset="utf-8"></script>
+
 <script>
 	layui.use(['element', 'layer', 'layuimini'], function () {
 		var $ = layui.jquery,
 			element = layui.element,
 			layer = layui.layer;
 
-		layuimini.init('<%=path+"/api/init.json"%>');
+		<%--layuimini.init('<%=path+"/api/init.json"%>');--%>
+		<%--layuimini.init(<%=path+"/menu/queryRoleMenu"%>);--%>
+		layuimini.init("/springboot/menu/queryRoleMenu");
 
 		$('.login-out').on("click", function () {
 			layer.msg('退出登录成功', function () {

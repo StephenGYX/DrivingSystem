@@ -664,7 +664,7 @@ layui.define(["element", "jquery"], function (exports) {
                     topTabs.off("touchstart", down);
                     topTabs.off("touchmove", move);
                     topTabs.off("touchend", end);
-                    topTabs.removeAttr("style");
+                    topTabs.removeAttr("static.css.style");
                     return false;
                 }
             }).resize();

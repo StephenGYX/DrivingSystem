@@ -1,6 +1,10 @@
 package com.drivingsys.controller;
 
+import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlShowGrantsStatement;
 import com.drivingsys.bean.Backstage;
+import com.drivingsys.bean.RoleMenu;
+import com.drivingsys.bean.backmenu.BackMenu;
+import com.drivingsys.service.BackMenuService;
 import com.drivingsys.service.BackStageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.text.View;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static java.awt.SystemColor.menu;
 
 /**
  * @author Stephen
@@ -25,10 +32,14 @@ public class BackStageController
 	@Autowired
 	private BackStageService backStageService;
 
+	@Autowired
+	private BackMenuService backMenuService;
+
 	@ResponseBody
 	@RequestMapping("/backLogin")
 	public String backLogin(@RequestParam Map<String,String> reqMap, HttpServletRequest request){
 
+		System.out.println("方法进来了！");
 		//调用service查找账户的方法
 		Backstage backstage = backStageService.queryBackStageAccount(reqMap);
 
@@ -45,9 +56,13 @@ public class BackStageController
 		return msg;
 	}
 
+	/**
+	 * 注销登录
+	 * @return
+	 */
 	@RequestMapping("/logOut")
 	public String logOut(){
-		return "/backlogin";
+		return "backlogin";
 	}
 
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service("backStageService")
-public class BackStageUserServiceImpl implements BackStageService
+public class BackStageServiceImpl implements BackStageService
 {
 
 	@Autowired

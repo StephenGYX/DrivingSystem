@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.drivingsys.dao.DrivingSchoolManageMapper">
+
+    <!--驾校端对教练的用户列表查询-->
+	<select id="queryCoachByMySchool" resultType="com.drivingsys.bean.Practise" parameterType="map">
+	    select  * from  practise
+		<where>
+			and  pdrivingid =#{selectParam.driverSchoolId}
+			<if test="selectParam.userAccount!=null and selectParam.userAccount.trim()!='' ">
+				and   paccount like '%${selectParam.userAccount}%'
+			</if>
+			<if test="selectParam.username!=null and selectParam.username.trim()!='' ">
+				and   pname like '%${selectParam.username}%'
+			</if>
+			<if test="selectParam.startTime!=null and selectParam.startTime!='' ">
+				and  pregtime &gt;=#{selectParam.startTime}
+			</if>
+			<if test="selectParam.stopTime!=null and selectParam.stopTime!='' ">
+				and  pregtime &lt;=#{selectParam.stopTime}
+			</if>
+
+		</where>
+	</select>
+	<select id="queryCoachByMySchoolCount" resultType="long" parameterType="map">
+	    select  count(*) from  practise
+		 <where>
+			 and  pdrivingid =#{selectParam.driverSchoolId}
+			 <if test="selectParam.userAccount!=null and selectParam.userAccount.trim()!='' ">
+				 and   paccount like '%${selectParam.userAccount}%'
+			 </if>
+			 <if test="selectParam.username!=null and selectParam.username.trim()!='' ">
+				 and   pname like '%${selectParam.username}%'
+			 </if>
+			 <if test="selectParam.startTime!=null and selectParam.startTime!='' ">
+				 and  pregtime &gt;=#{selectParam.startTime}
+			 </if>
+			 <if test="selectParam.stopTime!=null and selectParam.stopTime!='' ">
+				 and  pregtime &lt;=#{selectParam.stopTime}
+			 </if>
+		</where>
+	</select>
+    <!--驾校端对教练的用户列表查询-->
+
+    <!--教练的账号启用禁用，修改密码，逻辑删除-->
+	<update id="updateCoachStateByPid"  parameterType="java.util.Map">
+		update practise
+		<set>
+			paccountstate = #{paccountstate}
+			<where>
+				pid =#{pid}
+			</where>
+		</set>
+	</update>
+	<update id="updateCoachPwdByPid"  parameterType="java.util.Map">
+		update practise
+		<set>
+			ppassword =#{ppassword}
+			<where>
+				pid =#{pid}
+			</where>
+		</set>
+	</update>
+    <!--教练的账号启用禁用，修改密码，逻辑删除-->
+
+	<!--驾校端对学员的用户列表查询-->
+	<select id="queryStudentByMySchool" resultType="com.drivingsys.bean.Consumer" parameterType="map">
+		select  * from  consumer
+		<where>
+			<if test="selectParam.cpritiseid!=null and selectParam.cpritiseid!='' ">
+				and  cpritiseid =#{selectParam.cpritiseid}
+			</if>
+			<if test="selectParam.userAccount!=null and selectParam.userAccount.trim()!='' ">
+				and   caccount like '%${selectParam.userAccount}%'
+			</if>
+			<if test="selectParam.username!=null and selectParam.username.trim()!='' ">
+				and   cname like '%${selectParam.username}%'
+			</if>
+			<if test="selectParam.startTime!=null and selectParam.startTime!='' ">
+				and  cregtime &gt;=#{selectParam.startTime}
+			</if>
+			<if test="selectParam.stopTime!=null and selectParam.stopTime!='' ">
+				and  cregtime &lt;=#{selectParam.stopTime}
+			</if>
+		</where>
+	</select>
+	<select id="queryStudentByMySchoolCount" resultType="long" parameterType="map">
+		select  count(*) from  consumer
+		<where>
+			<if test="selectParam.cpritiseid!=null and selectParam.cpritiseid!='' ">
+				and  cpritiseid =#{selectParam.cpritiseid}
+			</if>
+			<if test="selectParam.userAccount!=null and selectParam.userAccount.trim()!='' ">
+				and   caccount like '%${selectParam.userAccount}%'
+			</if>
+			<if test="selectParam.username!=null and selectParam.username.trim()!='' ">
+				and   cname like '%${selectParam.username}%'
+			</if>
+			<if test="selectParam.startTime!=null and selectParam.startTime!='' ">
+				and  cregtime &gt;=#{selectParam.startTime}
+			</if>
+			<if test="selectParam.stopTime!=null and selectParam.stopTime!='' ">
+				and  cregtime &lt;=#{selectParam.stopTime}
+			</if>
+		</where>
+	</select>
+	<!--驾校端对学员的用户列表查询-->
+
+	<!--学员的账号启用禁用，修改密码，逻辑删除-->
+	<update id="updateStudentStateByCid"  parameterType="java.util.Map">
+		update consumer 
+		<set>
+			cstate = #{cstate}
+			<where>
+				cid =#{cid}
+			</where>
+		</set>
+	</update>
+	<update id="updateStudentPwdByCid"  parameterType="java.util.Map">
+		update consumer
+		<set>
+			cpassword =#{cpassword}
+			<where>
+				cid =#{cid}
+			</where>
+		</set>
+	</update>
+	<!--学员的账号启用禁用，修改密码，逻辑删除-->
+
+
+
+
+
+
+
+</mapper>
+	

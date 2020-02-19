@@ -3,6 +3,7 @@ package com.drivingsys.bean;
 
 public class Practise {
 
+
   private long pid;
   private String paccount;
   private String ppassword;
