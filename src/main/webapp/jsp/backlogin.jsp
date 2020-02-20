@@ -74,8 +74,6 @@
 <%--				</div>--%>
 				<div class="layui-form-item">
 					<button type="submit" class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="login">登 入</button>
-
-<%--					<button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="login">登 入</button>--%>
 				</div>
 			</form>
 		</div>
