@@ -1,7 +1,9 @@
 package com.drivingsys.service;
 
 import com.drivingsys.bean.Log;
-import com.drivingsys.bean.LogInfo;
+import com.drivingsys.bean.tableParam;
+
+import java.util.Map;
 
 /**
  * 日志接口
@@ -15,4 +17,20 @@ public interface LogService
 	 * @return
 	 */
 	public int insertNewLog(Log log);
+
+	/**
+	 * 查询所有的log日志
+	 * @param map
+	 * @return
+	 */
+	public tableParam queryAllLog(Map<String, Integer> map);
+
+	/**
+	 * 多条件查询
+	 * @param map
+	 * @return
+	 */
+	public tableParam queryLogWithParam(Map<String, String> map);
+
+
 }
