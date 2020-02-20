@@ -88,7 +88,6 @@ public class SystemLogAspect
 		System.out.println("登录的角色：" + backstage.getRid());
 
 		//日志对象
-		LogInfo logInfo = new LogInfo();
 		com.drivingsys.bean.Log log = new com.drivingsys.bean.Log();
 		int j = 0;
 
@@ -135,12 +134,6 @@ public class SystemLogAspect
 
 					System.out.println("操作类型：" + operationType);
 					System.out.println("操作名称：" + operationName);
-
-					//					int userId = (int) args[0];
-					int userId = 1;
-					logInfo.setUser_Id(userId);
-					logInfo.setLog_Type(operationName);
-					//					logInfo.setLog_Time(new Date().toLocaleString());
 
 					//操作时间
 					Date date = new Date();
