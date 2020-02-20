@@ -87,10 +87,5 @@
 <script src="<%=path+"/lib/jq-module/jquery.particleground.min.js"%>" charset="utf-8"></script>
 <script src="<%=path+"/js/json2.js"%>" charset="utf-8"></script>
 <script src="<%=path+"/js/backlogin.js"%>" charset="utf-8"></script>
-<script>
-	if("${requestScope.cg}"==="注册成功"){
-		alert("注册成功");
-	}
-</script>
 </body>
 </html>
