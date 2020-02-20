@@ -1,10 +1,7 @@
 package com.drivingsys.controller;
 
 
-import com.drivingsys.bean.Consumer;
-import com.drivingsys.bean.Drivingschool;
-import com.drivingsys.bean.Practise;
-import com.drivingsys.bean.tableParam;
+import com.drivingsys.bean.*;
 import com.drivingsys.service.DrivingSchoolManageService;
 import com.drivingsys.service.FrontLoginService;
 import com.google.gson.Gson;
@@ -169,6 +166,7 @@ public class DrivingSchoolManageController
 		long studentCount = drivingSchoolManageService.queryStudentByMySchoolCount(paramMap);
 
 
+
 		tableParam tableParam = new tableParam();
 
 		//0表示成功
@@ -279,4 +277,55 @@ public class DrivingSchoolManageController
 		return jsonStr;
 
 	}
+
+	@RequestMapping("QueryStudentKaoShiTable")
+	@ResponseBody
+	public tableParam queryStudentKaoShiTable(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		//当前页数
+		String page = request.getParameter("page");
+		//限制条数
+		String limit = request.getParameter("limit");
+		String userAccount = request.getParameter("userAccount");
+		String username = request.getParameter("username");
+		String startTime = request.getParameter("startTime");
+		String stopTime = request.getParameter("stopTime");
+		String cpritiseid = request.getParameter("param");
+
+		int pages= Integer.valueOf(page);
+		int limits = Integer.valueOf(limit);
+		RowBounds rowBounds = new RowBounds((pages - 1) * limits,limits);
+
+
+		HashMap<String, String> paramMap = new HashMap<>();
+		paramMap.put("userAccount",userAccount);
+		paramMap.put("username",username);
+		paramMap.put("startTime",startTime);
+		paramMap.put("stopTime",stopTime);
+
+
+
+		paramMap.put("cpritiseid",cpritiseid);
+
+
+		List<Consumer> consumers = drivingSchoolManageService.queryStudentByMySchool(rowBounds,paramMap);
+		long studentCount = drivingSchoolManageService.queryStudentByMySchoolCount(paramMap);
+
+
+
+		tableParam tableParam = new tableParam();
+
+		//0表示成功
+		tableParam.setCode(0);
+		//数据库查询count数量
+		tableParam.setCount(studentCount);
+		//失败数据
+		tableParam.setMsg("");
+		tableParam.setData(consumers);
+
+		return tableParam;
+	}
+
+
+
 }

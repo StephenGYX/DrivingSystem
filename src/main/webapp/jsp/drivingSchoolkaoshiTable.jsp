@@ -70,51 +70,27 @@
 		<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
 		<script type="text/html" id="currentTableBar">
-			{{#  if(d.cstate == 0 && (d.cpritiseid == null || d.cpritiseid.trim() == '') && d.eorderstate == -1){ }}
-<%--			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="start">启用</a>--%>
-<%--			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>--%>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="examinePass">审核通过</a>
-			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="examineNoPass">审核不通过</a>
-
+			{{#  if(d.eorderstate == 0 && d.eclasshour1 == '100'){ }}
+			<button data-method="dialog" class="layui-btn" id="test1" lay-event="test1">科目一考试安排</button>
 			{{#  }
-
-			else if(d.cstate == 0 && (d.cpritiseid == null || d.cpritiseid.trim() == '') && d.eorderstate == -2){ }}
-			---------已驳回审核----------
+			else if(d.eorderstate == 1 && d.eclasshour2 == '100'){ }}
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="test2">科目二考试安排</a>
 			{{#  }
-
-			else if(d.cstate == 0 && d.cpritiseid != null){ }}
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="start">启用</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="schoolEvaluate">驾校评价</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="coachEvaluate">教练评价</a>
-			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+			else if(d.eorderstate == 2 && d.eclasshour3 == '100'){ }}
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="test3">科目三考试安排</a>
 			{{#  }
-			else if(d.cstate == 1 && (d.cpritiseid == null || d.cpritiseid.trim()  == '') && d.eorderstate == -1 ){ }}
-<%--			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="stop">禁用</a>--%>
-<%--			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>--%>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="examinePass">审核通过</a>
-			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="examineNoPass">审核不通过</a>
+			else if(d.eorderstate == 3 && d.eclasshour4 == '100'){ }}
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="test4">科目四考试安排</a>
 			{{#  }
-			else if(d.cstate == 1 && (d.cpritiseid == null || d.cpritiseid.trim() == '') && d.eorderstate == -2){ }}
-			---------已驳回审核----------
+			else if(d.eorderstate == 4){ }}
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="takeCertificate">领证安排</a>
 			{{#  }
-			else if(d.cstate == 1 && d.cpritiseid != null){ }}
-			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="stop">禁用</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="schoolEvaluate">驾校评价</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="coachEvaluate">教练评价</a>
-			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-
-			{{#  }
-
-
-			else if(d.cstate == 2){ }}
-			----------已删除-----------
+			else { }}
+		     --------暂无考试安排 --------
 			{{#  }
 
 			}}
-<%--			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>--%>
-<%--			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>--%>
+
 		</script>
 
 	</div>
@@ -124,16 +100,6 @@
 
 
 <script>
-	var param;
-	var strings;
-	//加载的时候获取参数(教练ID)
-	window.onload =function () {
-		 param = location.search;
-		strings = param.split("=");
-		console.log(param);
-		console.log(strings[0]);
-		console.log(strings[1]);
-	};
 
 	layui.use(['form', 'table'], function () {
 		var $ = layui.jquery,
@@ -143,7 +109,7 @@
 
 		table.render({
 			elem: '#currentTableId',
-			url: "<%=path%>"+"/drivingSchool/QueryMyStudent?param="+strings[1]+"",
+			url: "<%=path%>"+"/drivingSchool/QueryStudentKaoShiTable",
 			toolbar: '#toolbarDemo',
 			defaultToolbar: ['filter', 'exports', 'print', {
 				title: '提示',
@@ -155,7 +121,6 @@
 				{field: 'cid', width: 70, title: 'ID', sort: true},
 				{field: 'cname', width: 100, title: '学员姓名'},
 				{field: 'caccount', width: 110, title: '学员账号', sort: true},
-				{field: 'cpassword', width: 110, title: '学员密码', sort: true},
 				{field: 'csex', width: 50, title: '性别'},
 				{field: 'cphone', width: 120, title: '电话', sort: true},
 				{field: 'cemail', width: 150, title: '邮箱', sort: true},
@@ -173,11 +138,12 @@
 						}
 					}
 			},
-				{field: 'cregtime', width: 200, title: '注册时间', sort: true},
-				{field: 'cwechat', width: 135, title: '微信号', sort: true},
-				{field: 'cpritiseid', width: 80, title: '教练ID', sort: true},
-				// {field: 'eorderstate', width: 100, title: '订单状态', sort: true},
-				// {field: 'cpritiseid', title: '所属教练ID', minWidth: 25},
+				{field: 'cpritiseid', width: 100, title: '教练ID', sort: true},
+				{field: 'eclasshour1', width: 50, title: '1', sort: true},
+				{field: 'eclasshour2', width: 50, title: '2', sort: true},
+				{field: 'eclasshour3', width: 50, title: '3', sort: true},
+				{field: 'eclasshour4', width: 50, title: '4', sort: true},
+
 				{title: '操作', minWidth: 150, templet: '#currentTableBar', fixed: "right", align: "center"}
 			]],
 			limits: [5, 10, 15],
@@ -210,52 +176,66 @@
 			return false;
 		});
 
+		//将表单转为js对象数据
+		function serializeObject($, array){
+			var obj=new Object();
+			$.each(array, function(index,param){
+				if(!(param.name in obj)){
+					obj[param.name]=param.value;
+				}
+			});
+			return obj;
+		};
+
 		//监听行工具事件
 		table.on('tool(currentTableFilter)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
 			var data = obj.data //获得当前行数据
 				,layEvent = obj.event; //获得 lay-event 对应的值
-
               console.log(data);
 
-			if(layEvent === 'start'){
+			if(layEvent === 'test1'){
+
 				var layer = layui.layer, $ = layui.jquery;
 				var row_data = data  // 整行的数据
 					,cid = row_data.cid ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
-				layer.confirm("您确定要启用用户 ："+row_data.cname+" 吗?", function (index) {
 
 
-					$(function() {
-						$.ajax({
-							method : "POST",
-							url : "<%=path%>"+"/drivingSchool/StudentTableOperation?do=start&cid="+cid+"",
-							dataType : "text",
-							success : function(msg) {
-								if(msg>0){
-									layer.alert(row_data.cname+"启用成功");
-									layer.close(index);
-									//执行重载
-									table.reload('currentTableId', {
-										page: {
-											curr: 1 //重新从第 1 页开始
-										}
-										,where: {
-											userAccount:$("#userAccount").val(),
-											username:$("#username").val(),
-											startTime:$("#startTime").val(),
-											stopTime:$("#stopTime").val()
-										}
-									});
-								}
+					var othis = $(this), //othis当前button对象
+						method = othis.data('method');//data-method="dialog"中的值
 
+					if(method == "dialog"){
+						layer.open({
+							type: 2,
+							area: ['500px', '300px'],
+							btn: ['确定', '取消'],
+							btn1: function(index, layero){
+								//layer.getChildFrame("form", index)获取iframe的表单
+								//serializeArray jquery方法，将表单对象序列化为数组
+								var formData = serializeObject($, layer.getChildFrame("form", index).serializeArray());
+								$.ajax({
+									url:'<%=path%>',
+									type:'post',
+									data: formData,
+									success:function(data){
+										layer.close(index);
+									},error:function (err) {
+										console.log(err);
+									}
+								});
 							},
-							error : function() {
-								alert("服务器正忙");
+							//要弹出的窗口的路径
+							content: "<%=path%>"+"/jsp/drivingSchoolKaoShiArrange.jsp"  //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+							,success: function(layero, index){
+								console.log(layero, index);
 							}
 						});
-					});
-				});
+					}
 
-			} else if(layEvent === 'stop'){
+
+			}
+
+
+			if(layEvent === 'test2'){
 				var layer = layui.layer, $ = layui.jquery;
 				var row_data = data  // 整行的数据
 					,cid = row_data.cid ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
@@ -293,7 +273,7 @@
 				});
 
 			}
-			else if(layEvent === 'rePassword'){
+			else if(layEvent === 'test3'){
 				var layer = layui.layer, $ = layui.jquery;
 				var row_data = data  // 整行的数据
 					,cid = row_data.cid ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
@@ -339,7 +319,7 @@
 					});
 				});
 
-			}else if(layEvent === 'delete'){
+			}else if(layEvent === 'test4'){
 				var layer = layui.layer, $ = layui.jquery;
 				var row_data = data  // 整行的数据
 					,cid = row_data.cid ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
@@ -381,7 +361,7 @@
 
 
 				});
-			}else if(layEvent === 'examinePass'){
+			}else if(layEvent === 'takeCertificate'){
 				var layer = layui.layer, $ = layui.jquery;
 				var row_data = data  // 整行的数据
 					,cid = row_data.cid ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
@@ -488,39 +468,13 @@
 		});
 
 
-
-
-
 		//监听表格复选框选择
 		table.on('checkbox(currentTableFilter)', function (obj) {
 			console.log(obj)
 		});
 
 
-		// table.on('tool(currentTableFilter)', function (obj) {
-		// 	var data = obj.data;
-		// 	if (obj.event === 'edit') {
-		//
-		// 		var index = layer.open({
-		// 			title: '编辑用户',
-		// 			type: 2,
-		// 			shade: 0.2,
-		// 			maxmin:true,
-		// 			shadeClose: true,
-		// 			area: ['100%', '100%'],
-		// 			content: '/page/table/edit.html',
-		// 		});
-		// 		$(window).on("resize", function () {
-		// 			layer.full(index);
-		// 		});
-		// 		return false;
-		// 	} else if (obj.event === 'delete') {
-		// 		layer.confirm('真的删除行么', function (index) {
-		// 			obj.del();
-		// 			layer.close(index);
-		// 		});
-		// 	}
-		// });
+
 
 	});
 	});
