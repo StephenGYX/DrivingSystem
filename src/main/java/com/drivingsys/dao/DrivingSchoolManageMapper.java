@@ -1,6 +1,7 @@
 package com.drivingsys.dao;
 
 import com.drivingsys.bean.Consumer;
+import com.drivingsys.bean.Examination;
 import com.drivingsys.bean.Practise;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -46,5 +47,18 @@ public interface DrivingSchoolManageMapper
 
 	//根据审核的情况，修改订单表的订单状态一栏
 	public int updateOrderState( @Param("selectParam") HashMap selectParam) ;
+
+	//根据学员和教练，考试科目和考试时间，修改订单表的考试时间一栏
+	public int updateOrderKaoshiTime( @Param("kaoShiParam") HashMap kaoShiParam) ;
+
+	//通过驾校和教练ID，查看该教练所收到的评价
+	public List<Examination> queryCoachEval(@Param("pid") String pid, @Param("did") String did) ;
+
+	//通过驾校和学员ID，查看该学员所有的评价
+	public List<Examination> queryStudentAllEval(@Param("cid") String cid, @Param("did") String did) ;
+
+	//通过教练ID，查看该教练
+	public Practise queryPractiseById(@Param("pid") String pid) ;
+
 
 }

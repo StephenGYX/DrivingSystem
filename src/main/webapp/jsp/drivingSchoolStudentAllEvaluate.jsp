@@ -7,9 +7,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false"%>
 <%
 	String path = application.getContextPath();
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +22,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link rel="stylesheet" href="<%=path+"/lib/layui-v2.5.5/css/layui.css"%>" media="all">
 	<link rel="stylesheet" href="<%=path+"/css/public.css"%>" media="all">
-	<link rel="stylesheet" href="<%=path+"/css/drivingschoolKaoshiArrange.css"%>" media="all">
 	<script src="<%=path+"/lib/layui-v2.5.5/layui.js"%>" charset="utf-8"></script>
 </head>
 <body>
@@ -31,24 +32,22 @@
 	<div class="layui-form-item">
 		<div class="layui-input-block">
 
-			<input type="hidden" name="${kaoshi}" value="${kaoshi}">
+			<c:forEach items="${evalS}" var="i" begin="0">
 
-			<c:if test="${kaoshi =='test1'}">
-				科目一考试时间：
-				<input type="date" name="kaoShiTime1" value="" title="">
-			</c:if>
-			<c:if test="${kaoshi =='test2'}">
-		        科目二考试时间：
-				<input type="date" name="kaoShiTime2" value="" title="">
-			</c:if>
-			<c:if test="${kaoshi =='test3'}">
-				科目三考试时间：
-				<input type="date" name="kaoShiTime3" value="" title="">
-			</c:if>
-			<c:if test="${kaoshi =='test4'}">
-		      	科目四考试时间：
-				<input type="date" name="kaoShiTime4" value="" title="">
-			</c:if>
+				-----教练评价-----<br>
+				 ${i.consumer.cname} 对 ${i.consumer.pname} 教练：${i.consumer.epractisecontent}  <br>
+
+				评价时间 ： ${i.consumer.epractisecontenttime} <br>
+
+				-----驾校评价-----<br>
+
+				${i.consumer.cname} ：${i.consumer.edrivingcontent}  <br>
+
+				评价时间 ： ${i.consumer.edrivingcontenttime} <br>
+
+			</c:forEach>
+
+
 
 
 		</div>

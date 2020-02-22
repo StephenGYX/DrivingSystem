@@ -2,6 +2,7 @@ package com.drivingsys.service;
 
 
 import com.drivingsys.bean.Consumer;
+import com.drivingsys.bean.Examination;
 import com.drivingsys.bean.Practise;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
@@ -47,5 +48,17 @@ public interface DrivingSchoolManageService
 
 	//修改订单表的教练一栏，将其和教练绑定
 	public int updateOrderState(HashMap selectParam) ;
+
+	//根据学员和教练，考试科目和考试时间，修改订单表的考试时间一栏
+	public int updateOrderKaoshiTime(HashMap kaoShiParam) ;
+
+	//通过驾校和教练ID，查看该教练所收到的评价
+	public List<Examination> queryCoachEval( String pid,String did) ;
+
+	//通过驾校和学员ID，查看该学员所有的评价
+	public List<Examination> queryStudentAllEval(String cid,  String did) ;
+
+	//通过教练ID，查看该教练
+	public Practise queryPractiseById(String pid) ;
 
 }

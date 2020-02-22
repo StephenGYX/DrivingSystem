@@ -1,12 +1,21 @@
 
-.layui-tab{
-    margin-top: 15%;
-    margin-left: 10%;
+.reg{
+
+  color: blue;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-.layui-col-md5 {
-    height: 100%;
+#test4{
+  margin-left: 70%;
 }
-.layui-tab-title{
-    /*background-color: #2E2D3C;*/
-    margin-right: 45%;
+#test3{
+  margin-left: 40%;
+  margin-top: 10%;
+}
+#test2{
+
+  margin-left: 62%;
+}
+#test1{
+  margin-left: 1.5%;
+  width: 41%;
 }

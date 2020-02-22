@@ -31,9 +31,19 @@ public class Examination {
   private String edrivingcontent;
   private String epractisescore;
   private String epractisecontent;
-  private String eremark1;
-  private String eremark2;
+  private String epractisecontenttime;
+  private String edrivingcontenttime;
+  private Consumer consumer;
 
+  public Consumer getConsumer()
+  {
+    return consumer;
+  }
+
+  public void setConsumer(Consumer consumer)
+  {
+    this.consumer = consumer;
+  }
 
   public long getEid() {
     return eid;
@@ -287,21 +297,21 @@ public class Examination {
   }
 
 
-  public String getEremark1() {
-    return eremark1;
+  public String getEpractisecontenttime() {
+    return epractisecontenttime;
   }
 
-  public void setEremark1(String eremark1) {
-    this.eremark1 = eremark1;
+  public void setEpractisecontenttime(String epractisecontenttime) {
+    this.epractisecontenttime = epractisecontenttime;
   }
 
 
-  public String getEremark2() {
-    return eremark2;
+  public String getEdrivingcontenttime() {
+    return edrivingcontenttime;
   }
 
-  public void setEremark2(String eremark2) {
-    this.eremark2 = eremark2;
+  public void setEdrivingcontenttime(String edrivingcontenttime) {
+    this.edrivingcontenttime = edrivingcontenttime;
   }
 
 }
