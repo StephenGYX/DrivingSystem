@@ -23,6 +23,16 @@ public class ManageDSCService
 	{ return manageDSCMapper.delDSC(del);
 	}
 
+	public int updateCoachStateByDid(long did, int i)
+	{
+		return manageDSCMapper.updateCoachStateByDid(did,i);
+	}
+
+	public int updateCoachPwdByDid(int did, String password)
+	{
+		return manageDSCMapper.updateCoachPwdByDid(did,password);
+	}
+
 	;
 
 }

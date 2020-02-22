@@ -4,6 +4,7 @@ package com.drivingsys.controller;
 import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.tableParam;
 import com.drivingsys.service.ManageDSCService;
+import com.google.gson.Gson;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.ibatis.session.RowBounds;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -133,7 +136,54 @@ public class ManageDSCController
 
 
 
+	@RequestMapping("CoachTableOperation")
+	@ResponseBody
+	public int coachTableOperation(HttpServletRequest request) throws ServletException, IOException
+	{
 
+
+
+		String operation= request.getParameter("do").trim();
+		String id = request.getParameter("did");
+		System.out.println("这是参数" + operation);
+		System.out.println("这是id" + id);
+
+
+		int Did =Integer.valueOf(id);
+		int index = 0;
+
+
+		if (operation.equals("start"))
+		{
+			System.out.println("start");
+			index=manageDSCService.updateCoachStateByDid(Did,1);
+			//执行xml的 对应的方法
+		} else if (operation.equals("stop"))
+		{
+			System.out.println("stop");
+			index=manageDSCService.updateCoachStateByDid(Did,2);
+			//执行xml的 对应的方法
+		} else if (operation.equals("rePsw"))
+		{
+			String password = request.getParameter("password");
+			index=manageDSCService.updateCoachPwdByDid(Did,password);
+
+
+		}else if (operation.equals("delete"))
+		{
+			index=manageDSCService.updateCoachStateByDid(Did,3);
+
+
+		}
+
+		System.out.println("这是修改结果index"+index);
+
+//
+
+
+		return index;
+
+	}
 
 
 

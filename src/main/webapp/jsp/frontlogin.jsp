@@ -78,8 +78,11 @@
 			</div>
 		</form>
 
-
-
+<div>
+	<a class="layui-btn" href="backlogin.jsp" id="reg">注册</a>
+</div>
+		<h2>测试验证码：</h2>
+		   请输入验证码：<input type="text" name="code" /><img id="codeimg" src="${pageContext.request.contextPath }/fact/getyzm" onclick="changeImg()">
 	</div>
 
 </div>
@@ -113,30 +116,34 @@
 				//从servlet接收的数据
 				, success: function (msg) {
 					alert(msg+"suc");
-					layer.msg("已经变更角色id")
+					layer.msg("已经变更角色id");
+					if (msg==2){//2 驾校 3教练 4学员
+						$('#reg').attr('href',"area.jsp");
+					}else if (msg==3) {
+						$('#reg').attr('href',"backpractisereg.jsp");
+					}
+
+					else if (msg==4) {
+						$('#reg').attr('href',"backreg.jsp");
+					}
 				}
 				, error: function (msg) {
 					alert(msg+"error");
 					layer.alert("服务器正忙.....");
 				}
 			});
-			<%--<%=--%>
-			<%--session.setAttribute("roleid",status);--%>
-			<%--%>--%>
-			// sessionStorage.setItem("roleid", roleid);
-			// var position = '#order_all';
-			// switch (status) {
-			// 	case '2': position = '#order_pay';
-			//
-			//
-			// 	break;
-			// 	case '3': position = '#order_receive'; break;
-			//
-			// 	default: position = '#order_all';
-			// }
+
 		})
 
 	});
 </script>
+<script type="text/javascript">
+
+	//改变验证码事件
+	        function changeImg(){
+		            var img = document.getElementById('codeimg');
+		            img.src = "${pageContext.request.contextPath }/fact/getyzm?x=" + Math.floor(Math.random()*100)
+
+	        }</script>
 </body>
 </html>

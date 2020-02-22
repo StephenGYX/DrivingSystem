@@ -17,12 +17,12 @@ public class Drivingschool {
   private String daddress;
   private String drecruit;
   private long dprice;
-  private String dsynopsis;//概要
-  private String daccountstate;//账号状态
-  private String drecruitstate;//招生状态
-  private long denrollnum;//注册人数
-  private long dgraduationnum;//毕业人数
-  private long devaluatescore;//评分
+  private String dsynopsis;
+  private String daccountstate;
+  private String drecruitstate;
+  private long denrollnum;
+  private long dgraduationnum;
+  private long devaluatescore;
   private long rid;
   private String dregtime;
   private String dremark1;
