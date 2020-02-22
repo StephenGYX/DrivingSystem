@@ -65,10 +65,11 @@
 	</update>
     <!--教练的账号启用禁用，修改密码，逻辑删除-->
 
-	<!--驾校端对学员的用户列表查询-->
+	<!--驾校端对学员的用户列表查询，需和订单表绑定-->
 	<select id="queryStudentByMySchool" resultType="com.drivingsys.bean.Consumer" parameterType="map">
-		select  * from  consumer
+		select  c.*,e.* from  consumer c,examination e
 		<where>
+			 and c.cid =e.cid
 			<if test="selectParam.cpritiseid!=null and selectParam.cpritiseid!='' ">
 				and  cpritiseid =#{selectParam.cpritiseid}
 			</if>
@@ -86,9 +87,46 @@
 			</if>
 		</where>
 	</select>
+<!--	<resultMap id="consumerAndOrder" type="com.drivingsys.bean.Consumer">-->
+<!--		<collection property="examination" ofType="com.drivingsys.bean.Examination" javaType="com.drivingsys.bean.Examination">-->
+<!--			<id property="eid" column="eid" />-->
+<!--			<result property="cid" column="cid" />-->
+<!--			<result property="did" column="did" />-->
+<!--			<result property="pid" column="pid" />-->
+<!--			<result property="evehicletype" column="evehicletype" />-->
+<!--			<result property="eenrollremarks" column="esubmittime" />-->
+<!--			<result property="eorderstate" column="eorderstate" />-->
+<!--			<result property="eclasshour1" column="eclasshour1" />-->
+<!--			<result property="etesttime1" column="etesttime1" />-->
+<!--			<result property="etestscore1" column="etestscore1" />-->
+<!--			<result property="eadopttime1" column="eadopttime1" />-->
+<!--			<result property="eclasshour2" column="eclasshour2" />-->
+<!--			<result property="etesttime2" column="etesttime2" />-->
+<!--			<result property="etestscore2" column="etestscore2" />-->
+<!--			<result property="eadopttime2" column="eadopttime2" />-->
+<!--			<result property="eclasshour3" column="eclasshour3" />-->
+<!--			<result property="etesttime3" column="etesttime3" />-->
+<!--			<result property="eetestscore3" column="eetestscore3" />-->
+<!--			<result property="eeadopttime3" column="eeadopttime3" />-->
+<!--			<result property="eclasshour4" column="eclasshour4" />-->
+<!--			<result property="etesttime4" column="etesttime4" />-->
+<!--			<result property="eetestscore4" column="eetestscore4" />-->
+<!--			<result property="eeadopttime4" column="eeadopttime4" />-->
+<!--			<result property="edrivingscore" column="edrivingscore" />-->
+<!--			<result property="edrivingcontent" column="edrivingcontent" />-->
+<!--			<result property="epractisescore" column="epractisescore" />-->
+<!--			<result property="epractisecontent" column="epractisecontent" />-->
+<!--			<result property="eremark1" column="eremark1" />-->
+<!--			<result property="eremark2" column="eremark2" />-->
+
+<!--		</collection>-->
+<!--	</resultMap>-->
+	<!--驾校端对学员的用户列表查询，需和订单表绑定-->
+
 	<select id="queryStudentByMySchoolCount" resultType="long" parameterType="map">
-		select  count(*) from  consumer
+		select  count(*) from   consumer c,examination e
 		<where>
+			 and c.cid =e.cid
 			<if test="selectParam.cpritiseid!=null and selectParam.cpritiseid!='' ">
 				and  cpritiseid =#{selectParam.cpritiseid}
 			</if>
@@ -130,9 +168,50 @@
 	<!--学员的账号启用禁用，修改密码，逻辑删除-->
 
 
+	<!--通过驾校ID和教练ID，查看该教练是否存在-->
+	<select id="queryCoachByPidAndDid" resultType="com.drivingsys.bean.Practise" parameterType="map">
+		select * from practise
+		<where>
+		 and	pid = #{selectParam.pid} and 	pdrivingid =#{selectParam.did}
+		</where>
+	</select>
+	<!--通过驾校ID和教练ID，查看该教练是否存在-->
 
+	<!--修改学员表的所属教练一栏，将其和教练绑定-->
+	<update id="updateStudentTheCoachId"  parameterType="java.util.Map">
+		update consumer
+		<set>
+			cpritiseid =#{selectParam.pid}
+			<where>
+				cid =#{selectParam.cid}
+			</where>
+		</set>
+	</update>
+	<!--修改学员表的所属教练一栏，将其和教练绑定-->
 
+	<!--修改订单表的教练一栏，将其和教练绑定-->
+	<update id="updateOrderTheCoachId"  parameterType="java.util.Map">
+		update examination
+		<set>
+			pid =#{selectParam.pid}
+			<where>
+				cid =#{selectParam.cid}
+			</where>
+		</set>
+	</update>
+	<!--修改订单表的教练一栏，将其和教练绑定-->
 
+	<!--根据审核的情况，修改订单表的订单状态一栏-->
+	<update id="updateOrderState"  parameterType="java.util.Map">
+		update examination
+		<set>
+			eorderstate =#{selectParam.orderState}
+			<where>
+				cid =#{selectParam.cid}
+			</where>
+		</set>
+	</update>
+	<!--根据审核的情况，修改订单表的订单状态一栏-->
 
 
 </mapper>

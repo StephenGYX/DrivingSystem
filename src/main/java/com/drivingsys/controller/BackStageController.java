@@ -1,6 +1,7 @@
 package com.drivingsys.controller;
 
 import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlShowGrantsStatement;
+import com.drivingsys.aspectJ.Log;
 import com.drivingsys.bean.Backstage;
 import com.drivingsys.bean.RoleMenu;
 import com.drivingsys.bean.backmenu.BackMenu;
@@ -37,6 +38,7 @@ public class BackStageController
 
 	@ResponseBody
 	@RequestMapping("/backLogin")
+	@Log(operationType = "查询操作", operationName = "用户登录")
 	public String backLogin(@RequestParam Map<String,String> reqMap, HttpServletRequest request){
 
 		System.out.println("方法进来了！");
@@ -61,6 +63,7 @@ public class BackStageController
 	 * @return
 	 */
 	@RequestMapping("/logOut")
+	@Log(operationType = "无数据操作", operationName = "注销登录")
 	public String logOut(){
 		return "backlogin";
 	}

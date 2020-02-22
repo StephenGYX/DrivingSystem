@@ -73,4 +73,28 @@ public class DrivingSchoolManageServiceImpl implements DrivingSchoolManageServic
 	{
 		return drivingSchoolManageMapper.updateStudentPwdByCid(cid,pwd);
 	}
+
+	@Override
+	public Practise queryCoachByPidAndDid(HashMap selectParam)
+	{
+		return drivingSchoolManageMapper.queryCoachByPidAndDid(selectParam);
+	}
+
+	@Override
+	public int updateStudentTheCoachId(HashMap selectParam)
+	{
+		return drivingSchoolManageMapper.updateStudentTheCoachId(selectParam);
+	}
+
+	@Override
+	public int updateOrderTheCoachId(HashMap selectParam)
+	{
+		return drivingSchoolManageMapper.updateOrderTheCoachId(selectParam);
+	}
+
+	@Override
+	public int updateOrderState(HashMap selectParam)
+	{
+		return drivingSchoolManageMapper.updateOrderState(selectParam);
+	}
 }

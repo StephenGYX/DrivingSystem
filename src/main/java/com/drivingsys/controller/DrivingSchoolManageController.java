@@ -1,10 +1,7 @@
 package com.drivingsys.controller;
 
 
-import com.drivingsys.bean.Consumer;
-import com.drivingsys.bean.Drivingschool;
-import com.drivingsys.bean.Practise;
-import com.drivingsys.bean.tableParam;
+import com.drivingsys.bean.*;
 import com.drivingsys.service.DrivingSchoolManageService;
 import com.drivingsys.service.FrontLoginService;
 import com.google.gson.Gson;
@@ -73,8 +70,7 @@ public class DrivingSchoolManageController
 		List<Practise> practises = drivingSchoolManageService.queryCoachByMySchool(rowBounds,paramMap);
 		long coachCount = drivingSchoolManageService.queryCoachByMySchoolCount(paramMap);
 
-		System.out.println("返回的表格       "+practises);
-		System.out.println("返回的表格数量       "+coachCount);
+
 		tableParam tableParam = new tableParam();
 
 		//0表示成功
@@ -170,6 +166,7 @@ public class DrivingSchoolManageController
 		long studentCount = drivingSchoolManageService.queryStudentByMySchoolCount(paramMap);
 
 
+
 		tableParam tableParam = new tableParam();
 
 		//0表示成功
@@ -204,12 +201,12 @@ public class DrivingSchoolManageController
 		{
 			System.out.println("start");
 			index=drivingSchoolManageService.updateStudentStateByCid(cid,1);
-			//执行xml的 对应的方法
+
 		} else if (operation.equals("stop"))
 		{
 			System.out.println("stop");
 			index=drivingSchoolManageService.updateStudentStateByCid(cid,0);
-			//执行xml的 对应的方法
+
 		} else if (operation.equals("rePsw"))
 		{
 			String password = request.getParameter("password");
@@ -220,6 +217,54 @@ public class DrivingSchoolManageController
 		{
 			index=drivingSchoolManageService.updateStudentStateByCid(cid,2);
 
+
+		}else if (operation.equals("examinePass"))
+		{
+			//拿到驾校端输入的教练ID
+			String pid = request.getParameter("pid");
+			//拿到登录后台的驾校ID
+			long l =1;
+			String driverSchoolId =String.valueOf(l);
+			HashMap<String, String> idMap = new HashMap<>();
+			idMap.put("pid",pid);
+			idMap.put("did",driverSchoolId);
+			//先查询驾校端输入的这个教练是否存在
+			Practise practise = drivingSchoolManageService.queryCoachByPidAndDid(idMap);
+
+			//如果教练为空，则返回404，告诉页面没有找到该教练
+			if (practise==null){
+                 index =404;
+
+			}//否则教练存在，将其和学员进行绑定(学员表和订单表都需要绑定)
+			else{
+
+				HashMap<String, String> cidPidMap = new HashMap<>();
+				HashMap<String, String> orderState = new HashMap<>();
+
+				cidPidMap.put("cid",id);
+				cidPidMap.put("pid",pid);
+
+				orderState.put("cid",id);
+				orderState.put("orderState","0");
+                //与用户表和菜单表分别绑定
+				index=drivingSchoolManageService.updateOrderTheCoachId(cidPidMap);
+				int index1= drivingSchoolManageService.updateStudentTheCoachId(cidPidMap);
+				//将订单状态改成0(表示审核通过，未完成科目1)
+				int index2=drivingSchoolManageService.updateOrderState(orderState);
+				System.out.println("index=     "+index);
+				System.out.println("index1=     "+index1);
+				//等于2
+				index =index+index1;
+		}
+
+
+		}else if (operation.equals("examineNoPass"))
+		{
+			HashMap<String, String> orderState = new HashMap<>();
+			orderState.put("cid",id);
+			orderState.put("orderState","-2");
+			//将订单状态改成-2(表示审核不通过，被驳回)
+			 index=drivingSchoolManageService.updateOrderState(orderState);
 
 		}
 
@@ -232,4 +277,55 @@ public class DrivingSchoolManageController
 		return jsonStr;
 
 	}
+
+	@RequestMapping("QueryStudentKaoShiTable")
+	@ResponseBody
+	public tableParam queryStudentKaoShiTable(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		//当前页数
+		String page = request.getParameter("page");
+		//限制条数
+		String limit = request.getParameter("limit");
+		String userAccount = request.getParameter("userAccount");
+		String username = request.getParameter("username");
+		String startTime = request.getParameter("startTime");
+		String stopTime = request.getParameter("stopTime");
+		String cpritiseid = request.getParameter("param");
+
+		int pages= Integer.valueOf(page);
+		int limits = Integer.valueOf(limit);
+		RowBounds rowBounds = new RowBounds((pages - 1) * limits,limits);
+
+
+		HashMap<String, String> paramMap = new HashMap<>();
+		paramMap.put("userAccount",userAccount);
+		paramMap.put("username",username);
+		paramMap.put("startTime",startTime);
+		paramMap.put("stopTime",stopTime);
+
+
+
+		paramMap.put("cpritiseid",cpritiseid);
+
+
+		List<Consumer> consumers = drivingSchoolManageService.queryStudentByMySchool(rowBounds,paramMap);
+		long studentCount = drivingSchoolManageService.queryStudentByMySchoolCount(paramMap);
+
+
+
+		tableParam tableParam = new tableParam();
+
+		//0表示成功
+		tableParam.setCode(0);
+		//数据库查询count数量
+		tableParam.setCount(studentCount);
+		//失败数据
+		tableParam.setMsg("");
+		tableParam.setData(consumers);
+
+		return tableParam;
+	}
+
+
+
 }

@@ -78,7 +78,7 @@
 
 				{{#  }
 				else if(d.paccountstate == 1 ){ }}
-				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="stop">禁用</a>
+				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="stop">禁用</a>
 				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
 				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="seeMyStudent">查看学员</a>
@@ -120,6 +120,21 @@
 					{field: 'pemail', width: 200, title: '邮箱', sort: true},
 					{field: 'pdrivingid', width: 80, title: '驾校ID'},
 					{field: 'ppassword', width: 135, title: '密码', sort: true},
+					{field: 'paccountstate', width: 100, title: '账号状态', sort: true
+						,templet: function (a)
+						{
+							if (a.paccountstate==1){
+								return "启用";
+							} else if (a.paccountstate==0) {
+								return "禁用";
+							}
+							else if (a.paccountstate==2) {
+								return "已删除";
+							}
+						}
+					},
+
+
 					{field: 'page', title: '年龄', minWidth: 150},
 					{title: '操作', minWidth: 50, templet: '#currentTableBar', fixed: "right", align: "center"}
 				]],
