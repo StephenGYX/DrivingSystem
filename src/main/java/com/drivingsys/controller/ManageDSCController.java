@@ -1,7 +1,9 @@
 package com.drivingsys.controller;
 
 
+import com.drivingsys.bean.Consumer;
 import com.drivingsys.bean.Drivingschool;
+import com.drivingsys.bean.Examination;
 import com.drivingsys.bean.tableParam;
 import com.drivingsys.service.ManageDSCService;
 import com.google.gson.Gson;
@@ -92,22 +94,12 @@ public class ManageDSCController
 		}
 
 
-//		RowBounds rowBounds=createRowBounds(request);
+		RowBounds rowBounds=createRowBounds(request);
 
 		int i=manageDSCService.delDSC(del);
 		System.out.println("操作条数"+i);
 		return i;
-//		tableParam tableParam = new tableParam();
 
-//		//0表示成功
-//		tableParam.setCode(0);
-//		//数据库查询count数量
-//		tableParam.setCount(2);
-//		//失败数据
-//		tableParam.setMsg("");
-//		tableParam.setData(manageDSCService.queryDSC(null, rowBounds));
-//
-//		return tableParam;
 	}
 
 
@@ -120,13 +112,18 @@ public class ManageDSCController
 
 
 	private RowBounds createRowBounds(HttpServletRequest request){
+		RowBounds rowBounds=null;
 		//当前页数
 		String page = request.getParameter("page");
 		//限制条数
 		String limit = request.getParameter("limit");
-		int pages = Integer.valueOf(page);
-		int limits = Integer.valueOf(limit);
-		RowBounds rowBounds = new RowBounds((pages - 1) * limits, limits);
+		if (limit != null&&page!=null)
+		{
+			int pages = Integer.valueOf(page);
+			int limits = Integer.valueOf(limit);
+			 rowBounds = new RowBounds((pages - 1) * limits, limits);
+
+		}
 
 
 
@@ -188,4 +185,45 @@ public class ManageDSCController
 
 
 
+	@RequestMapping("QueryDSCPJ")
+	@ResponseBody
+	public tableParam QueryDSCPJ(@RequestParam Map<String, Object> reqMap, HttpServletRequest request)
+	{
+
+		System.out.println("进入搜索方法");
+		System.out.println(reqMap);
+		System.out.println(reqMap.get("did"));
+
+		String did = request.getParameter("did");
+
+//		Map<String, Object> search = new HashMap<String, Object>();
+//		;
+//		if (searchParams != null)
+//		{
+//
+//			JSONObject a = JSONObject.fromObject(searchParams);
+//			search = (Map<String, Object>) a;
+//		}
+
+
+		RowBounds rowBounds=createRowBounds(request);
+		//		manageDSCService.queryDSC(reqMap,rowBounds);
+		List<Examination> list= manageDSCService.querySTUpj(Integer.valueOf(did),rowBounds);
+		JSONArray JSO=JSONArray.fromObject(list);
+		System.out.println("********");
+		System.out.println(JSO);
+
+
+		tableParam tableParam = new tableParam();
+
+		//0表示成功
+		tableParam.setCode(0);
+		//数据库查询count数量
+		tableParam.setCount(2);
+		//失败数据
+		tableParam.setMsg("");
+		tableParam.setData(list);
+
+		return tableParam;
+	}
 }

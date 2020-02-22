@@ -41,8 +41,8 @@ public class Consumer {
   private String etesttime4;
   private String eetestscore4;
   private String eeadopttime4;
-  private String edrivingscore;
-  private String edrivingcontent;
+  private String edrivingscore; //驾校评分
+  private String edrivingcontent;//驾校评价
   private String epractisescore;
   private String epractisecontent;
   private String eremark1;

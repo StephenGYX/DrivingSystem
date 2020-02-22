@@ -85,6 +85,7 @@
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
 			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="seepract">查看教练</a>
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="pingjia">查看教练</a>
 
 			{{#  }
 			else if(d.daccountstate == 1 ){ }}
@@ -92,6 +93,7 @@
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
 			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="seepract">查看教练</a>
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="pingjia">评价</a>
 			{{#  }
 
 			else if(d.daccountstate == 3){ }}
@@ -153,7 +155,7 @@
 						return d.dprovince+d.dcity+d.darea;
 					}
 				},
-				{title: '操作', minWidth: 300, templet: '#currentTableBar', fixed: "right", align: "center"}
+				{title: '操作', minWidth: 350, templet: '#currentTableBar', fixed: "right", align: "center"}
 			]],
 			limits: [5, 10, 15],
 			limit: 15,
@@ -456,11 +458,26 @@
 				});
 			}
 			else if(layEvent === 'seepract'){
+				//查看教练
 				var layer = layui.layer;
 				var row_data = data  // 整行的数据
-					,daccount = row_data.daccount ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
+					,did = row_data.did ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
 				//此处可走一个ajax把对应的驾校信息存入session；
-				window.location.href="<%=path%>"+"/jsp/drivingSchoolStudentTable.jsp?daccount="+daccount+""
+				window.location.href="<%=path%>"+"/jsp/drivingSchoolStudentTable.jsp?did="+did+""
+			}
+			else if (layEvent === 'pingjia') {
+				var layer = layui.layer;
+				var row_data = data ; // 整行的数据
+				alert("进入评价")
+				var index = layer.open({
+					title: '查看评价',
+					type: 2,
+					shade: 0.2,
+					maxmin: true,
+					shadeClose: false,
+					area: ['70%', '70%'],
+					content: 'DSC/DschPingJia.jsp?did='+row_data.did
+				});
 			}
 
 			// table.on('tool(currentTableFilter)', function (obj) {

@@ -1,6 +1,8 @@
 package com.drivingsys.dao;
 
+import com.drivingsys.bean.Consumer;
 import com.drivingsys.bean.Drivingschool;
+import com.drivingsys.bean.Examination;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.session.RowBounds;
@@ -24,4 +26,6 @@ public interface ManageDSCMapper
 
 	@Update("update drivingschool set dpassword=#{password} where did=#{did}")
 	public int updateCoachPwdByDid(int did, String password);
+
+	List<Examination> querySTUpj(int did, RowBounds rowBounds);
 }

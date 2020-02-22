@@ -29,6 +29,32 @@
         </foreach>
     </update>
 
+    <select id="querySTUpj" parameterType="map" resultMap="empmap">
+        select  d.did,e.* ,c.cname,c.caccount from  drivingschool d,examination e,consumer c
+        <where>
+            and d.did=e.did and c.cid=e.cid
+            <if test="did!=null and did!='' ">
+                and  d.did =#{did}
+            </if>
+        </where>
+
+    </select>
+
+
+    <resultMap id="empmap" type="com.drivingsys.bean.Examination">
+        <result property="cid" column="cid"/>
+        <result property="did" column="did"/>
+        <result property="edrivingscore" column="edrivingscore"/>
+        <result property="edrivingcontent" column="edrivingcontent"/>
+        <collection property="consumer" column="cid" ofType="com.drivingsys.bean.Consumer"  javaType="java.util.ArrayList">
+            <result property="cname" column="cname"/>
+            <result property="caccount" column="caccount"/>
+<!--            <result property="daxiao" column="daxiao"/>-->
+<!--            <result property="uid" column="uid"/>-->
+<!--            <result property="lujinng" column="lujinng"/>-->
+        </collection>
+    </resultMap>
+
 
     <!--	<select id="queryCoachByMySchoolCount" resultType="long" parameterType="long">-->
     <!--	    select  count(*) from  practise where  pdrivingid =#{pdrivingid}-->

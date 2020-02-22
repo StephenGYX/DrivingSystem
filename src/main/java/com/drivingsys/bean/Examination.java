@@ -1,6 +1,8 @@
 package com.drivingsys.bean;
 
 
+import java.util.List;
+
 public class Examination {
 
   private long eid;
@@ -27,13 +29,23 @@ public class Examination {
   private String etesttime4;
   private String eetestscore4;
   private String eeadopttime4;
-  private String edrivingscore;
-  private String edrivingcontent;
+  private String edrivingscore;//驾校评分
+  private String edrivingcontent;//驾校评价
   private String epractisescore;
   private String epractisecontent;
   private String eremark1;
   private String eremark2;
+   private List<Consumer> consumer;
 
+  public List<Consumer> getConsumer()
+  {
+    return consumer;
+  }
+
+  public void setConsumer(List<Consumer> consumer)
+  {
+    this.consumer = consumer;
+  }
 
   public long getEid() {
     return eid;
