@@ -11,6 +11,7 @@
 <%
 	String path = application.getContextPath();
 	String roleid = session.getAttribute("roleid") + "";
+
 %>
 <html>
 <head>
@@ -160,7 +161,7 @@
 					<form class="layui-form" action="<%=path+"/fact/frontLogin"%>">
 						<div>
 							<i class="layui-icon layui-icon-username admin-icon"></i>
-							<input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input admin-input admin-input-username" value="admin">
+							<input type="text" name="account" placeholder="请输入用户名" autocomplete="off" class="layui-input admin-input admin-input-username" value="admin">
 						</div>
 						<div>
 							<i class="layui-icon layui-icon-password admin-icon"></i>
@@ -177,7 +178,7 @@
 			</div>
 			<div id="test4">
 				还没有账号？
-				<a   class="reg" href="backlogin.jsp" id="reg">注册账号</a>
+				<a   class="reg" href="backreg.jsp" id="reg">注册账号</a>
 			</div>
 
 		</div>
@@ -186,7 +187,7 @@
 
 </div>
 
-
+<script src="<%=path+"/lib/jquery-3.4.1/jquery-3.4.1.min.js"%>" charset="utf-8"></script>
 <script>
 	//一般直接写在一个js文件中
 	layui.use(['layer', 'form', 'element'], function () {
@@ -241,6 +242,34 @@
 		img.src = "${pageContext.request.contextPath }/fact/getyzm?x=" + Math.floor(Math.random() * 100)
 
 	}</script>
-</body>
+
+<%
+	if (request.getSession().getAttribute("fmsg")!=null)
+	{
+		String fmsg=request.getSession().getAttribute("fmsg")+"";
+		switch (fmsg){
+			case "yzmcw":
+				out.write("<script>alert('验证码错误')</script>");
+				break;
+			case "2":
+				out.write("<script>alert('账号或者密码错误')</script>");
+				break;
+		}
+	}
+
+%>
+
+
+<script>
+	window.onload=function (ev) {
+		$.ajax({
+			type: "POST",
+			url: '<%=path+"/fact/role"%>',
+			dataType: "text",
+			// data: {},
+
+		});
+	}
+</script>
 </body>
 </html>

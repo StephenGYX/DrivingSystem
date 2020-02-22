@@ -38,12 +38,23 @@ public class FrontLoginController
 
 
 	@RequestMapping("frontLogin")
-	public String testMain(@RequestParam Map<String,String> reqMap, HttpServletRequest request){
+	public String testMain(@RequestParam Map<String, String> reqMap, HttpServletRequest request)
+	{
 		System.out.println(reqMap);
-		String roleid=request.getSession().getAttribute("roleid")+"";
+		String roleid = request.getSession().getAttribute("roleid") + "";
+		String CODE = request.getSession().getAttribute("CODE") + "";
+		String code = reqMap.get("code");
+		if (!code.equals(CODE))
+		{
+			System.out.println("验证码错误");
+			request.getSession().setAttribute("fmsg", "yzmcw");
+			return "frontlogin3";
 
-		if (roleid.equals("null")){
-			roleid="4";
+		}
+		;
+		if (roleid.equals("null"))
+		{
+			roleid = "4";
 		}
 		System.out.println("roleid=" + roleid);
 		if (roleid.equals("3"))
@@ -53,11 +64,12 @@ public class FrontLoginController
 			if (practise == null)
 			{
 				System.out.println("没找到教练");
-				return "frontlogin";
+				request.getSession().setAttribute("fmsg", "2");
+				return "frontlogin3";
 			} else
 			{
 				System.out.println("找到了教练");
-				request.getSession().setAttribute("practise",practise);
+				request.getSession().setAttribute("practise", practise);
 				return "backmenu";
 			}
 
@@ -68,12 +80,14 @@ public class FrontLoginController
 			if (drivingschool == null)
 			{
 				System.out.println("没找到驾校");
-				return "frontlogin";
+				request.getSession().setAttribute("fmsg", "2");
+				return "frontlogin3";
 			} else
 			{
 				System.out.println("找到了驾校");
-				request.getSession().setAttribute("drivingschool",drivingschool);
-				return "DSCHinfo";
+				request.getSession().setAttribute("drivingschool", drivingschool);
+				//				return "DSCHinfo";
+				return "backmenu";
 			}
 		} else if (roleid.equals("4"))
 		{
@@ -81,28 +95,41 @@ public class FrontLoginController
 			if (consumer == null)
 			{
 				System.out.println("没找到学生");
-				return "frontlogin";
+				request.getSession().setAttribute("fmsg", "2");
+				return "frontlogin3";
 			} else
 			{
 				System.out.println("找到了学生");
-				request.getSession().setAttribute("consumer",consumer);
+				request.getSession().setAttribute("consumer", consumer);
 
 				return "backmenu";
 			}
 		}
-		return "frontlogin";
+		return "frontlogin3";
 	}
+
 	@RequestMapping("roleid")
 	@ResponseBody
-	public String testMain(String roleid, HttpServletRequest request){
-		System.out.println("roleid方法参数"+roleid);
+	public String testMain(String roleid, HttpServletRequest request)
+	{
+		System.out.println("roleid方法参数" + roleid);
 		String roleid1 = "4";
-		roleid1=roleid;
-		request.getSession().setAttribute("roleid",roleid1);
+		roleid1 = roleid;
+		request.getSession().setAttribute("roleid", roleid1);
 		System.out.println(roleid1);
 		return roleid1;
 	}
 
+
+
+	@RequestMapping("role")
+	@ResponseBody
+	public void testMain( HttpServletRequest request)
+	{
+
+		request.getSession().setAttribute("roleid", "4");
+
+	}
 
 
 
@@ -117,21 +144,21 @@ public class FrontLoginController
 
 		String dscParams = request.getParameter("dscParams");
 
-		Map<String,Object> del =new HashMap<String, Object>();
+		Map<String, Object> del = new HashMap<String, Object>();
 		;
 		if (dscParams != null)
 		{
 
 			JSONObject a = JSONObject.fromObject(dscParams);
-			del = (Map<String,Object>) a;
+			del = (Map<String, Object>) a;
 		}
 
 
 		//		RowBounds rowBounds=createRowBounds(request);
-		int i=frontLoginService.instertDSC(del);
+		int i = frontLoginService.instertDSC(del);
 
 
-		System.out.println("操作条数"+i);
+		System.out.println("操作条数" + i);
 		return i;
 
 	}
@@ -147,25 +174,23 @@ public class FrontLoginController
 
 		String dscParams = request.getParameter("dscParams");
 
-		Map<String,Object> updata =new HashMap<String, Object>();
+		Map<String, Object> updata = new HashMap<String, Object>();
 		;
 		if (dscParams != null)
 		{
 
 			JSONObject a = JSONObject.fromObject(dscParams);
-			updata = (Map<String,Object>) a;
+			updata = (Map<String, Object>) a;
 		}
 
 
-
-//		int i=frontLoginService.instertDSC(del);
-//
-//
-//		System.out.println("操作条数"+i);
+		//		int i=frontLoginService.instertDSC(del);
+		//
+		//
+		//		System.out.println("操作条数"+i);
 		return 0;
 
 	}
-
 
 
 	@RequestMapping("upload")
@@ -195,16 +220,13 @@ public class FrontLoginController
 				return "上传第" + (i++) + "个文件失败";
 			}
 		}
-	return "全部成功";
+		return "全部成功";
 	}
-
-
-
 
 
 	@RequestMapping("/getyzm")
 	@ResponseBody
-	public void getyzm (HttpServletRequest req, HttpServletResponse resp) throws IOException
+	public void getyzm(HttpServletRequest req, HttpServletResponse resp) throws IOException
 	{
 		resp.setHeader("Pragma", "No-cache");
 		resp.setHeader("Cache-Control", "no-cache");
