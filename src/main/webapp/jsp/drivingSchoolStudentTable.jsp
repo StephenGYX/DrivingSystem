@@ -85,8 +85,7 @@
 			else if(d.cstate == 0 && d.cpritiseid != null){ }}
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="start">启用</a>
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="schoolEvaluate">驾校评价</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="coachEvaluate">教练评价</a>
+			<a class="layui-btn layui-btn-xs data-count-edit" data-method="dialog" lay-event="Evaluate">所发评价</a>
 			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 			{{#  }
 			else if(d.cstate == 1 && (d.cpritiseid == null || d.cpritiseid.trim()  == '') && d.eorderstate == -1 ){ }}
@@ -101,8 +100,7 @@
 			else if(d.cstate == 1 && d.cpritiseid != null){ }}
 			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="stop">禁用</a>
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="schoolEvaluate">驾校评价</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="coachEvaluate">教练评价</a>
+			<a class="layui-btn layui-btn-xs data-count-edit" data-method="dialog" lay-event="Evaluate">所发评价</a>
 			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 
 			{{#  }
@@ -476,6 +474,36 @@
 
 
 				});
+			}else if (layEvent === 'Evaluate') {
+				var layer = layui.layer, $ = layui.jquery;
+				var row_data = data  // 整行的数据
+					,cid = row_data.cid ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
+
+
+				var othis = $(this), //othis当前对象
+					method = othis.data('method');//data-method="dialog"中的值
+
+				if(method == "dialog"){
+					layer.open({
+						type: 2,
+						area: ['500px', '300px'],
+						btn: ['确定', '取消'],
+						btn1: function(index, layero){
+							//layer.getChildFrame("form", index)获取iframe的表单
+							//serializeArray jquery方法，将表单对象序列化为数组
+							var formData = serializeObject($, layer.getChildFrame("form", index).serializeArray());
+							console.log(formData);
+							var s = JSON.stringify(formData);
+							console.log(s);
+
+						},
+						//要弹出的窗口的路径
+						content: "<%=path%>"+"/drivingSchool/studentAllEval?cid="+cid+""  //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+						,success: function(layero, index){
+							console.log(layero, index);
+						}
+					});
+				}
 			}
 
 
@@ -489,38 +517,22 @@
 
 
 
-
-
 		//监听表格复选框选择
 		table.on('checkbox(currentTableFilter)', function (obj) {
 			console.log(obj)
 		});
 
 
-		// table.on('tool(currentTableFilter)', function (obj) {
-		// 	var data = obj.data;
-		// 	if (obj.event === 'edit') {
-		//
-		// 		var index = layer.open({
-		// 			title: '编辑用户',
-		// 			type: 2,
-		// 			shade: 0.2,
-		// 			maxmin:true,
-		// 			shadeClose: true,
-		// 			area: ['100%', '100%'],
-		// 			content: '/page/table/edit.html',
-		// 		});
-		// 		$(window).on("resize", function () {
-		// 			layer.full(index);
-		// 		});
-		// 		return false;
-		// 	} else if (obj.event === 'delete') {
-		// 		layer.confirm('真的删除行么', function (index) {
-		// 			obj.del();
-		// 			layer.close(index);
-		// 		});
-		// 	}
-		// });
+			//将表单转为js对象数据
+			function serializeObject($, array){
+				var obj=new Object();
+				$.each(array, function(index,param){
+					if(!(param.name in obj)){
+						obj[param.name]=param.value;
+					}
+				});
+				return obj;
+			}
 
 	});
 	});

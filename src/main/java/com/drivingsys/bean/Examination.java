@@ -33,9 +33,13 @@ public class Examination {
   private String edrivingcontent;//驾校评价
   private String epractisescore;
   private String epractisecontent;
+  private String epractisecontenttime;
+  private String edrivingcontenttime;
+
   private String eremark1;
   private String eremark2;
    private List<Consumer> consumer;
+
 
   public List<Consumer> getConsumer()
   {
@@ -299,21 +303,21 @@ public class Examination {
   }
 
 
-  public String getEremark1() {
-    return eremark1;
+  public String getEpractisecontenttime() {
+    return epractisecontenttime;
   }
 
-  public void setEremark1(String eremark1) {
-    this.eremark1 = eremark1;
+  public void setEpractisecontenttime(String epractisecontenttime) {
+    this.epractisecontenttime = epractisecontenttime;
   }
 
 
-  public String getEremark2() {
-    return eremark2;
+  public String getEdrivingcontenttime() {
+    return edrivingcontenttime;
   }
 
-  public void setEremark2(String eremark2) {
-    this.eremark2 = eremark2;
+  public void setEdrivingcontenttime(String edrivingcontenttime) {
+    this.edrivingcontenttime = edrivingcontenttime;
   }
 
 }

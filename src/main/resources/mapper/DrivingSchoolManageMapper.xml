@@ -205,6 +205,9 @@
 	<update id="updateOrderState"  parameterType="java.util.Map">
 		update examination
 		<set>
+			<if test="selectParam.cpritiseid!=null and selectParam.cpritiseid!='' ">
+				and  cpritiseid =#{selectParam.cpritiseid}
+			</if>
 			eorderstate =#{selectParam.orderState}
 			<where>
 				cid =#{selectParam.cid}
@@ -213,6 +216,78 @@
 	</update>
 	<!--根据审核的情况，修改订单表的订单状态一栏-->
 
+	<!--安排考试，确认考试时间-->
+	<update id="updateOrderKaoshiTime"  parameterType="java.util.Map">
+		update examination
+		<set>
+			<if test="kaoShiParam.test1!=null and kaoShiParam.test1!='' ">
+				etesttime1 =#{kaoShiParam.kaoShiTime1}
+			</if>
+			<if test="kaoShiParam.test2!=null and kaoShiParam.test2!='' ">
+				etesttime2 =#{kaoShiParam.kaoShiTime2}
+			</if>
+			<if test="kaoShiParam.test3!=null and kaoShiParam.test3!='' ">
+				 etesttime3 =#{kaoShiParam.kaoShiTime3}
+			</if>
+			<if test="kaoShiParam.test4!=null and kaoShiParam.test4!='' ">
+				 etesttime4 =#{kaoShiParam.kaoShiTime4}
+			</if>
+			<where>
+				cid =#{kaoShiParam.cid} and	pid =#{kaoShiParam.pid}
+			</where>
+		</set>
+	</update>
+	<!--安排考试，确认考试时间-->
+
+
+	<!--通过驾校和教练ID，查看该教练所收到的评价-->
+	<select id="queryCoachEval" resultMap="consumerInfo" parameterType="map">
+		select * from examination e,consumer c
+		<where>
+			e.cid=c.cid and e.pid =#{pid} and e.did =#{did}
+		</where>
+		order by epractisecontenttime desc
+	</select>
+		<resultMap id="consumerInfo" type="com.drivingsys.bean.Examination">
+			<collection property="consumer" ofType="com.drivingsys.bean.Consumer" javaType="com.drivingsys.bean.Consumer">
+				<id property="cid" column="cid" />
+				<result property="cname" column="cname" />
+				<result property="epractisecontent" column="epractisecontent" />
+				<result property="epractisecontenttime" column="epractisecontenttime" />
+			</collection>
+		</resultMap>
+	<!--通过驾校和教练ID，查看该教练所收到的评价-->
+
+	<!--通过驾校和学员ID，查看该学员所有的评价-->
+	<select id="queryStudentAllEval" resultMap="cInfo" parameterType="map">
+		select * from examination e,consumer c,practise p
+		<where>
+			p.pid=e.pid and e.cid=c.cid and c.cid =#{cid} and e.did =#{did}
+		</where>
+		order by epractisecontenttime desc
+	</select>
+	<resultMap id="cInfo" type="com.drivingsys.bean.Examination">
+		<collection property="consumer" ofType="com.drivingsys.bean.Consumer" javaType="com.drivingsys.bean.Consumer">
+			<id property="cid" column="cid" />
+			<result property="cname" column="cname" />
+			<result property="epractisecontent" column="epractisecontent" />
+			<result property="epractisecontenttime" column="epractisecontenttime" />
+			<result property="edrivingcontent" column="edrivingcontent" />
+			<result property="edrivingcontenttime" column="edrivingcontenttime" />
+			<result property="pname" column="pname" />
+
+
+		</collection>
+	</resultMap>
+	<!--通过驾校和教练ID，查看该教练所收到的评价-->
+
+	<!--通过教练ID，查看该教练的个人-->
+	<select id="queryPractiseById" resultType="com.drivingsys.bean.Practise" parameterType="java.lang.String">
+		select * from practise
+		<where>
+			and pid =#{pid}
+		</where>
+	</select>
 
 </mapper>
 	

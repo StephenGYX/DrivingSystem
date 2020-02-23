@@ -45,8 +45,19 @@ public class Consumer {
   private String edrivingcontent;//驾校评价
   private String epractisescore;
   private String epractisecontent;
-  private String eremark1;
-  private String eremark2;
+  private String epractisecontenttime;
+  private String edrivingcontenttime;
+  private String pname;
+
+  public String getPname()
+  {
+    return pname;
+  }
+
+  public void setPname(String pname)
+  {
+    this.pname = pname;
+  }
 
   public long getEid()
   {
@@ -318,24 +329,25 @@ public class Consumer {
     this.epractisecontent = epractisecontent;
   }
 
-  public String getEremark1()
+
+  public String getEpractisecontenttime()
   {
-    return eremark1;
+    return epractisecontenttime;
   }
 
-  public void setEremark1(String eremark1)
+  public void setEpractisecontenttime(String epractisecontenttime)
   {
-    this.eremark1 = eremark1;
+    this.epractisecontenttime = epractisecontenttime;
   }
 
-  public String getEremark2()
+  public String getEdrivingcontenttime()
   {
-    return eremark2;
+    return edrivingcontenttime;
   }
 
-  public void setEremark2(String eremark2)
+  public void setEdrivingcontenttime(String edrivingcontenttime)
   {
-    this.eremark2 = eremark2;
+    this.edrivingcontenttime = edrivingcontenttime;
   }
 
   public long getCid() {
