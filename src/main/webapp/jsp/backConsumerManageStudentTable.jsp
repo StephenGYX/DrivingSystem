@@ -120,18 +120,10 @@
 <script src="<%=path+"/lib/layui-v2.5.5/layui.js"%>" charset="utf-8"></script>
 
 
+        <input type="hidden" id="pid" value="${requestScope.pid}">
+        <input type="hidden" id="did" value="${requestScope.did}">
 
 <script>
-	var param;
-	var strings;
-	//加载的时候获取参数(教练ID)
-	window.onload =function () {
-		 param = location.search;
-		strings = param.split("=");
-		console.log(param);
-		console.log(strings[0]);
-		console.log(strings[1]);
-	};
 
 	layui.use(['form', 'table'], function () {
 		var $ = layui.jquery,
@@ -141,7 +133,7 @@
 
 		table.render({
 			elem: '#currentTableId',
-			url: "<%=path%>"+"/drivingSchool/QueryMyStudent?param="+strings[1]+"",
+			url: "<%=path%>"+"/backConsumer/QueryMyStudent?param="+$("#pid").val()+"",
 			toolbar: '#toolbarDemo',
 			defaultToolbar: ['filter', 'exports', 'print', {
 				title: '提示',
@@ -225,7 +217,7 @@
 					$(function() {
 						$.ajax({
 							method : "POST",
-							url : "<%=path%>"+"/drivingSchool/StudentTableOperation?do=start&cid="+cid+"",
+							url : "<%=path%>"+"/backConsumer/StudentTableOperation?do=start&cid="+cid+"",
 							dataType : "text",
 							success : function(msg) {
 								if(msg>0){
@@ -261,7 +253,7 @@
 					$(function() {
 						$.ajax({
 							method : "POST",
-							url : "<%=path%>"+"/drivingSchool/StudentTableOperation?do=stop&cid="+cid+"",
+							url : "<%=path%>"+"/backConsumer/StudentTableOperation?do=stop&cid="+cid+"",
 							dataType : "text",
 							success : function(msg) {
 								if(msg>0){
@@ -306,7 +298,7 @@
 
 					$.ajax({
 						type: "post",
-						url: "<%=path%>"+"/drivingSchool/StudentTableOperation",
+						url: "<%=path%>"+"/backConsumer/StudentTableOperation",
 						data: {
 							"cid":cid,
 							"do": "rePsw",
@@ -345,7 +337,7 @@
 
 					$.ajax({
 						method : "POST",
-						url:"<%=path%>"+"/drivingSchool/StudentTableOperation",
+						url:"<%=path%>"+"/backConsumer/StudentTableOperation",
 						type:'post',
 						data: {
 							"cid":cid,
@@ -393,12 +385,13 @@
 					}, function(value, index1, elem){
 						$.ajax({
 							method : "POST",
-							url:"<%=path%>"+"/drivingSchool/StudentTableOperation",
+							url:"<%=path%>"+"/backConsumer/StudentTableOperation",
 							type:'post',
 							data: {
 								"cid":cid,
 								"do": "examinePass",
-								"pid":value
+								"pid":value,
+								"did":$("#did").val()
 							},
 							success:function(msg){
 								if(msg=="2"){
@@ -440,7 +433,7 @@
 
 					$.ajax({
 						method : "POST",
-						url:"<%=path%>"+"/drivingSchool/StudentTableOperation",
+						url:"<%=path%>"+"/backConsumer/StudentTableOperation",
 						type:'post',
 						data: {
 							"cid":cid,
@@ -496,10 +489,10 @@
 							console.log(formData);
 							var s = JSON.stringify(formData);
 							console.log(s);
-
+							layer.close(index);
 						},
 						//要弹出的窗口的路径
-						content: "<%=path%>"+"/drivingSchool/studentAllEval?cid="+cid+""  //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+						content: "<%=path%>"+"/backConsumer/studentAllEval?cid="+cid+"&did="+$("#did").val()+""  //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
 						,success: function(layero, index){
 							console.log(layero, index);
 						}
