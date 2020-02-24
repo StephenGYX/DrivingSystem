@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drivingsys.dao.UserinfoMapper">
+
+    <update id="updateuserface" parameterType="map">
+		update consumer set facetoken=#{facetoken} where cid=#{cid}
+	</update>
+    <select id="selectFacetoken" parameterType="string" resultType="string">
+        select facetoken from consumer where cid=#{cid}
+    </select>
+    <select id="selectkemunow" parameterType="string" resultType="int">
+        select eorderstate from examination where cid=#{cid}
+    </select>
+    <update id="updateClasshour" parameterType="map" >
+        update examination set eclasshour${kemunow} =#{totaltime} where cid=#{cid}
+    </update>
+    <select id="selectclasshours" parameterType="string" resultType="map">
+        select eclasshour1,eclasshour2,eclasshour3,eclasshour4 from examination where cid=#{cid}
+    </select>
+    <select id="selectdrivingschool" parameterType="string" resultType="map">
+        select dname,did from drivingschool where  did=(select did from examination where cid=${cid})
+    </select>
+    <select id="selectorderstate" parameterType="string" resultType="map">
+        select eorderstate,schoolrated from examination where   cid=${cid}
+    </select>
+    <select id="selectcoachrated" parameterType="string" resultType="map">
+        select eorderstate,coachrated from examination where   cid=${cid}
+    </select>
+    <select id="selectcoach" parameterType="string" resultType="string">
+        select pname from practise where  pid=(select pid from examination where cid=${cid})
+    </select>
+    <update id="updateschoolrate" parameterType="map" >
+        update examination set edrivingscore=#{score},edrivingcontent=#{content},schoolrated=1,edrivingcontenttime=#{time}
+        where cid=#{cid}
+    </update>
+    <update id="updatecoachrate" parameterType="map">
+        update examination set epractisescore=#{score},epractisecontent=#{content},coachrated=1,epractisecontenttime=#{time}
+
+        where cid=#{cid}
+    </update>
+</mapper>

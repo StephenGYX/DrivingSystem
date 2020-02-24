@@ -24,8 +24,14 @@
 	<script src=<%=Path+"/js/lay-config.js?v=1.0.4"%> charset="utf-8"></script>
 </head>
 <body>
-<%@ page  isELIgnored = "false" %>
 
+<%@ page  isELIgnored = "false" %>
+<script type="text/html" id="bar">
+	<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+			class="layui-icon layui-icon-edit"></i>编辑</a>
+	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
+			class="layui-icon layui-icon-delete"></i>删除</a>
+	</script>
 <!-- 增加搜索条件 -->
 <div class="demoTable">
 	搜索ID：
@@ -33,31 +39,39 @@
 		<input class="layui-input" name="id" id="demoReload" autocomplete="off">
 	</div>
 	<button class="layui-btn" data-type="reload" >搜索</button>
-</div>
-<%--创建表格--%>
-<table id="demo" lay-filter="test"></table>
 
+</div>
+<button id="pro" type="button" class="layui-btn layui-btn-normal">新增车辆</button>
+<table class="layui-hide" id="test"  lay-filter="test"></table>
+
+<div id="demo11"></div>
 <script>
+	var json;
+
 	layui.use('table', function(){
 		var table = layui.table;
 
 		//第一个实例
 		table.render({
-			elem: '#demo'
+			elem: '#test'
 			,height: 272
 			,url: '/springboot/table' //数据接口
-			,page: true //开启分页
 			,parseData:function (res) {
 				return{
 					"code":0,
 					"msg":0,
-					"count":0,
-					"data":res
+					"count":res.count,
+					"data":res.data
 				}
 			}
+
 			,cols: [[ //表头
-				{field: 'vcarnum', title: '车牌', width:80, sort: true, fixed: 'left'}
-				,{field: 'vbrand', title: '品牌', width:80
+				{field: 'vcarnum', title: '车牌', width:160, sort: true, fixed: 'left'}
+				,
+				{fixed: 'vphoto',
+					title: '图片',width:80,templet: function (d) {
+						return '<div ><img src="'+d.vphoto+'"  width="50px" height="50px" onclick="showBigImage(this)"></a></div>';
+					}
 				},
 				{field: 'vmodel', title: '型号', width:80
 				},
@@ -65,32 +79,85 @@
 				},
 				{field: 'vdrivingid', title: '驾校', width:80
 				},
-				{field: 'vcarstate', title: '状态', width:80
+				{field: 'vcarstate', title: '状态', width: 80
+				},
+				{field: 'vbrand', title: '品牌', width:80
+				},
+				{fixed: 'right',title: '操作', width:160,toolbar:"#bar"
 				}
 
-			]]
+
+			]],
+
+
+			page: true,
+			limit:5
 
 		});
 
-	});
 
 
+
+		table.on('tool(test)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+			var data = obj.data; //获得当前行数据
+			var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+			var row_data = data,
+			vid = row_data.vid;
+			json = JSON.stringify(data);
+
+			if (layEvent === 'del') { //删除
+				console.log("删除");
+				var a=confirm("确定要删除该车辆吗？删除后不可恢复");
+				if(a===true){
+					$.ajax({
+						url: '/springboot/del',
+						method: 'post',
+						data: {"vid":vid},
+						dataType: 'text'
+					});
+					//执行重载
+					table.reload('test', {
+						page: {
+							curr: 1 //重新从第 1 页开始
+						}
+						,where: {	}
+					}, 'data');
+					layer.msg('删除成功')
+					setTimeout( function(){
+						window.parent.location.reload();
+					}, 2000 );//延迟两秒
+				}
+			} else if (layEvent === 'edit') { //编辑
+				var row_data = data,
+					vid = row_data.vid
+				layer.open({
+					maxmin: true,
+					type: 2,
+					title: '修改车辆信息',
+					content:['/springboot/jsp/backupdate.jsp','no'] ,//不允许出现滚动条
+					area:['600px', '400px']
+				});
+			}
+			});
 
 	var $ = layui.$, active = {
 		reload: function(){
 			var demoReload = $('#demoReload');
+			if($("#demoReload").val()==""){
+				window.parent.location.reload();
+			}else{
 
-			//执行重载
-			table.reload('testReload', {
-				page: {
-					curr: 1 //重新从第 1 页开始
-				}
-				,where: {
-					key: {
-						id: demoReload.val()
+				//执行重载
+				table.reload('test', {
+					page: {
+						curr: 1 //重新从第 1 页开始
 					}
-				}
-			}, 'data');
+					,where: {	demoReload:$("#demoReload").val()}
+					,url:'/springboot/search'
+				}, 'data');
+			}
+
+
 		}
 	};
 
@@ -99,17 +166,37 @@
 		active[type] ? active[type].call(this) : '';
 	});
 
-	layui.use(['laypage', 'layer'], function() {
-		var laypage = layui.laypage;
-		laypage.render({
-			elem: '#demo11'
-			,count: 100
-			,limit: 5
-			,limits: [5, 30, 50]
-		});
+
 	});
+
 </script>
 
-<div id="demo11"></div>
+<script type="text/javascript">
+
+	$('#pro').on('click',function(){
+		layui.use('layer', function() {
+			var layer = layui.layer;
+			layer.open({
+				type: 2,
+				title: '新增车辆',
+				content:['/springboot/jsp/backadd.jsp','no'] ,//不允许出现滚动条
+				area:['600px', '400px']
+			});
+		});
+	})
+</script>
+<script>
+	function showBigImage(e) {
+		layer.open({
+			type: 1,
+			title: false,
+			closeBtn: 0,
+			shadeClose: true, //点击阴影关闭
+			area: [$(e).width + 'px', $(e).height + 'px'], //宽高
+		content: "<img src=" + $(e).attr('src') + " />"
+	});
+	}
+</script>
+
 </body>
 </html>

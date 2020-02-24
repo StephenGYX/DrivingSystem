@@ -1,13 +1,11 @@
 package com.drivingsys.controller;
 
 
-import com.drivingsys.bean.Consumer;
-import com.drivingsys.bean.Drivingschool;
-import com.drivingsys.bean.Practise;
-import com.drivingsys.bean.tableParam;
+import com.drivingsys.bean.*;
 import com.drivingsys.service.DrivingSchoolManageService;
 import com.drivingsys.service.FrontLoginService;
 import com.google.gson.Gson;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -169,6 +168,7 @@ public class DrivingSchoolManageController
 		long studentCount = drivingSchoolManageService.queryStudentByMySchoolCount(paramMap);
 
 
+
 		tableParam tableParam = new tableParam();
 
 		//0表示成功
@@ -279,4 +279,233 @@ public class DrivingSchoolManageController
 		return jsonStr;
 
 	}
+
+	@RequestMapping("QueryStudentKaoShiTable")
+	@ResponseBody
+	public tableParam queryStudentKaoShiTable(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		//当前页数
+		String page = request.getParameter("page");
+		//限制条数
+		String limit = request.getParameter("limit");
+		String userAccount = request.getParameter("userAccount");
+		String username = request.getParameter("username");
+		String startTime = request.getParameter("startTime");
+		String stopTime = request.getParameter("stopTime");
+		String cpritiseid = request.getParameter("param");
+
+		int pages= Integer.valueOf(page);
+		int limits = Integer.valueOf(limit);
+		RowBounds rowBounds = new RowBounds((pages - 1) * limits,limits);
+
+
+		HashMap<String, String> paramMap = new HashMap<>();
+		paramMap.put("userAccount",userAccount);
+		paramMap.put("username",username);
+		paramMap.put("startTime",startTime);
+		paramMap.put("stopTime",stopTime);
+
+
+
+		paramMap.put("cpritiseid",cpritiseid);
+
+
+		List<Consumer> consumers = drivingSchoolManageService.queryStudentByMySchool(rowBounds,paramMap);
+		long studentCount = drivingSchoolManageService.queryStudentByMySchoolCount(paramMap);
+
+
+
+		tableParam tableParam = new tableParam();
+
+		//0表示成功
+		tableParam.setCode(0);
+		//数据库查询count数量
+		tableParam.setCount(studentCount);
+		//失败数据
+		tableParam.setMsg("");
+		tableParam.setData(consumers);
+
+		return tableParam;
+	}
+
+
+	@RequestMapping("kaoShiDialog")
+	@ResponseBody
+    public ModelAndView  kaoShiDialog(HttpServletRequest request){
+
+
+		String test = request.getParameter("test");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("kaoshi",test);
+
+		modelAndView.setViewName("drivingSchoolKaoShiArrange");
+
+		return modelAndView;
+    }
+
+
+
+
+	@RequestMapping("kaoShiArrange")
+	@ResponseBody
+	public String kaoShiArrange(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		int index = 0;
+		//获取到要考试的学员以及教练的ID
+		String cid = request.getParameter("cid");
+		String pid = request.getParameter("pid");
+
+		//获取到学员需要考试的科目以及考试时间
+		String kaoShiTime1 = request.getParameter("kaoShiTime1");
+		String kaoShiTime2 = request.getParameter("kaoShiTime2");
+		String kaoShiTime3 = request.getParameter("kaoShiTime3");
+		String kaoShiTime4 = request.getParameter("kaoShiTime4");
+		String test1 = request.getParameter("test1");
+		String test2 = request.getParameter("test2");
+		String test3 = request.getParameter("test3");
+		String test4 = request.getParameter("test4");
+
+		HashMap<String, String> paramMap = new HashMap<>();
+		paramMap.put("cid",cid);
+		paramMap.put("pid",pid);
+		paramMap.put("kaoShiTime1",kaoShiTime1);
+		paramMap.put("kaoShiTime2",kaoShiTime2);
+		paramMap.put("kaoShiTime3",kaoShiTime3);
+		paramMap.put("kaoShiTime4",kaoShiTime4);
+		paramMap.put("test1",test1);
+		paramMap.put("test2",test2);
+		paramMap.put("test3",test3);
+		paramMap.put("test4",test4);
+
+		index= drivingSchoolManageService.updateOrderKaoshiTime(paramMap);
+		Gson gson = new Gson();
+		String jsonStr = gson.toJson(index);
+
+
+		return jsonStr;
+
+	}
+
+
+	@RequestMapping("kaoShiRevoke")
+	@ResponseBody
+	public String kaoShiRevoke(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+
+
+
+		String operation= request.getParameter("do");
+		String id = request.getParameter("cid");
+		String pid = request.getParameter("pid");
+		HashMap<String, String> paramMap = new HashMap<>();
+
+
+		int cid =Integer.valueOf(id);
+		int index = 0;
+
+		if (operation.equals("Revoke1"))
+		{
+			paramMap.put("cid",id);
+			paramMap.put("pid",pid);
+			paramMap.put("kaoShiTime1","");
+			paramMap.put("test1","noNull");
+
+			index= drivingSchoolManageService.updateOrderKaoshiTime(paramMap);
+
+		} else if (operation.equals("Revoke2"))
+		{
+			paramMap.put("cid",id);
+			paramMap.put("pid",pid);
+			paramMap.put("kaoShiTime2","");
+			paramMap.put("test2","noNull");
+
+			index= drivingSchoolManageService.updateOrderKaoshiTime(paramMap);
+
+		} else if (operation.equals("Revoke3"))
+		{
+
+			paramMap.put("cid",id);
+			paramMap.put("pid",pid);
+			paramMap.put("kaoShiTime3","");
+			paramMap.put("test3","noNull");
+			index= drivingSchoolManageService.updateOrderKaoshiTime(paramMap);
+
+
+		}else if (operation.equals("Revoke4"))
+		{
+			paramMap.put("cid",id);
+			paramMap.put("pid",pid);
+			paramMap.put("kaoShiTime4","");
+			paramMap.put("test4","noNull");
+			index= drivingSchoolManageService.updateOrderKaoshiTime(paramMap);
+
+
+		}
+
+		System.out.println("这是修改结果index"+index);
+
+		Gson gson = new Gson();
+		String jsonStr = gson.toJson(index);
+
+
+		return jsonStr;
+
+	}
+	@RequestMapping("practiseEval")
+	@ResponseBody
+	public ModelAndView practiseEval(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+
+		//教练的ID
+		String pid = request.getParameter("pid");
+
+		long l =1;
+		String driverSchoolId =String.valueOf(l);
+		//		//获取到登录成功的驾校端
+		//		 Drivingschool drivingschool = (Drivingschool) request.getSession().getAttribute("DrivingSchoolLoginSuccess");
+		//		long did = drivingschool.getDid();
+
+		List<Examination> examinations = drivingSchoolManageService.queryCoachEval(pid, driverSchoolId);
+
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("evalS",examinations);
+
+		modelAndView.setViewName("drivingSchoolToPractiseEvaluate");
+
+		return modelAndView;
+	}
+	@RequestMapping("studentAllEval")
+	@ResponseBody
+	public ModelAndView studentAllEval(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+
+		//学员ID
+		String cid = request.getParameter("cid");
+
+		long l =1;
+		String driverSchoolId =String.valueOf(l);
+		//		//获取到登录成功的驾校端
+		//		 Drivingschool drivingschool = (Drivingschool) request.getSession().getAttribute("DrivingSchoolLoginSuccess");
+		//		long did = drivingschool.getDid();
+
+        //拿到订单表的信息
+		List<Examination> examinations = drivingSchoolManageService.queryStudentAllEval(cid, driverSchoolId);
+
+
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("evalS",examinations);
+		modelAndView.setViewName("drivingSchoolStudentAllEvaluate");
+
+		return modelAndView;
+	}
+
+
+
+
+
+
+
+
 }

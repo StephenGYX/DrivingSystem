@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drivingsys.dao.KaoshiMapper">
+
+
+    <insert id="insertmonirecord" parameterType="map">
+        insert into monirecord (cid,testtime,score,kemu) value (#{cid},#{testtime},#{score},#{kemu})
+    </insert>
+    <select id="selectmonirecord" parameterType="map" resultType="com.drivingsys.bean.Monirecord">
+        select testtime,score from monirecord where cid=#{cid} and kemu=#{kemu} limit ${start},5
+    </select>
+
+    <select id="selectrecordcount" parameterType="map" resultType="int">
+        select count(*)from monirecord where cid=#{cid} and kemu=#{kemu}
+    </select>
+
+    <select id="selectexamschedule" parameterType="string" resultType="map">
+        select etesttime1,etestscore1,eadopttime1,etesttime2,etestscore2,eadopttime2,etesttime3,etestscore3,eadopttime3,etesttime4,etestscore4,eadopttime4 from examination where cid=#{cid}
+
+    </select>
+
+</mapper>

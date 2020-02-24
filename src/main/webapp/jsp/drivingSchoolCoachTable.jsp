@@ -30,31 +30,31 @@
 					<form class="layui-form layui-form-pane" action="">
 						<div class="layui-form-item">
 							<div class="layui-inline">
-								<label class="layui-form-label">用户姓名</label>
+								<label class="layui-form-label">学员账号</label>
 								<div class="layui-input-inline">
-									<input type="text" name="username" autocomplete="off" class="layui-input">
+									<input type="text" id="userAccount" name="userAccount" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-inline">
-								<label class="layui-form-label">用户性别</label>
+								<label class="layui-form-label">学员姓名</label>
 								<div class="layui-input-inline">
-									<input type="text" name="sex" autocomplete="off" class="layui-input">
+									<input type="text" id="username" name="username" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-inline">
-								<label class="layui-form-label">用户城市</label>
+								<label class="layui-form-label">时间</label>
 								<div class="layui-input-inline">
-									<input type="text" name="city" autocomplete="off" class="layui-input">
+									<input type="date" id="startTime" name="startTime" autocomplete="off" class="layui-input">
+								</div>
+								<label class="layui-form-label">至</label>
+								<div class="layui-input-inline">
+									<input type="date" id="stopTime" name="stopTime" autocomplete="off" class="layui-input">
 								</div>
 							</div>
+
+
 							<div class="layui-inline">
-								<label class="layui-form-label">用户职业</label>
-								<div class="layui-input-inline">
-									<input type="text" name="classify" autocomplete="off" class="layui-input">
-								</div>
-							</div>
-							<div class="layui-inline">
-								<button type="submit" class="layui-btn layui-btn-primary"  lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+								<button type="submit" class="layui-btn layui-btn-primary" lay-submit  lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
 							</div>
 						</div>
 					</form>
@@ -75,6 +75,7 @@
 				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
 				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="seeMyStudent">查看学员</a>
+				<a class="layui-btn layui-btn-xs data-count-edit" data-method="dialog" lay-event="myEval">所受评价</a>
 
 				{{#  }
 				else if(d.paccountstate == 1 ){ }}
@@ -82,6 +83,7 @@
 				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
 				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="seeMyStudent">查看学员</a>
+				<a class="layui-btn layui-btn-xs data-count-edit" data-method="dialog"  lay-event="myEval">所受评价</a>
 				{{#  }
 
 				else if(d.paccountstate == 2){ }}
@@ -119,7 +121,6 @@
 					{field: 'pphone', width: 80, title: '电话', sort: true},
 					{field: 'pemail', width: 200, title: '邮箱', sort: true},
 					{field: 'pdrivingid', width: 80, title: '驾校ID'},
-					{field: 'ppassword', width: 135, title: '密码', sort: true},
 					{field: 'paccountstate', width: 100, title: '账号状态', sort: true
 						,templet: function (a)
 						{
@@ -342,7 +343,40 @@
 					var row_data = data  // 整行的数据
 						,pid = row_data.pid ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
 					window.location.href="<%=path%>"+"/jsp/drivingSchoolStudentTable.jsp?pid="+pid+""
+
+				}else if(layEvent === 'myEval'){
+					var layer = layui.layer, $ = layui.jquery;
+					var row_data = data  // 整行的数据
+						,pid = row_data.pid ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
+
+
+					var othis = $(this), //othis当前对象
+						method = othis.data('method');//data-method="dialog"中的值
+
+					if(method == "dialog"){
+						layer.open({
+							type: 2,
+							area: ['500px', '300px'],
+							btn: ['确定', '取消'],
+							btn1: function(index, layero){
+								//layer.getChildFrame("form", index)获取iframe的表单
+								//serializeArray jquery方法，将表单对象序列化为数组
+								var formData = serializeObject($, layer.getChildFrame("form", index).serializeArray());
+								console.log(formData);
+								var s = JSON.stringify(formData);
+								console.log(s);
+
+							},
+							//要弹出的窗口的路径
+							content: "<%=path%>"+"/drivingSchool/practiseEval?pid="+pid+""  //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+							,success: function(layero, index){
+								console.log(layero, index);
+							}
+						});
+					}
 				}
+
+
 
 
 
@@ -377,7 +411,16 @@
 				console.log(obj)
 			});
 
-
+				//将表单转为js对象数据
+				function serializeObject($, array){
+					var obj=new Object();
+					$.each(array, function(index,param){
+						if(!(param.name in obj)){
+							obj[param.name]=param.value;
+						}
+					});
+					return obj;
+				}
 
 		});
 		});

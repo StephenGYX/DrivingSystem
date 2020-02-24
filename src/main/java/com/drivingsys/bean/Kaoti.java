@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 
 public class Kaoti
 {
+	public String tableName;
 	public String iid;
 	public String icontent;
 	public String ioption1;
@@ -15,6 +16,27 @@ public class Kaoti
 	public String ianalysis;
 	public String picurl;
 	public String sum;
+
+	public String getTableName()
+	{
+		return tableName;
+	}
+
+	public void setTableName(String tableName)
+	{
+		this.tableName = tableName;
+	}
+
+	public String getSum()
+	{
+		return sum;
+	}
+
+	public void setSum(String sum)
+	{
+		this.sum = sum;
+	}
+
 	public String getIid()
 	{
 		return iid;
@@ -103,5 +125,11 @@ public class Kaoti
 	public void setPicurl(String picurl)
 	{
 		this.picurl = picurl;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Kaoti{" + "iid='" + iid + '\'' + ", icontent='" + icontent + '\'' + ", ioption1='" + ioption1 + '\'' + ", ioption2='" + ioption2 + '\'' + ", ioption3='" + ioption3 + '\'' + ", ioption4='" + ioption4 + '\'' + ", irightkey='" + irightkey + '\'' + ", ianalysis='" + ianalysis + '\'' + ", picurl='" + picurl + '\'' + ", sum='" + sum + '\'' + '}';
 	}
 }

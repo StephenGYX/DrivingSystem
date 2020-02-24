@@ -1,6 +1,7 @@
 package com.drivingsys.service;
 
 import com.drivingsys.bean.Consumer;
+import com.drivingsys.bean.Examination;
 import com.drivingsys.bean.Practise;
 import com.drivingsys.dao.DrivingSchoolManageMapper;
 import org.apache.ibatis.session.RowBounds;
@@ -96,5 +97,29 @@ public class DrivingSchoolManageServiceImpl implements DrivingSchoolManageServic
 	public int updateOrderState(HashMap selectParam)
 	{
 		return drivingSchoolManageMapper.updateOrderState(selectParam);
+	}
+
+	@Override
+	public int updateOrderKaoshiTime(HashMap kaoShiParam)
+	{
+		return drivingSchoolManageMapper.updateOrderKaoshiTime(kaoShiParam);
+	}
+
+	@Override
+	public List<Examination> queryCoachEval(String pid, String did)
+	{
+		return drivingSchoolManageMapper.queryCoachEval(pid,did);
+	}
+
+	@Override
+	public List<Examination> queryStudentAllEval(String cid, String did)
+	{
+		return drivingSchoolManageMapper.queryStudentAllEval(cid,did);
+	}
+
+	@Override
+	public Practise queryPractiseById(String pid)
+	{
+		return drivingSchoolManageMapper.queryPractiseById(pid);
 	}
 }
