@@ -21,7 +21,6 @@
 			<if test="selectParam.stopTime!=null and selectParam.stopTime!='' ">
 				and  pregtime &lt;=#{selectParam.stopTime}
 			</if>
-
 		</where>
 	</select>
 	<select id="queryCoachByMySchoolCount" resultType="long" parameterType="map">
@@ -65,10 +64,11 @@
 	</update>
     <!--教练的账号启用禁用，修改密码，逻辑删除-->
 
-	<!--驾校端对学员的用户列表查询-->
+	<!--驾校端对学员的用户列表查询，需和订单表绑定-->
 	<select id="queryStudentByMySchool" resultType="com.drivingsys.bean.Consumer" parameterType="map">
-		select  * from  consumer
+		select  c.*,e.* from  consumer c,examination e
 		<where>
+			 and c.cid =e.cid
 			<if test="selectParam.cpritiseid!=null and selectParam.cpritiseid!='' ">
 				and  cpritiseid =#{selectParam.cpritiseid}
 			</if>
@@ -86,9 +86,46 @@
 			</if>
 		</where>
 	</select>
+<!--	<resultMap id="consumerAndOrder" type="com.drivingsys.bean.Consumer">-->
+<!--		<collection property="examination" ofType="com.drivingsys.bean.Examination" javaType="com.drivingsys.bean.Examination">-->
+<!--			<id property="eid" column="eid" />-->
+<!--			<result property="cid" column="cid" />-->
+<!--			<result property="did" column="did" />-->
+<!--			<result property="pid" column="pid" />-->
+<!--			<result property="evehicletype" column="evehicletype" />-->
+<!--			<result property="eenrollremarks" column="esubmittime" />-->
+<!--			<result property="eorderstate" column="eorderstate" />-->
+<!--			<result property="eclasshour1" column="eclasshour1" />-->
+<!--			<result property="etesttime1" column="etesttime1" />-->
+<!--			<result property="etestscore1" column="etestscore1" />-->
+<!--			<result property="eadopttime1" column="eadopttime1" />-->
+<!--			<result property="eclasshour2" column="eclasshour2" />-->
+<!--			<result property="etesttime2" column="etesttime2" />-->
+<!--			<result property="etestscore2" column="etestscore2" />-->
+<!--			<result property="eadopttime2" column="eadopttime2" />-->
+<!--			<result property="eclasshour3" column="eclasshour3" />-->
+<!--			<result property="etesttime3" column="etesttime3" />-->
+<!--			<result property="eetestscore3" column="eetestscore3" />-->
+<!--			<result property="eeadopttime3" column="eeadopttime3" />-->
+<!--			<result property="eclasshour4" column="eclasshour4" />-->
+<!--			<result property="etesttime4" column="etesttime4" />-->
+<!--			<result property="eetestscore4" column="eetestscore4" />-->
+<!--			<result property="eeadopttime4" column="eeadopttime4" />-->
+<!--			<result property="edrivingscore" column="edrivingscore" />-->
+<!--			<result property="edrivingcontent" column="edrivingcontent" />-->
+<!--			<result property="epractisescore" column="epractisescore" />-->
+<!--			<result property="epractisecontent" column="epractisecontent" />-->
+<!--			<result property="eremark1" column="eremark1" />-->
+<!--			<result property="eremark2" column="eremark2" />-->
+
+<!--		</collection>-->
+<!--	</resultMap>-->
+	<!--驾校端对学员的用户列表查询，需和订单表绑定-->
+
 	<select id="queryStudentByMySchoolCount" resultType="long" parameterType="map">
-		select  count(*) from  consumer
+		select  count(*) from   consumer c,examination e
 		<where>
+			 and c.cid =e.cid
 			<if test="selectParam.cpritiseid!=null and selectParam.cpritiseid!='' ">
 				and  cpritiseid =#{selectParam.cpritiseid}
 			</if>
@@ -130,10 +167,145 @@
 	<!--学员的账号启用禁用，修改密码，逻辑删除-->
 
 
+	<!--通过驾校ID和教练ID，查看该教练是否存在-->
+	<select id="queryCoachByPidAndDid" resultType="com.drivingsys.bean.Practise" parameterType="map">
+		select * from practise
+		<where>
+			<if test="selectParam.pid!=null and selectParam.pid!='' ">
+				and  pid = #{selectParam.pid}
+			</if>
+			<if test="selectParam.did!=null and selectParam.did!='' ">
+				and  pdrivingid =#{selectParam.did}
+			</if>
+
+		</where>
+	</select>
+	<!--通过驾校ID和教练ID，查看该教练是否存在-->
+
+	<!--修改学员表的所属教练一栏，将其和教练绑定-->
+	<update id="updateStudentTheCoachId"  parameterType="java.util.Map">
+		update consumer
+		<set>
+			cpritiseid =#{selectParam.pid}
+			<where>
+				cid =#{selectParam.cid}
+			</where>
+		</set>
+	</update>
+	<!--修改学员表的所属教练一栏，将其和教练绑定-->
+
+	<!--修改订单表的教练一栏，将其和教练绑定-->
+	<update id="updateOrderTheCoachId"  parameterType="java.util.Map">
+		update examination
+		<set>
+			pid =#{selectParam.pid}
+			<where>
+				cid =#{selectParam.cid}
+			</where>
+		</set>
+	</update>
+	<!--修改订单表的教练一栏，将其和教练绑定-->
+
+	<!--根据审核的情况，修改订单表的订单状态一栏-->
+	<update id="updateOrderState"  parameterType="java.util.Map">
+		update examination
+		<set>
+			<if test="selectParam.cpritiseid!=null and selectParam.cpritiseid!='' ">
+				and  cpritiseid =#{selectParam.cpritiseid}
+			</if>
+			eorderstate =#{selectParam.orderState}
+			<where>
+				cid =#{selectParam.cid}
+			</where>
+		</set>
+	</update>
+	<!--根据审核的情况，修改订单表的订单状态一栏-->
+
+	<!--安排考试，确认考试时间-->
+	<update id="updateOrderKaoshiTime"  parameterType="java.util.Map">
+		update examination
+		<set>
+			<if test="kaoShiParam.test1!=null and kaoShiParam.test1!='' ">
+				etesttime1 =#{kaoShiParam.kaoShiTime1}
+			</if>
+			<if test="kaoShiParam.test2!=null and kaoShiParam.test2!='' ">
+				etesttime2 =#{kaoShiParam.kaoShiTime2}
+			</if>
+			<if test="kaoShiParam.test3!=null and kaoShiParam.test3!='' ">
+				 etesttime3 =#{kaoShiParam.kaoShiTime3}
+			</if>
+			<if test="kaoShiParam.test4!=null and kaoShiParam.test4!='' ">
+				 etesttime4 =#{kaoShiParam.kaoShiTime4}
+			</if>
+			<where>
+				cid =#{kaoShiParam.cid} and	pid =#{kaoShiParam.pid}
+			</where>
+		</set>
+	</update>
+	<!--安排考试，确认考试时间-->
 
 
+	<!--通过驾校和教练ID，查看该教练所收到的评价-->
+	<select id="queryCoachEval" resultMap="consumerInfo" parameterType="map">
+		select * from examination e,consumer c
+		<where>
+			e.cid=c.cid
+			<if test="pid!=null and pid.trim()!='' ">
+				and e.pid =#{pid}
+			</if>
+			<if test="did!=null and did.trim()!='' ">
+				and e.did =#{did}
+			</if>
+		</where>
+		order by epractisecontenttime desc
+	</select>
+		<resultMap id="consumerInfo" type="com.drivingsys.bean.Examination">
+			<collection property="consumer1" ofType="com.drivingsys.bean.Consumer" javaType="com.drivingsys.bean.Consumer">
+				<id property="cid" column="cid" />
+				<result property="cname" column="cname" />
+				<result property="epractisecontent" column="epractisecontent" />
+				<result property="epractisecontenttime" column="epractisecontenttime" />
+			</collection>
+		</resultMap>
+	<!--通过驾校和教练ID，查看该教练所收到的评价-->
+
+	<!--通过驾校和学员ID，查看该学员所有的评价-->
+	<select id="queryStudentAllEval" resultMap="cInfo" parameterType="map">
+		select * from examination e,consumer c,practise p
+		<where>
+			p.pid=e.pid and e.cid=c.cid
+
+			<if test="cid!=null and cid.trim()!='' ">
+				and c.cid =#{cid}
+			</if>
+			<if test="did!=null and did.trim()!='' ">
+				and e.did =#{did}
+			</if>
+		</where>
+		order by epractisecontenttime desc
+	</select>
+	<resultMap id="cInfo" type="com.drivingsys.bean.Examination">
+		<collection property="consumer1" ofType="com.drivingsys.bean.Consumer" javaType="com.drivingsys.bean.Consumer">
+			<id property="cid" column="cid" />
+			<result property="cname" column="cname" />
+			<result property="epractisecontent" column="epractisecontent" />
+			<result property="epractisecontenttime" column="epractisecontenttime" />
+			<result property="edrivingcontent" column="edrivingcontent" />
+			<result property="edrivingcontenttime" column="edrivingcontenttime" />
+			<result property="pname" column="pname" />
 
 
+		</collection>
+	</resultMap>
+	<!--通过驾校和教练ID，查看该教练所收到的评价-->
+
+	<!--通过教练ID，查看该教练的个人-->
+	<select id="queryPractiseById" resultType="com.drivingsys.bean.Practise" parameterType="java.lang.String">
+		select * from practise
+		<where>
+			and pid =#{pid}
+		</where>
+	</select>
 
 </mapper>
 	

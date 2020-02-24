@@ -12,10 +12,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class myAspectJ
 {
-	//切点 -- 标记
+
+	/**
+	 * 切点
+	 * 修饰符，返回类型，对象路径，参数
+	 */
 	@Pointcut("execution(* *..UserService.login(..))")
 	public void pointCut(){
 	}
+
+//		@Pointcut("within(com.drivingsys.controller..*)")
+//		public void pointCut(){
+//		}
+
 
 	//通知
 	@Before("pointCut()")
