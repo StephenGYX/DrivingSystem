@@ -35,8 +35,6 @@ layui.use(['form'], function () {
 		var password = formData.password;
 		var code = formData.code;
 
-		console.log(formData);
-
 		if (formData.account === '') {
 			layer.msg('用户名不能为空');
 			return false;
