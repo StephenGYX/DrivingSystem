@@ -25,4 +25,9 @@ public class FrontLoginService
 
 	public Consumer queryConsumer(Map<String, String> map)
 	{return frontLoginMapper.queryConsumer(map);}
+
+	public int instertDSC(Map<String, Object> del)
+	{
+		return frontLoginMapper.instertDSC(del);
+	}
 }

@@ -96,6 +96,12 @@
 		</div>
 	</div>
 	<script src="<%=path+"/lib/layui-v2.5.5/layui.js"%>" charset="utf-8"></script>
+
+
+	<input type="hidden" id="param" value="${requestScope.did}">
+<%--	<input  id="aa" value="${requestScope.did}">--%>
+
+
 	<script>
 		layui.use(['form', 'table'], function () {
 			var $ = layui.jquery,
@@ -105,7 +111,7 @@
 
 			table.render({
 				elem: '#currentTableId',
-				url: "<%=path+"/drivingSchool/QueryMyCoach"%>",
+				url: "<%=path%>"+"/backPractise/queryAllCoach?did="+$("#param").val()+"",
 				toolbar: '#toolbarDemo',
 				defaultToolbar: ['filter', 'exports', 'print', {
 					title: '提示',
@@ -184,7 +190,7 @@
 						$(function() {
 							$.ajax({
 								method : "POST",
-								url : "<%=path%>"+"/drivingSchool/CoachTableOperation?do=start&pid="+pid+"",
+								url : "<%=path%>"+"/backPractise/CoachTableOperation?do=start&pid="+pid+"",
 								dataType : "text",
 								success : function(msg) {
 									if(msg>0){
@@ -220,7 +226,7 @@
 						$(function() {
 							$.ajax({
 								method : "POST",
-								url : "<%=path%>"+"/drivingSchool/CoachTableOperation?do=stop&pid="+pid+"",
+								url : "<%=path%>"+"/backPractise/CoachTableOperation?do=stop&pid="+pid+"",
 								dataType : "text",
 								success : function(msg) {
 									if(msg>0){
@@ -265,7 +271,7 @@
 
 						$.ajax({
 							type: "post",
-							url: "<%=path%>"+"/drivingSchool/CoachTableOperation",
+							url: "<%=path%>"+"/backPractise/CoachTableOperation",
 							data: {
 								"pid":pid,
 								"do": "rePsw",
@@ -304,7 +310,7 @@
 
 						$.ajax({
 							method : "POST",
-							url:"<%=path%>"+"/drivingSchool/CoachTableOperation",
+							url:"<%=path%>"+"/backPractise/CoachTableOperation",
 							type:'post',
 							data: {
 								"pid":pid,
@@ -342,7 +348,7 @@
 					var layer = layui.layer, $ = layui.jquery;
 					var row_data = data  // 整行的数据
 						,pid = row_data.pid ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
-					window.location.href="<%=path%>"+"/jsp/drivingSchoolStudentTable.jsp?pid="+pid+""
+					window.location.href="<%=path%>"+"/backPractise/seeMyStudent?pid="+pid+""
 
 				}else if(layEvent === 'myEval'){
 					var layer = layui.layer, $ = layui.jquery;
@@ -368,7 +374,7 @@
 
 							},
 							//要弹出的窗口的路径
-							content: "<%=path%>"+"/drivingSchool/practiseEval?pid="+pid+""  //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+							content: "<%=path%>"+"/backPractise/practiseEval?pid="+pid+"&did="+$("#param").val()+"" //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
 							,success: function(layero, index){
 								console.log(layero, index);
 							}

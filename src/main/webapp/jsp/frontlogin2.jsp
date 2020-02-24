@@ -34,61 +34,79 @@
 	<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 	<style id="layuimini-bg-color"></style>
+	<style>
+		body {background-image:url("<%=path+"/images/bg.jpg"%>");height:100%;width:100%;}
+		#container{height:100%;width:100%;}
+		input:-webkit-autofill {-webkit-box-shadow:inset 0 0 0 1000px #fff;background-color:transparent;}
+		.admin-login-background {width:300px;height:300px;position:absolute;left:50%;top:40%;margin-left:-150px;margin-top:-100px;}
+		.admin-header {text-align:center;margin-bottom:20px;color:#ffffff;font-weight:bold;font-size:40px}
+		.admin-input {border-top-style:none;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;height:50px;width:300px;padding-bottom:0px;}
+		.admin-input::-webkit-input-placeholder {color:#a78369}
+		.layui-icon-username {color:#a78369 !important;}
+		.layui-icon-username:hover {color:#9dadce !important;}
+		.layui-icon-password {color:#a78369 !important;}
+		.layui-icon-password:hover {color:#9dadce !important;}
+		.admin-input-username {border-top-style:solid;border-radius:10px 10px 0 0;}
+		.admin-input-verify {border-radius:0 0 10px 10px;}
+		.admin-button {margin-top:20px;font-weight:bold;font-size:18px;width:300px;height:50px;border-radius:5px;background-color:#a78369;border:1px solid #d8b29f}
+		.admin-icon {margin-left:260px;margin-top:10px;font-size:30px;}
+		i {position:absolute;}
+		.admin-captcha {position:absolute;margin-left:205px;margin-top:-40px;}
+	</style>
 </head>
 <body>
 <div class="layui-row ">
 
-<div class="layui-col-md5 " style="background-color: #00FFFF">
-	<span>左边</span>
-</div>
 
-	<div class="layui-col-md7 " >
-<div class="layui-tab" lay-filter="tab-all" >
 
-	<ul class="layui-tab-title">
-		<li data-status="4" class="layui-this">学员</li>
-		<li data-status="2">驾校</li>
-		<li data-status="3">教练</li>
-	</ul>
+		<div id="container">
 
-	<div class="layui-tab-content" >
+			<div class="admin-login-background">
+				<div class="admin-header">
+					<span>layuimini</span>
 
-		<form class="layui-form" action="<%=path+"/fact/frontLogin"%>" method="post" >
-			<div class="layui-form-item">
-				<label class="layui-form-label">输入框</label>
-				<div class="layui-input-inline">
-					<input type="text" name="account" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
 				</div>
-				<div class="layui-form-mid layui-word-aux">辅助文字</div>
+				<div class="layui-tab" lay-filter="tab-all" >
+
+					<ul class="layui-tab-title">
+						<li data-status="4" class="layui-this">学员</li>
+						<li data-status="2">驾校</li>
+						<li data-status="3">教练</li>
+					</ul>
+
+					<div class="layui-tab-content" >
+				<form class="layui-form" action="<%=path+"/fact/frontLogin"%>">
+					<div>
+						<i class="layui-icon layui-icon-username admin-icon"></i>
+						<input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input admin-input admin-input-username" value="admin">
+					</div>
+					<div>
+						<i class="layui-icon layui-icon-password admin-icon"></i>
+						<input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input admin-input" value="123456">
+					</div>
+					<div>
+						<input type="text" name="captcha" placeholder="请输入验证码" autocomplete="off" class="layui-input admin-input admin-input-verify" value="xszg">
+						<img  id="codeimg" class="admin-captcha" width="90" height="30" src="${pageContext.request.contextPath }/fact/getyzm" onclick="changeImg()">
+					</div>
+					<button class="layui-btn admin-button" lay-submit="" lay-filter="login">登 陆</button>
+				</form>
 			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">密码框</label>
-				<div class="layui-input-inline">
-					<input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
-				</div>
-
-			</div>
-
-
-			<div class="layui-form-item">
-				<div class="layui-input-block">
-					<button class="layui-btn" lay-submit lay-filter="formDemo">登陆</button>
-					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
-				</div>
-			</div>
-		</form>
-
+		</div>
 <div>
 	<a class="layui-btn" href="backlogin.jsp" id="reg">注册</a>
 </div>
+<%--			</div>--%>
 
-		 验证码：<input type="text" name="code" /><img id="codeimg" src="${pageContext.request.contextPath }/fact/getyzm" onclick="changeImg()">
+<%--			验证码：<input type="text" name="code" /><img id="codeimg" src="${pageContext.request.contextPath }/fact/getyzm" onclick="changeImg()">--%>
+<%--		</div>--%>
+
+</div>
 	</div>
 
 </div>
 
 </div>
-</div>
+
 <script>
 	//一般直接写在一个js文件中
 	layui.use(['layer', 'form', 'element'], function () {
@@ -140,10 +158,11 @@
 <script type="text/javascript">
 
 	//改变验证码事件
-	        function changeImg(){
-		            var img = document.getElementById('codeimg');
-		            img.src = "${pageContext.request.contextPath }/fact/getyzm?x=" + Math.floor(Math.random()*100)
+	function changeImg(){
+		var img = document.getElementById('codeimg');
+		img.src = "${pageContext.request.contextPath }/fact/getyzm?x=" + Math.floor(Math.random()*100)
 
-	        }</script>
+	}</script>
+</body>
 </body>
 </html>
