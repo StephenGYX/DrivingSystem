@@ -21,7 +21,6 @@
 			<if test="selectParam.stopTime!=null and selectParam.stopTime!='' ">
 				and  pregtime &lt;=#{selectParam.stopTime}
 			</if>
-
 		</where>
 	</select>
 	<select id="queryCoachByMySchoolCount" resultType="long" parameterType="map">
@@ -172,7 +171,13 @@
 	<select id="queryCoachByPidAndDid" resultType="com.drivingsys.bean.Practise" parameterType="map">
 		select * from practise
 		<where>
-		 and	pid = #{selectParam.pid} and 	pdrivingid =#{selectParam.did}
+			<if test="selectParam.pid!=null and selectParam.pid!='' ">
+				and  pid = #{selectParam.pid}
+			</if>
+			<if test="selectParam.did!=null and selectParam.did!='' ">
+				and  pdrivingid =#{selectParam.did}
+			</if>
+
 		</where>
 	</select>
 	<!--通过驾校ID和教练ID，查看该教练是否存在-->
@@ -244,12 +249,18 @@
 	<select id="queryCoachEval" resultMap="consumerInfo" parameterType="map">
 		select * from examination e,consumer c
 		<where>
-			e.cid=c.cid and e.pid =#{pid} and e.did =#{did}
+			e.cid=c.cid
+			<if test="pid!=null and pid.trim()!='' ">
+				and e.pid =#{pid}
+			</if>
+			<if test="did!=null and did.trim()!='' ">
+				and e.did =#{did}
+			</if>
 		</where>
 		order by epractisecontenttime desc
 	</select>
 		<resultMap id="consumerInfo" type="com.drivingsys.bean.Examination">
-			<collection property="consumer" ofType="com.drivingsys.bean.Consumer" javaType="com.drivingsys.bean.Consumer">
+			<collection property="consumer1" ofType="com.drivingsys.bean.Consumer" javaType="com.drivingsys.bean.Consumer">
 				<id property="cid" column="cid" />
 				<result property="cname" column="cname" />
 				<result property="epractisecontent" column="epractisecontent" />
@@ -262,12 +273,19 @@
 	<select id="queryStudentAllEval" resultMap="cInfo" parameterType="map">
 		select * from examination e,consumer c,practise p
 		<where>
-			p.pid=e.pid and e.cid=c.cid and c.cid =#{cid} and e.did =#{did}
+			p.pid=e.pid and e.cid=c.cid
+
+			<if test="cid!=null and cid.trim()!='' ">
+				and c.cid =#{cid}
+			</if>
+			<if test="did!=null and did.trim()!='' ">
+				and e.did =#{did}
+			</if>
 		</where>
 		order by epractisecontenttime desc
 	</select>
 	<resultMap id="cInfo" type="com.drivingsys.bean.Examination">
-		<collection property="consumer" ofType="com.drivingsys.bean.Consumer" javaType="com.drivingsys.bean.Consumer">
+		<collection property="consumer1" ofType="com.drivingsys.bean.Consumer" javaType="com.drivingsys.bean.Consumer">
 			<id property="cid" column="cid" />
 			<result property="cname" column="cname" />
 			<result property="epractisecontent" column="epractisecontent" />

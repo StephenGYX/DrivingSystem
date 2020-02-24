@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.drivingsys.dao.BackPractiseManageMapper">
+
+
+	<!--后台的教练列表查询-->
+	<select id="queryAllCoach" resultType="com.drivingsys.bean.Practise" parameterType="map">
+		select  * from  practise
+		<where>
+			<if test="selectParam.driverSchoolId!=null and selectParam.driverSchoolId.trim()!='' ">
+				and  pdrivingid =#{selectParam.driverSchoolId}
+			</if>
+			<if test="selectParam.userAccount!=null and selectParam.userAccount.trim()!='' ">
+				and   paccount like '%${selectParam.userAccount}%'
+			</if>
+			<if test="selectParam.username!=null and selectParam.username.trim()!='' ">
+				and   pname like '%${selectParam.username}%'
+			</if>
+			<if test="selectParam.startTime!=null and selectParam.startTime!='' ">
+				and  pregtime &gt;=#{selectParam.startTime}
+			</if>
+			<if test="selectParam.stopTime!=null and selectParam.stopTime!='' ">
+				and  pregtime &lt;=#{selectParam.stopTime}
+			</if>
+		</where>
+	</select>
+	<select id="queryAllCoachCount" resultType="long" parameterType="map">
+		select  count(*) from  practise
+		<where>
+			<if test="selectParam.driverSchoolId!=null and selectParam.driverSchoolId.trim()!='' ">
+				and  pdrivingid =#{selectParam.driverSchoolId}
+			</if>
+			<if test="selectParam.userAccount!=null and selectParam.userAccount.trim()!='' ">
+				and   paccount like '%${selectParam.userAccount}%'
+			</if>
+			<if test="selectParam.username!=null and selectParam.username.trim()!='' ">
+				and   pname like '%${selectParam.username}%'
+			</if>
+			<if test="selectParam.startTime!=null and selectParam.startTime!='' ">
+				and  pregtime &gt;=#{selectParam.startTime}
+			</if>
+			<if test="selectParam.stopTime!=null and selectParam.stopTime!='' ">
+				and  pregtime &lt;=#{selectParam.stopTime}
+			</if>
+		</where>
+	</select>
+	<!--后台的教练列表查询-->
+</mapper>
+	

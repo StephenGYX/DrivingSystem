@@ -36,10 +36,19 @@ public class Examination {
   private String epractisecontenttime;
   private String edrivingcontenttime;
 
-  private String eremark1;
-  private String eremark2;
-   private List<Consumer> consumer;
+  private Consumer consumer1;
+  private List<Consumer> consumer;
 
+
+  public Consumer getConsumer1()
+  {
+    return consumer1;
+  }
+
+  public void setConsumer1(Consumer consumer1)
+  {
+    this.consumer1 = consumer1;
+  }
 
   public List<Consumer> getConsumer()
   {
