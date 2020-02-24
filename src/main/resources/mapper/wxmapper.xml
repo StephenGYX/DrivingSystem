@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drivingsys.dao.WxMapper">
+
+
+    <select id="selectUserinfo" parameterType="string" resultType="map">
+        select cid,cpassword from consumer where caccount=#{account}
+    </select>
+
+
+</mapper>
