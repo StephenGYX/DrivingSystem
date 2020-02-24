@@ -50,13 +50,10 @@
 								<input type="date" id="stopTime" name="stopTime" autocomplete="off" class="layui-input">
 							</div>
 						</div>
-
-
 						<div class="layui-inline">
 							<button type="submit" class="layui-btn layui-btn-primary" lay-submit  lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
 						</div>
 					</div>
-
 				</form>
 			</div>
 		</fieldset>

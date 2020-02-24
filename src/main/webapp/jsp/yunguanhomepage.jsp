@@ -38,9 +38,14 @@
 	<div class="layui-inline">
 		<input class="layui-input" name="id" id="demoReload" autocomplete="off">
 	</div>
+	搜索所属驾校车辆：
+	<div class="layui-inline">
+		<input class="layui-input" name="id" id="demoReload1" autocomplete="off">
+	</div>
 	<button class="layui-btn" data-type="reload" >搜索</button>
 
 </div>
+
 <button id="pro" type="button" class="layui-btn layui-btn-normal">新增车辆</button>
 <table class="layui-hide" id="test"  lay-filter="test"></table>
 
@@ -143,16 +148,36 @@
 	var $ = layui.$, active = {
 		reload: function(){
 			var demoReload = $('#demoReload');
-			if($("#demoReload").val()==""){
+			var demoReload1 = $('#demoReload1');
+			if($("#demoReload").val()==""&&$("#demoReload1").val()==""){
 				window.parent.location.reload();
-			}else{
-
+			}else if($("#demoReload").val()!=""){
+					//执行重载
+					table.reload('test', {
+						page: {
+							curr: 1 //重新从第 1 页开始
+						}
+						,where: {	demoReload:$("#demoReload").val()}
+						,url:'/springboot/search'
+					}, 'data');
+			}else if($("#demoReload1").val()!=""){
 				//执行重载
 				table.reload('test', {
 					page: {
 						curr: 1 //重新从第 1 页开始
 					}
-					,where: {	demoReload:$("#demoReload").val()}
+					,where: {	demoReload1:$("#demoReload1").val()}
+					,url:'/springboot/search1',
+				}, 'data');
+
+			}
+			else{
+				//执行重载
+				table.reload('test', {
+					page: {
+						curr: 1 //重新从第 1 页开始
+					}
+					,where: {	demoReload:$("#demoReload").val(),demoReload1:$("#demoReload1").val()}
 					,url:'/springboot/search'
 				}, 'data');
 			}

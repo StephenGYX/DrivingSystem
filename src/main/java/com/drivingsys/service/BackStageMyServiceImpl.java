@@ -27,10 +27,49 @@ public class BackStageMyServiceImpl implements BackStageMyService
 	}
 
 	@Override
-	public List<Vehicle> table()
+	public List<Vehicle> table(int page,int limit)
 	{
-		List<Vehicle> vehicles =backStageMyMapper.table();
+		List<Vehicle> vehicles =backStageMyMapper.table(page,limit);
 		return vehicles;
+	}
+
+	@Override
+	public List<Vehicle> search(String n)
+	{
+		List<Vehicle> vehicle=backStageMyMapper.search(n);
+		return vehicle;
+	}
+
+	@Override
+	public void del(String vid)
+	{
+		backStageMyMapper.del(vid);
+	}
+
+	@Override
+	public void addcar(String num, String brand, String model)
+	{
+		backStageMyMapper.addcar(num,brand,model);
+	}
+
+	@Override
+	public void updat(String state, String driving, String num)
+	{
+		backStageMyMapper.updat(state,driving,num);
+	}
+
+	@Override
+	public int count()
+	{
+		int i=backStageMyMapper.count();
+		return i;
+	}
+
+	@Override
+	public List<Vehicle> search1(String d)
+	{
+		List<Vehicle> vehicle1=backStageMyMapper.search1(d);
+		return vehicle1;
 	}
 
 
