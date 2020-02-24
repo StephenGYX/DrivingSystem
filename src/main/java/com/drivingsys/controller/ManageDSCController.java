@@ -56,18 +56,20 @@ public class ManageDSCController
 			search = (Map<String, Object>) a;
 		}
 
-
 		RowBounds rowBounds=createRowBounds(request);
+
+		List<Drivingschool> list = manageDSCService.queryDSC(search, rowBounds);
+
 		//		manageDSCService.queryDSC(reqMap,rowBounds);
 		tableParam tableParam = new tableParam();
 
 		//0表示成功
 		tableParam.setCode(0);
 		//数据库查询count数量
-		tableParam.setCount(2);
+		tableParam.setCount(list.size());
 		//失败数据
 		tableParam.setMsg("");
-		tableParam.setData(manageDSCService.queryDSC(search, rowBounds));
+		tableParam.setData(list);
 
 		return tableParam;
 	}
@@ -218,7 +220,7 @@ public class ManageDSCController
 		//0表示成功
 		tableParam.setCode(0);
 		//数据库查询count数量
-		tableParam.setCount(2);
+		tableParam.setCount(list.size());
 		//失败数据
 		tableParam.setMsg("");
 		tableParam.setData(list);

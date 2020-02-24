@@ -85,7 +85,7 @@
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
 			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="seepract">查看教练</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="pingjia">查看教练</a>
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="pingjia">查看评价</a>
 
 			{{#  }
 			else if(d.daccountstate == 1 ){ }}
@@ -93,7 +93,7 @@
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
 			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="seepract">查看教练</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="pingjia">评价</a>
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="pingjia">查看评价</a>
 			{{#  }
 
 			else if(d.daccountstate == 3){ }}
@@ -463,6 +463,20 @@
 				var row_data = data  // 整行的数据
 					,did = row_data.did ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
 				//此处可走一个ajax把对应的驾校信息存入session；
+				var index = layer.open({
+					title: '查看教练',
+					type: 2,
+					shade: 0.2,
+					maxmin: true,
+					shadeClose: false,
+					area: ['70%', '70%'],
+					content: '/backPractise/toMyDrivingSchool?did='+row_data.did
+				});
+
+
+
+
+
 				window.location.href="<%=path%>"+"/jsp/drivingSchoolStudentTable.jsp?did="+did+""
 			}
 			else if (layEvent === 'pingjia') {

@@ -20,7 +20,7 @@ To change this template use File | Settings | File Templates.
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link rel="stylesheet" href="<%=path+"/lib/layui-v2.5.5/css/layui.css"%>" media="all">
 	<link rel="stylesheet" href="<%=path+"/css/public.css"%>" media="all">
-	<link rel="stylesheet" href="<%=path+"/lib/lay-module/step-lay/step.css"%>" media="all">
+<%--	<link rel="stylesheet" href="<%=path+"/lib/lay-module/step-lay/step.css"%>" media="all">--%>
 
 	<link rel="stylesheet" href=<%=path+"/lib/jq-module/zyupload/zyupload-1.0.0.min.css"%> media="all">
 
@@ -39,7 +39,8 @@ To change this template use File | Settings | File Templates.
 					<label class="layui-form-label required">用户名</label>
 					<div class="layui-input-block">
 						<input type="text" name="username" lay-verify="required" lay-reqtext="用户名不能为空"
-						       placeholder="请输入用户名" value="${sessionScope.drivingschool.dname}" class="layui-input" onfocus="this.blur()">
+						       placeholder="请输入用户名" value="${sessionScope.drivingschool.dname}" class="layui-input">
+<%--						onfocus="this.blur()--%>
 						<input type="hidden" name="did" value="${sessionScope.drivingschool.did}">
 <%--						<span name="username">${sessionScope.drivingschool.dname}</span>--%>
 <%--						<tip>填写驾校账号信息，该账号具有唯一性。</tip>--%>
@@ -121,13 +122,31 @@ To change this template use File | Settings | File Templates.
 						<textarea name="remark" class="layui-textarea" placeholder="请输入驾校简介"></textarea>
 					</div>
 				</div>
+				<div class="layui-form-item ">
+					<label class="layui-form-label">图片上传</label>
+					<div class="layui-input-block">
+						<button type="button"  id="test1">多图片上传</button>
+						<blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+							预览图：
+							<div class="layui-upload-list" id="demo2" ></div>
+						</blockquote>
+					</div>
+				</div>
 
 
-				<div id="zyupload" class="zyupload" name="zyupload"></div>
+<%--				<div id="zyupload" class="zyupload" name="zyupload"></div>--%>
+
+<%--				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">--%>
+<%--					<legend>上传多张图片</legend>--%>
+<%--				</fieldset>--%>
+
+
+
+
 
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-						<button class="layui-btn" lay-submit lay-filter="saveBtn">确认保存</button>
+						<button class="layui-btn" lay-submit lay-filter="saveBtn" id="test2">确认保存</button>
 					</div>
 				</div>
 			</div>
@@ -144,11 +163,12 @@ To change this template use File | Settings | File Templates.
 <script src="<%=path+"/lib/layui-v2.5.5/layui.js"%>" charset="utf-8"></script>
 <script src=<%=path+"/js/lay-config.js?v=1.0.4"%> charset="utf-8"></script>
 <script>
-	layui.use(['layer', 'form', 'layarea'], function () {
+	layui.use(['layer', 'form', 'layarea','upload'], function () {
 		var layer = layui.layer
 			, form = layui.form,
 			$ = layui.jquery
-			, layarea = layui.layarea;
+			, layarea = layui.layarea
+			,upload=layui.upload;
 		//监听提交
 		form.on('submit(saveBtn)', function (data) {
 			var formData = data.field;
@@ -168,7 +188,7 @@ To change this template use File | Settings | File Templates.
 
 
 					} else {
-						alert("222");
+
 						layer.msg("注册失败", {icon: 5});
 					}
 				}
@@ -184,6 +204,71 @@ To change this template use File | Settings | File Templates.
 			elem: '#area-picker',
 
 		});
+
+		//多图片上传
+		upload.render({
+			elem: '#test1'
+			,url: "<%=path+"/fact/upload"%>" //改成您自己的上传接口
+			,multiple: true
+			,auto: false //选择文件后不自动上传
+			,bindAction: '#test2' //指向一个按钮触发上传
+			,number:3
+			, choose: function (obj) {
+				$('#demo2').height(180);
+				//将每次选择的文件追加到文件队列
+				var files = obj.pushFile();
+				//预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+				obj.preview(function (index, file, result) {
+			             var fileshu=$('#demo2').find('img').length;
+					if (file.size > 0 && fileshu === 0) {
+						$('#demo2').empty();
+					}
+					// if (fileshu)
+					// 添加图片 demo2-预览的dom元素的id
+					$('#demo2').append(
+						'<div  id="container'+index+'" style="margin-top: -12px;float: left;padding-top: 10px"><div class="layui-btn-container">'+
+						'<button id="upload_img_'+index+'" class="layui-btn layui-btn-danger layui-btn<-xs">删除</button></div>' +
+
+						'<img id="showImg'+index+'" style="width: 150px; margin:10px;cursor:pointer" src="'+ result +'" alt="' + file.name + '"></div>'
+						// '<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">'
+					);
+					//删除某图片
+					$("#upload_img_" + index).bind('click', function () {
+						delete files[index];
+						$("#container"+index).remove();
+					});
+
+					//某图片放大预览
+					$("#showImg"+index).bind('click',function () {
+						var width = $("#showImg"+index).width();
+						var height = $("#showImg"+index).height();
+						var scaleWH = width/height;
+						var bigH = 600;
+						var bigW = scaleWH*bigH;
+						if(bigW>900){
+							bigW = 900;
+							bigH = bigW/scaleWH;
+						}
+
+						// 放大预览图片
+						layer.open({
+							type: 1,
+							title: false,
+							closeBtn: 1,
+							shadeClose: true,
+							area: [bigW + 'px', bigH + 'px'], //宽高
+							content: "<img width='"+bigW+"' height='"+bigH+"' src=" + result + " />"
+						});
+					});
+
+				})},
+
+			done: function(res){
+				//上传完毕
+			}
+		});
+
+
 	});
 </script>
 
