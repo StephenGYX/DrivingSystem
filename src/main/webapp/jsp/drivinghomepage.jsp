@@ -53,8 +53,6 @@
 	<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=8mDd90m55IFYptT4xHOPpuABYTVtjHkH"></script>
 	<script type="text/javascript"
 	        src="https://static.xcx.co.ltd/assets/lib/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js?_v=202002231700"></script>
-
-
 	<script type="text/javascript">
 	</script>
 	<script type="text/javascript"
@@ -566,9 +564,9 @@
 										<div class="gw-nav-cont" id="news1"><a target="_self" class="gw-nav" style=""
 										                            href="#gw-module-466258">行业资讯</a></div>
 										<div class="gw-nav-cont"><a target="_self" class="gw-nav" style=""
-										                            href="/zhinan">驾校加盟</a></div>
+										                            href=<%=path+"/jsp/area.jsp"%>>驾校加盟</a></div>
 										<div class="gw-nav-cont"><a target="_self" class="gw-nav" style=""
-										                            href="/banche">用户登录</a></div>
+										                            href=<%=path+"/jsp/frontlogin3.jsp"%>>用户登录</a></div>
 <%--										<div class="gw-nav-cont"><a target="_self" class="gw-nav" style=""--%>
 <%--										                            href="/baoming">报名</a></div>--%>
 <%--										<div class="gw-nav-cont"><a target="_self" class="gw-nav" style=""--%>
@@ -930,37 +928,47 @@
 	</div>
 </div>
 
+<%--品牌驾校--%>
+<iframe id="mainContent" style="display: none;border: medium none;"  src="<%=path+"/dSchool/queryqianDSC"%>" scrolling="no" width="100%" height="500px" ></iframe>
+
 <!--自定义html目前不适用 2019 11 04-->
-<div class="gw-browse-module " data-full="" data-fixed-position="" id="gw-module-466257" name="考试攻略" data-anchor-id="anchor-1510121921102-1685" style="background-color:rgb(246, 246, 246);background-repeat:repeat;background-size:auto;">
+<div class="gw-browse-module " data-full="" data-fixed-position="" id="gw-module-146158" name="考试攻略" data-anchor-id="anchor-1501479054110-1648" style="background-color:rgb(246, 246, 246);background-repeat:repeat;background-size:auto;">
 	<div class="gw-browse-module-content clearfix" style="background-repeat:repeat;background-size:auto;">
 		<div class="gw-grid-col grid-col-pc-12">
-			<div class="gw-browse-grid" style="height:780px;">
+			<div class="gw-browse-grid" style="height:900px;">
 				<div class="gw-browse-grid-content">
 					<div class="gw-browse-container" style="" data-editable="0">
 						<div class="gw-browse-container-content">
 							<div class="text-component">
-								<div class="gw-browse-component" id="module-466257-components-text-1510121921102-2441" style="top:100px;left:545px;width:160px;height:36px;">
+								<div class="gw-browse-component" id="module-146158-components-text-1501479054110-6164" style="top:100px;left:545px;width:160px;height:36px;">
 									<div class="gw-browse-component-content animated bounceIn" style="font-family:微软雅黑;font-size:33px;font-weight:normal;font-style:normal;color:rgb(68, 68, 68);background-color:transparent;line-height:33px;text-decoration:none;text-align:left;">
 										<span>考试攻略</span>
 									</div>
 								</div>
 							</div>
 							<div class="text-component">
-								<div class="gw-browse-component" id="module-466257-components-text-1510121921102-8340" style="top:135px;left:548px;width:68px;height:26px;">
+								<div class="gw-browse-component" id="module-146158-components-text-1501479054111-1701" style="top:135px;left:548px;width:68px;height:26px;">
 									<div class="gw-browse-component-content animated bounceIn" style="font-family:微软雅黑;font-size:15px;font-weight:normal;font-style:normal;color:rgb(153, 153, 153);background-color:transparent;line-height:26px;text-decoration:none;text-align:left;">
-										<span>EXAM </span>
+										<span>EXAM</span>
 									</div>
 								</div>
 							</div>
 							<div class="text-component">
-								<div class="gw-browse-component" id="module-466257-components-text-1510121921102-8771" style="top:94px;left:487px;width:53px;height:59px;">
+								<div class="gw-browse-component" id="module-146158-components-text-1501479054111-4628" style="top:94px;left:487px;width:53px;height:59px;">
 									<div class="gw-browse-component-content animated bounceIn" style="font-family:微软雅黑;font-size:62px;font-weight:normal;font-style:normal;color:rgb(255, 101, 54);background-color:transparent;line-height:62px;text-decoration:none;text-align:left;">
-										<span>N</span>
+										<span>E</span>
+									</div>
+								</div>
+							</div>
+							<div class="text-component">
+								<div class="gw-browse-component" id="module-146158-components-text-1501479054111-9453" style="top:268px;left:669px;width:325px;height:26px;">
+									<div class="gw-browse-component-content " style="font-family:微软雅黑;font-size:22px;font-weight:normal;font-style:normal;color:rgb(255, 255, 255);background-color:transparent;line-height:26px;text-decoration:none;text-align:left;">
+										<span>周一至周五 暑期班</span>
 									</div>
 								</div>
 							</div>
 							<div class="article-component">
-								<div class="gw-browse-component gw-dynamic-component" id="module-466257-components-article-1510121921102-7303" style="top:210px;left:397px;width:770px;height:464px;">
+								<div class="gw-browse-component gw-dynamic-component" id="module-146158-components-article-1501479106113-3181" style="top:209px;left:399px;width:768px;height:520px;">
 									<div class="gw-browse-component-content row">
 										<div class="col-xs-12 article_style_5">
 											<a href="/article/4981" target="_blank">
@@ -1007,15 +1015,41 @@
 												</div>
 											</div>
 										</a>
+									</div>                            <div class="col-xs-12 article_style_5">
+										<a href="/article/4055" target="_blank">
+											<div class="article_style_5_content">
+												<div class="article_date">
+													<span class="article_ss" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">31</span>
+													<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">2017</span>
+													<span class="article_xiegang" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">/</span>
+													<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">07</span>
+												</div>
+												<div>
+													<p class="article_title" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">礼让斑马线从驾校源头抓起</p>
+													<p class="article_abstract" style="font-size:14px;font-family:微软雅黑;font-style:normal;color:rgb(102, 102, 102);">宁夏新闻网讯（通讯员 脱伟伟）驾驶人的安全文明素质是道路交通安全的第一道防线，为进一步宣传道路交通安全法律法规，积极倡导&ldquo;文明交通&mdash;&mdash;礼让斑马线&rdquo;的良好氛围。7月27日上午，西夏区交警一大队宣传民警来到辖区宝马驾校，开展&ldquo;文明交通&mdash;&mdash;礼让斑马线&rdquo;道路交通安全宣传活动。</p>
+												</div>
+											</div>
+										</a>
 									</div>                    </div>
-									<div class="text-center"><ul class="pagination"><li class="disabled"><span>&laquo;</span></li> <li class="active"><span>1</span></li><li><a href="https://100538.guanwang.cc/zixun?page=2">2</a></li><li><a href="https://100538.guanwang.cc/zixun?page=3">3</a></li> <li><a href="https://100538.guanwang.cc/zixun?page=2" rel="next">&raquo;</a></li></ul></div>
+
 								</div>
 							</div><div class="images-component">
-							<div class="gw-browse-component" id="module-466257-components-images-1510121921102-1670" style="top:210px;left:0;width:361px;height:489px;">
+							<div class="gw-browse-component" id="module-146158-components-images-1501479541610-1449" style="top:760px;left:475px;width:218px;height:65px;">
 								<style>
-									#module-466257-components-images-1510121921102-1670 .gw-image-hoverShadow:hover img {
+									#module-146157-components-images-1501479541610-1449 .gw-image-hoverShadow:hover img {
 										box-shadow:0px 0px 10px 1px #ababab !important;
 									}
+
+								</style>
+								<a style="" href="/zixun"><img class="gw-browse-component-content animated bounceIn" style="width:218px;max-width:none;height:65px;max-height:none;opacity:1;" alt="" src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-07/15014675213641.png" /></a>
+							</div>
+						</div><div class="images-component">
+							<div class="gw-browse-component" id="module-146158-components-images-1510112053349-7731" style="top:210px;left:0;width:361px;height:489px;">
+								<style>
+									#module-146157-components-images-1510112053349-7731 .gw-image-hoverShadow:hover img {
+										box-shadow:0px 0px 10px 1px #ababab !important;
+									}
+
 								</style>
 								<img class="gw-browse-component-content animated bounceIn" style="width:361px;max-width:none;height:489px;max-height:none;opacity:1;" alt="" src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-11/15101120619511.jpg" />
 							</div>
@@ -1029,36 +1063,43 @@
 </div>
 
 <!--自定义html目前不适用 2019 11 04-->
-<div class="gw-browse-module " data-full="" data-fixed-position="" id="gw-module-466258" name="新闻资讯" data-anchor-id="anchor-1510121921102-1685" style="background-color:rgb(255, 255, 255);background-repeat:repeat;background-size:auto;">
+<div class="gw-browse-module " data-full="" data-fixed-position="" id="gw-module-146157" name="新闻资讯" data-anchor-id="anchor-1501479054110-1648" style="background-color:rgb(255, 255, 255);background-repeat:repeat;background-size:auto;">
 	<div class="gw-browse-module-content clearfix" style="background-repeat:repeat;background-size:auto;">
 		<div class="gw-grid-col grid-col-pc-12">
-			<div class="gw-browse-grid" style="height:780px;">
+			<div class="gw-browse-grid" style="height:900px;">
 				<div class="gw-browse-grid-content">
 					<div class="gw-browse-container" style="" data-editable="0">
 						<div class="gw-browse-container-content">
 							<div class="text-component">
-								<div class="gw-browse-component" id="module-466258-components-text-1510121921102-2441" style="top:100px;left:545px;width:160px;height:36px;">
+								<div class="gw-browse-component" id="module-146157-components-text-1501479054110-6164" style="top:100px;left:545px;width:160px;height:36px;">
 									<div class="gw-browse-component-content animated bounceIn" style="font-family:微软雅黑;font-size:33px;font-weight:normal;font-style:normal;color:rgb(68, 68, 68);background-color:transparent;line-height:33px;text-decoration:none;text-align:left;">
 										<span>新闻资讯</span>
 									</div>
 								</div>
 							</div>
 							<div class="text-component">
-								<div class="gw-browse-component" id="module-466258-components-text-1510121921102-8340" style="top:135px;left:548px;width:68px;height:26px;">
+								<div class="gw-browse-component" id="module-146157-components-text-1501479054111-1701" style="top:135px;left:548px;width:68px;height:26px;">
 									<div class="gw-browse-component-content animated bounceIn" style="font-family:微软雅黑;font-size:15px;font-weight:normal;font-style:normal;color:rgb(153, 153, 153);background-color:transparent;line-height:26px;text-decoration:none;text-align:left;">
 										<span>NEWS </span>
 									</div>
 								</div>
 							</div>
 							<div class="text-component">
-								<div class="gw-browse-component" id="module-466258-components-text-1510121921102-8771" style="top:94px;left:487px;width:53px;height:59px;">
+								<div class="gw-browse-component" id="module-146157-components-text-1501479054111-4628" style="top:94px;left:487px;width:53px;height:59px;">
 									<div class="gw-browse-component-content animated bounceIn" style="font-family:微软雅黑;font-size:62px;font-weight:normal;font-style:normal;color:rgb(255, 101, 54);background-color:transparent;line-height:62px;text-decoration:none;text-align:left;">
 										<span>N</span>
 									</div>
 								</div>
 							</div>
+							<div class="text-component">
+								<div class="gw-browse-component" id="module-146157-components-text-1501479054111-9453" style="top:268px;left:669px;width:325px;height:26px;">
+									<div class="gw-browse-component-content " style="font-family:微软雅黑;font-size:22px;font-weight:normal;font-style:normal;color:rgb(255, 255, 255);background-color:transparent;line-height:26px;text-decoration:none;text-align:left;">
+										<span>周一至周五 暑期班</span>
+									</div>
+								</div>
+							</div>
 							<div class="article-component">
-								<div class="gw-browse-component gw-dynamic-component" id="module-466258-components-article-1510121921102-7303" style="top:210px;left:397px;width:770px;height:464px;">
+								<div class="gw-browse-component gw-dynamic-component" id="module-146157-components-article-1501479106113-3181" style="top:209px;left:399px;width:768px;height:520px;">
 									<div class="gw-browse-component-content row">
 										<div class="col-xs-12 article_style_5">
 											<a href="/article/4981" target="_blank">
@@ -1105,15 +1146,41 @@
 												</div>
 											</div>
 										</a>
+									</div>                            <div class="col-xs-12 article_style_5">
+										<a href="/article/4055" target="_blank">
+											<div class="article_style_5_content">
+												<div class="article_date">
+													<span class="article_ss" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">31</span>
+													<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">2017</span>
+													<span class="article_xiegang" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">/</span>
+													<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">07</span>
+												</div>
+												<div>
+													<p class="article_title" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">礼让斑马线从驾校源头抓起</p>
+													<p class="article_abstract" style="font-size:14px;font-family:微软雅黑;font-style:normal;color:rgb(102, 102, 102);">宁夏新闻网讯（通讯员 脱伟伟）驾驶人的安全文明素质是道路交通安全的第一道防线，为进一步宣传道路交通安全法律法规，积极倡导&ldquo;文明交通&mdash;&mdash;礼让斑马线&rdquo;的良好氛围。7月27日上午，西夏区交警一大队宣传民警来到辖区宝马驾校，开展&ldquo;文明交通&mdash;&mdash;礼让斑马线&rdquo;道路交通安全宣传活动。</p>
+												</div>
+											</div>
+										</a>
 									</div>                    </div>
-									<div class="text-center"><ul class="pagination"><li class="disabled"><span>&laquo;</span></li> <li class="active"><span>1</span></li><li><a href="https://100538.guanwang.cc/zixun?page=2">2</a></li><li><a href="https://100538.guanwang.cc/zixun?page=3">3</a></li> <li><a href="https://100538.guanwang.cc/zixun?page=2" rel="next">&raquo;</a></li></ul></div>
+
 								</div>
 							</div><div class="images-component">
-							<div class="gw-browse-component" id="module-466258-components-images-1510121921102-1670" style="top:210px;left:0;width:361px;height:489px;">
+							<div class="gw-browse-component" id="module-146157-components-images-1501479541610-1449" style="top:760px;left:475px;width:218px;height:65px;">
 								<style>
-									#module-466258-components-images-1510121921102-1670 .gw-image-hoverShadow:hover img {
+									#module-146157-components-images-1501479541610-1449 .gw-image-hoverShadow:hover img {
 										box-shadow:0px 0px 10px 1px #ababab !important;
 									}
+
+								</style>
+								<a style="" href="/zixun"><img class="gw-browse-component-content animated bounceIn" style="width:218px;max-width:none;height:65px;max-height:none;opacity:1;" alt="" src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-07/15014675213641.png" /></a>
+							</div>
+						</div><div class="images-component">
+							<div class="gw-browse-component" id="module-146157-components-images-1510112053349-7731" style="top:210px;left:0;width:361px;height:489px;">
+								<style>
+									#module-146157-components-images-1510112053349-7731 .gw-image-hoverShadow:hover img {
+										box-shadow:0px 0px 10px 1px #ababab !important;
+									}
+
 								</style>
 								<img class="gw-browse-component-content animated bounceIn" style="width:361px;max-width:none;height:489px;max-height:none;opacity:1;" alt="" src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-11/15101120619511.jpg" />
 							</div>
@@ -1330,7 +1397,6 @@
 	</div>
 </div>
 
-
 <!-- 微信弹出二维码模态框 -->
 <div class="modal fade gw-modal wechatModal" id="myWechatModal" tabindex="-1" role="dialog">
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
@@ -1345,9 +1411,6 @@
 		</div>
 	</div>
 </div>
-
-<!-- 表单弹出窗口模态框 -->
-
 
 <!-- 视频弹出窗口播放模态框 -->
 <div class="modal fade gw-modal videoModal" id="myVideoModal" tabindex="-1" role="dialog">
@@ -1369,11 +1432,8 @@
 
 </div>
 
-<!-- 站点统计代码 -->
-
-
 <div class="report-mobile report-pc report">
-        <span class="copyright_span">版权所有 ©<span>                    xx驾驶学校
+        <span class="copyright_span">版权所有 ©<span>                    传一驾校网
                 </span></span>
 	<img src="https://static.xcx.co.ltd/images/guan.png?_v=202002231700" alt="" height="17"
 	     style="padding: 0 4px 0 10px;">
@@ -1381,12 +1441,6 @@
 	<img src="https://static.xcx.co.ltd/images/ring.png?_v=202002231700" alt="" height="12" style="padding-right:4px">
 	<span style="font-size:12px;cursor:pointer" id="report-click">举报反馈</span>
 </div>
-
-
-<!-- 任意html代码 -->
-
-<!-- 页面级自定义代码 -->
-
 
 <!-- 友链 -->
 
@@ -1404,7 +1458,15 @@
 	<img src="https://static.xcx.co.ltd/images/wshare.png?_v=202002231700" alt="" style="width:200px;">
 </div>
 <script src="//res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+
 <script type="text/javascript">
+	$(document).ready(function(){
+		$("#mainContent").css('display','block');
+	});
+</script>
+
+<script type="text/javascript">
+
 	$("#exam1").on("click",function () {
 		$("html,body").animate({scrollTop:$("#gw-module-466257").offset().top},1000);
 	});
@@ -1576,6 +1638,11 @@
 </script>
 <!-- 官网统计代码 -->
 <script type="text/javascript" src="https://static.xcx.co.ltd/assets/js/analyst.js?_v=202002231700"></script>
+<%--<script>--%>
+<%--	var mainContent = document.getElementById('mainContent');--%>
+<%--	<!-- 指定所展示url -->--%>
+<%--	mainContent.src = "";--%>
+<%--</script>--%>
 <script type="text/javascript">
 	_ga.url = 'https://wei.ltd.com/analyst';
 	_ga.params['wi'] = '3';
