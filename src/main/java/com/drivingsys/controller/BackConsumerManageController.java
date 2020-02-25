@@ -1,9 +1,6 @@
 package com.drivingsys.controller;
 
-import com.drivingsys.bean.Consumer;
-import com.drivingsys.bean.Examination;
-import com.drivingsys.bean.Practise;
-import com.drivingsys.bean.tableParam;
+import com.drivingsys.bean.*;
 import com.drivingsys.service.BackPractiseManageService;
 import com.drivingsys.service.DrivingSchoolManageService;
 import com.google.gson.Gson;
@@ -34,6 +31,19 @@ public class BackConsumerManageController
 	private DrivingSchoolManageService drivingSchoolManageService;
 
 
+	public String finddid(HttpServletRequest request){
+		String did=null;
+		Object o = request.getSession().getAttribute("drivingschool");
+		if (o != null)
+		{
+			Drivingschool d=(Drivingschool)o;
+			did=d.getDid()+"";
+		}
+
+
+		return did;
+	}
+
 
 	@RequestMapping("QueryMyStudent")
 	@ResponseBody
@@ -48,6 +58,7 @@ public class BackConsumerManageController
 		String stopTime = request.getParameter("stopTime");
 		String cpritiseid = request.getParameter("param");
 
+	String did=finddid(request);
 
 //		System.out.println("cpritiseid:-----------------------"+cpritiseid);
 		int pages= Integer.valueOf(page);
@@ -65,6 +76,7 @@ public class BackConsumerManageController
 
 		paramMap.put("cpritiseid",cpritiseid);
 
+		paramMap.put("did",did);
 
 		List<Consumer> consumers = drivingSchoolManageService.queryStudentByMySchool(rowBounds,paramMap);
 		long studentCount = drivingSchoolManageService.queryStudentByMySchoolCount(paramMap);

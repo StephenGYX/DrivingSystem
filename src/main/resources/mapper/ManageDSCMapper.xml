@@ -55,6 +55,34 @@
         </collection>
     </resultMap>
 
+<select id="echaretstest" resultType="com.drivingsys.bean.echartstest.echaretsDSC">
+
+SELECT COUNT(practise.pid) as renshu
+,pdrivingid,drivingschool.dname
+FROM practise, drivingschool
+WHERE practise.pdrivingid=did
+GROUP BY pdrivingid;
+
+
+
+</select>
+
+
+
+    <select id="queryqianDSC" resultType="com.drivingsys.bean.Drivingschool" parameterType="map">
+        select * from drivingschool
+        <where>
+            <if test="dprovince!=null and dprovince.trim()!=''">
+                and dprovince = #{dprovince}
+            </if>
+<!--            <if test="dcontacts!=null and dcontacts!=''">-->
+<!--                and dcontacts like '%${dcontacts}%'-->
+<!--            </if>-->
+<!--            <if test="daccountstate!=null and daccountstate!=''">-->
+<!--                and daccountstate = #{daccountstate}-->
+<!--            </if>-->
+        </where>
+    </select>
 
     <!--	<select id="queryCoachByMySchoolCount" resultType="long" parameterType="long">-->
     <!--	    select  count(*) from  practise where  pdrivingid =#{pdrivingid}-->

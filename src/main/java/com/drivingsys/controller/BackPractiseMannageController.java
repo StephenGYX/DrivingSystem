@@ -132,6 +132,8 @@ public class BackPractiseMannageController
 		ModelAndView modelAndView = new ModelAndView();
 		String pid= request.getParameter("pid");
 		String driverSchoolId = request.getParameter("did");
+
+		System.out.println("driverSchoolId"+driverSchoolId);
 		modelAndView.addObject("did",driverSchoolId);
 		modelAndView.addObject("pid",pid);
 		modelAndView.setViewName("backConsumerManageStudentTable");
@@ -204,5 +206,26 @@ public class BackPractiseMannageController
 		}
 		return did;
 	}
+
+	//这是驾校管理列表，点击查看教练，跳转到教练列表
+	@RequestMapping("toMyDrivingSchool")
+	@ResponseBody
+	public ModelAndView toMyDrivingSchool(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+
+
+		//驾校ID
+		String did = request.getParameter("did");
+
+
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("did",did);
+
+		modelAndView.setViewName("backPractiseManagelCoachTable");
+
+		return modelAndView;
+	}
+
+
 
 }

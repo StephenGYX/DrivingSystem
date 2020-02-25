@@ -3,6 +3,7 @@ package com.drivingsys.service;
 import com.drivingsys.bean.Consumer;
 import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Examination;
+import com.drivingsys.bean.echartstest.echaretsDSC;
 import com.drivingsys.dao.ManageDSCMapper;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,16 @@ public class ManageDSCService
 	public List<Examination> querySTUpj(int did, RowBounds rowBounds)
 	{
 		return manageDSCMapper.querySTUpj(did,rowBounds);
+	}
+
+	public List<echaretsDSC> echaretstest()
+	{
+		return manageDSCMapper.echaretstest();
+	}
+
+	public List<Drivingschool> queryqianDSC(Map<String, Object> reqMap, RowBounds rowBounds)
+	{
+		return manageDSCMapper.queryqianDSC(reqMap,rowBounds);
 	}
 
 	;

@@ -3,6 +3,7 @@ package com.drivingsys.dao;
 import com.drivingsys.bean.Consumer;
 import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Examination;
+import com.drivingsys.bean.echartstest.echaretsDSC;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.session.RowBounds;
@@ -28,4 +29,8 @@ public interface ManageDSCMapper
 	public int updateCoachPwdByDid(int did, String password);
 
 	List<Examination> querySTUpj(int did, RowBounds rowBounds);
+
+	List<echaretsDSC> echaretstest();
+
+	List<Drivingschool> queryqianDSC(Map<String, Object> reqMap, RowBounds rowBounds);
 }

@@ -64,9 +64,9 @@
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-icon layui-icon-vercode"></label>
-					<input type="text" name="captcha" lay-verify="required|captcha" placeholder="请输入验证码" autocomplete="off" class="layui-input verification captcha" value="xszg">
+					<input type="text" name="code" lay-verify="required|captcha" placeholder="请输入验证码" autocomplete="off" class="layui-input verification captcha">
 					<div class="captcha-img">
-						<img id="captchaPic" src="<%=path+"/images/captcha.jpg"%>">
+						<img id="codeimg" name="code" src="${pageContext.request.contextPath}/fact/getyzm" class="admin-captcha" width="90" height="30" onclick="changeImg()">
 					</div>
 				</div>
 <%--				<div class="layui-form-item">--%>
