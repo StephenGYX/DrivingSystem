@@ -28,6 +28,17 @@ public class Drivingschool {
   private String dremark1;
   private String dremark2;
 
+  public String getDschoolimage()
+  {
+    return dschoolimage;
+  }
+
+  public void setDschoolimage(String dschoolimage)
+  {
+    this.dschoolimage = dschoolimage;
+  }
+
+  private String dschoolimage;
 
   public Drivingschool(long did, String daccount, String dpassword, String dname, String dcontacts, long dtelephone, long dphone, String demail, String dprovince, String dcity, String darea, String daddress, String drecruit, long dprice, String dsynopsis, String daccountstate, String drecruitstate, long denrollnum, long dgraduationnum, long devaluatescore, long rid, String dregtime, String dremark1, String dremark2)
   {
