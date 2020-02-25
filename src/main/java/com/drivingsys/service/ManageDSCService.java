@@ -46,6 +46,11 @@ public class ManageDSCService
 		return manageDSCMapper.echaretstest();
 	}
 
+	public List<Drivingschool> queryqianDSC(Map<String, Object> reqMap, RowBounds rowBounds)
+	{
+		return manageDSCMapper.queryqianDSC(reqMap,rowBounds);
+	}
+
 	;
 
 }

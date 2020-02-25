@@ -69,6 +69,9 @@
 		select  c.*,e.* from  consumer c,examination e
 		<where>
 			 and c.cid =e.cid
+			<if test="selectParam.did!=null and selectParam.did!='' ">
+				and  did =#{selectParam.did}
+			</if>
 			<if test="selectParam.cpritiseid!=null and selectParam.cpritiseid!='' ">
 				and  cpritiseid =#{selectParam.cpritiseid}
 			</if>
@@ -146,6 +149,7 @@
 	<!--驾校端对学员的用户列表查询-->
 
 	<!--学员的账号启用禁用，修改密码，逻辑删除-->
+
 	<update id="updateStudentStateByCid"  parameterType="java.util.Map">
 		update consumer 
 		<set>

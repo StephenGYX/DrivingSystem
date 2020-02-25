@@ -31,4 +31,6 @@ public interface ManageDSCMapper
 	List<Examination> querySTUpj(int did, RowBounds rowBounds);
 
 	List<echaretsDSC> echaretstest();
+
+	List<Drivingschool> queryqianDSC(Map<String, Object> reqMap, RowBounds rowBounds);
 }

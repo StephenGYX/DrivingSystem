@@ -230,4 +230,37 @@ public class ManageDSCController
 	}
 
 
+
+
+	@RequestMapping("queryqianDSC")
+//	@ResponseBody
+	public String queryqianDSC(@RequestParam Map<String, Object> reqMap, HttpServletRequest request)
+	{
+
+		System.out.println("前端接收驾校列表");
+		System.out.println(reqMap);
+
+
+		RowBounds rowBounds = new RowBounds(0,8);
+
+		List<Drivingschool> list = manageDSCService.queryqianDSC(reqMap, rowBounds);
+
+         request.getSession().setAttribute("drivingschoollist",list);
+
+		return "frontdrivinglist";
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
