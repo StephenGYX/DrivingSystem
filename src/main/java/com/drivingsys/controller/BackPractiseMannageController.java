@@ -23,9 +23,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * 测试
- */
+
 @Controller
 @RequestMapping("/backPractise/")
 public class BackPractiseMannageController
@@ -170,7 +168,41 @@ public class BackPractiseMannageController
 		return modelAndView;
 	}
 
+	//这是驾校管理列表，点击查看教练，跳转到教练列表
+	@RequestMapping("toMyDrivingSchool")
+	@ResponseBody
+	public ModelAndView toMyDrivingSchool(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+
+		String did = findDid(request);
+
+//		//驾校ID(驾校端拿到)
+//		String did = request.getParameter("did");
 
 
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("did",did);
+
+		modelAndView.setViewName("backPractiseManagelCoachTable");
+
+		return modelAndView;
+	}
+
+
+	public String findDid(HttpServletRequest request){
+
+		String did="";
+		//驾校端登录
+		Object o = request.getSession().getAttribute("drivingschool");
+		if (o != null)
+		{
+			Drivingschool d=(Drivingschool)o;
+			did=d.getDid()+"";
+		}else {
+			//后台查询驾校列表
+			did = request.getParameter("did");
+		}
+		return did;
+	}
 
 }
