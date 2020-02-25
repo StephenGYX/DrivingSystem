@@ -9,11 +9,18 @@
     <select id="selectAllks" parameterType="map" resultType="com.drivingsys.bean.Kaoti" >
         select * from ksbank
     </select>
-    <select id="selectRand" parameterType="map" resultType="com.drivingsys.bean.Kaoti" >
+    <select id="selectRand" parameterType="string" resultType="com.drivingsys.bean.Kaoti" >
     SELECT *
-    FROM itembank AS t1 JOIN (SELECT ROUND(RAND() * (SELECT MAX(iid) FROM itembank)) AS id) AS t2
+    FROM ${tableName} AS t1 JOIN (SELECT ROUND(RAND() * (SELECT MAX(iid) FROM ${tableName})) AS id) AS t2
     WHERE t1.iid >= t2.id
-    ORDER BY t1.iid ASC LIMIT 100;
+    ORDER BY t1.iid ASC LIMIT
+    <if test="tableName=='itembank'">
+        100
+    </if>
+        <if test="tableName=='ksbank'">
+            50
+        </if>
+
 </select>
     <insert id="cuotiAdd" parameterType="com.drivingsys.bean.Cuoti"  >
     INSERT INTO wrong(cid, iid,  sum,kemu) VALUES(#{cid},#{iid},1,#{kemu}) ON DUPLICATE KEY UPDATE sum=sum+1;
@@ -21,4 +28,90 @@
     <select id="selectWrong" parameterType="map" resultType="com.drivingsys.bean.Kaoti" >
     select ${tableName}.*,wrong.sum from ${tableName} inner join wrong where ${tableName}.iid=wrong.iid and cid=#{cid} and wrong.kemu=#{kemu}
     </select>
+    <select id="kaotiList" parameterType="map" resultType="com.drivingsys.bean.Kaoti">
+        select * from ${tableName}
+        <where>
+            <if test="iid !=null and iid !='' ">
+                and iid =  ${iid}
+            </if>
+
+            <if test="icontent !=null and icontent!=''">
+                and icontent like "%"#{icontent}"%"
+            </if>
+        </where>
+
+        <if test="start!=null and start!=''">
+            limit ${start} , ${limit}
+        </if>
+
+    </select>
+    <select id="kaotiCount" parameterType="map" resultType="int">
+        select count(*) from ${tableName}
+        <where>
+            <if test="iid !=null and iid !='' ">
+                and iid =  ${iid}
+            </if>
+
+            <if test="icontent !=null and icontent!=''">
+                and icontent like "%"#{icontent}"%"
+            </if>
+        </where>
+
+    </select>
+    <select id="selectVideo" parameterType="map" resultType="com.drivingsys.bean.Videoinfo" >
+    select * from videostore
+        <where>
+            <if test="subject!=null and subject !=''">
+                and subject=#{subject}
+            </if>
+            <if test="id !=null and id !='' ">
+                and id =  ${id}
+            </if>
+
+            <if test="info !=null and info!=''">
+                and info like "%"#{info}"%"
+            </if>
+        </where>
+        <if test="start!=null and start!=''">
+            limit ${start} , 10
+        </if>
+    </select>
+
+    <select id="videoCount" parameterType="map" resultType="int" >
+        select count(*) from videostore
+        <where>
+            <if test="subject!=null and subject !=''">
+                and subject=#{subject}
+            </if>
+            <if test="id !=null and id !='' ">
+                and id =  ${id}
+            </if>
+
+            <if test="info !=null and info!=''">
+                and info like "%"#{info}"%"
+            </if>
+        </where>
+    </select>
+
+    <delete id="deletekaoti" parameterType="map" >
+        delete from ${tableName} where iid=#{iid}
+    </delete>
+    <update id="updatetimu" parameterType="com.drivingsys.bean.Kaoti">
+		update ${tableName} set icontent=#{icontent},ioption1=#{ioption1},ioption2=#{ioption2},ioption3=#{ioption3},ioption4=#{ioption4}
+		  ,irightkey =#{irightkey},ianalysis=#{ianalysis},picurl=#{picurl} where iid=#{iid}
+	</update>
+    <insert id="inserttimu" parameterType="com.drivingsys.bean.Kaoti"  >
+    INSERT INTO ${tableName}(icontent, ioption1,ioption2,ioption3,ioption4,irightkey,ianalysis,picurl) VALUES(#{icontent}, #{ioption1},#{ioption2},#{ioption3},#{ioption4},#{irightkey},#{ianalysis},#{picurl}) ;
+    </insert>
+
+    <insert id="insertvideo" parameterType="com.drivingsys.bean.Videoinfo"  >
+    INSERT INTO videostore(url,info,opman,subject,addtime) VALUES(#{url},#{info},#{opman},#{subject},#{addtime}) ;
+    </insert>
+    <update id="updatevideo" parameterType="com.drivingsys.bean.Videoinfo">
+		update videostore set url=#{url},info=#{info} where id=#{id}
+	</update>
+    <delete id="deletevideo" parameterType="String" >
+        delete from videostore where id=#{id}
+    </delete>
+
 </mapper>

@@ -3,6 +3,7 @@ package com.drivingsys.service;
 import com.drivingsys.bean.Log;
 import com.drivingsys.bean.tableParam;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,5 +33,9 @@ public interface LogService
 	 */
 	public tableParam queryLogWithParam(Map<String, String> map);
 
-
+	/**
+	 * 查找所有log
+	 * @return
+	 */
+	public List<Log> queryAll();
 }

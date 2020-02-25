@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,5 +62,12 @@ public class LogServiceImpl implements LogService
 		ArrayList<Log> fileInfos = logMapper.queryLogWithParam(map);
 		tableInfo.setData(fileInfos);
 		return tableInfo;
+	}
+
+	@Override
+	public List<Log> queryAll()
+	{
+		List<Log> logList = logMapper.queryAllLog();
+		return logList;
 	}
 }

@@ -1,6 +1,6 @@
 package com.drivingsys.controller;
 
-import com.drivingsys.aspectJ.Log;
+import com.drivingsys.bean.Log;
 import com.drivingsys.bean.tableParam;
 import com.drivingsys.service.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -71,5 +72,12 @@ public class LogController
 	@RequestMapping("/tologView")
 	public String logOut(){
 		return "logtable";
+	}
+
+	@ResponseBody
+	@RequestMapping("/queryAllLog")
+	public List<Log> queryAllLog(){
+		List<Log> logList = logService.queryAll();
+		return logList;
 	}
 }

@@ -3,9 +3,11 @@ package com.drivingsys.dao;
 import com.drivingsys.bean.Log;
 import com.drivingsys.bean.tableParam;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.apache.tomcat.jni.FileInfo;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Mapper
@@ -45,4 +47,6 @@ public interface LogMapper
 	 */
 	public ArrayList<Log> queryLogWithParam(Map<String, String> map);
 
+	@Select("select * from log")
+	public List<Log> queryAllLog();
 }

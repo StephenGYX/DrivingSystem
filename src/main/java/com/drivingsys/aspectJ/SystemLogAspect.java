@@ -30,7 +30,7 @@ public class SystemLogAspect
 	@Autowired
 	private HttpServletRequest request;
 
-	@Pointcut("within(com.drivingsys.controller.BackStageController || com.drivingsys.controller.BackMenuController)")
+	@Pointcut("execution(* *..BackStageController.backLogin(..))")
 	public void backStagePointcut()
 	{
 	}
