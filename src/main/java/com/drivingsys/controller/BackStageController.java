@@ -53,11 +53,11 @@ public class BackStageController
 
 		String CODE = request.getSession().getAttribute("CODE") + "";
 		String code = reqMap.get("code");
-
-
+		System.out.println("CODE"+CODE);
+		System.out.println("code"+code);
 		//响应前端
 		String msg = "";
-		if (!code.equals(CODE))
+		if (!code.equalsIgnoreCase(CODE))
 		{
 			msg = "3";
 		} else

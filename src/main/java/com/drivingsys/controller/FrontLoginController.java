@@ -61,7 +61,7 @@ public class FrontLoginController
 		String roleid = request.getSession().getAttribute("roleid") + "";
 		String CODE = request.getSession().getAttribute("CODE") + "";
 		String code = reqMap.get("code");
-		if (!code.equals(CODE))
+		if (!code.equalsIgnoreCase(CODE))
 		{
 			System.out.println("验证码错误");
 			request.getSession().setAttribute("fmsg", "yzmcw");
