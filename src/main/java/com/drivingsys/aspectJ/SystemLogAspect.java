@@ -84,8 +84,8 @@ public class SystemLogAspect
 			role = 3;//学员
 		}
 
-		System.out.println("登录的用户名：" + backstage.getBname());
-		System.out.println("登录的角色：" + backstage.getRid());
+//		System.out.println("登录的用户名：" + backstage.getBname());
+//		System.out.println("登录的角色：" + backstage.getRid());
 
 		//日志对象
 		com.drivingsys.bean.Log log = new com.drivingsys.bean.Log();

@@ -93,7 +93,7 @@
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
 			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="seepract">查看教练</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="pingjia">查看评价</a>
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="pingjia">评价</a>
 			{{#  }
 
 			else if(d.daccountstate == 3){ }}

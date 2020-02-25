@@ -1,10 +1,9 @@
 package com.drivingsys.controller;
 
 import com.drivingsys.aspectJ.Log;
-import com.drivingsys.bean.Consumer;
-import com.drivingsys.bean.Drivingschool;
-import com.drivingsys.bean.Practise;
-import com.drivingsys.bean.VerifyCodeUtils;
+import com.drivingsys.bean.*;
+import com.drivingsys.bean.backmenu.BackMenu;
+import com.drivingsys.service.BackMenuService;
 import com.drivingsys.service.FrontLoginService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +34,24 @@ public class FrontLoginController
 
 	@Autowired
 	private FrontLoginService frontLoginService;
+
+
+
+	@Autowired
+	private BackMenuService backMenuService;
+
+	@ResponseBody
+	@RequestMapping("/queryRoleMenu")
+
+	public BackMenu queryRoleMenu(HttpServletRequest request){
+
+
+		int rid = Integer.valueOf(request.getSession().getAttribute("roleid")+"");
+
+		//获取该角色类型的菜单目录
+		BackMenu backMenu = backMenuService.queryRoleMenu(rid);
+		return backMenu;
+	}
 
 
 	@RequestMapping("frontLogin")
@@ -87,7 +104,7 @@ public class FrontLoginController
 				System.out.println("找到了驾校");
 				request.getSession().setAttribute("drivingschool", drivingschool);
 				//				return "DSCHinfo";
-				return "backmenu";
+				return "drivingSchoolMain";
 			}
 		} else if (roleid.equals("4"))
 		{
