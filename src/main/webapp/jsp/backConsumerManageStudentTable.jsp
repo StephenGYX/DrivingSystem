@@ -69,39 +69,119 @@
 
 		<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
+
 		<script type="text/html" id="currentTableBar">
+
+
+<%--            没有教练，还未审核--%>
 			{{#  if(d.cstate == 0 && (d.cpritiseid == null || d.cpritiseid.trim() == '') && d.eorderstate == -1){ }}
-<%--			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="start">启用</a>--%>
-<%--			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>--%>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="examinePass">审核通过</a>
-			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="examineNoPass">审核不通过</a>
+
+            <%--如果是进入学员审核的表格--%>
+			<c:if test="${requestScope.doThing=='examine'}" >
+				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="examinePass">审核通过</a>
+				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="examineNoPass">审核不通过</a>
+			</c:if>
+			<%--			如果是进入学员参看的表格--%>
+			<c:if test="${requestScope.doThing=='onlySee'}" >
+				--------------------------------
+			</c:if>
+			<%--			如果是进入学员管理的表格--%>
+			<c:if test="${requestScope.doThing=='Manage'}" >
+				----------该学员暂未审核-----------
+			</c:if>
+
 
 			{{#  }
-
+<%--          没有教练，审核失败--%>
 			else if(d.cstate == 0 && (d.cpritiseid == null || d.cpritiseid.trim() == '') && d.eorderstate == -2){ }}
-			---------已驳回审核----------
-			{{#  }
 
+			<%--			如果是进入学员审核的表格--%>
+			<c:if test="${requestScope.doThing=='examine'}" >
+				-----------已驳回审核------------
+			</c:if>
+			<%--			如果是进入学员参看的表格--%>
+			<c:if test="${requestScope.doThing=='onlySee'}" >
+				--------------------------------
+			</c:if>
+			<%--			如果是进入学员管理的表格--%>
+			<c:if test="${requestScope.doThing=='Manage'}" >
+				------已被驳回用户无法进行操作------
+			</c:if>
+
+			{{#  }
+<%--            有教练，已经通过审核--%>
 			else if(d.cstate == 0 && d.cpritiseid != null){ }}
+
+			<%--			如果是进入学员审核的表格--%>
+			<c:if test="${requestScope.doThing=='examine'}" >
+				-----------已通过审核-------------
+			</c:if>
+			<%--			如果是进入学员参看的表格--%>
+			<c:if test="${requestScope.doThing=='onlySee'}" >
+				--------------------------------
+			</c:if>
+			<%--			如果是进入学员管理的表格--%>
+			<c:if test="${requestScope.doThing=='Manage'}" >
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="start">启用</a>
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
 			<a class="layui-btn layui-btn-xs data-count-edit" data-method="dialog" lay-event="Evaluate">所发评价</a>
 			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+			</c:if>
+
+
 			{{#  }
 			else if(d.cstate == 1 && (d.cpritiseid == null || d.cpritiseid.trim()  == '') && d.eorderstate == -1 ){ }}
-<%--			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="stop">禁用</a>--%>
-<%--			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>--%>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="examinePass">审核通过</a>
-			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="examineNoPass">审核不通过</a>
+
+			<%--如果是进入学员审核的表格--%>
+			<c:if test="${requestScope.doThing=='examine'}" >
+				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="examinePass">审核通过</a>
+				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="examineNoPass">审核不通过</a>
+			</c:if>
+			<%--			如果是进入学员参看的表格--%>
+			<c:if test="${requestScope.doThing=='onlySee'}" >
+				--------------------------------
+			</c:if>
+			<%--			如果是进入学员管理的表格--%>
+			<c:if test="${requestScope.doThing=='Manage'}" >
+				----------该学员暂未审核-----------
+			</c:if>
+
 			{{#  }
 			else if(d.cstate == 1 && (d.cpritiseid == null || d.cpritiseid.trim() == '') && d.eorderstate == -2){ }}
-			---------已驳回审核----------
+
+			<%--			如果是进入学员审核的表格--%>
+			<c:if test="${requestScope.doThing=='examine'}" >
+				---------已驳回审核----------
+			</c:if>
+			<%--			如果是进入学员参看的表格--%>
+			<c:if test="${requestScope.doThing=='onlySee'}" >
+				--------------------------------
+			</c:if>
+			<%--			如果是进入学员管理的表格--%>
+			<c:if test="${requestScope.doThing=='Manage'}" >
+				------已被驳回用户无法进行操作------
+			</c:if>
+
 			{{#  }
+
+
 			else if(d.cstate == 1 && d.cpritiseid != null){ }}
-			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="stop">禁用</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" data-method="dialog" lay-event="Evaluate">所发评价</a>
-			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+
+			<%--			如果是进入学员审核的表格--%>
+			<c:if test="${requestScope.doThing=='examine'}" >
+				-----------已通过审核-------------
+			</c:if>
+			<%--			如果是进入学员参看的表格--%>
+			<c:if test="${requestScope.doThing=='onlySee'}" >
+				--------------------------------
+			</c:if>
+			<%--			如果是进入学员管理的表格--%>
+			<c:if test="${requestScope.doThing=='Manage'}" >
+				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="start">启用</a>
+				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
+				<a class="layui-btn layui-btn-xs data-count-edit" data-method="dialog" lay-event="Evaluate">所发评价</a>
+				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+			</c:if>
 
 			{{#  }
 
@@ -122,6 +202,7 @@
 
         <input type="hidden" id="pid" value="${requestScope.pid}">
         <input type="hidden" id="did" value="${requestScope.did}">
+        <input type="hidden" id="doThing" value="${requestScope.doThing}">
 
 <script>
 
@@ -133,7 +214,7 @@
 
 		table.render({
 			elem: '#currentTableId',
-			url: "<%=path%>"+"/backConsumer/QueryMyStudent?param="+$("#pid").val()+"",
+			url: "<%=path%>"+"/backConsumer/QueryMyStudent?doThing="+$("#doThing").val()+"&param="+$("#pid").val()+"",
 			toolbar: '#toolbarDemo',
 			defaultToolbar: ['filter', 'exports', 'print', {
 				title: '提示',

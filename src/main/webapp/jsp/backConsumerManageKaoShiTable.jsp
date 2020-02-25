@@ -103,13 +103,7 @@
 			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="revoke4">撤回科目四安排</a>
 			{{#  }
 
-
-
-
-
-
-
-else { }}
+            else { }}
 		     --------暂无考试安排 --------
 			{{#  }
 

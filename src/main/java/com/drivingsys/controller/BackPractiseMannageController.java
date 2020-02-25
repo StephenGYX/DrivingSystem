@@ -125,16 +125,23 @@ public class BackPractiseMannageController
 
 	}
 
-	//跳转到后台学员管理界面
+	//跳转到后台学员界面
 	@RequestMapping("seeMyStudent")
 	@ResponseBody
 	public ModelAndView seeMyStudent(HttpServletRequest request){
 		ModelAndView modelAndView = new ModelAndView();
 		String pid= request.getParameter("pid");
-		String driverSchoolId = request.getParameter("did");
+		String doThing= request.getParameter("do");
 
-		System.out.println("driverSchoolId"+driverSchoolId);
-		modelAndView.addObject("did",driverSchoolId);
+	    //确定点开的是什么列表(查看学员，审核学员，学员管理)
+		modelAndView.addObject("doThing",doThing);
+
+
+		//驾校ID
+		String did = findDid(request);
+
+		System.out.println("did"+did);
+		modelAndView.addObject("did",did);
 		modelAndView.addObject("pid",pid);
 		modelAndView.setViewName("backConsumerManageStudentTable");
 
@@ -149,17 +156,13 @@ public class BackPractiseMannageController
 		//教练的ID
 		String pid = request.getParameter("pid");
         //驾校ID
-		String driverSchoolId = request.getParameter("did");
+		String did = findDid(request);
 
 		System.out.println("pid========="+pid);
-		System.out.println("did========="+driverSchoolId);
-		//		long l =1;
-		//		String driverSchoolId =String.valueOf(l);
-		//		//获取到登录成功的驾校端
-		//		 Drivingschool drivingschool = (Drivingschool) request.getSession().getAttribute("DrivingSchoolLoginSuccess");
-		//		long did = drivingschool.getDid();
+		System.out.println("did========="+did);
 
-		List<Examination> examinations = drivingSchoolManageService.queryCoachEval(pid, driverSchoolId);
+
+		List<Examination> examinations = drivingSchoolManageService.queryCoachEval(pid, did);
 
 
 		ModelAndView modelAndView = new ModelAndView();
@@ -177,13 +180,11 @@ public class BackPractiseMannageController
 	{
 
 		String did = findDid(request);
-
-//		//驾校ID(驾校端拿到)
-//		String did = request.getParameter("did");
-
+		String doThing = request.getParameter("do");
 
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("did",did);
+		modelAndView.addObject("doThing",doThing);
 
 		modelAndView.setViewName("backPractiseManagelCoachTable");
 
@@ -198,34 +199,16 @@ public class BackPractiseMannageController
 		Object o = request.getSession().getAttribute("drivingschool");
 		if (o != null)
 		{
+			System.out.println("驾校登录------------------");
 			Drivingschool d=(Drivingschool)o;
 			did=d.getDid()+"";
 		}else {
+			System.out.println("后台登录------------------");
 			//后台查询驾校列表
 			did = request.getParameter("did");
 		}
 		return did;
 	}
-
-	//这是驾校管理列表，点击查看教练，跳转到教练列表
-	@RequestMapping("toMyDrivingSchool")
-	@ResponseBody
-	public ModelAndView toMyDrivingSchool(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-
-
-		//驾校ID
-		String did = request.getParameter("did");
-
-
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("did",did);
-
-		modelAndView.setViewName("backPractiseManagelCoachTable");
-
-		return modelAndView;
-	}
-
 
 
 }
