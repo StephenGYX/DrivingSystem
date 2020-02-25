@@ -55,6 +55,18 @@
         </collection>
     </resultMap>
 
+<select id="echaretstest" resultType="com.drivingsys.bean.echartstest.echaretsDSC">
+
+SELECT COUNT(practise.pid) as renshu
+,pdrivingid,drivingschool.dname
+FROM practise, drivingschool
+WHERE practise.pdrivingid=did
+GROUP BY pdrivingid;
+
+
+
+</select>
+
 
     <!--	<select id="queryCoachByMySchoolCount" resultType="long" parameterType="long">-->
     <!--	    select  count(*) from  practise where  pdrivingid =#{pdrivingid}-->
