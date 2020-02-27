@@ -180,7 +180,7 @@ public class BackPractiseMannageController
 	@ResponseBody
 	public ModelAndView toMyDrivingSchool(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-
+		System.out.println("进入toMyDrivingSchool方法");
 
 		//驾校ID
 		String did = request.getParameter("did");

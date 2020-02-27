@@ -51,6 +51,31 @@ public class ManageDSCService
 		return manageDSCMapper.queryqianDSC(reqMap,rowBounds);
 	}
 
+	public long queryDSCcount(Map<String, Object> search, RowBounds rowBounds)
+	{
+		return manageDSCMapper.queryDSCcount(search);
+	}
+//查询未经过管理员审核驾校
+	public List<Drivingschool> QueryDSCshenhe(Map<String, Object> search, RowBounds rowBounds)
+	{
+		return manageDSCMapper.QueryDSCshenhe(search,rowBounds);
+	}
+
+	public int updateshenheStateByDid(int did, int i)
+	{
+		return manageDSCMapper.updateshenheStateByDid(did,i);
+	}
+
+	public void updateqiyongStateByDid(int did)
+	{
+		manageDSCMapper.updateqiyongStateByDid(did);
+	}
+
+	public int updatedscinfo(Map<String, Object> updata)
+	{
+		return manageDSCMapper.updatedscinfo(updata);
+	}
+
 	;
 
 }
