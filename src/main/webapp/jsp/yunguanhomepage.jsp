@@ -167,7 +167,7 @@
 						curr: 1 //重新从第 1 页开始
 					}
 					,where: {	demoReload1:$("#demoReload1").val()}
-					,url:'/springboot/search1',
+					,url:'/springboot/search1'
 				}, 'data');
 
 			}
