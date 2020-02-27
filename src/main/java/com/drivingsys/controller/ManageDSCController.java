@@ -1,11 +1,8 @@
 package com.drivingsys.controller;
 
 
-import com.drivingsys.bean.Consumer;
-import com.drivingsys.bean.Drivingschool;
-import com.drivingsys.bean.Examination;
+import com.drivingsys.bean.*;
 import com.drivingsys.bean.echartstest.echaretsDSC;
-import com.drivingsys.bean.tableParam;
 import com.drivingsys.service.ManageDSCService;
 import com.google.gson.Gson;
 import net.sf.json.JSONArray;
@@ -372,5 +369,26 @@ public class ManageDSCController
 
 		return tableParam;
 	}
+
+
+	public String findDid(HttpServletRequest request){
+
+		String did="";
+		//驾校端登录
+		Object o = request.getSession().getAttribute("drivingschool");
+		if (o != null)
+		{
+			System.out.println("驾校登录------------------");
+			Drivingschool d=(Drivingschool)o;
+			did=d.getDid()+"";
+		}else {
+			System.out.println("后台登录------------------");
+			//后台查询驾校列表
+			did = request.getParameter("did");
+		}
+		return did;
+	}
+
+
 
 }
