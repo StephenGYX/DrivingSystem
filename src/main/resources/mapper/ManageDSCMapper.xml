@@ -92,25 +92,21 @@ FROM practise, drivingschool
 WHERE practise.pdrivingid=did
 GROUP BY pdrivingid;
 
-
-
 </select>
-
-
-
     <select id="queryqianDSC" resultType="com.drivingsys.bean.Drivingschool" parameterType="map">
         select * from drivingschool
         <where>
-            <if test="dprovince!=null and dprovince.trim()!=''">
-                and dprovince = #{dprovince}
+            <if test="province!=null and province.trim()!=''">
+                and dprovince = #{province}
             </if>
-<!--            <if test="dcontacts!=null and dcontacts!=''">-->
-<!--                and dcontacts like '%${dcontacts}%'-->
-<!--            </if>-->
-<!--            <if test="daccountstate!=null and daccountstate!=''">-->
-<!--                and daccountstate = #{daccountstate}-->
-<!--            </if>-->
+            <if test="city!=null and city.trim()!=''">
+                and dcity = #{city}
+            </if>
+            <if test="county!=null and county.trim()!=''">
+                and darea = #{county}
+            </if>
         </where>
+        limit 0,10
     </select>
 
     <select id="QueryDSCshenhe" resultType="com.drivingsys.bean.Drivingschool" parameterType="java.lang.Object">

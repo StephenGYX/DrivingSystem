@@ -1,8 +1,11 @@
 package com.drivingsys.controller;
 
 
-import com.drivingsys.bean.*;
+import com.drivingsys.bean.Consumer;
+import com.drivingsys.bean.Drivingschool;
+import com.drivingsys.bean.Examination;
 import com.drivingsys.bean.echartstest.echaretsDSC;
+import com.drivingsys.bean.tableParam;
 import com.drivingsys.service.ManageDSCService;
 import com.google.gson.Gson;
 import net.sf.json.JSONArray;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -32,27 +36,6 @@ public class ManageDSCController
 
 	@Resource
 	private ManageDSCService manageDSCService;
-
-
-	public String findDid(HttpServletRequest request)
-	{
-
-		String did = null;
-		//驾校端登录
-		Object o = request.getSession().getAttribute("drivingschool");
-		if (o != null)
-		{
-			System.out.println("驾校登录------------------");
-			Drivingschool d = (Drivingschool) o;
-			did = d.getDid() + "";
-		} else
-		{
-			System.out.println("后台登录------------------");
-			//后台查询驾校列表
-			did = request.getParameter("did");
-		}
-		return did;
-	}
 
 
 	@RequestMapping("QueryDSC")
@@ -86,7 +69,7 @@ public class ManageDSCController
 		//0表示成功
 		tableParam.setCode(0);
 		//数据库查询count数量
-		tableParam.setCount(l);
+		tableParam.setCount(list.size());
 		//失败数据
 		tableParam.setMsg("");
 		tableParam.setData(list);
@@ -288,20 +271,22 @@ public class ManageDSCController
 	}
 
 
+
+
 	@RequestMapping("queryqianDSC")
-	//	@ResponseBody
-	public String queryqianDSC(@RequestParam Map<String, Object> reqMap, HttpServletRequest request)
+//	@ResponseBody
+	public String queryqianDSC(@RequestParam Map<String, Object> reqMap, HttpServletRequest request, HttpServletResponse response)
 	{
 
 		System.out.println("前端接收驾校列表");
 		System.out.println(reqMap);
 
-
-		RowBounds rowBounds = new RowBounds(0, 8);
+		RowBounds rowBounds = new RowBounds(0,10);
 
 		List<Drivingschool> list = manageDSCService.queryqianDSC(reqMap, rowBounds);
 
-		request.getSession().setAttribute("drivingschoollist", list);
+		request.getSession().setAttribute("drivingschoollist",list);
+		request.getSession().setAttribute("area",reqMap);
 
 		return "frontdrivinglist";
 	}

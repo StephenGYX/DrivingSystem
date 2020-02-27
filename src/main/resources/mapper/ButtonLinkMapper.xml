@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drivingsys.dao.ButtonLinkMapper">
+
+    <update id="updateButtonLink"  parameterType="java.util.Map">
+        update workbuttonlink
+        <set>
+            fixedphone=#{fixedphone},worktime=#{worktime},workaddress=#{workaddress},mobilephone=#{mobilephone}
+            ,workemail=#{workemail},workQQ=#{workQQ},workimage=#{workimage}
+        </set>
+    </update>
+
+    <select id="queryButtonLink" resultType="com.drivingsys.bean.Workbuttonlink">
+        select * from workbuttonlink;
+    </select>
+
+</mapper>
+	
