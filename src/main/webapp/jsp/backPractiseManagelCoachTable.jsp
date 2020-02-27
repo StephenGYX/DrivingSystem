@@ -71,21 +71,31 @@
 
 			<script type="text/html" id="currentTableBar">
 				{{#  if(d.paccountstate == 0  ){ }}
-				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="start">启用</a>
-				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
-				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="seeMyStudent">查看学员</a>
-				<a class="layui-btn layui-btn-xs data-count-edit" data-method="dialog" lay-event="myEval">所受评价</a>
+				<c:if test="${requestScope.doThing=='onlySee'}" >
+					-----------------------------
+				</c:if>
+				<c:if test="${requestScope.doThing=='Manage'}" >
+					<a class="layui-btn layui-btn-xs data-count-edit" lay-event="start">启用</a>
+					<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
+					<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+					<a class="layui-btn layui-btn-xs data-count-edit" lay-event="seeMyStudent">查看学员</a>
+					<a class="layui-btn layui-btn-xs data-count-edit" data-method="dialog" lay-event="myEval">所受评价</a>
+				</c:if>
+
 
 				{{#  }
 				else if(d.paccountstate == 1 ){ }}
-				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="stop">禁用</a>
-				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
-				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="seeMyStudent">查看学员</a>
-				<a class="layui-btn layui-btn-xs data-count-edit" data-method="dialog"  lay-event="myEval">所受评价</a>
+				<c:if test="${requestScope.doThing=='onlySee'}" >
+					-----------------------------
+				</c:if>
+				<c:if test="${requestScope.doThing=='Manage'}" >
+					<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="stop">禁用</a>
+					<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
+					<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+					<a class="layui-btn layui-btn-xs data-count-edit" lay-event="seeMyStudent">查看学员</a>
+					<a class="layui-btn layui-btn-xs data-count-edit" data-method="dialog"  lay-event="myEval">所受评价</a>
+				</c:if>
 				{{#  }
-
 				else if(d.paccountstate == 2){ }}
 				---------已删除----------
 				{{#  }
@@ -99,6 +109,8 @@
 
 
 	<input type="hidden" id="param" value="${requestScope.did}">
+	<input type="hidden" id="doThing" value="${requestScope.doThing}">
+	<input type="text" id="doThing" value="${requestScope.doThing}">
 <%--	<input  id="aa" value="${requestScope.did}">--%>
 
 

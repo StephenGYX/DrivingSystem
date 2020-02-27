@@ -3,6 +3,7 @@ package com.drivingsys.service;
 import com.drivingsys.bean.Consumer;
 import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Examination;
+import com.drivingsys.bean.Kecheng;
 import com.drivingsys.bean.echartstest.echaretsDSC;
 import com.drivingsys.dao.ManageDSCMapper;
 import org.apache.ibatis.session.RowBounds;
@@ -74,6 +75,11 @@ public class ManageDSCService
 	public int updatedscinfo(Map<String, Object> updata)
 	{
 		return manageDSCMapper.updatedscinfo(updata);
+	}
+
+	public List<Kecheng> QueryDSCkecheng(Map<String, Object> search, RowBounds rowBounds)
+	{
+		return manageDSCMapper.QueryDSCkecheng(search,rowBounds);
 	}
 
 	;

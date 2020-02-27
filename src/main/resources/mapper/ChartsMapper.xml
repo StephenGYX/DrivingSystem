@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.drivingsys.dao.ChartsMapper">
+
+
+    <!--驾校端对教练的用户列表查询-->
+    <select id="queryStudentByCoach" resultType="com.drivingsys.bean.echarsParam" >
+     select count(*) num, pname,pid from  consumer,practise
+     where cpritiseid=pid  group by cpritiseid order by num desc ;
+
+    </select>
+
+
+</mapper>
+	

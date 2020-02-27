@@ -18,69 +18,69 @@
 <div class="layuimini-container" style="height: 100%">
 	<div class="layuimini-main">
 
-<%--		<fieldset class="table-search-fieldset">--%>
-<%--			<legend>搜索信息</legend>--%>
-<%--			<div style="margin: 10px 10px 10px 10px">--%>
-<%--				<form class="layui-form layui-form-pane" action="">--%>
-<%--					<div class="layui-form-item">--%>
-<%--						<div class="layui-inline">--%>
-<%--							<label class="layui-form-label">驾校名</label>--%>
-<%--							<div class="layui-input-inline">--%>
-<%--								<input type="text" name="dname" id="dname" autocomplete="off" class="layui-input">--%>
-<%--							</div>--%>
-<%--						</div>--%>
-<%--						<div class="layui-inline">--%>
-<%--							<label class="layui-form-label">驾校联系人</label>--%>
-<%--							<div class="layui-input-inline">--%>
-<%--								<input type="text" name="dcontacts" id="dcontacts" autocomplete="off"--%>
-<%--								       class="layui-input">--%>
-<%--							</div>--%>
-<%--						</div>--%>
-<%--						<div class="layui-inline">--%>
-<%--							<label class="layui-form-label">用户状态</label>--%>
-<%--							<div class="layui-input-inline">--%>
-<%--								&lt;%&ndash;								<input type="text" name="daccountstate" id="daccountstate" autocomplete="off"&ndash;%&gt;--%>
-<%--								&lt;%&ndash;								       class="layui-input">&ndash;%&gt;--%>
-<%--								<select name="daccountstate">--%>
-<%--									<option value="">未选择</option>--%>
-<%--									<option value="1">启用</option>--%>
-<%--									<option value="2">禁用</option>--%>
-<%--									<option value="3">已删除</option>--%>
+		<%--		<fieldset class="table-search-fieldset">--%>
+		<%--			<legend>搜索信息</legend>--%>
+		<%--			<div style="margin: 10px 10px 10px 10px">--%>
+		<%--				<form class="layui-form layui-form-pane" action="">--%>
+		<%--					<div class="layui-form-item">--%>
+		<%--						<div class="layui-inline">--%>
+		<%--							<label class="layui-form-label">驾校名</label>--%>
+		<%--							<div class="layui-input-inline">--%>
+		<%--								<input type="text" name="dname" id="dname" autocomplete="off" class="layui-input">--%>
+		<%--							</div>--%>
+		<%--						</div>--%>
+		<%--						<div class="layui-inline">--%>
+		<%--							<label class="layui-form-label">驾校联系人</label>--%>
+		<%--							<div class="layui-input-inline">--%>
+		<%--								<input type="text" name="dcontacts" id="dcontacts" autocomplete="off"--%>
+		<%--								       class="layui-input">--%>
+		<%--							</div>--%>
+		<%--						</div>--%>
+		<%--						<div class="layui-inline">--%>
+		<%--							<label class="layui-form-label">用户状态</label>--%>
+		<%--							<div class="layui-input-inline">--%>
+		<%--								&lt;%&ndash;								<input type="text" name="daccountstate" id="daccountstate" autocomplete="off"&ndash;%&gt;--%>
+		<%--								&lt;%&ndash;								       class="layui-input">&ndash;%&gt;--%>
+		<%--								<select name="daccountstate">--%>
+		<%--									<option value="">未选择</option>--%>
+		<%--									<option value="1">启用</option>--%>
+		<%--									<option value="2">禁用</option>--%>
+		<%--									<option value="3">已删除</option>--%>
 
-<%--								</select>--%>
-<%--							</div>--%>
-<%--						</div>--%>
-<%--						&lt;%&ndash;							<div class="layui-inline">&ndash;%&gt;--%>
-<%--						&lt;%&ndash;								<label class="layui-form-label">用户职业</label>&ndash;%&gt;--%>
-<%--						&lt;%&ndash;								<div class="layui-input-inline">&ndash;%&gt;--%>
-<%--						&lt;%&ndash;									<input type="text" name="classify" autocomplete="off" class="layui-input">&ndash;%&gt;--%>
-<%--						&lt;%&ndash;								</div>&ndash;%&gt;--%>
-<%--						&lt;%&ndash;							</div>&ndash;%&gt;--%>
-<%--						<div class="layui-inline">--%>
-<%--							<button type="submit" class="layui-btn layui-btn-primary" lay-submit--%>
-<%--							        lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索--%>
-<%--							</button>--%>
-<%--						</div>--%>
-<%--					</div>--%>
-<%--				</form>--%>
-<%--			</div>--%>
-<%--		</fieldset>--%>
-
-
-	<script type="text/html" id="currentTableBar">
-					<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑课程</a>
-					<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除课程</a>
+		<%--								</select>--%>
+		<%--							</div>--%>
+		<%--						</div>--%>
+		<%--						&lt;%&ndash;							<div class="layui-inline">&ndash;%&gt;--%>
+		<%--						&lt;%&ndash;								<label class="layui-form-label">用户职业</label>&ndash;%&gt;--%>
+		<%--						&lt;%&ndash;								<div class="layui-input-inline">&ndash;%&gt;--%>
+		<%--						&lt;%&ndash;									<input type="text" name="classify" autocomplete="off" class="layui-input">&ndash;%&gt;--%>
+		<%--						&lt;%&ndash;								</div>&ndash;%&gt;--%>
+		<%--						&lt;%&ndash;							</div>&ndash;%&gt;--%>
+		<%--						<div class="layui-inline">--%>
+		<%--							<button type="submit" class="layui-btn layui-btn-primary" lay-submit--%>
+		<%--							        lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索--%>
+		<%--							</button>--%>
+		<%--						</div>--%>
+		<%--					</div>--%>
+		<%--				</form>--%>
+		<%--			</div>--%>
+		<%--		</fieldset>--%>
 
 
-	</script>
+		<script type="text/html" id="currentTableBar">
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑课程</a>
+			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除课程</a>
 
 
-				<script type="text/html" id="toolbarDemo">
-					<div class="layui-btn-container">
-						<button class="layui-btn layui-btn-sm data-add-btn" lay-event="tianjia">> 添加课程</button>
-<%--						<button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="del"> 批量删除课程</button>--%>
-					</div>
-				</script>
+		</script>
+
+
+		<script type="text/html" id="toolbarDemo">
+			<div class="layui-btn-container">
+				<button class="layui-btn layui-btn-sm data-add-btn" lay-event="tianjia">> 添加课程</button>
+				<%--						<button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="del"> 批量删除课程</button>--%>
+			</div>
+		</script>
 
 		<table id="currentTableId" lay-filter="currentTableFilter"></table>
 
@@ -90,16 +90,16 @@
 <script src="<%=path+"/lib/layui-v2.5.5/layui.js"%>" charset="utf-8"></script>
 <script>
 
-	var param;
-	var strings;
-	//加载的时候获取参数(驾校ID)
-	window.onload = function () {
-		param = location.search;
-		strings = param.split("=");
-		console.log(param);
-		console.log(strings[0]);
-		console.log(strings[1]);
-	};
+	// var param;
+	// var strings;
+	// //加载的时候获取参数(驾校ID)
+	// window.onload = function () {
+	// 	param = location.search;
+	// 	strings = param.split("=");
+	// 	console.log(param);
+	// 	console.log(strings[0]);
+	// 	console.log(strings[1]);
+	// };
 
 
 	layui.use(['form', 'table'], function () {
@@ -110,11 +110,17 @@
 
 		table.render({
 			elem: '#currentTableId',
-			url: "<%=path+"/dSchool/QueryDSCPJ"%>" + "?did=" + strings[1],//后台路径
-
+			url: "<%=path+"/dSchool/QueryDSCkecheng"%>",
+				// + "?did=" + strings[1],//后台路径
+			toolbar: '#toolbarDemo',
+			defaultToolbar: ['filter', 'exports', 'print', {
+				title: '提示',
+				layEvent: 'LAYTABLE_TIPS',
+				icon: 'layui-icon-tips'
+			}],
 			cols: [[
 
-				{field: 'id', width: 60, title: '课程id', sort: true},
+				{field: 'kid', width: 60, title: '课程id', sort: true},
 				// {field: 'caccount', width: 80, title: '账号', sort: true},
 				{
 					field: 'kname', width: 120, title: '课程名称', sort: true
@@ -122,24 +128,14 @@
 				},
 				{
 					field: 'kjianjie', width: 80, title: '课程简介'
-					// templet: function (d) {
-					// 	return d.consumer[0].cname; private long kid;
-		// 			private long did;
-		// private String kname;
-		// private String kjianjie;
-		// private long kprice;
-		// private String kjiazhaoleixing;
-		// private String beizhu;
-		// private long kcosttime;
-		// private String kshijianduan;
-					// }
+
 				},
 				{field: 'kprice', width: 100, title: '价格', sort: true},
 				{field: 'kjiazhaoleixing', width: 100, title: '驾照类型', sort: true},
 				{field: 'beizhu', width: 100, title: '备注'},
-				{field: 'kcosttime', width: 100, title: '总学时' ,sort:true},
-				{field: 'kshijianduan', width: 100, title: '练车时间' ,sort:true},
-				{title: '操作', minWidth: 380, templet: '#currentTableBar', fixed: "right", align: "center"}
+				{field: 'kcosttime', width: 100, title: '总学时', sort: true},
+				{field: 'kshijianduan', width: 100, title: '练车时间', sort: true},
+				{title: '操作', minWidth: 120, templet: '#currentTableBar', fixed: "right", align: "center"}
 			]],
 			limits: [5, 10, 15],
 			limit: 15,

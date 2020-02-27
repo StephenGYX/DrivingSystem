@@ -1,11 +1,8 @@
 package com.drivingsys.controller;
 
 
-import com.drivingsys.bean.Consumer;
-import com.drivingsys.bean.Drivingschool;
-import com.drivingsys.bean.Examination;
+import com.drivingsys.bean.*;
 import com.drivingsys.bean.echartstest.echaretsDSC;
-import com.drivingsys.bean.tableParam;
 import com.drivingsys.service.ManageDSCService;
 import com.google.gson.Gson;
 import net.sf.json.JSONArray;
@@ -35,6 +32,27 @@ public class ManageDSCController
 
 	@Resource
 	private ManageDSCService manageDSCService;
+
+
+	public String findDid(HttpServletRequest request)
+	{
+
+		String did = null;
+		//驾校端登录
+		Object o = request.getSession().getAttribute("drivingschool");
+		if (o != null)
+		{
+			System.out.println("驾校登录------------------");
+			Drivingschool d = (Drivingschool) o;
+			did = d.getDid() + "";
+		} else
+		{
+			System.out.println("后台登录------------------");
+			//后台查询驾校列表
+			did = request.getParameter("did");
+		}
+		return did;
+	}
 
 
 	@RequestMapping("QueryDSC")
@@ -328,5 +346,46 @@ public class ManageDSCController
 		return tableParam;
 	}
 
+
+	@RequestMapping("QueryDSCkecheng")
+	@ResponseBody
+	public tableParam QueryDSCkecheng(@RequestParam Map<String, Object> reqMap, HttpServletRequest request)
+	{
+
+		System.out.println("进入查找课程方法");
+		System.out.println(reqMap);
+		System.out.println(reqMap.get("searchParams"));
+
+		String did = findDid(request);
+
+				String searchParams = request.getParameter("searchParams");
+
+		Map<String, Object> search = new HashMap<String, Object>();
+		;
+		if (searchParams != null)
+		{
+
+			JSONObject a = JSONObject.fromObject(searchParams);
+			search = (Map<String, Object>) a;
+		}
+		search.put("did", 1);
+		RowBounds rowBounds = createRowBounds(request);
+
+		List<Kecheng> list = manageDSCService.QueryDSCkecheng(search, rowBounds);
+
+//		long l = manageDSCService.QueryDSCkechengcount(search, rowBounds);
+
+		tableParam tableParam = new tableParam();
+
+		//0表示成功
+		tableParam.setCode(0);
+		//数据库查询count数量
+		tableParam.setCount(8);
+		//失败数据
+		tableParam.setMsg("");
+		tableParam.setData(list);
+
+		return tableParam;
+	}
 
 }

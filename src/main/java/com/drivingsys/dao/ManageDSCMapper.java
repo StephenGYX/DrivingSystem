@@ -3,8 +3,10 @@ package com.drivingsys.dao;
 import com.drivingsys.bean.Consumer;
 import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Examination;
+import com.drivingsys.bean.Kecheng;
 import com.drivingsys.bean.echartstest.echaretsDSC;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
@@ -51,4 +53,6 @@ public interface ManageDSCMapper
 	long QueryDSCshenheCount(Map<String, Object> reqMap);
 
 	int updatedscinfo(Map<String, Object> updata);
+@Select("select * from kecheng where did=#{did}")
+	List<Kecheng> QueryDSCkecheng(Map<String, Object> search, RowBounds rowBounds);
 }
