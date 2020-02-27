@@ -75,7 +75,7 @@
 				,
 				{fixed: 'vphoto',
 					title: '图片',width:80,templet: function (d) {
-						return '<div ><img src="'+d.vphoto+'"  width="50px" height="50px" onclick="showBigImage(this)"></a></div>';
+						return '<div ><img src="'+d.vphoto+'"  width="10px" height="10px" onclick="showBigImage(this)"></a></div>';
 					}
 				},
 				{field: 'vmodel', title: '型号', width:80
