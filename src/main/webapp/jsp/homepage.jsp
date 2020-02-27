@@ -25,7 +25,6 @@
 </head>
 <body>
 
-<%@ page  isELIgnored = "false" %>
 <script type="text/html" id="bar">
 	<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
 			class="layui-icon layui-icon-edit"></i>编辑</a>
