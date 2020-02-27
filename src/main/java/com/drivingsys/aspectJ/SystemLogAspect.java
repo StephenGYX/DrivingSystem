@@ -72,20 +72,21 @@ public class SystemLogAspect
 		//判断是哪个
 		if (backstage != null)
 		{
-			role = 0;//管理员
+			//管理员
+			role = 0;
 		} else if (drivingschool != null)
 		{
-			role = 1;//驾校
+			//驾校
+			role = 1;
 		} else if (consumer != null)
 		{
-			role = 2;//教练
+			//教练
+			role = 2;
 		} else if (practise != null)
 		{
-			role = 3;//学员
+			//学员
+			role = 3;
 		}
-
-//		System.out.println("登录的用户名：" + backstage.getBname());
-//		System.out.println("登录的角色：" + backstage.getRid());
 
 		//日志对象
 		com.drivingsys.bean.Log log = new com.drivingsys.bean.Log();

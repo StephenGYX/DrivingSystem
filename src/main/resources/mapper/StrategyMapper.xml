@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.drivingsys.dao.LogMapper">
+<mapper namespace="com.drivingsys.dao.StrategyMapper">
 
     <insert id="insertNewLog" parameterType="com.drivingsys.bean.Log">
         insert into log(loperatorid, lrole, ltype, lbehavior, lip, ltime, lmethod)
@@ -11,7 +11,7 @@
 		select * from log order by ltime desc limit #{start},${limit}
     </select>
 
-    <select id="queryAll" resultType="integer">
+    <select id="queryAll" resultType="com.drivingsys.bean.Log">
 		select count(*) from log
     </select>
 
@@ -62,6 +62,17 @@
             </if>
         </where>
         order by ltime desc limit ${statrNum},${limit}
+    </select>
+
+    <select id="queryAllStrategyWithLimit" resultType="com.drivingsys.bean.Strategy">
+        select * from strategy order by stime desc
+        <if test="limit !=null and limit!=''">
+            limit 0,${limit}
+        </if>
+    </select>
+
+    <select id="querySingleStrategy" resultType="com.drivingsys.bean.Strategy">
+        select * from strategy where sid = ${sid};
     </select>
 
 </mapper>

@@ -21,7 +21,6 @@ public interface LogMapper
 	public int insertNewLog(Log log);
 
 	/**
-	 *
 	 * @param map
 	 * @return
 	 */

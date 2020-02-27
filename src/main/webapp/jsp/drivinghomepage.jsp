@@ -380,6 +380,9 @@
 </head>
 
 <body class="pc">
+
+<input type="hidden" id="hid" value=<%=path%>>
+
 <div class="user-bar  dark  ">
 	<ul class="user-bar-left">
 		<li>学车从这里开始 - 传一驾校网</li>
@@ -409,7 +412,7 @@
 										}
 
 									</style>
-									<a style="" href="/"><img class="gw-browse-component-content"
+									<a style="" href="<%=path+"/homepage/drivingSchool"%>"><img class="gw-browse-component-content"
 									                          style="width:93px;max-width:none;height:24px;max-height:none;opacity:1;"
 									                          alt=""
 									                          src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-07/15014676714704.png"/></a>
@@ -556,21 +559,18 @@
 									<div class="module-145688-components-nav-1501482126373-7437 gw-browse-component-content"
 									     style="background-color: transparent">
 										<div class="gw-nav-cont"><a target="_self" class="gw-nav" style=""
-										                            href="/">首页</a></div>
-										<div class="gw-nav-cont"><a target="_self" class="gw-nav" style=""
-										                            href="/guanyu">品牌驾校</a></div>
+										                            href="<%=path+"/homepage/drivingSchool"%>">首页</a></div>
+										<div class="gw-nav-cont" id="school"><a target="_self" class="gw-nav" style=""
+										                                        href="#drivingschool">品牌驾校</a></div>
 										<div class="gw-nav-cont" id="exam1"><a target="_self" class="gw-nav" style=""
-										                            href="#gw-module-466258">考试攻略</a></div>
+										                                       href="#gw-module-146157">考试攻略</a></div>
 										<div class="gw-nav-cont" id="news1"><a target="_self" class="gw-nav" style=""
-										                            href="#gw-module-466258">行业资讯</a></div>
+										                                       href="#gw-module-146158">行业资讯</a></div>
 										<div class="gw-nav-cont"><a target="_self" class="gw-nav" style=""
-										                            href=<%=path+"/jsp/area.jsp"%>>驾校加盟</a></div>
+										                            href=<%=path + "/homepage/returnSchoolJoinMain"%>>驾校加盟</a></div>
 										<div class="gw-nav-cont"><a target="_self" class="gw-nav" style=""
-										                            href=<%=path+"/jsp/frontlogin3.jsp"%>>用户登录</a></div>
-<%--										<div class="gw-nav-cont"><a target="_self" class="gw-nav" style=""--%>
-<%--										                            href="/baoming">报名</a></div>--%>
-<%--										<div class="gw-nav-cont"><a target="_self" class="gw-nav" style=""--%>
-<%--										                            href="/lianxi">联系</a></div>--%>
+										                            href=<%=path + "/jsp/frontlogin3.jsp"%>>用户登录</a>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -928,132 +928,117 @@
 	</div>
 </div>
 
-<%--品牌驾校--%>
-<iframe id="mainContent" style="display: none;border: medium none;"  src="<%=path+"/dSchool/queryqianDSC"%>" scrolling="no" width="100%" height="500px" ></iframe>
+<div id="drivingschool">
+	<%--品牌驾校--%>
+	<iframe id="mainContent" style="display: none;border: medium none;" src="<%=path+"/dSchool/queryqianDSC"%>"
+	        scrolling="no" width="100%" height="800px"></iframe>
+</div>
 
 <!--自定义html目前不适用 2019 11 04-->
-<div class="gw-browse-module " data-full="" data-fixed-position="" id="gw-module-146158" name="考试攻略" data-anchor-id="anchor-1501479054110-1648" style="background-color:rgb(246, 246, 246);background-repeat:repeat;background-size:auto;">
+<div class="gw-browse-module " data-full="" data-fixed-position="" id="gw-module-146158" name="新闻资讯"
+     data-anchor-id="anchor-1501479054110-1648"
+     style="background-color:rgb(246, 246, 246);background-repeat:repeat;background-size:auto;">
 	<div class="gw-browse-module-content clearfix" style="background-repeat:repeat;background-size:auto;">
 		<div class="gw-grid-col grid-col-pc-12">
-			<div class="gw-browse-grid" style="height:900px;">
+			<div class="gw-browse-grid" style="height:800px;">
 				<div class="gw-browse-grid-content">
 					<div class="gw-browse-container" style="" data-editable="0">
 						<div class="gw-browse-container-content">
 							<div class="text-component">
-								<div class="gw-browse-component" id="module-146158-components-text-1501479054110-6164" style="top:100px;left:545px;width:160px;height:36px;">
-									<div class="gw-browse-component-content animated bounceIn" style="font-family:微软雅黑;font-size:33px;font-weight:normal;font-style:normal;color:rgb(68, 68, 68);background-color:transparent;line-height:33px;text-decoration:none;text-align:left;">
-										<span>考试攻略</span>
+								<div class="gw-browse-component" id="module-146158-components-text-1501479054110-6164"
+								     style="top:100px;left:545px;width:160px;height:36px;">
+									<div class="gw-browse-component-content animated bounceIn"
+									     style="font-family:微软雅黑;font-size:33px;font-weight:normal;font-style:normal;color:rgb(68, 68, 68);background-color:transparent;line-height:33px;text-decoration:none;text-align:left;">
+										<span>新闻资讯</span>
 									</div>
 								</div>
 							</div>
 							<div class="text-component">
-								<div class="gw-browse-component" id="module-146158-components-text-1501479054111-1701" style="top:135px;left:548px;width:68px;height:26px;">
-									<div class="gw-browse-component-content animated bounceIn" style="font-family:微软雅黑;font-size:15px;font-weight:normal;font-style:normal;color:rgb(153, 153, 153);background-color:transparent;line-height:26px;text-decoration:none;text-align:left;">
-										<span>EXAM</span>
+								<div class="gw-browse-component" id="module-146158-components-text-1501479054111-1701"
+								     style="top:135px;left:548px;width:68px;height:26px;">
+									<div class="gw-browse-component-content animated bounceIn"
+									     style="font-family:微软雅黑;font-size:15px;font-weight:normal;font-style:normal;color:rgb(153, 153, 153);background-color:transparent;line-height:26px;text-decoration:none;text-align:left;">
+										<span>NEWS</span>
 									</div>
 								</div>
 							</div>
 							<div class="text-component">
-								<div class="gw-browse-component" id="module-146158-components-text-1501479054111-4628" style="top:94px;left:487px;width:53px;height:59px;">
-									<div class="gw-browse-component-content animated bounceIn" style="font-family:微软雅黑;font-size:62px;font-weight:normal;font-style:normal;color:rgb(255, 101, 54);background-color:transparent;line-height:62px;text-decoration:none;text-align:left;">
-										<span>E</span>
-									</div>
-								</div>
-							</div>
-							<div class="text-component">
-								<div class="gw-browse-component" id="module-146158-components-text-1501479054111-9453" style="top:268px;left:669px;width:325px;height:26px;">
-									<div class="gw-browse-component-content " style="font-family:微软雅黑;font-size:22px;font-weight:normal;font-style:normal;color:rgb(255, 255, 255);background-color:transparent;line-height:26px;text-decoration:none;text-align:left;">
-										<span>周一至周五 暑期班</span>
+								<div class="gw-browse-component" id="module-146158-components-text-1501479054111-4628"
+								     style="top:94px;left:487px;width:53px;height:59px;">
+									<div class="gw-browse-component-content animated bounceIn"
+									     style="font-family:微软雅黑;font-size:62px;font-weight:normal;font-style:normal;color:rgb(255, 101, 54);background-color:transparent;line-height:62px;text-decoration:none;text-align:left;">
+										<span>N</span>
 									</div>
 								</div>
 							</div>
 							<div class="article-component">
-								<div class="gw-browse-component gw-dynamic-component" id="module-146158-components-article-1501479106113-3181" style="top:209px;left:399px;width:768px;height:520px;">
+								<div class="gw-browse-component gw-dynamic-component"
+								     id="module-146158-components-article-1501479106113-3181"
+								     style="top:209px;left:399px;width:768px;height:520px;">
 									<div class="gw-browse-component-content row">
+									<c:if test="${sessionScope.newsList !=null}">
+										<c:forEach items="${sessionScope.newsList}" begin="0" end="3" var="newsList">
 										<div class="col-xs-12 article_style_5">
-											<a href="/article/4981" target="_blank">
+											<a href="<%=path+"/homepage/queryNewsWithId/"%>${newsList.jid}" target="_blank">
 												<div class="article_style_5_content">
-													<div class="article_date">
-														<span class="article_ss" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">08</span>
-														<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">2017</span>
-														<span class="article_xiegang" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">/</span>
-														<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">08</span>
-													</div>
+												<div class="article_date">
+														<span class="article_ss"
+														      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">${newsList.jday}</span>
+													<span class="article_yy"
+													      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">${newsList.jyear}</span>
+													<span class="article_xiegang"
+													      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">/</span>
+													<span class="article_yy"
+													      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">${newsList.jmonth}</span>
+												</div>
 													<div>
-														<p class="article_title" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">海南驾校年培训能力达60万人 市场趋饱和</p>
-														<p class="article_abstract" style="font-size:14px;font-family:微软雅黑;font-style:normal;color:rgb(102, 102, 102);">国都市报7月30日讯(记者王小畅实习生冯欣)近日，海南省道路运输局发布了《2017年海南省机动车驾驶员培训市场投资风险预警公告》(以下简称&ldquo;公告&rdquo;)，认为今后几年，海南省驾培市场基本趋于饱和的状况，而驾培市场需求还会逐年下降、市场竞争会更加激烈，投资风险加大。</p>
+														<p class="article_title"
+														   style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">
+																${newsList.jtitle}</p>
+														<p class="article_abstract"
+														   style="font-size:14px;font-family:微软雅黑;font-style:normal;color:rgb(102, 102, 102);">
+																${newsList.jabstract}
 													</div>
 												</div>
 											</a>
-										</div>                            <div class="col-xs-12 article_style_5">
-										<a href="/article/4979" target="_blank">
-											<div class="article_style_5_content">
-												<div class="article_date">
-													<span class="article_ss" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">08</span>
-													<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">2017</span>
-													<span class="article_xiegang" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">/</span>
-													<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">08</span>
-												</div>
-												<div>
-													<p class="article_title" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">海南驾校年培训能力达60万人 市场趋饱和</p>
-													<p class="article_abstract" style="font-size:14px;font-family:微软雅黑;font-style:normal;color:rgb(102, 102, 102);">国都市报7月30日讯(记者王小畅实习生冯欣)近日，海南省道路运输局发布了《2017年海南省机动车驾驶员培训市场投资风险预警公告》(以下简称&ldquo;公告&rdquo;)，认为今后几年，海南省驾培市场基本趋于饱和的状况，而驾培市场需求还会逐年下降、市场竞争会更加激烈，投资风险加大。</p>
-												</div>
-											</div>
-										</a>
-									</div>                            <div class="col-xs-12 article_style_5">
-										<a href="/article/4056" target="_blank">
-											<div class="article_style_5_content">
-												<div class="article_date">
-													<span class="article_ss" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">31</span>
-													<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">2017</span>
-													<span class="article_xiegang" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">/</span>
-													<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">07</span>
-												</div>
-												<div>
-													<p class="article_title" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">暑期驾校&ldquo;机器人教练&rdquo;将上岗</p>
-													<p class="article_abstract" style="font-size:14px;font-family:微软雅黑;font-style:normal;color:rgb(102, 102, 102);">近期无锡进入&ldquo;烧烤&rdquo;模式，却没有阻挡大学生和部分高中毕业生学车的热情。昨天，记者从几家驾校了解到，高中毕业生和大学生成了驾校学员的主力军，比例占到学车人数的七成以上，许多驾校推出的&ldquo;先培后付&rdquo;模式受到学员青睐。</p>
-												</div>
-											</div>
-										</a>
-									</div>                            <div class="col-xs-12 article_style_5">
-										<a href="/article/4055" target="_blank">
-											<div class="article_style_5_content">
-												<div class="article_date">
-													<span class="article_ss" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">31</span>
-													<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">2017</span>
-													<span class="article_xiegang" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">/</span>
-													<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">07</span>
-												</div>
-												<div>
-													<p class="article_title" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">礼让斑马线从驾校源头抓起</p>
-													<p class="article_abstract" style="font-size:14px;font-family:微软雅黑;font-style:normal;color:rgb(102, 102, 102);">宁夏新闻网讯（通讯员 脱伟伟）驾驶人的安全文明素质是道路交通安全的第一道防线，为进一步宣传道路交通安全法律法规，积极倡导&ldquo;文明交通&mdash;&mdash;礼让斑马线&rdquo;的良好氛围。7月27日上午，西夏区交警一大队宣传民警来到辖区宝马驾校，开展&ldquo;文明交通&mdash;&mdash;礼让斑马线&rdquo;道路交通安全宣传活动。</p>
-												</div>
-											</div>
-										</a>
-									</div>                    </div>
+										</div>
+										</c:forEach>
+									</c:if>
 
+
+									</div>
 								</div>
-							</div><div class="images-component">
-							<div class="gw-browse-component" id="module-146158-components-images-1501479541610-1449" style="top:760px;left:475px;width:218px;height:65px;">
-								<style>
-									#module-146157-components-images-1501479541610-1449 .gw-image-hoverShadow:hover img {
-										box-shadow:0px 0px 10px 1px #ababab !important;
-									}
-
-								</style>
-								<a style="" href="/zixun"><img class="gw-browse-component-content animated bounceIn" style="width:218px;max-width:none;height:65px;max-height:none;opacity:1;" alt="" src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-07/15014675213641.png" /></a>
 							</div>
-						</div><div class="images-component">
-							<div class="gw-browse-component" id="module-146158-components-images-1510112053349-7731" style="top:210px;left:0;width:361px;height:489px;">
-								<style>
-									#module-146157-components-images-1510112053349-7731 .gw-image-hoverShadow:hover img {
-										box-shadow:0px 0px 10px 1px #ababab !important;
-									}
+<%--							<div class="images-component">--%>
+<%--								<div class="gw-browse-component" id="module-146158-components-images-1501479541610-1449"--%>
+<%--								     style="top:760px;left:475px;width:218px;height:65px;">--%>
+<%--									<style>--%>
+<%--										#module-146157-components-images-1501479541610-1449 .gw-image-hoverShadow:hover img {--%>
+<%--											box-shadow: 0px 0px 10px 1px #ababab !important;--%>
+<%--										}--%>
 
-								</style>
-								<img class="gw-browse-component-content animated bounceIn" style="width:361px;max-width:none;height:489px;max-height:none;opacity:1;" alt="" src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-11/15101120619511.jpg" />
+<%--									</style>--%>
+<%--									<a style="" href="<%=path+"/homepage/drivingschool"%>"><img class="gw-browse-component-content animated bounceIn"--%>
+<%--									                               style="width:218px;max-width:none;height:65px;max-height:none;opacity:1;"--%>
+<%--									                               alt=""--%>
+<%--									                               src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-07/15014675213641.png"/></a>--%>
+<%--								</div>--%>
+<%--							</div>--%>
+							<div class="images-component">
+								<div class="gw-browse-component" id="module-146158-components-images-1510112053349-7731"
+								     style="top:210px;left:0;width:361px;height:489px;">
+									<style>
+										#module-146157-components-images-1510112053349-7731 .gw-image-hoverShadow:hover img {
+											box-shadow: 0px 0px 10px 1px #ababab !important;
+										}
+
+									</style>
+									<img class="gw-browse-component-content animated bounceIn"
+									     style="width:361px;max-width:none;height:489px;max-height:none;opacity:1;"
+									     alt=""
+									     src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-11/15101120619511.jpg"/>
+								</div>
 							</div>
-						</div>
 						</div>
 					</div>
 				</div>
@@ -1063,128 +1048,108 @@
 </div>
 
 <!--自定义html目前不适用 2019 11 04-->
-<div class="gw-browse-module " data-full="" data-fixed-position="" id="gw-module-146157" name="新闻资讯" data-anchor-id="anchor-1501479054110-1648" style="background-color:rgb(255, 255, 255);background-repeat:repeat;background-size:auto;">
+<div class="gw-browse-module " data-full="" data-fixed-position="" id="gw-module-146157" name="考试攻略"
+     data-anchor-id="anchor-1501479054110-1648"
+     style="background-color:rgb(255, 255, 255);background-repeat:repeat;background-size:auto;">
 	<div class="gw-browse-module-content clearfix" style="background-repeat:repeat;background-size:auto;">
 		<div class="gw-grid-col grid-col-pc-12">
-			<div class="gw-browse-grid" style="height:900px;">
+			<div class="gw-browse-grid" style="height:800px;">
 				<div class="gw-browse-grid-content">
 					<div class="gw-browse-container" style="" data-editable="0">
 						<div class="gw-browse-container-content">
 							<div class="text-component">
-								<div class="gw-browse-component" id="module-146157-components-text-1501479054110-6164" style="top:100px;left:545px;width:160px;height:36px;">
-									<div class="gw-browse-component-content animated bounceIn" style="font-family:微软雅黑;font-size:33px;font-weight:normal;font-style:normal;color:rgb(68, 68, 68);background-color:transparent;line-height:33px;text-decoration:none;text-align:left;">
-										<span>新闻资讯</span>
+								<div class="gw-browse-component" id="module-146157-components-text-1501479054110-6164"
+								     style="top:100px;left:545px;width:160px;height:36px;">
+									<div class="gw-browse-component-content animated bounceIn"
+									     style="font-family:微软雅黑;font-size:33px;font-weight:normal;font-style:normal;color:rgb(68, 68, 68);background-color:transparent;line-height:33px;text-decoration:none;text-align:left;">
+										<span>考试攻略</span>
 									</div>
 								</div>
 							</div>
 							<div class="text-component">
-								<div class="gw-browse-component" id="module-146157-components-text-1501479054111-1701" style="top:135px;left:548px;width:68px;height:26px;">
-									<div class="gw-browse-component-content animated bounceIn" style="font-family:微软雅黑;font-size:15px;font-weight:normal;font-style:normal;color:rgb(153, 153, 153);background-color:transparent;line-height:26px;text-decoration:none;text-align:left;">
-										<span>NEWS </span>
+								<div class="gw-browse-component" id="module-146157-components-text-1501479054111-1701"
+								     style="top:135px;left:548px;width:68px;height:26px;">
+									<div class="gw-browse-component-content animated bounceIn"
+									     style="font-family:微软雅黑;font-size:15px;font-weight:normal;font-style:normal;color:rgb(153, 153, 153);background-color:transparent;line-height:26px;text-decoration:none;text-align:left;">
+										<span>EXAM </span>
 									</div>
 								</div>
 							</div>
 							<div class="text-component">
-								<div class="gw-browse-component" id="module-146157-components-text-1501479054111-4628" style="top:94px;left:487px;width:53px;height:59px;">
-									<div class="gw-browse-component-content animated bounceIn" style="font-family:微软雅黑;font-size:62px;font-weight:normal;font-style:normal;color:rgb(255, 101, 54);background-color:transparent;line-height:62px;text-decoration:none;text-align:left;">
-										<span>N</span>
-									</div>
-								</div>
-							</div>
-							<div class="text-component">
-								<div class="gw-browse-component" id="module-146157-components-text-1501479054111-9453" style="top:268px;left:669px;width:325px;height:26px;">
-									<div class="gw-browse-component-content " style="font-family:微软雅黑;font-size:22px;font-weight:normal;font-style:normal;color:rgb(255, 255, 255);background-color:transparent;line-height:26px;text-decoration:none;text-align:left;">
-										<span>周一至周五 暑期班</span>
+								<div class="gw-browse-component" id="module-146157-components-text-1501479054111-4628"
+								     style="top:94px;left:487px;width:53px;height:59px;">
+									<div class="gw-browse-component-content animated bounceIn"
+									     style="font-family:微软雅黑;font-size:62px;font-weight:normal;font-style:normal;color:rgb(255, 101, 54);background-color:transparent;line-height:62px;text-decoration:none;text-align:left;">
+										<span>E</span>
 									</div>
 								</div>
 							</div>
 							<div class="article-component">
-								<div class="gw-browse-component gw-dynamic-component" id="module-146157-components-article-1501479106113-3181" style="top:209px;left:399px;width:768px;height:520px;">
+								<div class="gw-browse-component gw-dynamic-component"
+								     id="module-146157-components-article-1501479106113-3181"
+								     style="top:209px;left:399px;width:768px;height:520px;">
 									<div class="gw-browse-component-content row">
-										<div class="col-xs-12 article_style_5">
-											<a href="/article/4981" target="_blank">
-												<div class="article_style_5_content">
-													<div class="article_date">
-														<span class="article_ss" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">08</span>
-														<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">2017</span>
-														<span class="article_xiegang" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">/</span>
-														<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">08</span>
-													</div>
-													<div>
-														<p class="article_title" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">海南驾校年培训能力达60万人 市场趋饱和</p>
-														<p class="article_abstract" style="font-size:14px;font-family:微软雅黑;font-style:normal;color:rgb(102, 102, 102);">国都市报7月30日讯(记者王小畅实习生冯欣)近日，海南省道路运输局发布了《2017年海南省机动车驾驶员培训市场投资风险预警公告》(以下简称&ldquo;公告&rdquo;)，认为今后几年，海南省驾培市场基本趋于饱和的状况，而驾培市场需求还会逐年下降、市场竞争会更加激烈，投资风险加大。</p>
-													</div>
+										<c:if test="${sessionScope.strategyList !=null}">
+											<c:forEach items="${sessionScope.strategyList}" begin="0" end="3" var="strategyList">
+												<div class="col-xs-12 article_style_5">
+													<a href="<%=path+"/homepage/queryStrategyWithId/"%>${strategyList.sid}" target="_blank">
+														<div class="article_style_5_content">
+															<div class="article_date">
+														<span class="article_ss"
+														      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">${strategyList.sday}</span>
+																<span class="article_yy"
+																      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">${strategyList.syear}</span>
+																<span class="article_xiegang"
+																      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">/</span>
+																<span class="article_yy"
+																      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">${strategyList.smonth}</span>
+															</div>
+															<div>
+																<p class="article_title"
+																   style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">
+																		${strategyList.stitle}</p>
+																<p class="article_abstract"
+																   style="font-size:14px;font-family:微软雅黑;font-style:normal;color:rgb(102, 102, 102);">
+																		${strategyList.sabstract}
+															</div>
+														</div>
+													</a>
 												</div>
-											</a>
-										</div>                            <div class="col-xs-12 article_style_5">
-										<a href="/article/4979" target="_blank">
-											<div class="article_style_5_content">
-												<div class="article_date">
-													<span class="article_ss" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">08</span>
-													<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">2017</span>
-													<span class="article_xiegang" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">/</span>
-													<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">08</span>
-												</div>
-												<div>
-													<p class="article_title" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">海南驾校年培训能力达60万人 市场趋饱和</p>
-													<p class="article_abstract" style="font-size:14px;font-family:微软雅黑;font-style:normal;color:rgb(102, 102, 102);">国都市报7月30日讯(记者王小畅实习生冯欣)近日，海南省道路运输局发布了《2017年海南省机动车驾驶员培训市场投资风险预警公告》(以下简称&ldquo;公告&rdquo;)，认为今后几年，海南省驾培市场基本趋于饱和的状况，而驾培市场需求还会逐年下降、市场竞争会更加激烈，投资风险加大。</p>
-												</div>
-											</div>
-										</a>
-									</div>                            <div class="col-xs-12 article_style_5">
-										<a href="/article/4056" target="_blank">
-											<div class="article_style_5_content">
-												<div class="article_date">
-													<span class="article_ss" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">31</span>
-													<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">2017</span>
-													<span class="article_xiegang" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">/</span>
-													<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">07</span>
-												</div>
-												<div>
-													<p class="article_title" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">暑期驾校&ldquo;机器人教练&rdquo;将上岗</p>
-													<p class="article_abstract" style="font-size:14px;font-family:微软雅黑;font-style:normal;color:rgb(102, 102, 102);">近期无锡进入&ldquo;烧烤&rdquo;模式，却没有阻挡大学生和部分高中毕业生学车的热情。昨天，记者从几家驾校了解到，高中毕业生和大学生成了驾校学员的主力军，比例占到学车人数的七成以上，许多驾校推出的&ldquo;先培后付&rdquo;模式受到学员青睐。</p>
-												</div>
-											</div>
-										</a>
-									</div>                            <div class="col-xs-12 article_style_5">
-										<a href="/article/4055" target="_blank">
-											<div class="article_style_5_content">
-												<div class="article_date">
-													<span class="article_ss" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">31</span>
-													<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">2017</span>
-													<span class="article_xiegang" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">/</span>
-													<span class="article_yy" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">07</span>
-												</div>
-												<div>
-													<p class="article_title" style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">礼让斑马线从驾校源头抓起</p>
-													<p class="article_abstract" style="font-size:14px;font-family:微软雅黑;font-style:normal;color:rgb(102, 102, 102);">宁夏新闻网讯（通讯员 脱伟伟）驾驶人的安全文明素质是道路交通安全的第一道防线，为进一步宣传道路交通安全法律法规，积极倡导&ldquo;文明交通&mdash;&mdash;礼让斑马线&rdquo;的良好氛围。7月27日上午，西夏区交警一大队宣传民警来到辖区宝马驾校，开展&ldquo;文明交通&mdash;&mdash;礼让斑马线&rdquo;道路交通安全宣传活动。</p>
-												</div>
-											</div>
-										</a>
-									</div>                    </div>
-
+											</c:forEach>
+										</c:if>
+									</div>
 								</div>
-							</div><div class="images-component">
-							<div class="gw-browse-component" id="module-146157-components-images-1501479541610-1449" style="top:760px;left:475px;width:218px;height:65px;">
-								<style>
-									#module-146157-components-images-1501479541610-1449 .gw-image-hoverShadow:hover img {
-										box-shadow:0px 0px 10px 1px #ababab !important;
-									}
-
-								</style>
-								<a style="" href="/zixun"><img class="gw-browse-component-content animated bounceIn" style="width:218px;max-width:none;height:65px;max-height:none;opacity:1;" alt="" src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-07/15014675213641.png" /></a>
 							</div>
-						</div><div class="images-component">
-							<div class="gw-browse-component" id="module-146157-components-images-1510112053349-7731" style="top:210px;left:0;width:361px;height:489px;">
-								<style>
-									#module-146157-components-images-1510112053349-7731 .gw-image-hoverShadow:hover img {
-										box-shadow:0px 0px 10px 1px #ababab !important;
-									}
+<%--							<div class="images-component">--%>
+<%--								<div class="gw-browse-component" id="module-146157-components-images-1501479541610-1449"--%>
+<%--								     style="top:760px;left:475px;width:218px;height:65px;">--%>
+<%--									<style>--%>
+<%--										#module-146157-components-images-1501479541610-1449 .gw-image-hoverShadow:hover img {--%>
+<%--											box-shadow: 0px 0px 10px 1px #ababab !important;--%>
+<%--										}--%>
 
-								</style>
-								<img class="gw-browse-component-content animated bounceIn" style="width:361px;max-width:none;height:489px;max-height:none;opacity:1;" alt="" src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-11/15101120619511.jpg" />
+<%--									</style>--%>
+<%--									<a style="" href="<%=path+"/homepage/drivingschool"%>"><img class="gw-browse-component-content animated bounceIn"--%>
+<%--									                               style="width:218px;max-width:none;height:65px;max-height:none;opacity:1;"--%>
+<%--									                               alt=""--%>
+<%--									                               src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-07/15014675213641.png"/></a>--%>
+<%--								</div>--%>
+<%--							</div>--%>
+							<div class="images-component">
+								<div class="gw-browse-component" id="module-146157-components-images-1510112053349-7731"
+								     style="top:210px;left:0;width:361px;height:489px;">
+									<style>
+										#module-146157-components-images-1510112053349-7731 .gw-image-hoverShadow:hover img {
+											box-shadow: 0px 0px 10px 1px #ababab !important;
+										}
+
+									</style>
+									<img class="gw-browse-component-content animated bounceIn"
+									     style="width:361px;max-width:none;height:489px;max-height:none;opacity:1;"
+									     alt=""
+									     src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-11/15101120619511.jpg"/>
+								</div>
 							</div>
-						</div>
 						</div>
 					</div>
 				</div>
@@ -1214,7 +1179,7 @@
 										}
 
 									</style>
-									<a style="" href="/"><img class="gw-browse-component-content animated bounceIn"
+									<a style="" href="<%=path+"/homepage/drivingSchool"%>"><img class="gw-browse-component-content animated bounceIn"
 									                          style="width:93px;max-width:none;height:26px;max-height:none;opacity:1;"
 									                          alt=""
 									                          src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-07/15014676714704.png"/></a>
@@ -1253,7 +1218,7 @@
 								     style="top:137px;left:145px;width:132px;height:26px;">
 									<div class="gw-browse-component-content animated bounceIn"
 									     style="font-family:微软雅黑;font-size:14px;font-weight:normal;font-style:normal;color:rgb(153, 153, 153);background-color:transparent;line-height:26px;text-decoration:none;text-align:left;">
-										<span>0571-22222222</span>
+										<span>${sessionScope.buttonlink.fixedphone}</span>
 									</div>
 								</div>
 							</div>
@@ -1262,7 +1227,7 @@
 								     style="top:184px;left:123px;width:167px;height:26px;">
 									<div class="gw-browse-component-content animated bounceIn"
 									     style="font-family:微软雅黑;font-size:14px;font-weight:normal;font-style:normal;color:rgb(153, 153, 153);background-color:transparent;line-height:26px;text-decoration:none;text-align:left;">
-										<span>周一至周日 9:00－18:00</span>
+										<span>${sessionScope.buttonlink.worktime}</span>
 									</div>
 								</div>
 							</div>
@@ -1291,7 +1256,7 @@
 									</style>
 									<img class="gw-browse-component-content animated bounceIn"
 									     style="height:131px;max-height:none;opacity:1;" alt=""
-									     src="<%=path+"/images/QRcode.jpg"%>"/>
+									     src="${pageContext.request.contextPath}${sessionScope.buttonlink.workimage}"/>
 								</div>
 							</div>
 							<div class="text-component">
@@ -1347,7 +1312,7 @@
 								     style="top:72px;left:547px;width:194px;height:26px;">
 									<div class="gw-browse-component-content animated bounceIn"
 									     style="font-family:微软雅黑;font-size:14px;font-weight:normal;font-style:normal;color:rgb(153, 153, 153);background-color:transparent;line-height:26px;text-decoration:none;text-align:left;">
-										<span>浙江省西湖区紫霞街</span>
+										<span>${sessionScope.buttonlink.workaddress}</span>
 									</div>
 								</div>
 							</div>
@@ -1356,7 +1321,7 @@
 								     style="top:109px;left:547px;width:194px;height:26px;">
 									<div class="gw-browse-component-content animated bounceIn"
 									     style="font-family:微软雅黑;font-size:14px;font-weight:normal;font-style:normal;color:rgb(153, 153, 153);background-color:transparent;line-height:26px;text-decoration:none;text-align:left;">
-										<span>0571-22222222</span>
+										<span>${sessionScope.buttonlink.mobilephone}</span>
 									</div>
 								</div>
 							</div>
@@ -1366,7 +1331,7 @@
 									<div class="gw-browse-component-content animated bounceIn"
 									     style="font-family:微软雅黑;font-size:14px;font-weight:normal;font-style:normal;color:rgb(153, 153, 153);background-color:transparent;line-height:26px;text-decoration:none;text-align:left;">
 										<a target="_blank" style="color:rgb(153, 153, 153);" href="mailto:22@22.cn"
-										   class="gw-nav">22@22.cn</a>
+										   class="gw-nav">${sessionScope.buttonlink.workemail}</a>
 									</div>
 								</div>
 							</div>
@@ -1376,7 +1341,7 @@
 									<div class="gw-browse-component-content animated bounceIn"
 									     style="font-family:微软雅黑;font-size:14px;font-weight:normal;font-style:normal;color:rgb(153, 153, 153);background-color:transparent;line-height:26px;text-decoration:none;text-align:left;">
 										<a target="_blank" style="color:rgb(153, 153, 153);"
-										   href="http://wpa.qq.com/msgrd?v=3&uin=22222&site=qq&menu=yes" class="gw-nav">22222</a>
+										   href="http://wpa.qq.com/msgrd?v=3&uin=22222&site=qq&menu=yes" class="gw-nav">${sessionScope.buttonlink.workQQ}</a>
 									</div>
 								</div>
 							</div>
@@ -1385,7 +1350,7 @@
 								     style="top:270px;left:339px;width:489px;height:26px;">
 									<div class="gw-browse-component-content animated bounceIn"
 									     style="font-family:微软雅黑;font-size:14px;font-weight:normal;font-style:normal;color:rgb(153, 153, 153);background-color:transparent;line-height:26px;text-decoration:none;text-align:center;">
-										<span>Copyright © 2017,www.xxxxxx.com,All rights reserved 版权所有</span>
+										<span>Copyright © 2020,www.cykjgroup.com,All rights reserved 版权所有</span>
 									</div>
 								</div>
 							</div>
@@ -1404,7 +1369,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-body">
-				<img class="wechat-img" src="<%=path+"/images/QRcode.jpg"%>">
+				<img class="wechat-img" src="${pageContext.request.contextPath}${sessionScope.buttonlink.workimage}">
 			</div>
 			<p class="wechat-tips tips-mobile">长按屏幕识别二维码</p>
 			<p class="wechat-tips tips-pc">打开手机扫描二维码</p>
@@ -1458,21 +1423,26 @@
 	<img src="https://static.xcx.co.ltd/images/wshare.png?_v=202002231700" alt="" style="width:200px;">
 </div>
 <script src="//res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+<script src="<%=path+"/js/drivinghomepage.js"%>" charset="utf-8"></script>
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		$("#mainContent").css('display','block');
+	$(document).ready(function () {
+		$("#mainContent").css('display', 'block');
 	});
 </script>
 
 <script type="text/javascript">
 
-	$("#exam1").on("click",function () {
-		$("html,body").animate({scrollTop:$("#gw-module-466257").offset().top},1000);
+	$("#school").on("click", function () {
+		$("html,body").animate({scrollTop: $("#drivingschool").offset().top}, 1000);
 	});
 
-	$("#news1").on("click",function () {
-		$("html,body").animate({scrollTop:$("#gw-module-466258").offset().top},1000);
+	$("#exam1").on("click", function () {
+		$("html,body").animate({scrollTop: $("#gw-module-146157").offset().top}, 1000);
+	});
+
+	$("#news1").on("click", function () {
+		$("html,body").animate({scrollTop: $("#gw-module-146158").offset().top}, 1000);
 	});
 
 	$(function () {

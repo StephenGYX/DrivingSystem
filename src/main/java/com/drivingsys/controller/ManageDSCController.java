@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -234,33 +235,31 @@ public class ManageDSCController
 
 	@RequestMapping("queryqianDSC")
 //	@ResponseBody
-	public String queryqianDSC(@RequestParam Map<String, Object> reqMap, HttpServletRequest request)
+	public String queryqianDSC(@RequestParam Map<String, Object> reqMap, HttpServletRequest request, HttpServletResponse response)
 	{
 
 		System.out.println("前端接收驾校列表");
 		System.out.println(reqMap);
 
-
-		RowBounds rowBounds = new RowBounds(0,8);
+		RowBounds rowBounds = new RowBounds(0,10);
 
 		List<Drivingschool> list = manageDSCService.queryqianDSC(reqMap, rowBounds);
 
-         request.getSession().setAttribute("drivingschoollist",list);
+		request.getSession().setAttribute("drivingschoollist",list);
+		request.getSession().setAttribute("area",reqMap);
 
 		return "frontdrivinglist";
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
+//	@RequestMapping("queryDrivingShoolWithParam")
+//	@ResponseBody
+//	public List<Drivingschool> queryDrivingShoolWithParam(@RequestParam Map<String, Object> reqMap, HttpServletRequest request)
+//	{
+//		RowBounds rowBounds = new RowBounds(0,10);
+//
+//		List<Drivingschool> list = manageDSCService.queryqianDSC(reqMap, rowBounds);
+//
+//		return list;
+//	}
 
 }
