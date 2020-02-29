@@ -27,6 +27,17 @@ public class Drivingschool {
   private String dregtime;
   private String dremark1;
   private String dremark2;
+  private String dshenhestate;
+
+  public String getDshenhestate()
+  {
+    return dshenhestate;
+  }
+
+  public void setDshenhestate(String dshenhestate)
+  {
+    this.dshenhestate = dshenhestate;
+  }
 
   public String getDschoolimage()
   {
