@@ -57,6 +57,28 @@
 	</script>
 	<script type="text/javascript"
 	        src="https://static.xcx.co.ltd/visual-editor/js/page.min.js?_v=202002231700"></script>
+
+	<%--	置顶滚轮效果--%>
+	<style>
+		.wraper{
+			width:960px;
+			margin:0 auto
+		}
+		.top_arrow{
+			border:0 none;
+			bottom:150px;
+			cursor:pointer;
+			display:none;
+			height:auto;
+			margin:0;
+			opacity:0.5;
+			padding:0;
+			position:fixed;
+			right:40px;
+			width:35px;
+			z-index:2147483647;
+		}
+	</style>
 	<style>
 		html, body {
 			background-color: transparent;
@@ -1619,6 +1641,42 @@
 	_ga.params['ui'] = '0';
 	_ga.init(559);
 </script>
+
+
+<script type="text/javascript">
+	$(function(){
+		var $img = $('<img alt="Top_arrow" class="top_arrow" id="top_arrow" src="<%=path+"/images/top.png"%>" />');
+		$("body").append($img);
+		$(window).scroll(
+			function(){
+				$(window).scrollTop() > 20 ? $img.fadeIn(400) : $img.fadeOut(400)
+			});
+		$("body, html").scroll(
+			function(){
+				$("body,html").scrollTop() > 20 ? $img.fadeIn(400) : $img.fadeOut(400)
+			});
+		$img.click(
+			function(){
+				$("body,html").animate({scrollTop:0},400);
+			});
+
+		$("#top_arrow").hide(),
+			$(window).scroll(
+				function(){
+					$(window).scrollTop() > 20 ? $("#top_arrow").fadeIn(400) : $("#top_arrow").fadeOut(400)
+				}),
+			$("body, html").scroll(
+				function(){
+					$("body,html").scrollTop() > 20 ? $("#top_arrow").fadeIn(400) : $("#top_arrow").fadeOut(400)
+				}),
+			$("#top_arrow").click(
+				function(){
+					$("body,html").animate({scrollTop:0},400);
+				})
+
+	});
+</script>
+
 <script>
 	function GetQueryString(name) {
 		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");

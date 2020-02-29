@@ -4,7 +4,7 @@ var path;
 window.onload = function () {
 	hidNode = document.getElementById("hid");
 	path = hidNode.value;
-	alert(path+'/homepage/updateButtonLink');
+	alert(path+'/buttonlink/updateButtonLink');
 };
 
 layui.use(['upload','layer','form'], function() {
@@ -17,7 +17,7 @@ layui.use(['upload','layer','form'], function() {
 	upload.render({
 		elem: '#test8'
 		,url: path+'/buttonlink/updateButtonLink' //改成您自己的上传接口
-		,accept:'file'
+		,accept:'images'
 		,auto: false
 		,data:{
 			fixedphone:function () {
@@ -50,7 +50,7 @@ layui.use(['upload','layer','form'], function() {
 			layer.load(); //上传loading
 		}
 		,done: function(res, index, upload){
-			if(res.code == 0){
+			if(res.code === 0){
 				alert("上传成功");
 			}
 			layer.closeAll('loading'); //关闭loading
@@ -62,6 +62,7 @@ layui.use(['upload','layer','form'], function() {
 
 	//监听提交
 	form.on('submit(demo1)', function(data){
+		console.log("触发了上传文件");
 		$('#test9').click();
 		return false;
 	});
