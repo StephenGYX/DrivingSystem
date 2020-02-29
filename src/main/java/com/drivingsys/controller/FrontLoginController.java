@@ -58,6 +58,7 @@ public class FrontLoginController
 
 
 	@RequestMapping("frontLogin")
+	@ResponseBody
 	public String testMain(@RequestParam Map<String, String> reqMap, HttpServletRequest request)
 	{
 		System.out.println(reqMap);
@@ -68,7 +69,7 @@ public class FrontLoginController
 		{
 			System.out.println("验证码错误");
 			request.getSession().setAttribute("fmsg", "yzmcw");
-			return "frontlogin3";
+			return "3";
 
 		}
 		;
@@ -85,12 +86,12 @@ public class FrontLoginController
 			{
 				System.out.println("没找到教练");
 				request.getSession().setAttribute("fmsg", "2");
-				return "frontlogin3";
+				return "2";
 			} else
 			{
 				System.out.println("找到了教练");
 				request.getSession().setAttribute("practise", practise);
-				return "PractiseMain";
+				return "20";
 			}
 
 
@@ -101,13 +102,13 @@ public class FrontLoginController
 			{
 				System.out.println("没找到驾校");
 				request.getSession().setAttribute("fmsg", "2");
-				return "frontlogin3";
+				return "2";
 			} else
 			{
 				System.out.println("找到了驾校");
 				request.getSession().setAttribute("drivingschool", drivingschool);
 				//				return "DSCHinfo";
-				return "drivingSchoolMain";
+				return "30";
 			}
 		} else if (roleid.equals("4"))
 		{
@@ -116,13 +117,13 @@ public class FrontLoginController
 			{
 				System.out.println("没找到学生");
 				request.getSession().setAttribute("fmsg", "2");
-				return "frontlogin3";
+				return "2";
 			} else
 			{
 				System.out.println("找到了学生");
 				request.getSession().setAttribute("consumer", consumer);
 
-				return "backmenu";
+				return "10";
 			}
 		}
 		return "frontlogin3";
