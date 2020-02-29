@@ -181,7 +181,7 @@ To change this template use File | Settings | File Templates.
 				data: {"dscParams": JSON.stringify(data.field)},
 				dataType: "text",
 				success: function (msg) {
-alert(msg);
+                 alert(msg);
 					if (msg > 0) {
 
 						layer.msg("注册成功", {icon: 6});

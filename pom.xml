@@ -109,6 +109,12 @@
             <version>20180813</version><!--注意：20160810版本不支持JSONArray-->
         </dependency>
 
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.41</version>
+        </dependency>
+
     </dependencies>
 
     <build>
