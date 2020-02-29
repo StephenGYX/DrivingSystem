@@ -218,9 +218,13 @@ public class FrontLoginController
 
 	@RequestMapping("upload")
 	@ResponseBody
-	public String uploadFile(HttpServletRequest request) throws IOException
+	public String uploadFile(HttpServletRequest request,@RequestParam Map<String, String> reqMap) throws IOException
 	{
-		System.out.println("进入上传方法");
+		System.out.println("进入驾校图片上传方法");
+		//获取文件上传的位置:这里文件上传的路径无法确保在工程目录下(所以需要获取tomcat服务器下的路径)
+		String path = request.getSession().getServletContext().getRealPath("/images");
+		System.out.println("reqmap"+reqMap);
+
 		List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
 		for (int i = 0; i < files.size(); i++)
 		{
@@ -234,6 +238,9 @@ public class FrontLoginController
 			File dest = new File("D:\\filetest\\" + fileName);
 			try
 			{
+				if(dest.exists()){
+					dest.mkdirs();
+				};
 				file.transferTo(dest);
 				System.out.println("第" + (i + 1) + "个文件上传成功");
 			} catch (IOException e)

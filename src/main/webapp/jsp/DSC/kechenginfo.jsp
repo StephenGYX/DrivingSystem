@@ -207,7 +207,7 @@ To change this template use File | Settings | File Templates.
 		$("#xingwei").val("updata");
 
 	}
-	function selectxingwei(data) {
+	function selectxingwei() {
 		$("#xingwei").val("instert");
 	}
 </script>
