@@ -1092,25 +1092,25 @@
 										<c:if test="${sessionScope.strategyList !=null}">
 											<c:forEach items="${sessionScope.strategyList}" begin="0" end="3" var="strategyList">
 												<div class="col-xs-12 article_style_5">
-													<a href="<%=path+"/homepage/queryStrategyWithId/"%>${strategyList.sid}" target="_blank">
+													<a href="<%=path+"/homepage/queryNewsWithId/"%>${strategyList.jid}" target="_blank">
 														<div class="article_style_5_content">
 															<div class="article_date">
 														<span class="article_ss"
-														      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">${strategyList.sday}</span>
+														      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">${strategyList.jday}</span>
 																<span class="article_yy"
-																      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">${strategyList.syear}</span>
+																      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">${strategyList.jyear}</span>
 																<span class="article_xiegang"
 																      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">/</span>
 																<span class="article_yy"
-																      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">${strategyList.smonth}</span>
+																      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">${strategyList.jmonth}</span>
 															</div>
 															<div>
 																<p class="article_title"
 																   style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">
-																		${strategyList.stitle}</p>
+																		${strategyList.jtitle}</p>
 																<p class="article_abstract"
 																   style="font-size:14px;font-family:微软雅黑;font-style:normal;color:rgb(102, 102, 102);">
-																		${strategyList.sabstract}
+																		${strategyList.jabstract}
 															</div>
 														</div>
 													</a>
