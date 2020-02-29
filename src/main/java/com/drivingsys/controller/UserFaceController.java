@@ -152,6 +152,15 @@ public class UserFaceController
 
 	}
 
+	@RequestMapping("/getschoolPoint/{cid}")
+	public Map getschoolPoint(@PathVariable String cid)
+	{
+		Map map = userinfoService.selectschoolpoint(cid);
+
+		return map;
+
+	}
+
 
 
 }
