@@ -1,11 +1,11 @@
 package com.drivingsys.controller;
 
 import com.drivingsys.aspectJ.Log;
-import com.drivingsys.bean.Consumer;
-import com.drivingsys.bean.Drivingschool;
-import com.drivingsys.bean.Practise;
-import com.drivingsys.bean.VerifyCodeUtils;
+import com.drivingsys.bean.*;
+import com.drivingsys.bean.backmenu.BackMenu;
+import com.drivingsys.service.BackMenuService;
 import com.drivingsys.service.FrontLoginService;
+import com.drivingsys.service.ManageDSCService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +36,25 @@ public class FrontLoginController
 
 	@Autowired
 	private FrontLoginService frontLoginService;
+	@Resource
+	private ManageDSCService manageDSCService;
+
+
+	@Autowired
+	private BackMenuService backMenuService;
+
+	@ResponseBody
+	@RequestMapping("/queryRoleMenu")
+
+	public BackMenu queryRoleMenu(HttpServletRequest request){
+
+
+		int rid = Integer.valueOf(request.getSession().getAttribute("roleid")+"");
+
+		//获取该角色类型的菜单目录
+		BackMenu backMenu = backMenuService.queryRoleMenu(rid);
+		return backMenu;
+	}
 
 
 	@RequestMapping("frontLogin")
@@ -44,7 +64,7 @@ public class FrontLoginController
 		String roleid = request.getSession().getAttribute("roleid") + "";
 		String CODE = request.getSession().getAttribute("CODE") + "";
 		String code = reqMap.get("code");
-		if (!code.equals(CODE))
+		if (!code.equalsIgnoreCase(CODE))
 		{
 			System.out.println("验证码错误");
 			request.getSession().setAttribute("fmsg", "yzmcw");
@@ -70,7 +90,7 @@ public class FrontLoginController
 			{
 				System.out.println("找到了教练");
 				request.getSession().setAttribute("practise", practise);
-				return "backmenu";
+				return "PractiseMain";
 			}
 
 
@@ -87,7 +107,7 @@ public class FrontLoginController
 				System.out.println("找到了驾校");
 				request.getSession().setAttribute("drivingschool", drivingschool);
 				//				return "DSCHinfo";
-				return "backmenu";
+				return "drivingSchoolMain";
 			}
 		} else if (roleid.equals("4"))
 		{
@@ -167,7 +187,7 @@ public class FrontLoginController
 	@ResponseBody
 	public int DSCupdatainfo(@RequestParam Map<String, Object> reqMap, HttpServletRequest request)
 	{
-
+		int i=0;
 		System.out.println("进入更改信息方法");
 		System.out.println(reqMap);
 		System.out.println(reqMap.get("dscParams"));
@@ -182,13 +202,16 @@ public class FrontLoginController
 			JSONObject a = JSONObject.fromObject(dscParams);
 			updata = (Map<String, Object>) a;
 		}
-
+		if (updata != null)
+		{
+		 i=manageDSCService.updatedscinfo(updata);
+		}
 
 		//		int i=frontLoginService.instertDSC(del);
 		//
 		//
 		//		System.out.println("操作条数"+i);
-		return 0;
+		return i;
 
 	}
 

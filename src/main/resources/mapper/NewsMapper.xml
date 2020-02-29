@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drivingsys.dao.NewsMapper">
+
+    <insert id="insertNewsContent">
+        insert into journalism(jtitle, jabstract, jtext, jauthor, jtime, jyear, jmonth, jday,jliulan,jstatue,jtype)
+        values (#{jtitle},#{jabstract},#{jtext},#{jauthor},#{jtime},#{jyear},#{jmonth},#{jday},#{jliulan},1,#{jtype})
+    </insert>
+
+    <select id="queryAllNews" resultType="com.drivingsys.bean.Journalism">
+		select * from journalism order by jtime desc limit ${start},${limit}
+    </select>
+
+    <select id="queryNewsWithParamTotalNum" parameterType="java.util.HashMap" resultType="integer">
+        select count(*) from journalism
+        <where>
+            <if test="start !=null and start!='' and end !=null and end !=''">
+                and jtime between #{start} and #{end}
+            </if>
+            <if test="jtitle !=null and jtitle!=''">
+                and jtitle like CONCAT('%','${jtitle}','%')
+            </if>
+            <if test="jauthor !=null and jauthor!=''">
+                and jauthor like CONCAT('%','${jauthor}','%')
+            </if>
+            <if test="jstatue !=null and jstatue!=''">
+                and jstatue=#{jstatue}
+            </if>
+            <if test="jtype !=null and jtype!=''">
+                and jtype=#{jtype}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryNewsWithParam" parameterType="java.util.HashMap" resultType="com.drivingsys.bean.Journalism">
+        select * from journalism
+        <where>
+            <if test="start !=null and start!='' and end !=null and end !=''">
+                and jtime between #{start} and #{end}
+            </if>
+            <if test="jtitle !=null and jtitle!=''">
+                and jtitle like CONCAT('%','${jtitle}','%')
+            </if>
+            <if test="jauthor !=null and jauthor!=''">
+                and jauthor like CONCAT('%','${jauthor}','%')
+            </if>
+            <if test="jstatue !=null and jstatue!=''">
+                and jstatue=#{jstatue}
+            </if>
+            <if test="jtype !=null and jtype!=''">
+                and jtype=#{jtype}
+            </if>
+        </where>
+        order by jtime desc limit ${statrNum},${limit}
+    </select>
+
+    <select id="queryAllNewWithType" resultType="com.drivingsys.bean.Journalism">
+        select * from journalism where jtype=${limit} and jstatue=1 order by jtime desc limit 0,4;
+    </select>
+
+    <select id="querySingleNews" resultType="com.drivingsys.bean.Journalism">
+        select * from journalism where jid = ${jid};
+    </select>
+
+    <update id="updateNewsStatue">
+        update journalism set jstatue=#{statue} where jid=#{jid}
+    </update>
+
+    <update id="updateNewsContent">
+        update journalism set jtitle=#{jtitle},jabstract=#{jabstract},jtext=#{jtext},jauthor=#{jauthor},
+        jtime=#{jtime},jyear=#{jyear},jmonth=#{jmonth},jday=#{jday},jliulan=#{jliulan} where jid=#{jid}
+    </update>
+</mapper>
+	

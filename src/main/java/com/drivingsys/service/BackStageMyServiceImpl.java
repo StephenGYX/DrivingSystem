@@ -27,10 +27,17 @@ public class BackStageMyServiceImpl implements BackStageMyService
 	}
 
 	@Override
-	public List<Vehicle> table(int page,int limit)
+	public List<Vehicle> table(Long did,int page,int limit)
 	{
-		List<Vehicle> vehicles =backStageMyMapper.table(page,limit);
+		List<Vehicle> vehicles =backStageMyMapper.table(did,page,limit);
 		return vehicles;
+	}
+
+	@Override
+	public List<Vehicle> table1(int page, int limit)
+	{
+		List<Vehicle> vehicles1 =backStageMyMapper.table1(page,limit);
+		return vehicles1;
 	}
 
 	@Override

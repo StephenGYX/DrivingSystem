@@ -1,5 +1,6 @@
 package com.drivingsys.controller;
 
+import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Vehicle;
 import com.drivingsys.bean.backmsg;
 import com.drivingsys.service.BackStageMyServiceImpl;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -84,16 +86,29 @@ public class BackController
 	}
 
 	@RequestMapping("/table")
-	public backmsg talbe(@RequestParam("page") int page, @RequestParam("limit") int limit)
+	public backmsg talbe(@RequestParam("page") int page, @RequestParam("limit") int limit,HttpServletRequest request)
 	{
 		backmsg a = new backmsg();
+		HttpSession session = request.getSession();
+		Drivingschool did =  (Drivingschool)session.getAttribute("drivingschool");
+
 		page = (page - 1) * limit;
-		List<Vehicle> List = backStageMyService.table(page, limit);
-		int i = backStageMyService.count();
-		a.setCode(0);
-		a.setCount(i);
-		a.setMsg(0);
-		a.setData(List);
+		if(did!=null){
+			List<Vehicle> List = backStageMyService.table(did.getDid(),page, limit);
+			int i = backStageMyService.count();
+			a.setCode(0);
+			a.setCount(i);
+			a.setMsg(0);
+			a.setData(List);
+		}else{
+			List<Vehicle> List1=backStageMyService.table1(page,limit);
+			int i = backStageMyService.count();
+			a.setCode(0);
+			a.setCount(i);
+			a.setMsg(0);
+			a.setData(List1);
+		}
+
 		return a;
 	}
 

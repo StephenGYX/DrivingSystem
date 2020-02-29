@@ -146,19 +146,27 @@
 
 		<div  class="">
 			<div id="test3"  class="admin-header">
-				<span>layuimini</span>
+				<span style="color: #3C6E31">三端登陆窗口</span>
 
 			</div>
 			<div id="test2" class="layui-tab" lay-filter="tab-all" >
 
-				<ul id="test1" class="layui-tab-title">
-					<li data-status="4" class="layui-this">学员</li>
-					<li data-status="2">驾校</li>
-					<li data-status="3">教练</li>
-				</ul>
+<%--				<ul id="test1" class="layui-tab-title">--%>
+<%--					<li data-status="4" >学员</li>--%>
+<%--					<li data-status="2">驾校</li>--%>
+<%--					<li data-status="3">教练</li>--%>
+<%--				</ul>--%>
+<%--				<legend>按钮组</legend>--%>
+<%--	<button type="button" class="layui-btn layui-btn-radius">原始按钮1</button>--%>
+				<div class="layui-btn-group  " style="margin-left: 50px">
+
+					<button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="btnclick(this)" value="4" >学员</button>
+					<button type="button" class="layui-btn layui-btn-primary layui-btn-radius"  onclick="btnclick(this)" value="2">驾校</button>
+					<button type="button" class="layui-btn layui-btn-primary layui-btn-radius"  onclick="btnclick(this)" value="3">教练</button>
+				</div>
 
 				<div   class="layui-tab-content" >
-					<form class="layui-form" action="<%=path+"/fact/frontLogin"%>">
+					<form class="layui-form" action="<%=path+"/fact/frontLogin"%>" method="post">
 						<div>
 							<i class="layui-icon layui-icon-username admin-icon"></i>
 							<input type="text" name="account" placeholder="请输入用户名" autocomplete="off" class="layui-input admin-input admin-input-username" value="admin">
@@ -196,80 +204,122 @@
 			, form = layui.form,
 			element = layui.element,
 			$ = layui.jquery;
-		element.on('tab(tab-all)', function (data) {
-			// console.log(this);        // 当前Tab标题所在的原始DOM元素
-			// console.log(data.index);  // 得到当前Tab的所在下标
-			// console.log(data.elem);   // 得到当前的Tab大容器
-			// alert("点击选项卡");
+		<%--element.on('tab(tab-all)', function (data) {--%>
+		<%--	// console.log(this);        // 当前Tab标题所在的原始DOM元素--%>
+		<%--	// console.log(data.index);  // 得到当前Tab的所在下标--%>
+		<%--	// console.log(data.elem);   // 得到当前的Tab大容器--%>
+		<%--	// alert("点击选项卡");--%>
 
-			var roleid = $(this).attr('data-status');
-			alert(roleid);
-			$.ajax({
-				// contentType:"application/json",
-				type: "post"
-				, url: '<%=path+"/fact/roleid"%>'
-				//预期服务器返回的数据类型;
-				, datatype: "json"
-				//从该js会发出到服务器的数据
-				, data: {"roleid": roleid}
-				//从servlet接收的数据
-				, success: function (msg) {
-					alert(msg + "suc");
-					layer.msg("已经变更角色id");
-					if (msg == 2) {//2 驾校 3教练 4学员
-						$('#reg').attr('href', "area.jsp");
-					} else if (msg == 3) {
-						$('#reg').attr('href', "backpractisereg.jsp");
-					} else if (msg == 4) {
-						$('#reg').attr('href', "backreg.jsp");
-					}
-				}
-				, error: function (msg) {
-					alert(msg + "error");
-					layer.alert("服务器正忙.....");
-				}
-			});
+		<%--	var roleid = $(this).attr('data-status');--%>
+		<%--	alert(roleid);--%>
+		<%--	$.ajax({--%>
+		<%--		// contentType:"application/json",--%>
+		<%--		type: "post"--%>
+		<%--		, url: '<%=path+"/fact/roleid"%>'--%>
+		<%--		//预期服务器返回的数据类型;--%>
+		<%--		, datatype: "json"--%>
+		<%--		//从该js会发出到服务器的数据--%>
+		<%--		, data: {"roleid": roleid}--%>
+		<%--		//从servlet接收的数据--%>
+		<%--		, success: function (msg) {--%>
+		<%--			alert(msg + "suc");--%>
+		<%--			layer.msg("已经变更角色id");--%>
+		<%--			if (msg == 2) {//2 驾校 3教练 4学员--%>
+		<%--				$('#reg').attr('href', "area.jsp");--%>
+		<%--			} else if (msg == 3) {--%>
+		<%--				$('#reg').attr('href', "backpractisereg.jsp");--%>
+		<%--			} else if (msg == 4) {--%>
+		<%--				$('#reg').attr('href', "backreg.jsp");--%>
+		<%--			}--%>
+		<%--		}--%>
+		<%--		, error: function (msg) {--%>
+		<%--			alert(msg + "error");--%>
+		<%--			layer.alert("服务器正忙.....");--%>
+		<%--		}--%>
+		<%--	});--%>
 
-		})
+		<%--})--%>
 
 	});
 </script>
 <script type="text/javascript">
+function btnclick(data) {
+		// console.log(this);        // 当前Tab标题所在的原始DOM元素
+		// console.log(data.index);  // 得到当前Tab的所在下标
+		// console.log(data.elem);   // 得到当前的Tab大容器
+		// alert("点击选项卡");
+alert(data.value);
+		var roleid =data.value;
+		alert(roleid);
+		$.ajax({
+			// contentType:"application/json",
+			type: "post"
+			, url: '<%=path+"/fact/roleid"%>'
+			//预期服务器返回的数据类型;
+			, datatype: "json"
+			//从该js会发出到服务器的数据
+			, data: {"roleid": roleid}
+			//从servlet接收的数据
+			, success: function (msg) {
+				alert(msg + "suc");
+				layer.msg("已经变更角色id");
+				if (msg == 2) {//2 驾校 3教练 4学员
+					$('#reg').attr('href', "area.jsp");
+				} else if (msg == 3) {
+					$('#reg').attr('href', "backpractisereg.jsp");
+				} else if (msg == 4) {
+					$('#reg').attr('href', "backreg.jsp");
+				}
+			}
+			, error: function (msg) {
+				alert(msg + "error");
+				layer.alert("服务器正忙.....");
+			}
+		});
 
-	//改变验证码事件
-	function changeImg() {
-		var img = document.getElementById('codeimg');
-		img.src = "${pageContext.request.contextPath }/fact/getyzm?x=" + Math.floor(Math.random() * 100)
+}
 
-	}</script>
+
+
+
+
+</script>
+<script type="text/javascript">
+
+//改变验证码事件
+function changeImg() {
+var img = document.getElementById('codeimg');
+img.src = "${pageContext.request.contextPath }/fact/getyzm?x=" + Math.floor(Math.random() * 100)
+
+}</script>
 
 <%
-	if (request.getSession().getAttribute("fmsg")!=null)
-	{
-		String fmsg=request.getSession().getAttribute("fmsg")+"";
-		switch (fmsg){
-			case "yzmcw":
-				out.write("<script>alert('验证码错误')</script>");
-				break;
-			case "2":
-				out.write("<script>alert('账号或者密码错误')</script>");
-				break;
-		}
-	}
+if (request.getSession().getAttribute("fmsg")!=null)
+{
+String fmsg=request.getSession().getAttribute("fmsg")+"";
+switch (fmsg){
+	case "yzmcw":
+		out.write("<script>alert('验证码错误')</script>");
+		break;
+	case "2":
+		out.write("<script>alert('账号或者密码错误')</script>");
+		break;
+}
+}
 
 %>
 
 
 <script>
-	window.onload=function (ev) {
-		$.ajax({
-			type: "POST",
-			url: '<%=path+"/fact/role"%>',
-			dataType: "text",
-			// data: {},
+window.onload=function (ev) {
+$.ajax({
+	type: "POST",
+	url: '<%=path+"/fact/role"%>',
+	dataType: "text",
+	// data: {},
 
-		});
-	}
+});
+}
 </script>
 </body>
 </html>

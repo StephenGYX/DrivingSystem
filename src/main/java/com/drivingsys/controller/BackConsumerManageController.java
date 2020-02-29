@@ -1,9 +1,6 @@
 package com.drivingsys.controller;
 
-import com.drivingsys.bean.Consumer;
-import com.drivingsys.bean.Examination;
-import com.drivingsys.bean.Practise;
-import com.drivingsys.bean.tableParam;
+import com.drivingsys.bean.*;
 import com.drivingsys.service.BackPractiseManageService;
 import com.drivingsys.service.DrivingSchoolManageService;
 import com.google.gson.Gson;
@@ -34,6 +31,26 @@ public class BackConsumerManageController
 	private DrivingSchoolManageService drivingSchoolManageService;
 
 
+	public String findDid(HttpServletRequest request){
+
+		String did="";
+		//驾校端登录
+		Object o = request.getSession().getAttribute("drivingschool");
+		if (o != null)
+		{
+			System.out.println("驾校登录------------------");
+			Drivingschool d=(Drivingschool)o;
+			did=d.getDid()+"";
+		}else {
+			System.out.println("后台登录------------------");
+			Drivingschool d=(Drivingschool)o;
+			//后台查询驾校列表
+			did = request.getParameter("did");
+		}
+		return did;
+	}
+
+
 
 	@RequestMapping("QueryMyStudent")
 	@ResponseBody
@@ -48,6 +65,7 @@ public class BackConsumerManageController
 		String stopTime = request.getParameter("stopTime");
 		String cpritiseid = request.getParameter("param");
 
+		String did=findDid(request);
 
 //		System.out.println("cpritiseid:-----------------------"+cpritiseid);
 		int pages= Integer.valueOf(page);
@@ -65,6 +83,7 @@ public class BackConsumerManageController
 
 		paramMap.put("cpritiseid",cpritiseid);
 
+		paramMap.put("did",did);
 
 		List<Consumer> consumers = drivingSchoolManageService.queryStudentByMySchool(rowBounds,paramMap);
 		long studentCount = drivingSchoolManageService.queryStudentByMySchoolCount(paramMap);
@@ -126,14 +145,13 @@ public class BackConsumerManageController
 		{
 			//拿到驾校端输入的教练ID
 			String pid = request.getParameter("pid");
-			//拿到驾校ID
-			String driverSchoolId = request.getParameter("did");
+			String did=findDid(request);
 
 //			long l =1;
 //			String driverSchoolId =String.valueOf(l);
 			HashMap<String, String> idMap = new HashMap<>();
 			idMap.put("pid",pid);
-			idMap.put("did",driverSchoolId);
+			idMap.put("did",did);
 			//先查询驾校端输入的这个教练是否存在
 			Practise practise = drivingSchoolManageService.queryCoachByPidAndDid(idMap);
 
@@ -198,6 +216,8 @@ public class BackConsumerManageController
 		String stopTime = request.getParameter("stopTime");
 		String cpritiseid = request.getParameter("param");
 
+		String did = findDid(request);
+
 		int pages= Integer.valueOf(page);
 		int limits = Integer.valueOf(limit);
 		RowBounds rowBounds = new RowBounds((pages - 1) * limits,limits);
@@ -208,10 +228,9 @@ public class BackConsumerManageController
 		paramMap.put("username",username);
 		paramMap.put("startTime",startTime);
 		paramMap.put("stopTime",stopTime);
-
-
-
 		paramMap.put("cpritiseid",cpritiseid);
+		paramMap.put("did",did);
+
 
 
 		List<Consumer> consumers = drivingSchoolManageService.queryStudentByMySchool(rowBounds,paramMap);
@@ -363,16 +382,10 @@ public class BackConsumerManageController
 
 		//学员ID
 		String cid = request.getParameter("cid");
-		//驾校ID
-		String driverSchoolId = request.getParameter("did");
-//		long l =1;
-//		String driverSchoolId =String.valueOf(l);
-		//		//获取到登录成功的驾校端
-		//		 Drivingschool drivingschool = (Drivingschool) request.getSession().getAttribute("DrivingSchoolLoginSuccess");
-		//		long did = drivingschool.getDid();
+		String did = findDid(request);
 
 		//拿到订单表的信息
-		List<Examination> examinations = drivingSchoolManageService.queryStudentAllEval(cid, driverSchoolId);
+		List<Examination> examinations = drivingSchoolManageService.queryStudentAllEval(cid, did);
 
 
 

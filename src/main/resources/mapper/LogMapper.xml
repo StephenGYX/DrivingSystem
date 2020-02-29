@@ -11,7 +11,7 @@
 		select * from log order by ltime desc limit #{start},${limit}
     </select>
 
-    <select id="queryAll" resultType="java.lang.Integer">
+    <select id="queryAll" resultType="integer">
 		select count(*) from log
     </select>
 

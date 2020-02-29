@@ -86,14 +86,15 @@
 			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="seepract">查看教练</a>
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="pingjia">查看评价</a>
-
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="updataa">修改信息</a>
 			{{#  }
 			else if(d.daccountstate == 1 ){ }}
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="stop">禁用</a>
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
 			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="seepract">查看教练</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="pingjia">查看评价</a>
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="pingjia">评价</a>
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="updataa">修改信息</a>
 			{{#  }
 
 			else if(d.daccountstate == 3){ }}
@@ -155,10 +156,10 @@
 						return d.dprovince+d.dcity+d.darea;
 					}
 				},
-				{title: '操作', minWidth: 350, templet: '#currentTableBar', fixed: "right", align: "center"}
+				{title: '操作', minWidth: 380, templet: '#currentTableBar', fixed: "right", align: "center"}
 			]],
 			limits: [5, 10, 15],
-			limit: 15,
+			limit: 5,
 			page: true
 		});
 		var result;
@@ -457,6 +458,31 @@
 
 				});
 			}
+
+
+			else if (layEvent === 'updataa') {
+				var layer = layui.layer;
+				var row_data = data ; // 整行的数据
+				alert("进入修改");
+				var index = layer.open({
+					title: '查看评价',
+					type: 2,
+					shade: 0.2,
+					maxmin: true,
+					shadeClose: false,
+					area: ['70%', '70%'],
+					content: 'DSC/DSCHinfo2.jsp',
+					success:function (layero,index) {
+						var iframe=window['layui-layer-iframe'+index];
+						iframe.selectinfo(row_data);
+					}
+				});
+			}
+
+
+
+
+
 			else if(layEvent === 'seepract'){
 				//查看教练
 				var layer = layui.layer;
@@ -465,24 +491,25 @@
 				//此处可走一个ajax把对应的驾校信息存入session；
 				var index = layer.open({
 					title: '查看教练',
-					type: 2,
+					type:2 ,
 					shade: 0.2,
 					maxmin: true,
 					shadeClose: false,
 					area: ['70%', '70%'],
-					content: '/backPractise/toMyDrivingSchool?did='+row_data.did
+					content:"<%=path%>"+
+						'/backPractise/toMyDrivingSchool?do=onlySee&did='+row_data.did
 				});
 
 
 
 
 
-				window.location.href="<%=path%>"+"/jsp/drivingSchoolStudentTable.jsp?did="+did+""
+				<%--window.location.href="<%=path%>"+"/jsp/drivingSchoolStudentTable.jsp?did="+did+""--%>
 			}
 			else if (layEvent === 'pingjia') {
 				var layer = layui.layer;
 				var row_data = data ; // 整行的数据
-				alert("进入评价")
+				alert("进入评价");
 				var index = layer.open({
 					title: '查看评价',
 					type: 2,
@@ -493,6 +520,7 @@
 					content: 'DSC/DschPingJia.jsp?did='+row_data.did
 				});
 			}
+
 
 			// table.on('tool(currentTableFilter)', function (obj) {
 		// 	var data = obj.data;
