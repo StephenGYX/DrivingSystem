@@ -41,11 +41,11 @@
 							<div class="layui-input-inline">
 								<%--								<input type="text" name="daccountstate" id="daccountstate" autocomplete="off"--%>
 								<%--								       class="layui-input">--%>
-								<select name="daccountstate">
+								<select name="dshenhestate">
 									<option value="">未选择</option>
-									<option value="1">启用</option>
-									<option value="2">禁用</option>
-									<option value="3">已删除</option>
+									<option value="3">未审核</option>
+									<option value="2">已通过</option>
+									<option value="1">已拒绝</option>
 
 								</select>
 							</div>
@@ -66,12 +66,12 @@
 			</div>
 		</fieldset>
 
-		<script type="text/html" id="toolbarDemo">
-			<div class="layui-btn-container">
-				<button class="layui-btn layui-btn-sm data-add-btn"> 添加用户</button>
-				<button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="del"> 删除用户</button>
-			</div>
-		</script>
+<%--		<script type="text/html" id="toolbarDemo">--%>
+<%--			<div class="layui-btn-container">--%>
+<%--				<button class="layui-btn layui-btn-sm data-add-btn"> 添加用户</button>--%>
+<%--				<button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="del"> 删除用户</button>--%>
+<%--			</div>--%>
+<%--		</script>--%>
 
 		<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
@@ -80,25 +80,18 @@
 			<%--			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>--%>
 
 
-			{{#  if(d.daccountstate == 2  ){ }}
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="start">启用</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
-			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="seepract">查看教练</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="pingjia">查看评价</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="updataa">修改信息</a>
+			{{#  if(d.dshenhestate == 1  ){ }}
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="start">审核通过</a>
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="stop">拒绝</a>
+
+
 			{{#  }
-			else if(d.daccountstate == 1 ){ }}
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="stop">禁用</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
-			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="seepract">查看教练</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="pingjia">评价</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="updataa">修改信息</a>
+			else if(d.dshenhestate == 2 ){ }}
+			---------通过----------
 			{{#  }
 
-			else if(d.daccountstate == 3){ }}
-			---------已删除----------
+			else if(d.dshenhestate == 3){ }}
+			---------尚未审核----------
 			{{#  }
 			}}
 
@@ -107,7 +100,7 @@
 
 	</div>
 </div>
-<script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="<%=path+"/lib/layui-v2.5.5/layui.js"%>" charset="utf-8"></script>
 <script>
 	layui.use(['form', 'table'], function () {
 		var $ = layui.jquery,
@@ -117,7 +110,7 @@
 
 		table.render({
 			elem: '#currentTableId',
-			url: "<%=path+"/dSchool/QueryDSC"%>",//后台路径
+			url: "<%=path+"/dSchool/QueryDSCshenhe"%>",//后台路径
 			toolbar: '#toolbarDemo',
 			defaultToolbar: ['filter', 'exports', 'print', {
 				title: '提示',
@@ -133,19 +126,19 @@
 				{field: 'dtelephone', width: 100, title: '联系电话'},
 				{field: 'demail', title: '邮箱', minWidth: 120},
 				{field: 'dsynopsis', width: 100, title: '概要'},
-				{field: 'devaluatescore', width: 80, title: '总评分', sort: true},
-				{field: 'dgraduationnum', width: 100, title: '毕业人数', sort: true},
-				{field: 'denrollnum', width: 80, title: '注册人数', sort: true},
+				// {field: 'devaluatescore', width: 80, title: '总评分', sort: true},
+				// {field: 'dgraduationnum', width: 100, title: '毕业人数', sort: true},
+				// {field: 'denrollnum', width: 80, title: '注册人数', sort: true},
 				{
-					field: 'daccountstate', minWidth: 100, title: '账号状态'
+					field: 'dshenhestate', minWidth: 120, title: '账号审核状态'
 					, templet: function (d) {
-						if (d.daccountstate == 1) {
-							return '启用'
+						if (d.dshenhestate == 3) {
+							return '未审核'
 						}
-						if (d.daccountstate == 2) {
-							return '禁用'
+						if (d.dshenhestate == 2) {
+							return '已通过'
 						} else {
-							return '已删除'
+							return '已拒绝'
 						}
 
 					}
@@ -156,7 +149,7 @@
 						return d.dprovince+d.dcity+d.darea;
 					}
 				},
-				{title: '操作', minWidth: 380, templet: '#currentTableBar', fixed: "right", align: "center"}
+				{title: '操作', minWidth: 350, templet: '#currentTableBar', fixed: "right", align: "center"}
 			]],
 			limits: [5, 10, 15],
 			limit: 5,
@@ -312,15 +305,15 @@
 				var layer = layui.layer, $ = layui.jquery;
 				var row_data = data  // 整行的数据
 					,did = row_data.did ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
-				layer.confirm("您确定要启用用户 ："+row_data.dname+" 吗?", function (index) {
+				layer.confirm("您确定要通过用户 ："+row_data.dname+" 的审核吗?", function (index) {
 					$(function() {
 						$.ajax({
 							method : "POST",
-							url : "<%=path%>"+"/dSchool/CoachTableOperation?do=start&did="+did+"",
+							url : "<%=path%>"+"/dSchool/shenheOperation?do=start&did="+did+"",
 							dataType : "text",
 							success : function(msg) {
 								if(msg>0){
-									layer.alert(row_data.dname+"启用成功");
+									layer.msg(row_data.dname+"审核通过");
 									layer.close(index);
 									//执行重载
 									table.reload('currentTableId', {
@@ -345,15 +338,15 @@
 				var layer = layui.layer, $ = layui.jquery;
 				var row_data = data  // 整行的数据
 					,did = row_data.did ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
-				layer.confirm("您确定要禁用用户 ："+row_data.dname+" 吗?", function (index) {
+				layer.confirm("您确定要拒绝用户 ："+row_data.dname+" 吗?", function (index) {
 					$(function() {
 						$.ajax({
 							method : "POST",
-							url : "<%=path%>"+"/dSchool/CoachTableOperation?do=stop&did="+did+"",
+							url : "<%=path%>"+"/dSchool/shenheOperation?do=stop&did="+did+"",
 							dataType : "text",
 							success : function(msg) {
 								if(msg>0){
-									layer.alert(row_data.dname+"禁用成功");
+									layer.msg(row_data.dname+"审核禁止成功");
 									layer.close(index);
 									//执行重载
 									table.reload('currentTableId', {
@@ -458,31 +451,6 @@
 
 				});
 			}
-
-
-			else if (layEvent === 'updataa') {
-				var layer = layui.layer;
-				var row_data = data ; // 整行的数据
-				alert("进入修改");
-				var index = layer.open({
-					title: '查看评价',
-					type: 2,
-					shade: 0.2,
-					maxmin: true,
-					shadeClose: false,
-					area: ['70%', '70%'],
-					content: 'DSC/DSCHinfo2.jsp',
-					success:function (layero,index) {
-						var iframe=window['layui-layer-iframe'+index];
-						iframe.selectinfo(row_data);
-					}
-				});
-			}
-
-
-
-
-
 			else if(layEvent === 'seepract'){
 				//查看教练
 				var layer = layui.layer;
@@ -491,25 +459,24 @@
 				//此处可走一个ajax把对应的驾校信息存入session；
 				var index = layer.open({
 					title: '查看教练',
-					type:2 ,
+					type: 2,
 					shade: 0.2,
 					maxmin: true,
 					shadeClose: false,
 					area: ['70%', '70%'],
-					content:"<%=path%>"+
-						'/backPractise/toMyDrivingSchool?did='+row_data.did
+					content: '/backPractise/toMyDrivingSchool?did='+row_data.did
 				});
 
 
 
 
 
-				<%--window.location.href="<%=path%>"+"/jsp/drivingSchoolStudentTable.jsp?did="+did+""--%>
+				window.location.href="<%=path%>"+"/jsp/drivingSchoolStudentTable.jsp?did="+did+""
 			}
 			else if (layEvent === 'pingjia') {
 				var layer = layui.layer;
 				var row_data = data ; // 整行的数据
-				alert("进入评价");
+				alert("进入评价")
 				var index = layer.open({
 					title: '查看评价',
 					type: 2,
@@ -520,7 +487,6 @@
 					content: 'DSC/DschPingJia.jsp?did='+row_data.did
 				});
 			}
-
 
 			// table.on('tool(currentTableFilter)', function (obj) {
 		// 	var data = obj.data;

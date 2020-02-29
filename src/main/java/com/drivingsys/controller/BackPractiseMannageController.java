@@ -156,13 +156,17 @@ public class BackPractiseMannageController
 		//教练的ID
 		String pid = request.getParameter("pid");
         //驾校ID
-		String did = findDid(request);
+		String driverSchoolId = request.getParameter("did");
 
 		System.out.println("pid========="+pid);
-		System.out.println("did========="+did);
+		System.out.println("did========="+driverSchoolId);
+		//		long l =1;
+		//		String driverSchoolId =String.valueOf(l);
+		//		//获取到登录成功的驾校端
+		//		 Drivingschool drivingschool = (Drivingschool) request.getSession().getAttribute("DrivingSchoolLoginSuccess");
+		//		long did = drivingschool.getDid();
 
-
-		List<Examination> examinations = drivingSchoolManageService.queryCoachEval(pid, did);
+		List<Examination> examinations = drivingSchoolManageService.queryCoachEval(pid, driverSchoolId);
 
 
 		ModelAndView modelAndView = new ModelAndView();
@@ -172,6 +176,9 @@ public class BackPractiseMannageController
 
 		return modelAndView;
 	}
+
+
+
 
 	//这是驾校管理列表，点击查看教练，跳转到教练列表
 	@RequestMapping("toMyDrivingSchool")

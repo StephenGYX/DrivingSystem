@@ -5,6 +5,7 @@ import com.drivingsys.bean.*;
 import com.drivingsys.bean.backmenu.BackMenu;
 import com.drivingsys.service.BackMenuService;
 import com.drivingsys.service.FrontLoginService;
+import com.drivingsys.service.ManageDSCService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +36,8 @@ public class FrontLoginController
 
 	@Autowired
 	private FrontLoginService frontLoginService;
-
+	@Resource
+	private ManageDSCService manageDSCService;
 
 
 	@Autowired
@@ -184,7 +187,7 @@ public class FrontLoginController
 	@ResponseBody
 	public int DSCupdatainfo(@RequestParam Map<String, Object> reqMap, HttpServletRequest request)
 	{
-
+		int i=0;
 		System.out.println("进入更改信息方法");
 		System.out.println(reqMap);
 		System.out.println(reqMap.get("dscParams"));
@@ -199,13 +202,16 @@ public class FrontLoginController
 			JSONObject a = JSONObject.fromObject(dscParams);
 			updata = (Map<String, Object>) a;
 		}
-
+		if (updata != null)
+		{
+		 i=manageDSCService.updatedscinfo(updata);
+		}
 
 		//		int i=frontLoginService.instertDSC(del);
 		//
 		//
 		//		System.out.println("操作条数"+i);
-		return 0;
+		return i;
 
 	}
 
