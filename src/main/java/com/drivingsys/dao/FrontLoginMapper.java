@@ -24,7 +24,7 @@ public interface FrontLoginMapper
 	@Select("select * from consumer where caccount=#{account} and cpassword=#{password}")
 	public Consumer queryConsumer(Map<String, String> map);
 
-	@Insert("INSERT INTO drivingschool (daccount, dpassword, dname, dcontacts, dtelephone, dphone, demail, dprovince, dcity, darea, dprice, dsynopsis) " +
-			"VALUES (#{username}, #{password}, #{dname}, #{dcontacts}, #{phone}, #{phone}, #{email}, #{province}, #{city}, #{county}, #{cost}, #{remark})")
+	@Insert("INSERT INTO drivingschool (daccount, dpassword, dname, dcontacts, dtelephone, dphone, demail, dprovince, dcity, darea, dprice, dsynopsis,longitude,latitude) " +
+			"VALUES (#{username}, #{password}, #{dname}, #{dcontacts}, #{phone}, #{phone}, #{email}, #{province}, #{city}, #{county}, #{cost}, #{remark},#{longitude},#{latitude})")
 	public int instertDSC(Map<String, Object> del);
 }
