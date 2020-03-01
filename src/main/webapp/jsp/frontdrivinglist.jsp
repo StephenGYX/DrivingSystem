@@ -68,9 +68,9 @@
 				<c:forEach items="${sessionScope.drivingschoollist}" begin="0" end="4" var="drivingschoollist">
 					<td>
 						<div class="col-md-2" style="height:250px;padding: 15px">
-							<a href="${pageContext.request.contextPath}/schoolInfo/ShowMyInfo/${drivingschoollist.did}">
-								<img src="${pageContext.request.contextPath}/${drivingschoollist.dschoolimage}"
-									width="200" height="200" style="display: inline-block;"></a><br>
+							<a href="javascript:;">
+								<img name="${drivingschoollist.did}" src="${pageContext.request.contextPath}/${drivingschoollist.dschoolimage}"
+									width="200" height="200" style="display: inline-block;" onclick="showDS(this)"></a><br>
 							<p><a href="product_info.html" style='color: green'>${drivingschoollist.dname}</a></p>
 							<p><font color="#6495ed">通过率：97%</font></p>
 							<p><font color="#FF0000">价格：¥${drivingschoollist.dprice}</font></p>
@@ -82,9 +82,9 @@
 				<c:forEach items="${sessionScope.drivingschoollist}" begin="5" end="9" var="drivingschoollist">
 					<td>
 						<div class="col-md-2" style="height:250px;padding: 15px;">
-							<a href="product_info.htm"><img
-									src="${pageContext.request.contextPath}/${drivingschoollist.dschoolimage}"
-									width="200" height="200" style="display: inline-block;"></a><br>
+							<a href="javascript:;">
+								<img src="${pageContext.request.contextPath}/${drivingschoollist.dschoolimage}"
+									width="200" height="200" style="display: inline-block;" onclick="showDS(this)"></a><br>
 							<p><a href="product_info.html" style='color: green'>${drivingschoollist.dname}</a></p>
 							<p><font color="#6495ed">通过率：97%</font></p>
 							<p><font color="#FF0000">价格：¥${drivingschoollist.dprice}</font></p>
@@ -98,9 +98,34 @@
 
 <script src="<%=path+"/lib/layui-v2.5.5/layui.js"%>" charset="utf-8"></script>
 <script src="<%=path+"/js/lay-config.js?v=1.0.4"%>" charset="utf-8"></script>
+<script type="text/javascript" src="<%=path+"/js/jquery-3.4.1.js"%>"></script>
 <script src="<%=path+"/js/frontdrivinglist.js"%>" charset="utf-8"></script>
 
 <script>
+
+	function showDS(index){
+
+		var id = index.name;
+
+		$.ajax({
+			type: "post"
+			, url: path + '/schoolInfo/ShowMyInfo'
+			//预期服务器返回的数据类型;
+			, datatype: "json"
+			//从该js会发出到服务器的数据
+			, data: {"id": id}
+			//从servlet接收的数据
+			, success: function (msg) {
+				if(msg==="1"){
+					window.parent.location.href= path +"/jsp/frontDrivingSchoolInfo.jsp";
+				}
+			}
+			, error: function () {
+				layer.alert("服务器正忙.....");
+			}
+		});
+	}
+
 	layui.use(['layer', 'form', 'layarea'], function () {
 		var layer = layui.layer
 			, form = layui.form
