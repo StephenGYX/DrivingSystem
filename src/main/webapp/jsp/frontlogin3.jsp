@@ -199,7 +199,8 @@
 				还没有账号？
 				<a class="reg" href="backreg.jsp" id="reg">注册账号</a>
 			</div>
-
+			<%--点击的报名，走到登录页面  --%>
+			<input type="hidden" value="${requestScope.baoMing}">
 		</div>
 
 	</div>
