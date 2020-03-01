@@ -91,7 +91,8 @@ public class FrontLoginController
 			} else
 			{
 				System.out.println("找到了教练");
-				request.getSession().invalidate();
+//				request.getSession().invalidate();
+
 				request.getSession().setAttribute("practise", practise);
 				return "20";
 			}
