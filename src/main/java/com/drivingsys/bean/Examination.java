@@ -36,9 +36,20 @@ public class Examination {
   private String epractisecontenttime;
   private String edrivingcontenttime;
 
+
+  private String dname;
   private Consumer consumer1;
   private List<Consumer> consumer;
 
+  public String getDname()
+  {
+    return dname;
+  }
+
+  public void setDname(String dname)
+  {
+    this.dname = dname;
+  }
 
   public Consumer getConsumer1()
   {

@@ -3,19 +3,18 @@ package com.drivingsys.controller;
 import com.baidu.aip.face.AipFace;
 import com.baidu.aip.face.MatchRequest;
 
+import com.baidu.aip.ocr.AipOcr;
+import com.drivingsys.bean.OrcFactory;
 import com.drivingsys.service.UserinfoService;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
-import com.google.gson.JsonParser;
-import org.apache.ibatis.annotations.Param;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -90,6 +89,36 @@ public class UserFaceController
 			}
 		}
 		return Socre;
+	}
+
+	@RequestMapping("/idcardScan")
+	public Map idcardScan(@RequestParam("file")MultipartFile multipartFile, HttpServletRequest request)
+	{
+		HashMap<String, String> options = new HashMap<String, String>();
+		options.put("detect_direction", "true");
+		options.put("detect_risk", "false");
+		Map resultmap=new HashMap();
+		String idCardSide = "front";
+		AipOcr client= OrcFactory.getOrcclient();
+		try
+		{
+			byte[] imgBytes = multipartFile.getBytes();
+			JSONObject res = client.idcard(imgBytes, idCardSide, options).getJSONObject("words_result");
+			String savePath = request.getSession().getServletContext().getRealPath("//images");
+			System.out.println(savePath);
+			String suffix=multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1);
+
+			resultmap.put("number",res.getJSONObject("公民身份号码").getString("words"));
+			resultmap.put("name",res.getJSONObject("姓名").getString("words"));
+			multipartFile.transferTo(new File(savePath+"//" +resultmap.get("number")+"."+suffix));
+			System.out.println(res.toString(2));
+			System.out.println(res.getJSONObject("姓名").getString("words"));
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+//		return "{\"code\":0, \"msg\":\"\", \"data\":"+resultmap+"}";
+		return  resultmap;
 	}
 
 	@RequestMapping("/getkemunow/{cid}")

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
 Created by IntelliJ IDEA.
 User: Stephen
@@ -20,13 +21,27 @@ To change this template use File | Settings | File Templates.
 	<script type="text/javascript" src=<%=Path+"/lib/jquery-3.4.1/jquery-3.4.1.min.js"%>></script>
 	<script type="text/javascript" src=<%=Path+"/js/json2.js"%>></script>
 	<script type="text/javascript" src=<%=Path+"/js/preg.js"%>></script>
+	<script type="text/javascript" src=<%=Path+"/js/backpractisereg.js"%>></script>
 	<script src=<%=Path+"/js/lay-config.js?v=1.0.4"%> charset="utf-8"></script>
 	<title>Title</title>
 </head>
 <body style="margin-left: 400px;
 padding-top: 100px;">
 <form class="layui-form" action="/springboot/preg" method="post">
+	<div class="layuimini-container">
+		<div class="layuimini-main">
 
+
+			<div class="layui-form-item" id="driving">
+				<div class="layui-form-label">选择驾校</div>
+				<div class="layui-input-inline" style="padding-top: -2px;">
+					<select id="mySelect" name="mySelect" lay-verify="required"  lay-filter="business" class="select">
+						<option value="">--请选择驾校--</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="layui-form-item"   >
 		<label class="layui-form-label">账号</label>
 		<div class="layui-input-inline" >
@@ -124,6 +139,7 @@ padding-top: 100px;">
 			<input type="text" name="workexperience" required lay-verify="required" placeholder="请输入您的教龄" autocomplete="off" class="layui-input" id="workexperience" >
 		</div>
 	</div>
+
 	<button lay-submit="" lay-filter="suu" class="layui-btn layui-btn-normal tijiao" style="margin-left: 160px" >提交</button>
 </form>
 

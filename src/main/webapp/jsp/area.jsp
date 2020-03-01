@@ -34,6 +34,16 @@ To change this template use File | Settings | File Templates.
 
 			<input name="longitude" id="longitude" type="hidden">
 			<input name="latitude" id="latitude" type="hidden">
+			<div  class="layui-form layuimini-form" style="margin-left: 80px;margin-bottom: 20px">
+
+			<button type="button" class="layui-btn" id="test1">
+				<i class="layui-icon">&#xe67c;</i>身份证正面上传
+			</button>
+<%--				<button type="button" class="layui-btn" id="test2">--%>
+<%--					<i class="layui-icon">&#xe67c;</i>身份证反面上传--%>
+<%--				</button>--%>
+
+			</div>
 			<div class="layui-form layuimini-form">
 				<div class="layui-form-item">
 					<label class="layui-form-label required">用户名</label>
@@ -46,9 +56,18 @@ To change this template use File | Settings | File Templates.
 				<div class="layui-form-item">
 					<label class="layui-form-label required">联系人姓名</label>
 					<div class="layui-input-block">
-						<input type="text" name="dcontacts" lay-verify="required" lay-reqtext="联系人不能为空"
+						<input type="text" id="name" name="dcontacts" lay-verify="required" lay-reqtext="联系人不能为空"
 						       placeholder="请输入联系人姓名" value="" class="layui-input">
 						<tip>填写驾校负责人真实姓名。</tip>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label class="layui-form-label required">身份证号</label>
+					<div class="layui-input-block">
+						<input type="text" id="number" name="idnumber" lay-verify="required" lay-reqtext="身份证号不能为空"
+						       placeholder="请输入联系人身份证号" value="" class="layui-input">
+						<tip>填写驾校负责人身份证号。</tip>
 					</div>
 				</div>
 
@@ -213,11 +232,28 @@ To change this template use File | Settings | File Templates.
 		});
 		localSearch.search(keyword);
 	}
-	layui.use(['layer', 'form', 'layarea'], function () {
+	layui.use(['layer', 'form', 'layarea','upload'], function () {
 		var layer = layui.layer
 			, form = layui.form,
 			$ = layui.jquery
 			, layarea = layui.layarea;
+		var upload = layui.upload;
+		var uploadInst = upload.render({
+			elem: '#test1' //绑定元素
+			,accept:"file"
+			,url: "<%=path+"/idcardScan"%>" //上传接口
+			,done: function(res){
+				//上传完毕回调
+				layer.msg("上传成功", {icon: 6});
+				$("#name").val(res.name)
+				$("#number").val(res.number)
+				// alert(res.number)
+			}
+			,error: function(){
+				//请求异常回调
+				layer.msg("上传失败", {icon: 5});
+			}
+		});
 		//监听提交
 		form.on('submit(saveBtn)', function (data) {
 			var formData = data.field;
@@ -233,8 +269,6 @@ To change this template use File | Settings | File Templates.
 					if (msg > 0) {
 
 						layer.msg("注册成功", {icon: 6});
-
-
 
 					} else {
 						alert("222");
