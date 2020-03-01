@@ -126,7 +126,7 @@ public class FrontLoginController
 			} else
 			{
 				System.out.println("找到了学生");
-				request.getSession().invalidate();
+//				request.getSession().invalidate();
 				request.getSession().setAttribute("consumer", consumer);
 
 				return "10";
