@@ -237,6 +237,8 @@ public class ManageDSCController
 		RowBounds rowBounds = createRowBounds(request);
 		//		manageDSCService.queryDSC(reqMap,rowBounds);
 		List<Examination> list = manageDSCService.querySTUpj(Integer.valueOf(did), rowBounds);
+		List<Examination> list2 = manageDSCService.querySTUpj(Integer.valueOf(did),null);
+
 		JSONArray JSO = JSONArray.fromObject(list);
 		System.out.println("********");
 		System.out.println(JSO);
@@ -247,7 +249,7 @@ public class ManageDSCController
 		//0表示成功
 		tableParam.setCode(0);
 		//数据库查询count数量
-		tableParam.setCount(list.size());
+		tableParam.setCount(list2.size());
 		//失败数据
 		tableParam.setMsg("");
 		tableParam.setData(list);
@@ -313,7 +315,7 @@ public class ManageDSCController
 
 		List<Drivingschool> list = manageDSCService.QueryDSCshenhe(search, rowBounds);
 
-		long l = manageDSCService.queryDSCcount(search, rowBounds);
+		long l = manageDSCService.queryDSCshenhecount(search);
 
 		tableParam tableParam = new tableParam();
 
@@ -355,14 +357,14 @@ public class ManageDSCController
 
 		List<Kecheng> list = manageDSCService.QueryDSCkecheng(search, rowBounds);
 
-//		long l = manageDSCService.QueryDSCkechengcount(search, rowBounds);
+		long l = manageDSCService.QueryDSCkechengcount(search);
 
 		tableParam tableParam = new tableParam();
 
 		//0表示成功
 		tableParam.setCode(0);
 		//数据库查询count数量
-		tableParam.setCount(8);
+		tableParam.setCount(l);
 		//失败数据
 		tableParam.setMsg("");
 		tableParam.setData(list);
@@ -391,4 +393,54 @@ public class ManageDSCController
 
 
 
+	@RequestMapping("Dkechenginfo")
+	@ResponseBody
+	public int Dkechenginfo(@RequestParam Map<String, Object> reqMap ,HttpServletRequest request) throws ServletException, IOException
+	{
+
+		int index = 0;
+		System.out.println("课程reqmap"+reqMap);
+//		String operation =
+			JSONObject J=JSONObject.fromObject(reqMap.get("dscParams"));
+	String	operation=	J.get("xingwei")+"";
+		System.out.println("operation"+operation);
+		Map<String, Object> search = (Map<String, Object>) J;
+		if (operation.trim().equals("instert"))
+		{//执行新增课程方法
+			int i=manageDSCService.instertkecheng(search);
+			if (i>0){return 0;}else {return 1;}
+		}else if (operation.trim().equals("updata")){
+			int i=manageDSCService.updatakecheng(search);
+			if (i>0){return 3;}else {return 4;}
+		};
+
+
+
+
+
+
+		return index;
+
+	}
+
+
+
+	@RequestMapping("delkecheng")
+	@ResponseBody
+	public int delkecheng(HttpServletRequest request) throws ServletException, IOException
+	{
+
+		int index = 0;
+		String kid = request.getParameter("kid");
+		System.out.println(kid);
+
+		index=manageDSCService.delkecheng(kid);
+
+
+
+
+
+		return index;
+
+	}
 }

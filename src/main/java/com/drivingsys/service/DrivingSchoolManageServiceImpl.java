@@ -1,7 +1,6 @@
 package com.drivingsys.service;
 
 import com.drivingsys.bean.Consumer;
-import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Examination;
 import com.drivingsys.bean.Practise;
 import com.drivingsys.dao.DrivingSchoolManageMapper;
@@ -19,12 +18,6 @@ public class DrivingSchoolManageServiceImpl implements DrivingSchoolManageServic
 
 	@Autowired
 	private DrivingSchoolManageMapper drivingSchoolManageMapper;
-
-	@Override
-	public List<Practise> queryCoachByDid(String did)
-	{
-		return drivingSchoolManageMapper.queryCoachByDid(did);
-	}
 
 	/**
 	 * 传入驾校的ID，和搜索条件，查询该驾校的教练
@@ -128,11 +121,5 @@ public class DrivingSchoolManageServiceImpl implements DrivingSchoolManageServic
 	public Practise queryPractiseById(String pid)
 	{
 		return drivingSchoolManageMapper.queryPractiseById(pid);
-	}
-
-	@Override
-	public List<Drivingschool> queryAllSchool()
-	{
-		return drivingSchoolManageMapper.queryAllSchool();
 	}
 }

@@ -185,12 +185,43 @@ GROUP BY pdrivingid;
 
 
 
+<insert id="instertkecheng" parameterType="map">
+    insert into kecheng (kid, did, kname, kjianjie, kprice, kjiazhaoleixing, beizhu, kcosttime, kshijianduan)
+    values (null ,#{did},#{kname},#{kjianjie},#{kprice},#{kjiazhaoleixing},#{beizhu},#{kcosttime},#{kshijianduan})
+</insert>
 
 
+<update id="updatakecheng" parameterType="map">
+    update kecheng
+    <set>
+        <if test="kname!=null and kname.trim()!=''">
+            kname=#{kname},
+        </if>
+        <if test="kjianjie!=null and kjianjie.trim()!=''">
+            kjianjie=#{kjianjie},
+        </if>
+        <if test="beizhu!=null and beizhu.trim()!=''">
+            kprice=#{kprice},
+        </if>
+        <if test="kjiazhaoleixing!=null and kjiazhaoleixing.trim()!=''">
+            kjiazhaoleixing=#{kjiazhaoleixing},
+        </if>
+        <if test="beizhu!=null and beizhu.trim()!=''">
+            beizhu=#{beizhu},
+        </if>
+        <if test="kcosttime!=null and kcosttime.trim()!=''">
+            kcosttime=#{kcosttime},
+        </if>
+        <if test="kshijianduan!=null and kshijianduan.trim()!=''">
+            kshijianduan=#{kshijianduan},
+        </if>
+    </set>
+    where kid=#{kid}
+</update>
 
-
-
-
+<delete id="delkecheng" parameterType="map">
+    DELETE FROM kecheng WHERE kid=#{kid}
+</delete>
 
 </mapper>
 	

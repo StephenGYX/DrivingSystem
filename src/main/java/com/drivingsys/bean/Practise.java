@@ -26,17 +26,7 @@ public class Practise {
   private String pregtime;
   private long paccountstate;
   private String premark2;
-  private String pphoto;
 
-  public String getPphoto()
-  {
-    return pphoto;
-  }
-
-  public void setPphoto(String pphoto)
-  {
-    this.pphoto = pphoto;
-  }
 
   public long getPid() {
     return pid;

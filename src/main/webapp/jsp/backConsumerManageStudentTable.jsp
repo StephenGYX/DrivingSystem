@@ -29,12 +29,6 @@
 
 					<div class="layui-form-item">
 						<div class="layui-inline">
-							<label class="layui-form-label">学员ID</label>
-							<div class="layui-input-inline">
-								<input type="text" id="cid" name="cid" autocomplete="off" class="layui-input">
-							</div>
-						</div>
-						<div class="layui-inline">
 							<label class="layui-form-label">学员账号</label>
 							<div class="layui-input-inline">
 								<input type="text" id="userAccount" name="userAccount" autocomplete="off" class="layui-input">
@@ -56,17 +50,7 @@
 								<input type="date" id="stopTime" name="stopTime" autocomplete="off" class="layui-input">
 							</div>
 						</div>
-						<div class="layui-inline">
-							<label class="layui-form-label">状态</label>
-							<div class="layui-input-inline">
-								<select name="state" id="state" lay-filter="state">
-									<option value="" selected=""></option>
-									<option value="0">禁用</option>
-									<option value="1">启用</option>
-									<option value="2">已删除</option>
-								</select>
-							</div>
-						</div>
+
 
 						<div class="layui-inline">
 							<button type="submit" class="layui-btn layui-btn-primary" lay-submit  lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
@@ -79,11 +63,7 @@
 
 		<script type="text/html" id="toolbarDemo">
 			<div class="layui-btn-container">
-
-				<c:if test="${requestScope.doThing=='Manage'}" >
-					<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="deleteList">删除</a>
-				</c:if>
-
+				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="deleteList">删除</a>
 			</div>
 		</script>
 
@@ -93,30 +73,26 @@
 		<script type="text/html" id="currentTableBar">
 
 
-            <%--没有教练，还未审核--%>
+<%--            没有教练，还未审核--%>
 			{{#  if(d.cstate == 0 && (d.cpritiseid == null || d.cpritiseid.trim() == '') && d.eorderstate == -1){ }}
 
             <%--如果是进入学员审核的表格--%>
 			<c:if test="${requestScope.doThing=='examine'}" >
-				<a data-method="dialog"  class="layui-btn layui-btn-xs data-count-edit" lay-event="examinePass">审核通过</a>
+				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="examinePass">审核通过</a>
 				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="examineNoPass">审核不通过</a>
 			</c:if>
-			<%--如果是进入学员参看的表格--%>
+			<%--			如果是进入学员参看的表格--%>
 			<c:if test="${requestScope.doThing=='onlySee'}" >
-				-------------只可读------------
+				--------------------------------
 			</c:if>
-			<%--如果是进入查看学员评价的表格--%>
-			<c:if test="${requestScope.doThing=='seeEval'}" >
-				-------该用户无评价，还未审核-------
-			</c:if>
-			<%--如果是进入学员管理的表格--%>
+			<%--			如果是进入学员管理的表格--%>
 			<c:if test="${requestScope.doThing=='Manage'}" >
 				----------该学员暂未审核-----------
 			</c:if>
 
 
 			{{#  }
-			<%-- 没有教练，审核失败--%>
+<%--          没有教练，审核失败--%>
 			else if(d.cstate == 0 && (d.cpritiseid == null || d.cpritiseid.trim() == '') && d.eorderstate == -2){ }}
 
 			<%--			如果是进入学员审核的表格--%>
@@ -125,32 +101,24 @@
 			</c:if>
 			<%--			如果是进入学员参看的表格--%>
 			<c:if test="${requestScope.doThing=='onlySee'}" >
-				-------------只可读------------
+				--------------------------------
 			</c:if>
-            <%--如果是进入查看学员评价的表格--%>
-            <c:if test="${requestScope.doThing=='seeEval'}" >
-	            -----该用户无评价，审核已被驳回-----
-            </c:if>
 			<%--			如果是进入学员管理的表格--%>
 			<c:if test="${requestScope.doThing=='Manage'}" >
 				------已被驳回用户无法进行操作------
 			</c:if>
 
 			{{#  }
-			<%--有教练，已经通过审核--%>
+<%--            有教练，已经通过审核--%>
 			else if(d.cstate == 0 && d.cpritiseid != null){ }}
 
 			<%--			如果是进入学员审核的表格--%>
 			<c:if test="${requestScope.doThing=='examine'}" >
 				-----------已通过审核-------------
 			</c:if>
-            <%--如果是进入查看学员评价的表格--%>
-            <c:if test="${requestScope.doThing=='seeEval'}" >
-	        <a class="layui-btn layui-btn-xs data-count-edit" data-method="dialog" lay-event="Evaluate">所发评价</a>
-            </c:if>
 			<%--			如果是进入学员参看的表格--%>
 			<c:if test="${requestScope.doThing=='onlySee'}" >
-				-------------只可读------------
+				--------------------------------
 			</c:if>
 			<%--			如果是进入学员管理的表格--%>
 			<c:if test="${requestScope.doThing=='Manage'}" >
@@ -166,16 +134,13 @@
 
 			<%--如果是进入学员审核的表格--%>
 			<c:if test="${requestScope.doThing=='examine'}" >
-				<a data-method="dialog" class="layui-btn layui-btn-xs data-count-edit" lay-event="examinePass">审核通过</a>
+				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="examinePass">审核通过</a>
 				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="examineNoPass">审核不通过</a>
 			</c:if>
 			<%--			如果是进入学员参看的表格--%>
 			<c:if test="${requestScope.doThing=='onlySee'}" >
-				-------------只可读------------
+				--------------------------------
 			</c:if>
-            <c:if test="${requestScope.doThing=='seeEval'}" >
-	            --------------------------------
-            </c:if>
 			<%--			如果是进入学员管理的表格--%>
 			<c:if test="${requestScope.doThing=='Manage'}" >
 				----------该学员暂未审核-----------
@@ -190,11 +155,8 @@
 			</c:if>
 			<%--			如果是进入学员参看的表格--%>
 			<c:if test="${requestScope.doThing=='onlySee'}" >
-				-------------只可读------------
+				--------------------------------
 			</c:if>
-            <c:if test="${requestScope.doThing=='seeEval'}" >
-	            --------------------------------
-            </c:if>
 			<%--			如果是进入学员管理的表格--%>
 			<c:if test="${requestScope.doThing=='Manage'}" >
 				------已被驳回用户无法进行操作------
@@ -211,12 +173,8 @@
 			</c:if>
 			<%--			如果是进入学员参看的表格--%>
 			<c:if test="${requestScope.doThing=='onlySee'}" >
-				-------------只可读------------
+				--------------------------------
 			</c:if>
-            <%--如果是进入查看学员评价的表格--%>
-            <c:if test="${requestScope.doThing=='seeEval'}" >
-	            <a class="layui-btn layui-btn-xs data-count-edit" data-method="dialog" lay-event="Evaluate">所发评价</a>
-            </c:if>
 			<%--			如果是进入学员管理的表格--%>
 			<c:if test="${requestScope.doThing=='Manage'}" >
 				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="start">启用</a>
@@ -240,20 +198,7 @@
 	</div>
 </div>
 <script src="<%=path+"/lib/layui-v2.5.5/layui.js"%>" charset="utf-8"></script>
-<script>
 
-	function showBigImage(e) {
-		layer.open({
-			type: 1,
-			title: false,
-			closeBtn: 0,
-			shadeClose: true, //点击阴影关闭
-			area: [$(e).width + 'px', $(e).height + 'px'], //宽高
-			content: "<img src=" + $(e).attr('src') + " />"
-		});
-	}
-
-</script>
 
         <input type="hidden" id="pid" value="${requestScope.pid}">
         <input type="hidden" id="did" value="${requestScope.did}">
@@ -277,8 +222,7 @@
 				icon: 'layui-icon-tips'
 			}],
 			cols: [[
-				{type: "checkbox", width: 50, fixed: "left"
-				},
+				{type: "checkbox", width: 50, fixed: "left"},
 				{field: 'cid', width: 70, title: 'ID', sort: true},
 				{field: 'cname', width: 100, title: '学员姓名'},
 				{field: 'caccount', width: 110, title: '学员账号', sort: true},
@@ -300,21 +244,13 @@
 						}
 					}
 			},
-				// {field: 'cregtime', width: 200, title: '注册时间', sort: true},
-				// {field: 'cwechat', width: 135, title: '微信号', sort: true},
-				// {field: 'cpritiseid', width: 80, title: '教练ID', sort: true},
-				{field: 'pname', width: 80, title: '教练名字', sort: true},
+				{field: 'cregtime', width: 200, title: '注册时间', sort: true},
+				{field: 'cwechat', width: 135, title: '微信号', sort: true},
+				{field: 'cpritiseid', width: 80, title: '教练ID', sort: true},
 				// {field: 'eorderstate', width: 100, title: '订单状态', sort: true},
 				// {field: 'cpritiseid', title: '所属教练ID', minWidth: 25},
-				{title: '操作', minWidth: 400, templet: '#currentTableBar', fixed: "right", align: "center"}
-
+				{title: '操作', minWidth: 150, templet: '#currentTableBar', fixed: "right", align: "center"}
 			]],
-
-			// done:function(res,curr,count){
-            //          $('th[data-field='+0+']input[type="checkbox"]').prop('disabled',true);
-            //          table.render();
-			// },
-
 			limits: [5, 10, 15],
 			limit: 10,
 			page: true
@@ -337,9 +273,8 @@
 					userAccount:$("#userAccount").val(),
 					username:$("#username").val(),
 					startTime:$("#startTime").val(),
-					stopTime:$("#stopTime").val(),
-					cid:$("#cid").val(),
-					state:$("#state option:selected").val()
+					stopTime:$("#stopTime").val()
+
 				}
 			}, 'data');
 
@@ -378,9 +313,7 @@
 											userAccount:$("#userAccount").val(),
 											username:$("#username").val(),
 											startTime:$("#startTime").val(),
-											stopTime:$("#stopTime").val(),
-											cid:$("#cid").val(),
-											state:$("#state option:selected").val()
+											stopTime:$("#stopTime").val()
 										}
 									});
 								}
@@ -416,9 +349,7 @@
 											userAccount:$("#userAccount").val(),
 											username:$("#username").val(),
 											startTime:$("#startTime").val(),
-											stopTime:$("#stopTime").val(),
-											cid:$("#cid").val(),
-											state:$("#state option:selected").val()
+											stopTime:$("#stopTime").val()
 										}
 									});
 								}
@@ -467,9 +398,7 @@
 										userAccount:$("#userAccount").val(),
 										username:$("#username").val(),
 										startTime:$("#startTime").val(),
-										stopTime:$("#stopTime").val(),
-										cid:$("#cid").val(),
-										state:$("#state option:selected").val()
+										stopTime:$("#stopTime").val()
 									}
 								});
 							}
@@ -510,9 +439,7 @@
 										userAccount:$("#userAccount").val(),
 										username:$("#username").val(),
 										startTime:$("#startTime").val(),
-										stopTime:$("#stopTime").val(),
-										cid:$("#cid").val(),
-										state:$("#state option:selected").val()
+										stopTime:$("#stopTime").val()
 									}
 								});
 							}
@@ -526,109 +453,57 @@
 
 				});
 			}else if(layEvent === 'examinePass'){
-
-
 				var layer = layui.layer, $ = layui.jquery;
 				var row_data = data  // 整行的数据
 					,cid = row_data.cid ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
 				layer.confirm("您确定要通过对用户 ："+row_data.cname+" 的审核吗?", function (index) {
 					layer.close(index);
 
-
-						layer.open({
-							type: 2,
-							area: ['500px', '300px'],
-							btn: ['分配完成', '取消'],
-							btn1: function(index1, layero){
-								//layer.getChildFrame("form", index)获取iframe的表单
-								//serializeArray jquery方法，将表单对象序列化为数组
-								var formData = serializeObject($, layer.getChildFrame("form", index1).serializeArray());
-								console.log(formData);
-								var s = JSON.stringify(formData);
-								console.log(s);
-								$.ajax({
-									url:"<%=path%>"+"/backConsumer/examPass?cid="+cid+"&did="+$("#did").val()+"",
-									type:'post',
-									data: formData,
-									success:function(msg){
-										if(msg=="2"){
-
-											layer.alert("用户 ："+row_data.cname+" 已经通过审核！");
-											layer.close(index1);
-											//执行重载
-											table.reload('currentTableId', {
-												page: {
-													curr: 1 //重新从第 1 页开始
-												}
-												,where: {
-													userAccount:$("#userAccount").val(),
-													username:$("#username").val(),
-													startTime:$("#startTime").val(),
-													stopTime:$("#stopTime").val(),
-													cid:$("#cid").val(),
-													state:$("#state option:selected").val()
-												}
-											});
-										}
-									},error:function (err) {
-										console.log(err);
-									}
-								});
+					layer.prompt({
+						formType: 2,
+						value: '',
+						title: '请输入您为用户： '+row_data.cname+ '分配的教练工号'
+					}, function(value, index1, elem){
+						$.ajax({
+							method : "POST",
+							url:"<%=path%>"+"/backConsumer/StudentTableOperation",
+							type:'post',
+							data: {
+								"cid":cid,
+								"do": "examinePass",
+								"pid":value,
+								"did":$("#did").val()
 							},
-							//要弹出的窗口的路径
-							content: "<%=path%>"+"/backConsumer/toExamPage?did="+$("#did").val()+""  //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
-							,success: function(layero, index){
-								console.log(layero, index);
+							success:function(msg){
+								if(msg=="2"){
+
+									layer.alert("用户 ："+row_data.cname+" 已经通过审核！");
+									layer.close(index1);
+									//执行重载
+									table.reload('currentTableId', {
+										page: {
+											curr: 1 //重新从第 1 页开始
+										}
+										,where: {
+											userAccount:$("#userAccount").val(),
+											username:$("#username").val(),
+											startTime:$("#startTime").val(),
+											stopTime:$("#stopTime").val()
+										}
+									});
+								}else if(msg=="404"){
+									layer.alert("该教练不存在，请查询后输入");
+								}
+
+							},error:function (err) {
+
+								alert("服务器正忙");
 							}
 						});
 
 
 
-					<%--layer.prompt({--%>
-					<%--	formType: 2,--%>
-					<%--	value: '',--%>
-					<%--	title: '请输入您为用户： '+row_data.cname+ '分配的教练工号'--%>
-					<%--}, function(value, index1, elem){--%>
-					<%--	$.ajax({--%>
-					<%--		method : "POST",--%>
-					<%--		url:"<%=path%>"+"/backConsumer/StudentTableOperation",--%>
-					<%--		type:'post',--%>
-					<%--		data: {--%>
-					<%--			"cid":cid,--%>
-					<%--			"do": "examinePass",--%>
-					<%--			"pid":value,--%>
-
-					<%--		},--%>
-					<%--		success:function(msg){--%>
-					// 			if(msg=="2"){
-					//
-					// 				layer.alert("用户 ："+row_data.cname+" 已经通过审核！");
-					// 				layer.close(index1);
-					// 				//执行重载
-					// 				table.reload('currentTableId', {
-					// 					page: {
-					// 						curr: 1 //重新从第 1 页开始
-					// 					}
-					// 					,where: {
-					// 						userAccount:$("#userAccount").val(),
-					// 						username:$("#username").val(),
-					// 						startTime:$("#startTime").val(),
-					// 						stopTime:$("#stopTime").val()
-					// 					}
-					// 				});
-					<%--			}else if(msg=="404"){--%>
-					<%--				layer.alert("该教练不存在，请查询后输入");--%>
-					<%--			}--%>
-
-					<%--		},error:function (err) {--%>
-
-					<%--			alert("服务器正忙");--%>
-					<%--		}--%>
-					<%--	});--%>
-
-
-
-					<%--});--%>
+					});
 
 				});
 			}else if(layEvent === 'examineNoPass'){
@@ -660,9 +535,7 @@
 										userAccount:$("#userAccount").val(),
 										username:$("#username").val(),
 										startTime:$("#startTime").val(),
-										stopTime:$("#stopTime").val(),
-										cid:$("#cid").val(),
-										state:$("#state option:selected").val()
+										stopTime:$("#stopTime").val()
 									}
 								});
 							}
@@ -716,7 +589,6 @@
 				, data = checkStatus.data;
 			layer.alert(JSON.stringify(data));
 		});
-
 
 
 

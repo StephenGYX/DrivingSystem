@@ -12,7 +12,6 @@ public class Kecheng {
   private String beizhu;
   private long kcosttime;
   private String kshijianduan;
-  private java.sql.Timestamp regtime;
 
 
   public long getKid() {
@@ -93,15 +92,6 @@ public class Kecheng {
 
   public void setKshijianduan(String kshijianduan) {
     this.kshijianduan = kshijianduan;
-  }
-
-
-  public java.sql.Timestamp getRegtime() {
-    return regtime;
-  }
-
-  public void setRegtime(java.sql.Timestamp regtime) {
-    this.regtime = regtime;
   }
 
 }

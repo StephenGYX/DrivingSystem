@@ -12,7 +12,7 @@
 %>
 <html>
 <head>
-	<title>驾考后台管理系统</title>
+	<title>教练主页面</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -58,14 +58,11 @@
 			<li class="layui-nav-item">
 				<a href="javascript:;">
 					<img src=<%=path+"/images/headphoto.jpg"%> class="layui-nav-img">
-					${sessionScope.drivingschool.dname}
+					${sessionScope.practise.name}
 				</a>
 				<dl class="layui-nav-child">
-<%--					<dd><a href="<%=path+"/jsp/DSC/DSCHinfo2.jsp"%>">基本资料</a></dd>--%>
+					<dd><a href="">基本资料</a></dd>
 					<dd><a href="">安全设置</a></dd>
-					<dd>
-						<a href="javascript:;" data-iframe-tab="<%=path+"/jsp/DSC/DSCHinfo2.jsp?do=see"%>" data-title="查看资料" data-icon="fa fa-gears">查看资料</a>
-					</dd>
 				</dl>
 			</li>
 			<li class="layui-nav-item">
