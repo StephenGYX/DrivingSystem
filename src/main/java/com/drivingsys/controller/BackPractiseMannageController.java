@@ -151,7 +151,7 @@ public class BackPractiseMannageController
 		String pid= request.getParameter("pid");
 		String doThing= request.getParameter("do");
 
-	    //确定点开的是什么列表(查看学员，审核学员，学员管理)
+		//确定点开的是什么列表(查看学员，审核学员，学员管理)
 		modelAndView.addObject("doThing",doThing);
 
 
@@ -163,7 +163,7 @@ public class BackPractiseMannageController
 		modelAndView.addObject("pid",pid);
 		modelAndView.setViewName("backConsumerManageStudentTable");
 
-           return modelAndView;
+		return modelAndView;
 	}
 	//查看教练所收到的评价
 	@RequestMapping("practiseEval")
@@ -173,7 +173,7 @@ public class BackPractiseMannageController
 
 		//教练的ID
 		String pid = request.getParameter("pid");
-        //驾校ID
+		//驾校ID
 		String driverSchoolId = request.getParameter("did");
 
 		System.out.println("pid========="+pid);

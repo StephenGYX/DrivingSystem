@@ -71,7 +71,7 @@ public class BackConsumerManageController
 		String did=findDid(request);
 
 
-//		System.out.println("cpritiseid:-----------------------"+cpritiseid);
+		//		System.out.println("cpritiseid:-----------------------"+cpritiseid);
 		int pages= Integer.valueOf(page);
 		int limits = Integer.valueOf(limit);
 		RowBounds rowBounds = new RowBounds((pages - 1) * limits,limits);
@@ -152,8 +152,8 @@ public class BackConsumerManageController
 			String pid = request.getParameter("pid");
 			String did=findDid(request);
 
-//			long l =1;
-//			String driverSchoolId =String.valueOf(l);
+			//			long l =1;
+			//			String driverSchoolId =String.valueOf(l);
 			HashMap<String, String> idMap = new HashMap<>();
 			idMap.put("pid",pid);
 			idMap.put("did",did);

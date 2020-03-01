@@ -13,9 +13,9 @@
 		</where>
 	</select>
 
-    <!--驾校端对教练的用户列表查询-->
+	<!--驾校端对教练的用户列表查询-->
 	<select id="queryCoachByMySchool" resultType="com.drivingsys.bean.Practise" parameterType="map">
-	    select  * from  practise
+		select  * from  practise
 		<where>
 			and  pdrivingid =#{selectParam.driverSchoolId}
 			<if test="selectParam.userAccount!=null and selectParam.userAccount.trim()!='' ">
@@ -33,26 +33,26 @@
 		</where>
 	</select>
 	<select id="queryCoachByMySchoolCount" resultType="long" parameterType="map">
-	    select  count(*) from  practise
-		 <where>
-			 and  pdrivingid =#{selectParam.driverSchoolId}
-			 <if test="selectParam.userAccount!=null and selectParam.userAccount.trim()!='' ">
-				 and   paccount like '%${selectParam.userAccount}%'
-			 </if>
-			 <if test="selectParam.username!=null and selectParam.username.trim()!='' ">
-				 and   pname like '%${selectParam.username}%'
-			 </if>
-			 <if test="selectParam.startTime!=null and selectParam.startTime!='' ">
-				 and  pregtime &gt;=#{selectParam.startTime}
-			 </if>
-			 <if test="selectParam.stopTime!=null and selectParam.stopTime!='' ">
-				 and  pregtime &lt;=#{selectParam.stopTime}
-			 </if>
+		select  count(*) from  practise
+		<where>
+			and  pdrivingid =#{selectParam.driverSchoolId}
+			<if test="selectParam.userAccount!=null and selectParam.userAccount.trim()!='' ">
+				and   paccount like '%${selectParam.userAccount}%'
+			</if>
+			<if test="selectParam.username!=null and selectParam.username.trim()!='' ">
+				and   pname like '%${selectParam.username}%'
+			</if>
+			<if test="selectParam.startTime!=null and selectParam.startTime!='' ">
+				and  pregtime &gt;=#{selectParam.startTime}
+			</if>
+			<if test="selectParam.stopTime!=null and selectParam.stopTime!='' ">
+				and  pregtime &lt;=#{selectParam.stopTime}
+			</if>
 		</where>
 	</select>
-    <!--驾校端对教练的用户列表查询-->
+	<!--驾校端对教练的用户列表查询-->
 
-    <!--教练的账号启用禁用，修改密码，逻辑删除-->
+	<!--教练的账号启用禁用，修改密码，逻辑删除-->
 	<update id="updateCoachStateByPid"  parameterType="java.util.Map">
 		update practise
 		<set>
@@ -71,7 +71,7 @@
 			</where>
 		</set>
 	</update>
-    <!--教练的账号启用禁用，修改密码，逻辑删除-->
+	<!--教练的账号启用禁用，修改密码，逻辑删除-->
 
 	<!--驾校端对学员的用户列表查询，需和订单表绑定-->
 	<select id="queryStudentByMySchool" resultType="com.drivingsys.bean.Consumer" parameterType="map">
@@ -141,7 +141,7 @@
 	<!--学员的账号启用禁用，修改密码，逻辑删除-->
 
 	<update id="updateStudentStateByCid"  parameterType="java.util.Map">
-		update consumer 
+		update consumer
 		<set>
 			cstate = #{cstate}
 			<where>
@@ -229,10 +229,10 @@
 				etesttime2 =#{kaoShiParam.kaoShiTime2}
 			</if>
 			<if test="kaoShiParam.test3!=null and kaoShiParam.test3!='' ">
-				 etesttime3 =#{kaoShiParam.kaoShiTime3}
+				etesttime3 =#{kaoShiParam.kaoShiTime3}
 			</if>
 			<if test="kaoShiParam.test4!=null and kaoShiParam.test4!='' ">
-				 etesttime4 =#{kaoShiParam.kaoShiTime4}
+				etesttime4 =#{kaoShiParam.kaoShiTime4}
 			</if>
 			<where>
 				cid =#{kaoShiParam.cid} and	pid =#{kaoShiParam.pid}
@@ -256,14 +256,14 @@
 		</where>
 		order by epractisecontenttime desc
 	</select>
-		<resultMap id="consumerInfo" type="com.drivingsys.bean.Examination">
-			<collection property="consumer1" ofType="com.drivingsys.bean.Consumer" javaType="com.drivingsys.bean.Consumer">
-				<id property="cid" column="cid" />
-				<result property="cname" column="cname" />
-				<result property="epractisecontent" column="epractisecontent" />
-				<result property="epractisecontenttime" column="epractisecontenttime" />
-			</collection>
-		</resultMap>
+	<resultMap id="consumerInfo" type="com.drivingsys.bean.Examination">
+		<collection property="consumer1" ofType="com.drivingsys.bean.Consumer" javaType="com.drivingsys.bean.Consumer">
+			<id property="cid" column="cid" />
+			<result property="cname" column="cname" />
+			<result property="epractisecontent" column="epractisecontent" />
+			<result property="epractisecontenttime" column="epractisecontenttime" />
+		</collection>
+	</resultMap>
 	<!--通过驾校和教练ID，查看该教练所收到的评价-->
 
 	<!--通过驾校和学员ID，查看该学员所有的评价-->
@@ -313,4 +313,3 @@
 	</select>
 
 </mapper>
-	

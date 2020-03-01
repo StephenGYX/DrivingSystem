@@ -57,6 +57,7 @@ public class FrontLoginController
 	}
 
 
+
 	@RequestMapping("frontLogin")
 	@ResponseBody
 	public String testMain(@RequestParam Map<String, String> reqMap, HttpServletRequest request)
@@ -129,18 +130,6 @@ public class FrontLoginController
 		return "frontlogin3";
 	}
 
-	@RequestMapping("roleid")
-	@ResponseBody
-	public String testMain(String roleid, HttpServletRequest request)
-	{
-		System.out.println("roleid方法参数" + roleid);
-		String roleid1 = "4";
-		roleid1 = roleid;
-		request.getSession().setAttribute("roleid", roleid1);
-		System.out.println(roleid1);
-		return roleid1;
-	}
-
 
 
 	@RequestMapping("role")
@@ -205,7 +194,7 @@ public class FrontLoginController
 		}
 		if (updata != null)
 		{
-		 i=manageDSCService.updatedscinfo(updata);
+			i=manageDSCService.updatedscinfo(updata);
 		}
 
 		//		int i=frontLoginService.instertDSC(del);
@@ -219,13 +208,9 @@ public class FrontLoginController
 
 	@RequestMapping("upload")
 	@ResponseBody
-	public String uploadFile(HttpServletRequest request,@RequestParam Map<String, String> reqMap) throws IOException
+	public String uploadFile(HttpServletRequest request) throws IOException
 	{
-		System.out.println("进入驾校图片上传方法");
-		//获取文件上传的位置:这里文件上传的路径无法确保在工程目录下(所以需要获取tomcat服务器下的路径)
-		String path = request.getSession().getServletContext().getRealPath("/images");
-		System.out.println("reqmap"+reqMap);
-
+		System.out.println("进入上传方法");
 		List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
 		for (int i = 0; i < files.size(); i++)
 		{
@@ -239,9 +224,6 @@ public class FrontLoginController
 			File dest = new File("D:\\filetest\\" + fileName);
 			try
 			{
-				if(dest.exists()){
-					dest.mkdirs();
-				};
 				file.transferTo(dest);
 				System.out.println("第" + (i + 1) + "个文件上传成功");
 			} catch (IOException e)

@@ -11,7 +11,7 @@ import java.util.Map;
 public interface DrivingSchoolInfoService
 {
 	//查询驾校的信息
-	public List<?> querySchoolInfo( String did);
+	public List<?> querySchoolInfo(String did);
 	public List<Kecheng> querySchoolKeCheng(String did);
 
 	public int insertBaoMing(Map<String, Object> baoMing);

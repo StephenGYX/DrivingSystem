@@ -184,7 +184,7 @@
 		</c:if>
 		<c:if test="${sessionScope.consumer==null or sessionScope.consumer==''}">
 
-			<a href=<%=path%>"/schoolInfo/toFrontLogin?baoMing=baoMing"  rel="nofollow">登录</a>
+			<a href=<%=path+"/schoolInfo/toFrontLogin?baoMing=baoMing"%>  rel="nofollow">登录</a>
 			<span>|</span><a href="https://user.jiazhao.com/register/4/" rel="nofollow">注册</a>
 		</c:if>
 
