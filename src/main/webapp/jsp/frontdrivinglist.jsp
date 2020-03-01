@@ -68,7 +68,7 @@
 				<c:forEach items="${sessionScope.drivingschoollist}" begin="0" end="4" var="drivingschoollist">
 					<td>
 						<div class="col-md-2" style="height:250px;padding: 15px">
-							<a href="${pageContext.request.contextPath}/ShowMyInfo/${drivingschoollist.did}">
+							<a href="${pageContext.request.contextPath}/schoolInfo/ShowMyInfo/${drivingschoollist.did}">
 								<img src="${pageContext.request.contextPath}/${drivingschoollist.dschoolimage}"
 									width="200" height="200" style="display: inline-block;"></a><br>
 							<p><a href="product_info.html" style='color: green'>${drivingschoollist.dname}</a></p>
