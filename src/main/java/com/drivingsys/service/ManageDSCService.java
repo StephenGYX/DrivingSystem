@@ -20,26 +20,29 @@ public class ManageDSCService
 	@Resource
 	private ManageDSCMapper manageDSCMapper;
 
-	public List<Drivingschool> queryDSC(Map<String,Object> reqMap, RowBounds rb)
-	{return manageDSCMapper.queryDSC(reqMap,rb);}
+	public List<Drivingschool> queryDSC(Map<String, Object> reqMap, RowBounds rb)
+	{
+		return manageDSCMapper.queryDSC(reqMap, rb);
+	}
 
 	public int delDSC(List<Drivingschool> del)
-	{ return manageDSCMapper.delDSC(del);
+	{
+		return manageDSCMapper.delDSC(del);
 	}
 
 	public int updateCoachStateByDid(long did, int i)
 	{
-		return manageDSCMapper.updateCoachStateByDid(did,i);
+		return manageDSCMapper.updateCoachStateByDid(did, i);
 	}
 
 	public int updateCoachPwdByDid(int did, String password)
 	{
-		return manageDSCMapper.updateCoachPwdByDid(did,password);
+		return manageDSCMapper.updateCoachPwdByDid(did, password);
 	}
 
 	public List<Examination> querySTUpj(int did, RowBounds rowBounds)
 	{
-		return manageDSCMapper.querySTUpj(did,rowBounds);
+		return manageDSCMapper.querySTUpj(did, rowBounds);
 	}
 
 	public List<echaretsDSC> echaretstest()
@@ -49,22 +52,23 @@ public class ManageDSCService
 
 	public List<Drivingschool> queryqianDSC(Map<String, Object> reqMap, RowBounds rowBounds)
 	{
-		return manageDSCMapper.queryqianDSC(reqMap,rowBounds);
+		return manageDSCMapper.queryqianDSC(reqMap, rowBounds);
 	}
 
-	public long queryDSCcount(Map<String, Object> search, RowBounds rowBounds)
+	public long queryDSCcount(Map<String, Object> search)
 	{
 		return manageDSCMapper.queryDSCcount(search);
 	}
-//查询未经过管理员审核驾校
+
+	//查询未经过管理员审核驾校
 	public List<Drivingschool> QueryDSCshenhe(Map<String, Object> search, RowBounds rowBounds)
 	{
-		return manageDSCMapper.QueryDSCshenhe(search,rowBounds);
+		return manageDSCMapper.QueryDSCshenhe(search, rowBounds);
 	}
 
 	public int updateshenheStateByDid(int did, int i)
 	{
-		return manageDSCMapper.updateshenheStateByDid(did,i);
+		return manageDSCMapper.updateshenheStateByDid(did, i);
 	}
 
 	public void updateqiyongStateByDid(int did)
@@ -79,11 +83,12 @@ public class ManageDSCService
 
 	public List<Kecheng> QueryDSCkecheng(Map<String, Object> search, RowBounds rowBounds)
 	{
-		return manageDSCMapper.QueryDSCkecheng(search,rowBounds);
+		return manageDSCMapper.QueryDSCkecheng(search, rowBounds);
 	}
 
 	public int instertkecheng(Map<String, Object> reqMap)
-	{ return manageDSCMapper.instertkecheng(reqMap);
+	{
+		return manageDSCMapper.instertkecheng(reqMap);
 	}
 
 	public int updatakecheng(Map<String, Object> reqMap)
@@ -104,6 +109,11 @@ public class ManageDSCService
 	public long queryDSCshenhecount(Map<String, Object> search)
 	{
 		return manageDSCMapper.QueryDSCshenheCount(search);
+	}
+
+	public void instertimage(String did,String lujing ,  String jxxx)
+	{
+		manageDSCMapper.instertimage(did, lujing,jxxx);
 	}
 
 	;

@@ -172,7 +172,6 @@ public class DrivingSchoolInfoController
 	{
 		int i=0;
 
-
 		String baoMingParam = request.getParameter("baoMingParam");
 
 		System.out.println(baoMingParam);

@@ -59,7 +59,7 @@ public class ManageDSCController
 
 		List<Drivingschool> list = manageDSCService.queryDSC(search, rowBounds);
 		System.out.println("list size" + list.size());
-		long l = manageDSCService.queryDSCcount(search, rowBounds);
+		long l = manageDSCService.queryDSCcount(search);
 
 		tableParam tableParam = new tableParam();
 

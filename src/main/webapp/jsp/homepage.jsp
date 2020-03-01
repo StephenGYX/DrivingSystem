@@ -33,9 +33,17 @@
 	</script>
 <!-- 增加搜索条件 -->
 <div class="demoTable">
-	搜索ID：
+	搜索车牌：
 	<div class="layui-inline">
 		<input class="layui-input" name="id" id="demoReload" autocomplete="off">
+	</div>
+	搜索品牌：
+	<div class="layui-inline">
+		<input class="layui-input" name="id" id="brand" autocomplete="off">
+	</div>
+	搜索型号：
+	<div class="layui-inline">
+		<input class="layui-input" name="id" id="model" autocomplete="off">
 	</div>
 	<button class="layui-btn" data-type="reload" >搜索</button>
 
@@ -122,9 +130,9 @@
 						,where: {	}
 					}, 'data');
 					layer.msg('删除成功')
-					setTimeout( function(){
-						window.parent.location.reload();
-					}, 2000 );//延迟两秒
+					// setTimeout( function(){
+					// 	window.parent.location.reload();
+					// }, 2000 );//延迟两秒
 				}
 			} else if (layEvent === 'edit') { //编辑
 				var row_data = data,
@@ -132,6 +140,7 @@
 				layer.open({
 					maxmin: true,
 					type: 2,
+					offset:'20px',
 					title: '修改车辆信息',
 					content:['/springboot/jsp/backupdate.jsp','no'] ,//不允许出现滚动条
 					area:['600px', '400px']
@@ -142,9 +151,18 @@
 	var $ = layui.$, active = {
 		reload: function(){
 			var demoReload = $('#demoReload');
-			if($("#demoReload").val()==""){
+			if($("#demoReload").val()==""||$("#brand").val()==""||$("#model").val()==""){
 				window.parent.location.reload();
-			}else{
+			}else if($("#demoReload").val()!=""){
+
+			}else if($("#brand").val()!=""){
+
+			}else if($("#model").val()!=""){
+
+			}
+
+
+			else{
 
 				//执行重载
 				table.reload('test', {
@@ -177,9 +195,10 @@
 			var layer = layui.layer;
 			layer.open({
 				type: 2,
+				offset:'20px',
 				title: '新增车辆',
 				content:['/springboot/jsp/backadd.jsp','no'] ,//不允许出现滚动条
-				area:['600px', '400px']
+				area:['900px', '700px']
 			});
 		});
 	})
@@ -189,9 +208,10 @@
 		layer.open({
 			type: 1,
 			title: false,
+			offset:'40px',
 			closeBtn: 0,
 			shadeClose: true, //点击阴影关闭
-			area: [$(e).width + 'px', $(e).height + 'px'], //宽高
+			area: [$(e).width+ 'px', $(e).height + 'px'], //宽高
 		content: "<img src=" + $(e).attr('src') + " />"
 	});
 	}
