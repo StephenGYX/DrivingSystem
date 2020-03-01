@@ -5,8 +5,8 @@
 <mapper namespace="com.drivingsys.dao.DrivingSchoolInfoMapper">
 
 	<select id="querySchoolInfoByDid" resultMap="Exam" parameterType="java.lang.String">
-         select  d.*,e.*,c.cname stName from  drivingschool d,examination  e, consumer c
-          where  d.did =#{did}  and  e.did=d.did and c.cid =e.cid  ;
+select  d.*,e.*,c.cname stName from  drivingschool  d left join examination  e on d.did= e.did left join consumer  c on
+  e.cid= c.cid  where  d.did =#{did}
 	</select>
 	<resultMap id="Exam" type="com.drivingsys.bean.Drivingschool">
 		<result property="did" column="did"/>

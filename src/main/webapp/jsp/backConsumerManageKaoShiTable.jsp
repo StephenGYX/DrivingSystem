@@ -63,7 +63,7 @@
 
 		<script type="text/html" id="toolbarDemo">
 			<div class="layui-btn-container">
-				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="deleteList">删除</a>
+<%--				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="deleteList">删除</a>--%>
 			</div>
 		</script>
 

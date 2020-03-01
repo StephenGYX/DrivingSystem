@@ -11,6 +11,7 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,28 +35,57 @@ public class DrivingSchoolInfoController
      private DrivingSchoolInfoService drivingSchoolInfoService;
 
 
-    //查看驾校端的教练
-	@RequestMapping("ShowMyInfo")
-	@ResponseBody
-	public ModelAndView showMyInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+
+
+    //查看驾校
+	@RequestMapping("ShowMyInfo/{id}")
+	public ModelAndView showMyInfo(@PathVariable("id") String id,HttpServletRequest request, HttpServletResponse response)
 	{
 
-		//驾校的ID
-		String did = request.getParameter("did");
+		System.out.println("id====" +id);
 
-		int i= 1;
-		String s = String.valueOf(i);
+		if (id.equals("none")){
+
+		//
+		}else {
+			request.getSession().setAttribute("drivingscid",id);
+		}
+
+		String drivingscid = (String) request.getSession().getAttribute("drivingscid");
+
+
+		System.out.println("drivingscid====" +drivingscid);
+
+
+//		int i= 1;
+//		String s = String.valueOf(i);
 
 		//驾校的信息
-		List<Drivingschool> drivingSchoolInfo = (List<Drivingschool>) drivingSchoolInfoService.querySchoolInfo(s);
+		List<Drivingschool> drivingSchoolInfo = (List<Drivingschool>) drivingSchoolInfoService.querySchoolInfo(drivingscid);
 
-		List<Kecheng> kechengs = drivingSchoolInfoService.querySchoolKeCheng(s);
+		List<Kecheng> kechengs = drivingSchoolInfoService.querySchoolKeCheng(drivingscid);
+
 
 
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("kechengs",kechengs);
-		modelAndView.addObject("drivingSchoolInfo",drivingSchoolInfo);
-		modelAndView.addObject("countEval",drivingSchoolInfo.size());
+//		modelAndView.addObject("kechengs",kechengs);
+//		modelAndView.addObject("drivingSchoolInfo",drivingSchoolInfo);
+//		modelAndView.addObject("countEval",drivingSchoolInfo.size());
+//
+		request.getSession().setAttribute("kechengs",kechengs);
+		request.getSession().setAttribute("drivingSchoolInfo",drivingSchoolInfo);
+
+		int count =0;
+		for (int i = 0; i < drivingSchoolInfo.size(); i++)
+		{
+			if (drivingSchoolInfo.get(i).getExamination()!=null){
+				count++;
+			};
+		}
+
+		System.out.println("正确的评论人数"+count);
+
+		request.getSession().setAttribute("countEval",count);
 
 //		System.out.println(	"评分            "+drivingSchoolInfo.get(0).getDevaluatescore());
 
