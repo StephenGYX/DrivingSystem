@@ -181,7 +181,8 @@
 					{field: 'pphoto',title: '图片',width:60,
 						templet: function (d) {
 							return '<div ><img src="'+d.pphoto+'"  width="50px" height="50px" onclick="showBigImage(this)"></a></div>';
-						}
+
+					}
 					},
 					{field: 'pname', width: 80, title: '姓名'},
 					{field: 'paccount', width: 180, title: '账号', sort: true},
@@ -510,7 +511,18 @@
 		});
 	</script>
 
-	<script>
+	<<script>
+
+		function showBigImage(e) {
+			layer.open({
+				type: 1,
+				title: false,
+				closeBtn: 0,
+				shadeClose: true, //点击阴影关闭
+				area: [$(e).width + 'px', $(e).height + 'px'], //宽高
+				content: "<img src=" + $(e).attr('src') + " />"
+			});
+		}
 
 	</script>
 
