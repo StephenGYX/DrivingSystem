@@ -14,7 +14,7 @@ To change this template use File | Settings | File Templates.
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>省市县区选择区</title>
+	<title>驾校注册页面</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -245,7 +245,7 @@ To change this template use File | Settings | File Templates.
 			,done: function(res){
 				//上传完毕回调
 				layer.msg("上传成功", {icon: 6});
-				$("#name").val(res.name)
+				$("#name").val(res.name);
 				$("#number").val(res.number)
 				// alert(res.number)
 			}
@@ -271,7 +271,7 @@ To change this template use File | Settings | File Templates.
 						layer.msg("注册成功", {icon: 6});
 
 					} else {
-						alert("222");
+						// alert("222");
 						layer.msg("注册失败", {icon: 5});
 					}
 				}

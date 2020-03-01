@@ -78,9 +78,6 @@
         <collection property="consumer" column="cid" ofType="com.drivingsys.bean.Consumer"  javaType="java.util.ArrayList">
             <result property="cname" column="cname"/>
             <result property="caccount" column="caccount"/>
-<!--            <result property="daxiao" column="daxiao"/>-->
-<!--            <result property="uid" column="uid"/>-->
-<!--            <result property="lujinng" column="lujinng"/>-->
         </collection>
     </resultMap>
 
@@ -222,6 +219,13 @@ GROUP BY pdrivingid;
 <delete id="delkecheng" parameterType="map">
     DELETE FROM kecheng WHERE kid=#{kid}
 </delete>
+
+    <insert id="instertimage" parameterType="map">
+        INSERT INTO dschoolimages (did, lujing, leixing)
+        values (#{did},#{lujing},#{leixing})
+    </insert>
+
+
 
 </mapper>
 	

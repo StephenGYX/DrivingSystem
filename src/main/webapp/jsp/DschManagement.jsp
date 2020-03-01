@@ -136,6 +136,12 @@
 				{field: 'devaluatescore', width: 80, title: '总评分', sort: true},
 				{field: 'dgraduationnum', width: 100, title: '毕业人数', sort: true},
 				{field: 'denrollnum', width: 80, title: '注册人数', sort: true},
+				{fixed: 'vphoto',
+					title: '图片',width:80,templet: function (d) {
+						return '<div ><img src="'+d.vphoto+'"  width="50px" height="50px" onclick="showBigImage(this)"></a></div>';
+					}
+				},
+
 				{
 					field: 'daccountstate', minWidth: 100, title: '账号状态'
 					, templet: function (d) {

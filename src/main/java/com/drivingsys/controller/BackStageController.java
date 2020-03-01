@@ -44,7 +44,8 @@ public class BackStageController
 	@Log(operationType = "查询操作", operationName = "用户登录")
 	public String backLogin(@RequestParam Map<String, String> reqMap, HttpServletRequest request)
 	{
-
+		//先清空session
+		request.getSession().invalidate();
 		//调用service查找账户的方法
 		Backstage backstage = backStageService.queryBackStageAccount(reqMap);
 
