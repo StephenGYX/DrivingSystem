@@ -46,16 +46,16 @@ public class FrontLoginController
 	@ResponseBody
 	@RequestMapping("/queryRoleMenu")
 
-	public BackMenu queryRoleMenu(HttpServletRequest request){
+	public BackMenu queryRoleMenu(HttpServletRequest request)
+	{
 
 
-		int rid = Integer.valueOf(request.getSession().getAttribute("roleid")+"");
+		int rid = Integer.valueOf(request.getSession().getAttribute("roleid") + "");
 
 		//获取该角色类型的菜单目录
 		BackMenu backMenu = backMenuService.queryRoleMenu(rid);
 		return backMenu;
 	}
-
 
 
 	@RequestMapping("frontLogin")
@@ -91,6 +91,7 @@ public class FrontLoginController
 			} else
 			{
 				System.out.println("找到了教练");
+				request.getSession().invalidate();
 				request.getSession().setAttribute("practise", practise);
 				return "20";
 			}
@@ -102,11 +103,13 @@ public class FrontLoginController
 			if (drivingschool == null)
 			{
 				System.out.println("没找到驾校");
+
 				request.getSession().setAttribute("fmsg", "2");
 				return "2";
 			} else
 			{
 				System.out.println("找到了驾校");
+				request.getSession().removeAttribute("drivingschool");
 				request.getSession().setAttribute("drivingschool", drivingschool);
 				//				return "DSCHinfo";
 				return "30";
@@ -122,6 +125,7 @@ public class FrontLoginController
 			} else
 			{
 				System.out.println("找到了学生");
+				request.getSession().invalidate();
 				request.getSession().setAttribute("consumer", consumer);
 
 				return "10";
@@ -130,11 +134,22 @@ public class FrontLoginController
 		return "frontlogin3";
 	}
 
+	@RequestMapping("roleid")
+	@ResponseBody
+	public String testMain(String roleid, HttpServletRequest request)
+	{
+		System.out.println("roleid方法参数" + roleid);
+		String roleid1 = "4";
+		roleid1 = roleid;
+		request.getSession().setAttribute("roleid", roleid1);
+		System.out.println(roleid1);
+		return roleid1;
+	}
 
 
 	@RequestMapping("role")
 	@ResponseBody
-	public void testMain( HttpServletRequest request)
+	public void testMain(HttpServletRequest request)
 	{
 
 		request.getSession().setAttribute("roleid", "4");
@@ -177,10 +192,10 @@ public class FrontLoginController
 	@ResponseBody
 	public int DSCupdatainfo(@RequestParam Map<String, Object> reqMap, HttpServletRequest request)
 	{
-		int i=0;
+		int i = 0;
 		System.out.println("进入更改信息方法");
-		System.out.println(reqMap);
-		System.out.println(reqMap.get("dscParams"));
+		System.out.println("DSCupdatainfo" + reqMap);
+		System.out.println("DSCupdatainfo" + reqMap.get("dscParams"));
 
 		String dscParams = request.getParameter("dscParams");
 
@@ -194,7 +209,7 @@ public class FrontLoginController
 		}
 		if (updata != null)
 		{
-			i=manageDSCService.updatedscinfo(updata);
+			i = manageDSCService.updatedscinfo(updata);
 		}
 
 		//		int i=frontLoginService.instertDSC(del);
@@ -208,9 +223,25 @@ public class FrontLoginController
 
 	@RequestMapping("upload")
 	@ResponseBody
-	public String uploadFile(HttpServletRequest request) throws IOException
+	public String uploadFile(HttpServletRequest request, @RequestParam Map<String, String> reqMap) throws IOException
 	{
-		System.out.println("进入上传方法");
+		System.out.println("进入驾校图片上传方法");
+		//获取文件上传的位置:这里文件上传的路径无法确保在工程目录下(所以需要获取tomcat服务器下的路径)
+		String path = request.getSession().getServletContext().getRealPath("/images");
+
+		String did = reqMap.get("did");
+		if (did == null || did.equals(""))
+		{
+			did = "default";
+		}
+		;String jxxx = reqMap.get("jxxx");
+		if (jxxx == null || jxxx.equals(""))
+		{
+			jxxx = "error";
+		}
+
+		System.out.println("reqmap" + reqMap);
+
 		List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
 		for (int i = 0; i < files.size(); i++)
 		{
@@ -221,11 +252,24 @@ public class FrontLoginController
 			}
 			String fileName = file.getOriginalFilename();
 			System.out.println("fileName" + fileName);
-			File dest = new File("D:\\filetest\\" + fileName);
+
+			//整合新的文件路径，并且写出到本地
+			String filePath = path + "\\" + did + "\\" + fileName;
+			String showFilePath = "\\images\\"  + did + "\\" + fileName;
+			System.out.println(filePath);
+			File dest = new File(filePath);
 			try
 			{
+				if (dest.exists() == false)
+				{
+					dest.mkdirs();
+				}
+				;
 				file.transferTo(dest);
 				System.out.println("第" + (i + 1) + "个文件上传成功");
+				manageDSCService.instertimage(did,showFilePath,jxxx);
+
+
 			} catch (IOException e)
 			{
 				//				LOGGER.error(e.toString(), e);

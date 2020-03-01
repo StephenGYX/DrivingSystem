@@ -62,5 +62,5 @@ public interface ManageDSCMapper
 	@Select("select count(*) from kecheng where did=#{did}")
 	long QueryDSCkechengcount(Map<String, Object> search);
 
-
+	public void instertimage(@Param("did") String did,@Param("lujing") String lujing, @Param("leixing") String jxxx);
 }

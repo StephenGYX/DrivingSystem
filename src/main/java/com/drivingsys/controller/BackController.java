@@ -4,16 +4,25 @@ import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Vehicle;
 import com.drivingsys.bean.backmsg;
 import com.drivingsys.service.BackStageMyServiceImpl;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 测试
@@ -71,7 +80,7 @@ public class BackController
 	}
 
 	@RequestMapping("/preg")
-	public ModelAndView preg(@RequestParam("province") String province, @RequestParam("city") String city, @RequestParam("county") String county, @RequestParam("username") String account, @RequestParam("password") String pass, @RequestParam("password1") String pass1, @RequestParam("sex") String sex, @RequestParam("age") int age, @RequestParam("phone") String phone, @RequestParam("email") String email, @RequestParam("name") String name, @RequestParam("idcard") String idcard, @RequestParam("question") String resume, @RequestParam("workexperience") String workexperience)
+	public ModelAndView preg(@RequestParam("mySelect") String driving, @RequestParam("province") String province, @RequestParam("city") String city, @RequestParam("county") String county, @RequestParam("username") String account, @RequestParam("password") String pass, @RequestParam("password1") String pass1, @RequestParam("sex") String sex, @RequestParam("age") int age, @RequestParam("phone") String phone, @RequestParam("email") String email, @RequestParam("name") String name, @RequestParam("idcard") String idcard, @RequestParam("question") String resume, @RequestParam("workexperience") String workexperience)
 	{
 		if (sex.equals("1"))
 		{
@@ -80,28 +89,30 @@ public class BackController
 		{
 			sex = "女";
 		}
-		backStageMyService.addpuser(account, pass, sex, age, phone, email, name, idcard, resume, workexperience);
+		backStageMyService.addpuser(driving, account, pass, sex, age, phone, email, name, idcard, resume, workexperience);
 		modelAndView.setViewName("/backlogin");
 		return modelAndView;
 	}
 
 	@RequestMapping("/table")
-	public backmsg talbe(@RequestParam("page") int page, @RequestParam("limit") int limit,HttpServletRequest request)
+	public backmsg talbe(@RequestParam("page") int page, @RequestParam("limit") int limit, HttpServletRequest request)
 	{
 		backmsg a = new backmsg();
 		HttpSession session = request.getSession();
-		Drivingschool did =  (Drivingschool)session.getAttribute("drivingschool");
+		Drivingschool did = (Drivingschool) session.getAttribute("drivingschool");
 
 		page = (page - 1) * limit;
-		if(did!=null){
-			List<Vehicle> List = backStageMyService.table(did.getDid(),page, limit);
-			int i = backStageMyService.count();
+		if (did != null)
+		{
+			List<Vehicle> List = backStageMyService.table(did.getDid(), page, limit);
+			int i = backStageMyService.count1(did.getDid());
 			a.setCode(0);
 			a.setCount(i);
 			a.setMsg(0);
 			a.setData(List);
-		}else{
-			List<Vehicle> List1=backStageMyService.table1(page,limit);
+		} else
+		{
+			List<Vehicle> List1 = backStageMyService.table1(page, limit);
 			int i = backStageMyService.count();
 			a.setCode(0);
 			a.setCount(i);
@@ -115,37 +126,101 @@ public class BackController
 	@RequestMapping("/search")
 	public backmsg search(@RequestParam("demoReload") String demoReload)
 	{
-		backmsg a=new backmsg();
+		backmsg a = new backmsg();
 		List<Vehicle> vehicle = backStageMyService.search(demoReload);
 		a.setData(vehicle);
 		return a;
 	}
+
 	@RequestMapping("/search1")
 	public backmsg search1(@RequestParam("demoReload1") String demoReload1)
 	{
-		backmsg a=new backmsg();
+		backmsg a = new backmsg();
 		List<Vehicle> vehicle = backStageMyService.search1(demoReload1);
 		a.setData(vehicle);
 		return a;
 	}
-	@RequestMapping("/del")
 
+	@RequestMapping("/del")
 	public void del(@RequestParam("vid") String vid)
 	{
 		backStageMyService.del(vid);
 	}
 
-	@RequestMapping("/addcar")
-	public void addcar(@RequestParam("num") String num, @RequestParam("brand") String brand, @RequestParam("model") String model)
-	{
-		System.out.println(num);
-		System.out.println(brand);
-		System.out.println(model);
-		backStageMyService.addcar(num, brand, model);
+	//新增数据
+	@RequestMapping("/addcar1")
+	public void addcar1(@RequestParam("num") String num, @RequestParam("brand") String brand, @RequestParam("model") String model,@RequestParam("carimages")String path, HttpServletRequest request){
+		HttpSession session = request.getSession();
+		Drivingschool did = (Drivingschool) session.getAttribute("drivingschool");
+		System.out.println("车牌号"+num);
+		System.out.println("品牌"+brand);
+		System.out.println("型号"+model);
+		System.out.println("地址"+path);
+		if(did!=null){
+			backStageMyService.addcar(num, brand, model, path,did.getDid());
+		}else{
+			backStageMyService.backaddcar(num, brand, model, path);
+		}
 	}
 
+	//保存图片
+	@RequestMapping("/addcar")
+	public Map<String, Object> addcar( @RequestParam("file") MultipartFile file, HttpServletRequest request)
+	{
+//
+		System.out.println("进入了");
+		OutputStream out = null;
+		InputStream fileInput = null;
+		try
+		{
+			if (file != null)
+			{
+				String filepath = request.getServletContext().getRealPath("/") + "images\\" + file.getOriginalFilename();
+
+				String path="..\\images\\"+file.getOriginalFilename();
+				System.out.println("路径"+path);
+				File files = new File(filepath);
+				if (!files.getParentFile().exists())
+				{
+					files.getParentFile().mkdirs();
+				}
+				file.transferTo(files);
+				Map<String, Object> map = new HashMap<>();
+				map.put("code", 0);
+				map.put("msg", "");
+				map.put("src", path);
+				return map;
+
+			}
+
+		} catch (Exception e)
+		{
+		} finally
+		{
+			try
+			{
+				if (out != null)
+				{
+					out.close();
+				}
+				if (fileInput != null)
+				{
+					fileInput.close();
+				}
+			} catch (IOException e)
+			{
+			}
+		}
+		Map<String, Object> map = new HashMap<>();
+		map.put("code", 1);
+		map.put("msg", "");
+		return map;
+
+	}
+
+
 	@RequestMapping("/updat")
-	public void updat(@RequestParam("state") String state, @RequestParam("driving") String driving, @RequestParam("num") String num)
+	public void updat(@RequestParam("state") String state, @RequestParam("ncarnum") String ncarnum, @RequestParam("num") String num, @RequestParam("carbrand") String carbrand, @RequestParam("carmodel") String carmodel)
 	{
 		if (state.equals("1"))
 		{
@@ -161,10 +236,24 @@ public class BackController
 			state = "报废";
 		}
 		System.out.println(state);
-		System.out.println(driving);
-		System.out.println(num);
-		backStageMyService.updat(state, driving, num);
-
+		System.out.println("新车牌号" + ncarnum);
+		System.out.println("车牌号" + num);
+		System.out.println("新车型" + carmodel);
+		System.out.println("新品牌" + carbrand);
+		backStageMyService.updat(state, ncarnum, num, carbrand, carmodel);
 	}
+
+	@RequestMapping("/driving")
+	public void driving(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		List<Drivingschool> drivingschools = backStageMyService.driving();
+
+
+		response.setContentType("text/html; charset =utf-8");
+		response.getWriter().write(new Gson().toJson(drivingschools));
+		response.getWriter().flush();
+	}
+
+
 }
 
