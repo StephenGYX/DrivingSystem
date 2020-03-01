@@ -66,7 +66,7 @@ public class ManageDSCController
 		//0表示成功
 		tableParam.setCode(0);
 		//数据库查询count数量
-		tableParam.setCount(list.size());
+		tableParam.setCount(l);
 		//失败数据
 		tableParam.setMsg("");
 		tableParam.setData(list);
