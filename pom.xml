@@ -18,8 +18,13 @@
         <java.version>1.8</java.version>
     </properties>
 
-
     <dependencies>
+        <!--身份证识别包-->
+        <dependency>
+            <groupId>com.baidu.aip</groupId>
+            <artifactId>java-sdk</artifactId>
+            <version>4.12.0</version>
+        </dependency>
         <!--    人脸识别包-->
         <dependency>
             <groupId>com.baidu.aip</groupId>

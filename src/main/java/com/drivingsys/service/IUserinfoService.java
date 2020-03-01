@@ -13,5 +13,6 @@ public interface IUserinfoService
 	public Map selectorderstate(String cid,String type);
 	public int updaterate(String cid,String score,String content,String type);
 	public String selectcoach(String cid);
+	public Map selectschoolpoint(String cid);
 
 }
