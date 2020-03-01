@@ -30,7 +30,7 @@ To change this template use File | Settings | File Templates.
 <div class="layuimini-container">
 	<div class="layuimini-main">
 
-		<form class="layui-form" action="" style="padding:20px;" method="post">
+		<form class="layui-form" id="form1" action="" style="padding:20px;" method="post">
 
 
 			<div class="layui-form layuimini-form">
@@ -119,9 +119,10 @@ To change this template use File | Settings | File Templates.
 
 
 			$.ajax({
-				url: "<%=path+"/schoolInfo/baoMingSure"%>",//后台路径,
+				url: "<%=path+"/order/alipay"%>",//后台路径,
 				type: "POST",
-				data: {"baoMingParam": JSON.stringify(data.field)},
+				data: JSON.stringify( $("#form1").serialize()),
+				contentType: "application/json;charset=UTF-8",
 				dataType: "text",
 				success: function (msg) {
                  alert(msg);
