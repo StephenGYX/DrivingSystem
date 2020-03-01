@@ -65,9 +65,13 @@ public class BackConsumerManageController
 		String stopTime = request.getParameter("stopTime");
 		String cpritiseid = request.getParameter("param");
 
+		String cid = request.getParameter("cid");
+		String state = request.getParameter("state");
+
 		String did=findDid(request);
 
-//		System.out.println("cpritiseid:-----------------------"+cpritiseid);
+
+		//		System.out.println("cpritiseid:-----------------------"+cpritiseid);
 		int pages= Integer.valueOf(page);
 		int limits = Integer.valueOf(limit);
 		RowBounds rowBounds = new RowBounds((pages - 1) * limits,limits);
@@ -79,7 +83,8 @@ public class BackConsumerManageController
 		paramMap.put("startTime",startTime);
 		paramMap.put("stopTime",stopTime);
 
-
+		paramMap.put("cid",cid);
+		paramMap.put("state",state);
 
 		paramMap.put("cpritiseid",cpritiseid);
 
@@ -147,8 +152,8 @@ public class BackConsumerManageController
 			String pid = request.getParameter("pid");
 			String did=findDid(request);
 
-//			long l =1;
-//			String driverSchoolId =String.valueOf(l);
+			//			long l =1;
+			//			String driverSchoolId =String.valueOf(l);
 			HashMap<String, String> idMap = new HashMap<>();
 			idMap.put("pid",pid);
 			idMap.put("did",did);
@@ -394,6 +399,62 @@ public class BackConsumerManageController
 		modelAndView.setViewName("backConsumerManageStudentAllEvaluate");
 
 		return modelAndView;
+	}
+	@RequestMapping("toExamPage")
+	@ResponseBody
+	public ModelAndView toExamPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+
+		String did = request.getParameter("did");
+
+
+		ModelAndView modelAndView = new ModelAndView();
+
+		List<Practise> practises = drivingSchoolManageService.queryCoachByDid(did);
+
+		modelAndView.addObject("practises",practises);
+		modelAndView.setViewName("examPage");
+
+		return modelAndView;
+	}
+
+	@RequestMapping("examPass")
+	@ResponseBody
+	public String examPass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+
+		int index =0;
+		String did = request.getParameter("did");
+		String cid = request.getParameter("cid");
+		String coachId = request.getParameter("coachId");
+
+		System.out.println("coachId-------------------------"+coachId);
+		HashMap<String, String> cidPidMap = new HashMap<>();
+		HashMap<String, String> orderState = new HashMap<>();
+
+		cidPidMap.put("cid",cid);
+		cidPidMap.put("pid",coachId);
+
+		orderState.put("cid",cid);
+		orderState.put("orderState","0");
+		//与用户表和菜单表分别绑定
+		index=drivingSchoolManageService.updateOrderTheCoachId(cidPidMap);
+		int index1= drivingSchoolManageService.updateStudentTheCoachId(cidPidMap);
+		//将订单状态改成0(表示审核通过，未完成科目1)
+		int index2=drivingSchoolManageService.updateOrderState(orderState);
+		System.out.println("index=     "+index);
+		System.out.println("index1=     "+index1);
+		//等于2
+		index =index+index1;
+
+
+
+		Gson gson = new Gson();
+		String jsonStr = gson.toJson(index);
+
+
+		return jsonStr;
+
 	}
 
 }

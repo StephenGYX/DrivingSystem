@@ -60,7 +60,7 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.1.1</version>
         </dependency>
-<!--        AOP组件-->
+        <!--        AOP组件-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
@@ -123,6 +123,12 @@
         <dependency><groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20180813</version><!--注意：20160810版本不支持JSONArray-->
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.41</version>
         </dependency>
 
     </dependencies>

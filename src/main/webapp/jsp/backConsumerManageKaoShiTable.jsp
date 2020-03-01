@@ -140,29 +140,58 @@
 				{field: 'cname', width: 100, title: '学员姓名'},
 				{field: 'caccount', width: 110, title: '学员账号', sort: true},
 				{field: 'csex', width: 50, title: '性别'},
-				{field: 'cphone', width: 120, title: '电话', sort: true},
+				{field: 'cphone', width: 100, title: '电话', sort: true},
 				{field: 'cemail', width: 150, title: '邮箱', sort: true},
 				{field: 'cidcard', width: 150, title: '身份证'},
-				{field: 'cstate', width: 130, title: '账号状态', sort: true
+			// 	{field: 'cstate', width: 100, title: '账号状态', sort: true
+			// 		,templet: function (a)
+			// 		{
+			// 			if (a.cstate==1){
+			// 				return "启用";
+			// 			} else if (a.cstate==0) {
+			// 				return "禁用";
+			// 			}
+			// 			else if (a.cstate==2) {
+			// 				return "已删除";
+			// 			}
+			// 		}
+			// },
+				// {field: 'cpritiseid', width: 100, title: '教练ID', sort: true},
+				{field: 'eorderstate', width: 100, title: '学习阶段', sort: true
 					,templet: function (a)
 					{
-						if (a.cstate==1){
-							return "启用";
-						} else if (a.cstate==0) {
-							return "禁用";
+						if (a.eorderstate==0){
+							return "科目一";
+						} else if (a.eorderstate==1) {
+							return "科目二";
 						}
-						else if (a.cstate==2) {
-							return "已删除";
+						else if (a.eorderstate==2) {
+							return "科目三";
+						}
+						else if (a.eorderstate==3) {
+							return "科目四";
+						}
+						else if (a.eorderstate==4) {
+							return "领证";
+						}
+						else if (a.eorderstate==5) {
+							return "毕业";
 						}
 					}
-			},
-				{field: 'cpritiseid', width: 100, title: '教练ID', sort: true},
-				{field: 'eclasshour1', width: 50, title: '1', sort: true},
-				{field: 'eclasshour2', width: 50, title: '2', sort: true},
-				{field: 'eclasshour3', width: 50, title: '3', sort: true},
-				{field: 'eclasshour4', width: 50, title: '4', sort: true},
+				},
 
-				{title: '操作', minWidth: 150, templet: '#currentTableBar', fixed: "right", align: "center"}
+		 		{field: 'etesttime1', width: 100, title: '科一考试时间', sort: true},
+				{field: 'etesttime2', width: 100, title: '科二考试时间', sort: true},
+				{field: 'etesttime3', width: 100, title: '科三考试时间', sort: true},
+				{field: 'etesttime4', width: 100, title: '科四考试时间', sort: true},
+
+				{field: 'pname', width: 100, title: '教练姓名', sort: true},
+				// {field: 'eclasshour1', width: 50, title: '1', sort: true},
+				// {field: 'eclasshour2', width: 50, title: '2', sort: true},
+				// {field: 'eclasshour3', width: 50, title: '3', sort: true},
+				// {field: 'eclasshour4', width: 50, title: '4', sort: true},
+
+				{title: '操作', minWidth: 100, templet: '#currentTableBar', fixed: "right", align: "center"}
 			]],
 			limits: [5, 10, 15],
 			limit: 10,

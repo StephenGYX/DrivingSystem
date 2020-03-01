@@ -41,11 +41,26 @@ public class BackPractiseMannageController
 		String page = request.getParameter("page");
 		//限制条数
 		String limit = request.getParameter("limit");
+
+
 		String userAccount = request.getParameter("userAccount");
 		String username = request.getParameter("username");
 		String startTime = request.getParameter("startTime");
 		String stopTime = request.getParameter("stopTime");
+
+		String pid = request.getParameter("pid");
+		String state = request.getParameter("state");
+
+
+
+
+
+		//这个did是判断后台登录（did为null）或者驾校登录的时候（did不为null）
 		String driverSchoolId = request.getParameter("did");
+		//这个did是判断搜索框的did
+		String didSearch = request.getParameter("didSearch");
+
+
 		int pages= Integer.valueOf(page);
 		int limits = Integer.valueOf(limit);
 		RowBounds rowBounds = new RowBounds((pages - 1) * limits,limits);
@@ -57,6 +72,9 @@ public class BackPractiseMannageController
 		paramMap.put("startTime",startTime);
 		paramMap.put("stopTime",stopTime);
 		paramMap.put("driverSchoolId",driverSchoolId);
+		paramMap.put("didPSearch",didSearch);
+		paramMap.put("pid",pid);
+		paramMap.put("state",state);
 
 
 
@@ -133,7 +151,7 @@ public class BackPractiseMannageController
 		String pid= request.getParameter("pid");
 		String doThing= request.getParameter("do");
 
-	    //确定点开的是什么列表(查看学员，审核学员，学员管理)
+		//确定点开的是什么列表(查看学员，审核学员，学员管理)
 		modelAndView.addObject("doThing",doThing);
 
 
@@ -145,7 +163,7 @@ public class BackPractiseMannageController
 		modelAndView.addObject("pid",pid);
 		modelAndView.setViewName("backConsumerManageStudentTable");
 
-           return modelAndView;
+		return modelAndView;
 	}
 	//查看教练所收到的评价
 	@RequestMapping("practiseEval")
@@ -155,7 +173,7 @@ public class BackPractiseMannageController
 
 		//教练的ID
 		String pid = request.getParameter("pid");
-        //驾校ID
+		//驾校ID
 		String driverSchoolId = request.getParameter("did");
 
 		System.out.println("pid========="+pid);
@@ -189,7 +207,9 @@ public class BackPractiseMannageController
 		String did = findDid(request);
 		String doThing = request.getParameter("do");
 
+		List<Drivingschool> drivingschools = drivingSchoolManageService.queryAllSchool();
 		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("drivingschools",drivingschools);
 		modelAndView.addObject("did",did);
 		modelAndView.addObject("doThing",doThing);
 

@@ -8,6 +8,9 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * 支付宝支付接口
  * @author Louis
@@ -46,5 +49,22 @@ public class Alipay {
 		String result = alipayClient.pageExecute(alipayRequest).getBody();
 		// 返回付款信息
 		return result;
+	}
+	public static String getOrdercode(){
+		Date currDate = new Date();
+		Calendar date = Calendar.getInstance();
+		String year = String.valueOf(date.get(Calendar.YEAR));
+		String month = currDate.getMonth() + 1 < 10 ? "0" + (currDate.getMonth() + 1): (currDate.getMonth() + 1)+"";
+		String day = currDate.getDate()<10 ? "0"+currDate.getDate() : (currDate.getDate())+"";
+
+		//获取年月日
+		String nowdate = year + month + day;
+
+		//获取当时时间戳
+		String timestamp =  currDate.getTime()+"";
+
+		//生成订单
+		String orderId = nowdate + timestamp;
+		return orderId;
 	}
 }
