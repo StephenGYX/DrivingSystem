@@ -7,7 +7,7 @@
     <select id="queryDSCcount" resultType="long" parameterType="java.lang.Object">
         select count(*) from drivingschool
         <where>
-
+            and daccountstate !=0
             <if test="dname!=null and dname.trim()!=''">
                 and dname like '%${dname}%'
             </if>
