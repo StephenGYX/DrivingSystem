@@ -78,10 +78,4 @@ public class UserinfoService implements IUserinfoService
 		return userinfoMapper.selectcoach(cid);
 	}
 
-	@Override
-	public Map selectschoolpoint(String cid)
-	{
-		return userinfoMapper.selectschoolpoint(cid);
-	}
-
 }

@@ -21,7 +21,7 @@ To change this template use File | Settings | File Templates.
 	<link rel="stylesheet" href="<%=path+"/lib/layui-v2.5.5/css/layui.css"%>" media="all">
 	<link rel="stylesheet" href="<%=path+"/css/public.css"%>" media="all">
 	<link rel="stylesheet" href="<%=path+"/lib/lay-module/step-lay/step.css"%>" media="all">
-	<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=qndpvrYqRPHWaspKTGpZcuN2l3FudVgh"></script>
+
 
 </head>
 
@@ -32,18 +32,7 @@ To change this template use File | Settings | File Templates.
 
 		<form class="layui-form" action="" style="padding:20px;" method="post">
 
-			<input name="longitude" id="longitude" type="hidden">
-			<input name="latitude" id="latitude" type="hidden">
-			<div  class="layui-form layuimini-form" style="margin-left: 80px;margin-bottom: 20px">
 
-			<button type="button" class="layui-btn" id="test1">
-				<i class="layui-icon">&#xe67c;</i>身份证正面上传
-			</button>
-<%--				<button type="button" class="layui-btn" id="test2">--%>
-<%--					<i class="layui-icon">&#xe67c;</i>身份证反面上传--%>
-<%--				</button>--%>
-
-			</div>
 			<div class="layui-form layuimini-form">
 				<div class="layui-form-item">
 					<label class="layui-form-label required">用户名</label>
@@ -56,18 +45,9 @@ To change this template use File | Settings | File Templates.
 				<div class="layui-form-item">
 					<label class="layui-form-label required">联系人姓名</label>
 					<div class="layui-input-block">
-						<input type="text" id="name" name="dcontacts" lay-verify="required" lay-reqtext="联系人不能为空"
+						<input type="text" name="dcontacts" lay-verify="required" lay-reqtext="联系人不能为空"
 						       placeholder="请输入联系人姓名" value="" class="layui-input">
 						<tip>填写驾校负责人真实姓名。</tip>
-					</div>
-				</div>
-
-				<div class="layui-form-item">
-					<label class="layui-form-label required">身份证号</label>
-					<div class="layui-input-block">
-						<input type="text" id="number" name="idnumber" lay-verify="required" lay-reqtext="身份证号不能为空"
-						       placeholder="请输入联系人身份证号" value="" class="layui-input">
-						<tip>填写驾校负责人身份证号。</tip>
 					</div>
 				</div>
 
@@ -122,15 +102,7 @@ To change this template use File | Settings | File Templates.
 							<option value="">请选择区</option>
 						</select>
 					</div>
-					<div class="layui-input-inline" style="width: 200px;" id="r-result">
-						<div class="layui-form-label">详细地址:</div>
-						<div class="layui-input-block">
-							<input class="layui-input" type="text" id="suggestId"  value="百度" style="width:260px;" />
-						</div></div>
 				</div>
-				<div id="l-map"></div>
-
-				<div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
 
 				<div class="layui-form-item">
 					<label class="layui-form-label required">报名费用</label>
@@ -164,96 +136,11 @@ To change this template use File | Settings | File Templates.
 <script src="<%=path+"/lib/layui-v2.5.5/layui.js"%>" charset="utf-8"></script>
 <script src=<%=path+"/js/lay-config.js?v=1.0.4"%> charset="utf-8"></script>
 <script>
-	// 百度地图API功能
-	function G(id) {
-		return document.getElementById(id);
-	}
-
-	var map = new BMap.Map("l-map");
-	map.centerAndZoom("厦门市",12);                   // 初始化地图,设置城市和地图级别。
-
-	var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
-		{"input" : "suggestId"
-			,"location" : map
-		});
-
-	ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
-		var str = "";
-		var _value = e.fromitem.value;
-		var value = "";
-		if (e.fromitem.index > -1) {
-			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-		}
-		str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
-
-		value = "";
-		if (e.toitem.index > -1) {
-			_value = e.toitem.value;
-			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-		}
-		str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
-		G("searchResultPanel").innerHTML = str;
-	});
-
-	var myValue;
-	ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
-		var _value = e.item.value;
-		myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-		G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
-
-		setPlace();
-	});
-
-	function setPlace(){
-		map.clearOverlays();    //清除地图上所有覆盖物
-		function myFun(){
-			var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-			map.centerAndZoom(pp, 18);
-			map.addOverlay(new BMap.Marker(pp));    //添加标注
-		}
-		var local = new BMap.LocalSearch(map, { //智能搜索
-			onSearchComplete: myFun
-		});
-		local.search(myValue);
-
-		searchByStationName(map)
-	}
-	function searchByStationName(map) {
-		var localSearch = new BMap.LocalSearch(map);
-		var keyword = document.getElementById("suggestId").value;
-		localSearch.setSearchCompleteCallback(function (searchResult) {
-			var poi = searchResult.getPoi(0);
-			alert(poi.point.lng + "," + poi.point.lat) ; //获取经度和纬度，将结果显示在文本框中
-			// map.centerAndZoom(poi.point, 13);
-			document.getElementById("longitude").value=poi.point.lng
-			// $("#longitude").val(poi.point.lng+"")
-			document.getElementById("latitude").value=poi.point.lat
-			// $("#latitude").val(poi.point.lat+"")
-		});
-		localSearch.search(keyword);
-	}
-	layui.use(['layer', 'form', 'layarea','upload'], function () {
+	layui.use(['layer', 'form', 'layarea'], function () {
 		var layer = layui.layer
 			, form = layui.form,
 			$ = layui.jquery
 			, layarea = layui.layarea;
-		var upload = layui.upload;
-		var uploadInst = upload.render({
-			elem: '#test1' //绑定元素
-			,accept:"file"
-			,url: "<%=path+"/idcardScan"%>" //上传接口
-			,done: function(res){
-				//上传完毕回调
-				layer.msg("上传成功", {icon: 6});
-				$("#name").val(res.name)
-				$("#number").val(res.number)
-				// alert(res.number)
-			}
-			,error: function(){
-				//请求异常回调
-				layer.msg("上传失败", {icon: 5});
-			}
-		});
 		//监听提交
 		form.on('submit(saveBtn)', function (data) {
 			var formData = data.field;
@@ -269,6 +156,8 @@ To change this template use File | Settings | File Templates.
 					if (msg > 0) {
 
 						layer.msg("注册成功", {icon: 6});
+
+
 
 					} else {
 						alert("222");

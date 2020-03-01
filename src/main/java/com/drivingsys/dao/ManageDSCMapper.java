@@ -5,7 +5,9 @@ import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Examination;
 import com.drivingsys.bean.Kecheng;
 import com.drivingsys.bean.echartstest.echaretsDSC;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
 
@@ -53,14 +55,4 @@ public interface ManageDSCMapper
 	int updatedscinfo(Map<String, Object> updata);
 @Select("select * from kecheng where did=#{did}")
 	List<Kecheng> QueryDSCkecheng(Map<String, Object> search, RowBounds rowBounds);
-
-	int instertkecheng(Map<String, Object> reqMap);
-
-	int updatakecheng(Map<String, Object> reqMap);
-
-	int delkecheng(@Param("kid") String kid);
-	@Select("select count(*) from kecheng where did=#{did}")
-	long QueryDSCkechengcount(Map<String, Object> search);
-
-
 }

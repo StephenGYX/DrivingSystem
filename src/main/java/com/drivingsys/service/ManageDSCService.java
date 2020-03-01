@@ -82,30 +82,6 @@ public class ManageDSCService
 		return manageDSCMapper.QueryDSCkecheng(search,rowBounds);
 	}
 
-	public int instertkecheng(Map<String, Object> reqMap)
-	{ return manageDSCMapper.instertkecheng(reqMap);
-	}
-
-	public int updatakecheng(Map<String, Object> reqMap)
-	{
-		return manageDSCMapper.updatakecheng(reqMap);
-	}
-
-	public int delkecheng(String kid)
-	{
-		return manageDSCMapper.delkecheng(kid);
-	}
-
-	public long QueryDSCkechengcount(Map<String, Object> search)
-	{
-		return manageDSCMapper.QueryDSCkechengcount(search);
-	}
-
-	public long queryDSCshenhecount(Map<String, Object> search)
-	{
-		return manageDSCMapper.QueryDSCshenheCount(search);
-	}
-
 	;
 
 }

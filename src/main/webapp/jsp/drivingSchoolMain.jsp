@@ -61,11 +61,8 @@
 					${sessionScope.drivingschool.dname}
 				</a>
 				<dl class="layui-nav-child">
-<%--					<dd><a href="<%=path+"/jsp/DSC/DSCHinfo2.jsp"%>">基本资料</a></dd>--%>
+					<dd><a href="">基本资料</a></dd>
 					<dd><a href="">安全设置</a></dd>
-					<dd>
-						<a href="javascript:;" data-iframe-tab="<%=path+"/jsp/DSC/DSCHinfo2.jsp?do=see"%>" data-title="查看资料" data-icon="fa fa-gears">查看资料</a>
-					</dd>
 				</dl>
 			</li>
 			<li class="layui-nav-item">

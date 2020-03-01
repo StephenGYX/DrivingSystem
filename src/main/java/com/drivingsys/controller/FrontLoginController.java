@@ -58,7 +58,6 @@ public class FrontLoginController
 
 
 	@RequestMapping("frontLogin")
-	@ResponseBody
 	public String testMain(@RequestParam Map<String, String> reqMap, HttpServletRequest request)
 	{
 		System.out.println(reqMap);
@@ -69,7 +68,7 @@ public class FrontLoginController
 		{
 			System.out.println("验证码错误");
 			request.getSession().setAttribute("fmsg", "yzmcw");
-			return "3";
+			return "frontlogin3";
 
 		}
 		;
@@ -86,12 +85,12 @@ public class FrontLoginController
 			{
 				System.out.println("没找到教练");
 				request.getSession().setAttribute("fmsg", "2");
-				return "2";
+				return "frontlogin3";
 			} else
 			{
 				System.out.println("找到了教练");
 				request.getSession().setAttribute("practise", practise);
-				return "20";
+				return "backmenu";
 			}
 
 
@@ -102,13 +101,13 @@ public class FrontLoginController
 			{
 				System.out.println("没找到驾校");
 				request.getSession().setAttribute("fmsg", "2");
-				return "2";
+				return "frontlogin3";
 			} else
 			{
 				System.out.println("找到了驾校");
 				request.getSession().setAttribute("drivingschool", drivingschool);
 				//				return "DSCHinfo";
-				return "30";
+				return "drivingSchoolMain";
 			}
 		} else if (roleid.equals("4"))
 		{
@@ -117,13 +116,13 @@ public class FrontLoginController
 			{
 				System.out.println("没找到学生");
 				request.getSession().setAttribute("fmsg", "2");
-				return "2";
+				return "frontlogin3";
 			} else
 			{
 				System.out.println("找到了学生");
 				request.getSession().setAttribute("consumer", consumer);
 
-				return "10";
+				return "backmenu";
 			}
 		}
 		return "frontlogin3";
@@ -219,13 +218,9 @@ public class FrontLoginController
 
 	@RequestMapping("upload")
 	@ResponseBody
-	public String uploadFile(HttpServletRequest request,@RequestParam Map<String, String> reqMap) throws IOException
+	public String uploadFile(HttpServletRequest request) throws IOException
 	{
-		System.out.println("进入驾校图片上传方法");
-		//获取文件上传的位置:这里文件上传的路径无法确保在工程目录下(所以需要获取tomcat服务器下的路径)
-		String path = request.getSession().getServletContext().getRealPath("/images");
-		System.out.println("reqmap"+reqMap);
-
+		System.out.println("进入上传方法");
 		List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
 		for (int i = 0; i < files.size(); i++)
 		{
@@ -239,9 +234,6 @@ public class FrontLoginController
 			File dest = new File("D:\\filetest\\" + fileName);
 			try
 			{
-				if(dest.exists()){
-					dest.mkdirs();
-				};
 				file.transferTo(dest);
 				System.out.println("第" + (i + 1) + "个文件上传成功");
 			} catch (IOException e)

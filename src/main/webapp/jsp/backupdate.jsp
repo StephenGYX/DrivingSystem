@@ -82,7 +82,7 @@ To change this template use File | Settings | File Templates.
 					data: {driving:upda,state:prov,num:num},
 					dataType: 'text'
 				});
-				layer.msg('修改成功');
+				layer.msg('修改成功')
 
 				setTimeout( function(){
 					window.parent.location.reload();

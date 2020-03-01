@@ -23,6 +23,4 @@ public interface UserinfoMapper
 
 	public String selectcoach(String cid);
 
-	public Map selectschoolpoint(String cid);
-
 }

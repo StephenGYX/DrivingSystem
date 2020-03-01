@@ -2,6 +2,7 @@ package com.drivingsys.service;
 
 
 import com.drivingsys.bean.Consumer;
+import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Examination;
 import com.drivingsys.bean.Practise;
 import org.apache.ibatis.annotations.Param;
@@ -13,6 +14,11 @@ import java.util.Map;
 
 public interface DrivingSchoolManageService
 {
+	/**
+	 * 查找本校的全部教练
+	 */
+	public List<Practise> queryCoachByDid(String did) ;
+
     /**
 	 * 查询该驾校里的所有教练
 	 */
@@ -60,5 +66,9 @@ public interface DrivingSchoolManageService
 
 	//通过教练ID，查看该教练
 	public Practise queryPractiseById(String pid) ;
+
+
+	//查询全部驾校
+	public List<Drivingschool> queryAllSchool() ;
 
 }

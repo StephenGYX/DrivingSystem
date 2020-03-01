@@ -35,10 +35,7 @@
     </update>
     <update id="updatecoachrate" parameterType="map">
         update examination set epractisescore=#{score},epractisecontent=#{content},coachrated=1,epractisecontenttime=#{time}
+
         where cid=#{cid}
     </update>
-
-    <select id="selectschoolpoint" parameterType="string" resultType="map">
-        select longitude,latitude from drivingschool where  did=(select did from examination where cid=${cid})
-    </select>
 </mapper>

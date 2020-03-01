@@ -34,9 +34,6 @@ spring:
     view:
       suffix: .jsp
       prefix: /jsp/
-  servlet:
-    multipart:
-      max-file-size: 10MB
 
 mybatis:
   config-location: classpath:SqlMapConfig.xml

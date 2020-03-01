@@ -14,14 +14,12 @@ public class Journalism {
   private String jmonth;
   private String jday;
   private int jliulan;
-  private int jstatue;
-  private int jtype;
 
   public Journalism()
   {
   }
 
-  public Journalism(int jid, String jtitle, String jabstract, String jtext, String jauthor, String jtime, String jphoto, String jyear, String jmonth, String jday, int jliulan, int jstatue, int jtype)
+  public Journalism(int jid, String jtitle, String jabstract, String jtext, String jauthor, String jtime, String jphoto, String jyear, String jmonth, String jday, int jliulan)
   {
     this.jid = jid;
     this.jtitle = jtitle;
@@ -34,8 +32,6 @@ public class Journalism {
     this.jmonth = jmonth;
     this.jday = jday;
     this.jliulan = jliulan;
-    this.jstatue = jstatue;
-    this.jtype = jtype;
   }
 
   public int getJid()
@@ -146,25 +142,5 @@ public class Journalism {
   public void setJliulan(int jliulan)
   {
     this.jliulan = jliulan;
-  }
-
-  public int getJstatue()
-  {
-    return jstatue;
-  }
-
-  public void setJstatue(int jstatue)
-  {
-    this.jstatue = jstatue;
-  }
-
-  public int getJtype()
-  {
-    return jtype;
-  }
-
-  public void setJtype(int jtype)
-  {
-    this.jtype = jtype;
   }
 }

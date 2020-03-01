@@ -29,8 +29,7 @@ public class BackMenuServiceImpl implements BackMenuService
 	{
 		//需要返回的数据
 		BackMenu backMenu = new BackMenu();
-           if(rid==2){backMenu.getLogoInfo().setTitle("驾校主页");}
-           else  if(rid==3){backMenu.getLogoInfo().setTitle("教练主页");} ;
+           if(rid==2){backMenu.getLogoInfo().setTitle("驾校主页");};
 		//查询数据库角色类型所对应的菜单集合
 		List<RoleMenu> roleMenus = backMenuMapper.queryRoleMenu(rid);
 

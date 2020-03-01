@@ -1,15 +1,12 @@
 package com.drivingsys.controller;
 
-import com.drivingsys.bean.tableParam;
 import com.drivingsys.service.WxService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -31,11 +28,6 @@ public class WxController
 			map.put("cid",result);
 		}
 		return map;
-	}
-
-	@RequestMapping("/getmonirecord/{kemu}/{cid}")
-	public List selectmonirecord(@PathVariable("cid") String cid, @PathVariable("kemu") String kemu){
-		return wxService.selectmonirecord( cid, kemu);
 	}
 
 }

@@ -16,7 +16,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>考试安排</title>
+	<title>审核分配教练</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -29,27 +29,17 @@
 <form class="layui-form" action="">
 
 
+
 	<div class="layui-form-item">
-		<div class="layui-input-block">
+		<label class="layui-form-label">分配的教练:</label>
+		<div class="layui-input-inline">
+				<select name="coachId" id="coachId" lay-filter="coachName">
+<%--					<option value="" selected=""></option>--%>
+					<c:forEach items="${practises}" var="i" begin="0">
+						<option value=${i.pid}>${i.pname}</option>
+					</c:forEach>
 
-			<c:forEach items="${evalS}" var="i" begin="0">
-
-				-----教练评价-----<br><br>
-				 ${i.consumer1.cname} 对 ${i.consumer1.pname} ：${i.consumer1.epractisecontent}  <br>
-
-				评价时间 ： ${i.consumer1.epractisecontenttime} <br>
-
-				-----驾校评价-----<br><br>
-
-				${i.consumer1.cname} ：对${i.dname}: ${i.consumer1.edrivingcontent}  <br>
-
-				评价时间 ： ${i.consumer1.edrivingcontenttime} <br>
-
-			</c:forEach>
-
-
-
-
+				</select>
 		</div>
 	</div>
 

@@ -1,6 +1,8 @@
 package com.drivingsys.bean;
 
 
+import java.util.List;
+
 public class Drivingschool {
 
   private long did;
@@ -25,33 +27,22 @@ public class Drivingschool {
   private long devaluatescore;
   private long rid;
   private String dregtime;
-  private String dremark1;
-  private String dremark2;
+  private String longitude;
+  private String latitude;
   private String dshenhestate;
-
-  public String getDshenhestate()
-  {
-    return dshenhestate;
-  }
-
-  public void setDshenhestate(String dshenhestate)
-  {
-    this.dshenhestate = dshenhestate;
-  }
-
-  public String getDschoolimage()
-  {
-    return dschoolimage;
-  }
-
-  public void setDschoolimage(String dschoolimage)
-  {
-    this.dschoolimage = dschoolimage;
-  }
-
   private String dschoolimage;
+  private String studentName;
+  private List<Examination> myExaminations;
+  private Examination examination;
 
-  public Drivingschool(long did, String daccount, String dpassword, String dname, String dcontacts, long dtelephone, long dphone, String demail, String dprovince, String dcity, String darea, String daddress, String drecruit, long dprice, String dsynopsis, String daccountstate, String drecruitstate, long denrollnum, long dgraduationnum, long devaluatescore, long rid, String dregtime, String dremark1, String dremark2)
+
+  public String getStudentName()
+  {
+
+    return studentName;
+  }
+
+  public Drivingschool(long did, String daccount, String dpassword, String dname, String dcontacts, long dtelephone, long dphone, String demail, String dprovince, String dcity, String darea, String daddress, String drecruit, long dprice, String dsynopsis, String daccountstate, String drecruitstate, long denrollnum, long dgraduationnum, long devaluatescore, long rid, String dregtime, String longitude, String latitude, String dshenhestate, String dschoolimage, String studentName, List<Examination> myExaminations, Examination examination)
   {
     this.did = did;
     this.daccount = daccount;
@@ -75,9 +66,82 @@ public class Drivingschool {
     this.devaluatescore = devaluatescore;
     this.rid = rid;
     this.dregtime = dregtime;
-    this.dremark1 = dremark1;
-    this.dremark2 = dremark2;
+    this.longitude = longitude;
+    this.latitude = latitude;
+    this.dshenhestate = dshenhestate;
+    this.dschoolimage = dschoolimage;
+    this.studentName = studentName;
+    this.myExaminations = myExaminations;
+    this.examination = examination;
   }
+
+  public String getLongitude()
+  {
+    return longitude;
+  }
+
+  public void setLongitude(String longitude)
+  {
+    this.longitude = longitude;
+  }
+
+  public String getLatitude()
+  {
+    return latitude;
+  }
+
+  public void setLatitude(String latitude)
+  {
+    this.latitude = latitude;
+  }
+
+  public String getDshenhestate()
+  {
+    return dshenhestate;
+  }
+
+  public void setDshenhestate(String dshenhestate)
+  {
+    this.dshenhestate = dshenhestate;
+  }
+
+  public void setStudentName(String studentName)
+  {
+    this.studentName = studentName;
+  }
+
+  public List<Examination> getMyExaminations()
+  {
+    return myExaminations;
+  }
+
+  public Examination getExamination()
+  {
+    return examination;
+  }
+
+  public void setExamination(Examination examination)
+  {
+    this.examination = examination;
+  }
+
+  public void setMyExaminations(List<Examination> myExaminations)
+  {
+    this.myExaminations = myExaminations;
+  }
+
+  public String getDschoolimage()
+  {
+    return dschoolimage;
+  }
+
+  public void setDschoolimage(String dschoolimage)
+  {
+    this.dschoolimage = dschoolimage;
+  }
+
+
+
 
   public Drivingschool()
   {
@@ -281,21 +345,23 @@ public class Drivingschool {
   }
 
 
-  public String getDremark1() {
-    return dremark1;
+
+  @Override
+  public String toString()
+  {
+    return "{ ID  :"+did+"," +
+            "账号 :"+daccount+
+            "名字 :"+dname+
+            "地区 :"+darea+
+            "城市 :"+dcity+
+            "邮箱 :"+demail+
+            "密码 :"+dpassword+
+            "注册时间 :"+dregtime+
+            "评价得分 :"+devaluatescore+
+            "价格 :"+dprice+
+            "电话 :"+dtelephone+
+
+
+            "}";
   }
-
-  public void setDremark1(String dremark1) {
-    this.dremark1 = dremark1;
-  }
-
-
-  public String getDremark2() {
-    return dremark2;
-  }
-
-  public void setDremark2(String dremark2) {
-    this.dremark2 = dremark2;
-  }
-
 }

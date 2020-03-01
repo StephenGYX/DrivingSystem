@@ -138,6 +138,8 @@
 	</style>
 </head>
 <body>
+				<%--点击的报名，走到登录页面  --%>
+				<input type="hidden" id="toBaoMing" value="${requestScope.baoMing}">
 <div class="layui-row ">
 
 
@@ -244,9 +246,17 @@
 					//从servlet接收的数据
 					, success: function (msg) {
 						if (msg === "10") {
-							layer.msg('学生登录成功', function () {
-								window.location = "http://localhost:8080/personcenter";
-							});
+                            //  如果是报名，跳转到报名页面
+							if ($('#toBaoMing').val()==="baoMing"){
+								window.location = "<%=path%>"+ '/jsp/frontDrivingSchoolInfo.jsp';
+							}else {
+								layer.msg('学生登录成功', function () {
+									window.location = "http://localhost:8080/personcenter";
+								});
+
+							}
+
+
 						} else if (msg === "2") {
 							layer.msg("账号或密码有误，请重新输入");
 						} else if (msg === "3") {

@@ -8,17 +8,6 @@ public class Videoinfo
 	String opman;
 	String subject;
 	String addtime;
-	String wxurl;
-
-	public String getWxurl()
-	{
-		return wxurl;
-	}
-
-	public void setWxurl(String wxurl)
-	{
-		this.wxurl = wxurl;
-	}
 
 	public String getId()
 	{
