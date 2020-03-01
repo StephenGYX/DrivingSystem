@@ -90,7 +90,7 @@ public class FrontLoginController
 			{
 				System.out.println("找到了教练");
 				request.getSession().setAttribute("practise", practise);
-				return "backmenu";
+				return "PractiseMain";
 			}
 
 

@@ -4,15 +4,6 @@
 
 <mapper namespace="com.drivingsys.dao.DrivingSchoolManageMapper">
 
-
-	<!--驾校查找全部的教练-->
-	<select id="queryCoachByDid" resultType="com.drivingsys.bean.Practise" parameterType="java.lang.String">
-		select  * from  practise
-		<where>
-			and  pdrivingid =#{did}
-		</where>
-	</select>
-
     <!--驾校端对教练的用户列表查询-->
 	<select id="queryCoachByMySchool" resultType="com.drivingsys.bean.Practise" parameterType="map">
 	    select  * from  practise
@@ -75,19 +66,13 @@
 
 	<!--驾校端对学员的用户列表查询，需和订单表绑定-->
 	<select id="queryStudentByMySchool" resultType="com.drivingsys.bean.Consumer" parameterType="map">
-		select * from examination  as e left join consumer  as c  on c.cid=e.cid left join practise as p on e.pid =p.pid
+		select  c.*,e.* from  consumer c,examination e
 		<where>
-			<if test="selectParam.cid!=null and selectParam.cid.trim()!='' ">
-				and c.cid like '%${selectParam.cid}%'
+			 and c.cid =e.cid
+			<if test="selectParam.did!=null and selectParam.did!='' ">
+				and  did =#{selectParam.did}
 			</if>
-			<if test="selectParam.state!=null and selectParam.state!='' ">
-				and  c.cstate=#{selectParam.state}
-			</if>
-
-			<if test="selectParam.did!=null and selectParam.did.trim()!='' ">
-				and  e.did =#{selectParam.did}
-			</if>
-			<if test="selectParam.cpritiseid!=null and selectParam.cpritiseid.trim()!='' ">
+			<if test="selectParam.cpritiseid!=null and selectParam.cpritiseid!='' ">
 				and  cpritiseid =#{selectParam.cpritiseid}
 			</if>
 			<if test="selectParam.userAccount!=null and selectParam.userAccount.trim()!='' ">
@@ -107,19 +92,13 @@
 	<!--驾校端对学员的用户列表查询，需和订单表绑定-->
 
 	<select id="queryStudentByMySchoolCount" resultType="long" parameterType="map">
-		select count(*) from examination  as e left join consumer  as c  on c.cid=e.cid left join practise as p on e.pid =p.pid
+		select  count(*) from   consumer c,examination e
 		<where>
-			<if test="selectParam.cid!=null and selectParam.cid.trim()!='' ">
-				and c.cid like '%${selectParam.cid}%'
+			and c.cid =e.cid
+			<if test="selectParam.did!=null and selectParam.did!='' ">
+				and  did =#{selectParam.did}
 			</if>
-			<if test="selectParam.state!=null and selectParam.state!='' ">
-				and  c.cstate=#{selectParam.state}
-			</if>
-
-			<if test="selectParam.did!=null and selectParam.did.trim()!='' ">
-				and  e.did =#{selectParam.did}
-			</if>
-			<if test="selectParam.cpritiseid!=null and selectParam.cpritiseid.trim()!='' ">
+			<if test="selectParam.cpritiseid!=null and selectParam.cpritiseid!='' ">
 				and  cpritiseid =#{selectParam.cpritiseid}
 			</if>
 			<if test="selectParam.userAccount!=null and selectParam.userAccount.trim()!='' ">
@@ -175,9 +154,6 @@
 		</where>
 	</select>
 	<!--通过驾校ID和教练ID，查看该教练是否存在-->
-
-
-
 
 	<!--修改学员表的所属教练一栏，将其和教练绑定-->
 	<update id="updateStudentTheCoachId"  parameterType="java.util.Map">
@@ -268,9 +244,9 @@
 
 	<!--通过驾校和学员ID，查看该学员所有的评价-->
 	<select id="queryStudentAllEval" resultMap="cInfo" parameterType="map">
-		select * from examination e,consumer c,practise p,drivingschool d
+		select * from examination e,consumer c,practise p
 		<where>
-			p.pid=e.pid and e.cid=c.cid  and e.did=d.did
+			p.pid=e.pid and e.cid=c.cid
 
 			<if test="cid!=null and cid.trim()!='' ">
 				and c.cid =#{cid}
@@ -282,8 +258,6 @@
 		order by epractisecontenttime desc
 	</select>
 	<resultMap id="cInfo" type="com.drivingsys.bean.Examination">
-		<result property="dname" column="dname" />
-
 		<collection property="consumer1" ofType="com.drivingsys.bean.Consumer" javaType="com.drivingsys.bean.Consumer">
 			<id property="cid" column="cid" />
 			<result property="cname" column="cname" />
@@ -304,12 +278,6 @@
 		<where>
 			and pid =#{pid}
 		</where>
-	</select>
-
-	<!--查看全部驾校-->
-	<select id="queryAllSchool" resultType="com.drivingsys.bean.Drivingschool">
-		select * from drivingschool
-
 	</select>
 
 </mapper>

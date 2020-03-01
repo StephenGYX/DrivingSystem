@@ -1,7 +1,6 @@
 package com.drivingsys.dao;
 
 import com.drivingsys.bean.Consumer;
-import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Examination;
 import com.drivingsys.bean.Practise;
 import org.apache.ibatis.annotations.Mapper;
@@ -18,8 +17,6 @@ import java.util.Map;
 public interface DrivingSchoolManageMapper
 {
 
-	//查找本校的全部教练
-	public List<Practise> queryCoachByDid( @Param("did") String did) ;
 	//带条件查询本驾校的教练
 	public List<Practise> queryCoachByMySchool( RowBounds rb, @Param("selectParam") HashMap selectParam) ;
 	public long queryCoachByMySchoolCount( @Param("selectParam")HashMap selectParam) ;
@@ -63,7 +60,5 @@ public interface DrivingSchoolManageMapper
 	//通过教练ID，查看该教练
 	public Practise queryPractiseById(@Param("pid") String pid) ;
 
-	//查询全部驾校
-	public List<Drivingschool> queryAllSchool() ;
 
 }

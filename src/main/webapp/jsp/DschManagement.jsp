@@ -497,7 +497,7 @@
 					shadeClose: false,
 					area: ['70%', '70%'],
 					content:"<%=path%>"+
-						'/backPractise/toMyDrivingSchool?did='+row_data.did
+						'/backPractise/toMyDrivingSchool?do=onlySee&did='+row_data.did
 				});
 
 

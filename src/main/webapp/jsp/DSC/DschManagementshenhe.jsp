@@ -81,9 +81,7 @@
 
 
 			{{#  if(d.dshenhestate == 1  ){ }}
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="start">审核通过</a>
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="stop">拒绝</a>
-
+			---------已被拒绝----------
 
 			{{#  }
 			else if(d.dshenhestate == 2 ){ }}
@@ -91,7 +89,9 @@
 			{{#  }
 
 			else if(d.dshenhestate == 3){ }}
-			---------尚未审核----------
+
+			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="start">审核通过</a>
+			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-edit" lay-event="stop">拒绝</a>
 			{{#  }
 			}}
 
@@ -132,10 +132,10 @@
 				{
 					field: 'dshenhestate', minWidth: 120, title: '账号审核状态'
 					, templet: function (d) {
-						if (d.dshenhestate == 3) {
+						if (d.dshenhestate == '3') {
 							return '未审核'
 						}
-						if (d.dshenhestate == 2) {
+						if (d.dshenhestate == '2') {
 							return '已通过'
 						} else {
 							return '已拒绝'

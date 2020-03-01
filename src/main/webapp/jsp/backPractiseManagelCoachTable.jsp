@@ -19,10 +19,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="<%=path+"/lib/layui-v2.5.5/css/layui.css"%>" media="all">
 		<link rel="stylesheet" href="<%=path+"/css/public.css"%>" media="all">
-		<script src=<%=path+"/lib/layui-v2.5.5/layui.js"%>></script>
-		<script type="text/javascript" src=<%=path+"/lib/jquery-3.4.1/jquery-3.4.1.min.js"%>></script>
-		<script type="text/javascript" src=<%=path+"/js/json2.js"%>></script>
-		<script src="<%=path+"/js/practiseManage.js"%>" type="text/javascript"></script>
 	</head>
 	<body>
 	<div class="layuimini-container">
@@ -34,53 +30,17 @@
 					<form class="layui-form layui-form-pane" action="">
 						<div class="layui-form-item">
 							<div class="layui-inline">
-								<label class="layui-form-label">教练ID</label>
-								<div class="layui-input-inline">
-									<input type="text" id="pid" name="pid" autocomplete="off" class="layui-input">
-								</div>
-							</div>
-							<div class="layui-inline">
-								<label class="layui-form-label">教练账号</label>
+								<label class="layui-form-label">学员账号</label>
 								<div class="layui-input-inline">
 									<input type="text" id="userAccount" name="userAccount" autocomplete="off" class="layui-input">
 								</div>
 							</div>
 							<div class="layui-inline">
-								<label class="layui-form-label">教练姓名</label>
+								<label class="layui-form-label">学员姓名</label>
 								<div class="layui-input-inline">
 									<input type="text" id="username" name="username" autocomplete="off" class="layui-input">
 								</div>
 							</div>
-							<div class="layui-inline">
-								<label class="layui-form-label">状态</label>
-								<div class="layui-input-inline">
-									<select name="state" id="state" lay-filter="state">
-									<option value="" selected=""></option>
-									<option value="0">禁用</option>
-									<option value="1">启用</option>
-									<option value="2">已删除</option>
-									</select>
-								</div>
-							</div>
-
-							<%--为空说明是后台登录，可以通过驾校名进行查询--%>
-							<div class="layui-inline">
-								<label class="layui-form-label">驾校名</label>
-								<div class="layui-input-inline">
-									<c:if test="${requestScope.did==null or requestScope.did==''}">
-
-										<select name="schoolName" id="schoolName" lay-filter="schoolName">
-											<option value="" selected=""></option>
-											<c:forEach items="${requestScope.drivingschools}" var="i">
-												<option value=${i.did}>${i.dname}</option>
-											</c:forEach>
-
-										</select>
-									</c:if>
-								</div>
-							</div>
-
-
 							<div class="layui-inline">
 								<label class="layui-form-label">时间</label>
 								<div class="layui-input-inline">
@@ -103,10 +63,7 @@
 
 			<script type="text/html" id="toolbarDemo">
 				<div class="layui-btn-container">
-
-					<c:if test="${requestScope.doThing=='Manage'}" >
-						<button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn"> 删除用户 </button>
-					</c:if>
+					<button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn"> 删除用户 </button>
 				</div>
 			</script>
 
@@ -115,7 +72,7 @@
 			<script type="text/html" id="currentTableBar">
 				{{#  if(d.paccountstate == 0  ){ }}
 				<c:if test="${requestScope.doThing=='onlySee'}" >
-					------------只可读------------
+					-----------------------------
 				</c:if>
 				<c:if test="${requestScope.doThing=='Manage'}" >
 					<a class="layui-btn layui-btn-xs data-count-edit" lay-event="start">启用</a>
@@ -129,7 +86,7 @@
 				{{#  }
 				else if(d.paccountstate == 1 ){ }}
 				<c:if test="${requestScope.doThing=='onlySee'}" >
-					------------只可读------------
+					-----------------------------
 				</c:if>
 				<c:if test="${requestScope.doThing=='Manage'}" >
 					<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="stop">禁用</a>
@@ -151,15 +108,13 @@
 	<script src="<%=path+"/lib/layui-v2.5.5/layui.js"%>" charset="utf-8"></script>
 
 
-
 	<input type="hidden" id="param" value="${requestScope.did}">
 	<input type="hidden" id="doThing" value="${requestScope.doThing}">
-<%--	<input type="text" id="doThing" value="${requestScope.doThing}">--%>
+	<input type="text" id="doThing" value="${requestScope.doThing}">
 <%--	<input  id="aa" value="${requestScope.did}">--%>
+
+
 	<script>
-
-
-
 		layui.use(['form', 'table'], function () {
 			var $ = layui.jquery,
 				form = layui.form,
@@ -178,11 +133,6 @@
 				cols: [[
 					{type: "checkbox", width: 50, fixed: "left"},
 					{field: 'pid', width: 80, title: 'ID', sort: true},
-					{field: 'pphoto',title: '图片',width:60,
-						templet: function (d) {
-							return '<div ><img src="'+d.pphoto+'"  width="50px" height="50px" onclick="showBigImage(this)"></a></div>';
-						}
-					},
 					{field: 'pname', width: 80, title: '姓名'},
 					{field: 'paccount', width: 180, title: '账号', sort: true},
 					{field: 'psex', width: 80, title: '性别'},
@@ -205,7 +155,7 @@
 
 
 					{field: 'page', title: '年龄', minWidth: 150},
-					{title: '操作', minWidth: 400, templet: '#currentTableBar', fixed: "right", align: "center"}
+					{title: '操作', minWidth: 50, templet: '#currentTableBar', fixed: "right", align: "center"}
 				]],
 				limits: [5, 10, 15],
 				limit: 10,
@@ -229,10 +179,7 @@
 						userAccount:$("#userAccount").val(),
 						username:$("#username").val(),
 						startTime:$("#startTime").val(),
-						stopTime:$("#stopTime").val(),
-						didSearch:$("#schoolName option:selected").val(),
-						pid:$("#pid").val(),
-						state:$("#state option:selected").val()
+						stopTime:$("#stopTime").val()
 
 					}
 				}, 'data');
@@ -270,10 +217,7 @@
 												userAccount:$("#userAccount").val(),
 												username:$("#username").val(),
 												startTime:$("#startTime").val(),
-												stopTime:$("#stopTime").val(),
-												didSearch:$("#schoolName option:selected").val(),
-												pid:$("#pid").val(),
-												state:$("#state option:selected").val()
+												stopTime:$("#stopTime").val()
 											}
 										});
 									}
@@ -309,10 +253,7 @@
 												userAccount:$("#userAccount").val(),
 												username:$("#username").val(),
 												startTime:$("#startTime").val(),
-												stopTime:$("#stopTime").val(),
-												didSearch:$("#schoolName option:selected").val(),
-												pid:$("#pid").val(),
-												state:$("#state option:selected").val()
+												stopTime:$("#stopTime").val()
 											}
 										});
 									}
@@ -361,10 +302,7 @@
 											userAccount:$("#userAccount").val(),
 											username:$("#username").val(),
 											startTime:$("#startTime").val(),
-											stopTime:$("#stopTime").val(),
-											didSearch:$("#schoolName option:selected").val(),
-											pid:$("#pid").val(),
-											state:$("#state option:selected").val()
+											stopTime:$("#stopTime").val()
 										}
 									});
 								}
@@ -404,10 +342,7 @@
 											userAccount:$("#userAccount").val(),
 											username:$("#username").val(),
 											startTime:$("#startTime").val(),
-											stopTime:$("#stopTime").val(),
-											didSearch:$("#schoolName option:selected").val(),
-											pid:$("#pid").val(),
-											state:$("#state option:selected").val()
+											stopTime:$("#stopTime").val()
 										}
 									});
 								}
@@ -425,7 +360,7 @@
 					var layer = layui.layer, $ = layui.jquery;
 					var row_data = data  // 整行的数据
 						,pid = row_data.pid ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
-					window.location.href="<%=path%>"+"/backPractise/seeMyStudent?do=onlySee&pid="+pid+""
+					window.location.href="<%=path%>"+"/backPractise/seeMyStudent?pid="+pid+""
 
 				}else if(layEvent === 'myEval'){
 					var layer = layui.layer, $ = layui.jquery;
@@ -488,7 +423,6 @@
 					, data = checkStatus.data;
 				layer.alert(JSON.stringify(data));
 			});
-
 
 			//监听表格复选框选择
 			table.on('checkbox(currentTableFilter)', function (obj) {
