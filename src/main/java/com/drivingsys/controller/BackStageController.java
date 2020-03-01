@@ -44,13 +44,10 @@ public class BackStageController
 	@Log(operationType = "查询操作", operationName = "用户登录")
 	public String backLogin(@RequestParam Map<String, String> reqMap, HttpServletRequest request)
 	{
-		//先清空session
-		request.getSession().invalidate();
+
 		//调用service查找账户的方法
 		Backstage backstage = backStageService.queryBackStageAccount(reqMap);
 
-		//将该用户放入session域中
-		request.getSession().setAttribute("backstage", backstage);
 
 		String CODE = request.getSession().getAttribute("CODE") + "";
 		String code = reqMap.get("code");
@@ -65,6 +62,11 @@ public class BackStageController
 		{
 			if (backstage != null)
 			{
+
+				//先清空session
+				request.getSession().invalidate();
+				//将该用户放入session域中
+				request.getSession().setAttribute("backstage", backstage);
 				msg = "1";
 			} else
 			{

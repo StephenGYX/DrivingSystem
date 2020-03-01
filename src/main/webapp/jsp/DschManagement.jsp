@@ -12,7 +12,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link rel="stylesheet" href="<%=path+"/lib/layui-v2.5.5/css/layui.css"%>" media="all">
 	<link rel="stylesheet" href="<%=path+"/css/public.css"%>" media="all">
-	<%--	<link rel="stylesheet" href="<%=path+"/css/frontlogin.css"%>" >--%>
+
+	<script type="text/javascript" src=<%=path+"/lib/jquery-3.4.1/jquery-3.4.1.min.js"%>></script>
+
+<%--	<link rel="stylesheet" href="<%=path+"/css/frontlogin.css"%>" >--%>
 </head>
 <body>
 <div class="layuimini-container" style="height: 100%">
@@ -138,7 +141,7 @@
 				{field: 'denrollnum', width: 80, title: '注册人数', sort: true},
 				{fixed: 'vphoto',
 					title: '图片',width:80,templet: function (d) {
-						return '<div ><img src="'+d.vphoto+'"  width="50px" height="50px" onclick="showBigImage(this)"></a></div>';
+						return '<div ><img src="../'+d.dschoolimage+'"  width="50px" height="50px" onclick="showBigImage(this)"></a></div>';
 					}
 				},
 
@@ -555,9 +558,71 @@
 
 	});})
 </script>
+<%--<script>--%>
+<%--function showBigImage(e) {--%>
+
+
+<%--	var width = $(e).width();--%>
+<%--	var height = $(e).height();--%>
+<%--	var scaleWH = width / height;--%>
+<%--	var bigH = 600;--%>
+<%--	var bigW = scaleWH * bigH;--%>
+<%--	if (bigW > 900) {--%>
+<%--		bigW = 900;--%>
+<%--		bigH = bigW / scaleWH;--%>
+<%--	}--%>
+<%--	// 放大预览图片--%>
+<%--	layer.open({--%>
+<%--		type: 1,--%>
+<%--		title: false,--%>
+<%--		closeBtn: 1,--%>
+<%--		shadeClose: true,--%>
+<%--		area: [bigW + 'px', bigH + 'px'], //宽高--%>
+<%--		content: "<img width='" + bigW + "' height='" + bigH + "' src=" + result + " />"--%>
+<%--	});--%>
+<%--}--%>
+<%--</script>--%>
 <script>
 
-</script>
 
+
+	function showBigImage(e) {
+
+		var width = $(e).width();
+		var height = $(e).height();
+		var scaleWH = width / height;
+		var bigH = 600;
+		var bigW = scaleWH * bigH;
+		if (bigW > 900) {
+			bigW = 900;
+			bigH = bigW / scaleWH;
+		}
+
+		// 放大预览图片
+		layer.open({
+			type: 1,
+			title: false,
+			closeBtn: 1,
+			shadeClose: true,
+			area: [bigW + 'px', bigH + 'px'], //宽高
+			content: "<img width='" + bigW + "' height='" + bigH + "' src=" + $(e).attr('src') + " />"
+		});
+
+
+
+
+
+
+
+		// layer.open({
+		// 	type: 1,
+		// 	title: false,
+		// 	closeBtn: 0,
+		// 	shadeClose: true, //点击阴影关闭
+		// 	area: [$(e).width + 'px', $(e).height + 'px'], //宽高
+		// 	content: "<img src=" + $(e).attr('src') + " />"
+		// });
+	}
+</script>
 </body>
 </html>

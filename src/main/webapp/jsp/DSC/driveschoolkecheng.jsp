@@ -178,7 +178,7 @@
 				content: 'kechenginfo.jsp',
 				success:function (layero,index) {
 					var iframe=window['layui-layer-iframe'+index];
-					iframe.selectxingwei();
+					iframe.selectxingwei(row_data);
 				}
 			});
 			$(window).on("resize", function () {
