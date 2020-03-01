@@ -29,19 +29,37 @@ To change this template use File | Settings | File Templates.
 
 
 	<div class="txt">
+
+<%--		<div class="layui-form-item">--%>
+<%--			<label class="layui-form-label">车牌号：<span id="text"></span></label>--%>
+<%--		</div>--%>
 		<div class="layui-form-item">
-			<label class="layui-form-label">修改驾校</label>
+			<label class="layui-form-label">新车牌号</label>
 			<div class="layui-input-block">
-				<input type="text" id="upda" name="title" lay-verify="title" autocomplete="off" placeholder="请输入新驾校" class="layui-input">
+				<input type="text" id="carnum" name="title" lay-verify="title" autocomplete="off" placeholder="请输入车辆车牌" class="layui-input">
 			</div>
 		</div>
-		<script>
-			$(function () {
-				//从父层获取值，json是父层的全局js变量。eval是将该string类型的json串变为标准的json串
-				var parent_json = eval('('+parent.json+')');
-				$("#j").innerHTML=parent_json.vcarnum;
-			});
-		</script>
+<%--		<script>--%>
+<%--			$(function () {--%>
+<%--					//从父层获取值，json是父层的全局js变量。eval是将该string类型的json串变为标准的json串--%>
+<%--					var parent_json = eval('(' + parent.json + ')');--%>
+<%--					$("#text").innerText = parent_json.vcarnum;--%>
+<%--			});--%>
+<%--		</script>--%>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">品牌</label>
+			<div class="layui-input-block">
+				<input type="text" id="carbrand" name="title" lay-verify="title" autocomplete="off" placeholder="请输入车辆品牌" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">车型</label>
+			<div class="layui-input-block">
+				<input type="text" id="carmodel" name="title" lay-verify="title" autocomplete="off" placeholder="请输入车辆型号" class="layui-input">
+			</div>
+		</div>
+
 		<div class="layuimini-container">
 			<div class="layuimini-main">
 
@@ -68,18 +86,20 @@ To change this template use File | Settings | File Templates.
 	$("#layui-btnn").on('click',function(){
 		layui.use('layer', function() {
 			var layer = layui.layer;//引入layer组件
-			var upda=$('#upda').val();
+			var upda=$('#carnum').val();
 			var prov=$('#prov').val();
+			var cbrand=$('#carbrand').val();
+			var cmodel=$('#carmodel').val();
 			var parent_json = eval('('+parent.json+')');
 			var num=parent_json.vcarnum;
-			if(upda==''){
-				layer.msg('请填写驾校名称',{icon: 2});
+			if(upda==''||cbrand==''||cmodel==''){
+				layer.msg('请填写完整',{icon: 2});
 				return false;
 			}else{
 				$.ajax({
 					url: '/springboot/updat',
 					method: 'post',
-					data: {driving:upda,state:prov,num:num},
+					data: {ncarnum:upda,state:prov,num:num,carbrand:cbrand,carmodel:cmodel},
 					dataType: 'text'
 				});
 				layer.msg('修改成功');

@@ -174,7 +174,7 @@
 
 
 	      <input type="hidden" id="thiscid" value="${sessionScope.consumer.cid}">
-	      <input type="hidden" id="thisdid" value="${requestScope.drivingSchoolInfo[0].did}">
+	      <input type="hidden" id="thisdid" value="${drivingSchoolInfo[0].did}">
 
 		  <input type="hidden" id="thisUser" value="${sessionScope.consumer}">
 	      <input type="hidden" id="path" value="<%=path%>">
@@ -311,38 +311,40 @@
 <%--			<a href="https://www.jiazhao.com/jiaxiao/">找驾校</a><em>&gt;</em>--%>
 <%--			<a href="https://www.jiazhao.com/jiaxiao/fujian/">福建驾校</a><em>&gt;</em>--%>
 <%--			<a href="https://www.jiazhao.com/jiaxiao/xiamen/">厦门驾校</a><em>&gt;</em>--%>
-			<a>${requestScope.drivingSchoolInfo[0].dname}驾校</a>
+			<a>${drivingSchoolInfo[0].dname}驾校</a>
 		</div>
 		<!--end 面包屑-->
 		<div class="drinkone">
 			<div class="drivsch">
 				<div class="drivsfl">
 					<dl>
-						<dt><a href="https://www.jiazhao.com/jiaxiao/8624/"><img src="https://www.jiazhao.com/upload/huiyuan/20190301144638595.thumb.jpg" alt="厦门德畅驾校"></a><em><i>2.8</i>分</em></dt>
+						<dt><a href=""><img src="<%=path+"/"%>${drivingSchoolInfo[0].dschoolimage}" alt="${drivingSchoolInfo[0].dname}"></a><em><i>2.8</i>分</em></dt>
 						<dd>
-							<h1>《${requestScope.drivingSchoolInfo[0].dname}》 欢迎你！<span style="float:right;font-size: 12px;color:#f08300;">人气指数：39.6万+</span></h1>
+							<h1>《${drivingSchoolInfo[0].dname}》 欢迎你！<span style="float:right;font-size: 12px;color:#f08300;">人气指数：39.6万+</span></h1>
 							<div class="commcont">
-								<p>学车价格：<strong>¥${requestScope.drivingSchoolInfo[0].dprice}</strong><i>原价<b>¥4680 </b></i><q>本价格2020-02-24更新</q></p>
-								<p>驾校地址：<span>${requestScope.drivingSchoolInfo[0].daddress}</span>
+								<p>学车价格：<strong>¥${drivingSchoolInfo[0].dprice}</strong><i>原价<b>¥4680 </b></i>
+<%--									<q>本价格2020-02-24更新</q>--%>
+								</p>
+								<p>驾校地址：<span>${drivingSchoolInfo[0].daddress}</span>
 									<a class="map" href="https://www.jiazhao.com/jiaxiao/8624/#ditu">【地图】</a></p>
-								<p>咨询电话：<span style="color:#f08300;font-size:20px;font-weight:bolder;" id="tels">${requestScope.drivingSchoolInfo[0].dtelephone}</span>&nbsp;
+								<p>咨询电话：<span style="color:#f08300;font-size:20px;font-weight:bolder;" id="tels">${drivingSchoolInfo[0].dtelephone}</span>&nbsp;
 									&nbsp;<a class="detail_bm" id="telsee" rel="nofollow;" style="width: 100px;">
 									联系驾校
 								</a> </p>
 								<!--<p style="color: red;">打电话请告知是在驾照网上看到的,有意外惊喜哦！</p>-->
-								<p>招生范围：${requestScope.drivingSchoolInfo[0].drecruit}&nbsp;</p>
+								<p>招生范围：${drivingSchoolInfo[0].drecruit}&nbsp;</p>
 								<div class="clear"></div>
 							</div>
 						</dd>
 					</dl>
 					<div class="clear"></div>
 				</div>
-				<div style="float: right;border-left:1px dashed #eaeaea;width: 250px;text-align: center;">
-					<img src="https://www.jiazhao.com/statics/jx/images/renzheng_vip.png" width="160">
-					<a class="detail_bm" rel="nofollow;">
-						网上报名或咨询
-					</a>
-				</div>
+<%--				<div style="float: right;border-left:1px dashed #eaeaea;width: 250px;text-align: center;">--%>
+<%--					<img src="https://www.jiazhao.com/statics/jx/images/renzheng_vip.png" width="160">--%>
+<%--					<a class="detail_bm" rel="nofollow;">--%>
+<%--						网上报名或咨询--%>
+<%--					</a>--%>
+<%--				</div>--%>
 				<div class="clear"></div>
 			</div>
 			<div class="drivtolk">
@@ -465,9 +467,8 @@
 						<div class="arctcont">
 							<p><font color="#ce0000">
 
-
-
-								<span style="font-size: 14px; text-indent: 2em;">${requestScope.drivingSchoolInfo[0].dsynopsis}</span></p>
+								<span style="font-size: 14px; text-indent: 2em;">${drivingSchoolInfo[0].dsynopsis}</span>
+							</p>
 
 						</div>
 					</div>
@@ -528,7 +529,7 @@
 								<li>
 									<h4>综合<i>${drivingSchoolInfo[0].devaluatescore}</i>分</h4>
 									<p><em></em><em></em></p>
-									<span>共有<b>${requestScope.countEval}</b>人评价</span>
+									<span>共有<b>${countEval}</b>人评价</span>
 								</li>
 <%--								<li>--%>
 <%--									<p>服务：<em></em><em></em><em></em></p>--%>
@@ -536,10 +537,10 @@
 <%--									<p>教练：<em></em><em></em></p>--%>
 <%--									<p>场地：<em></em><em></em><em></em></p>--%>
 <%--								</li>--%>
-								<li>
-									<a class="codeve" href="https://www.jiazhao.com/jiaxiao/8624/#myreview">我来点评</a>
-									<strong>您的评论可以给更多人带来帮助哦！</strong>
-								</li>
+<%--								<li>--%>
+<%--									<a class="codeve" href="https://www.jiazhao.com/jiaxiao/8624/#myreview">我来点评</a>--%>
+<%--									<strong>您的评论可以给更多人带来帮助哦！</strong>--%>
+<%--								</li>--%>
 							</ul>
 							<div class="clear"></div>
 						</div>
@@ -549,33 +550,38 @@
 
 								<c:forEach items="${drivingSchoolInfo}" var="i" begin="0">
 
-									<li>
-										<dl>
-											<dt>
-												<%--头像--%>
-												<a><img src="https://www.jiazhao.com/statics/images/default.jpg">
-													<span>${i.studentName}</span>
-												</a></dt>
-											<dd>
-												<div class="critmark">
+									<c:if test="${i.examination.edrivingcontent!=null or i.examination.edrivingcontent!=''}">
+
+										<li>
+											<dl>
+												<dt>
+														<%--头像--%>
+													<a><img src="https://www.jiazhao.com/statics/images/default.jpg">
+														<span>${i.studentName}</span>
+													</a></dt>
+												<dd>
+													<div class="critmark">
 											  <span class="fl">
 												 我的评分：<em></em><em></em><em></em>
 											     <i>3.5</i>分
 											  </span>
-													<span class="fl">总体评价：<i>好</i></span>
-													<strong class="fr">发布时间：${i.examination.edrivingcontenttime}</strong>
+														<span class="fl">总体评价：<i>好</i></span>
+														<strong class="fr">发布时间：${i.examination.edrivingcontenttime}</strong>
+														<div class="clear"></div>
+													</div>
+													<p>${i.examination.edrivingcontent}</p>
+													<div class="fr">
+														<a class="flow" href="javacsript:void(0)">(<span>1</span>)</a>
+														<a class="noflow" href="javacsript:void(0)">(<span>1</span>)</a>
+													</div>
 													<div class="clear"></div>
-												</div>
-												<p>${i.examination.edrivingcontent}</p>
-												<div class="fr">
-													<a class="flow" href="javacsript:void(0)">(<span>1</span>)</a>
-													<a class="noflow" href="javacsript:void(0)">(<span>1</span>)</a>
-												</div>
-												<div class="clear"></div>
-											</dd>
-										</dl>
-										<div class="clear"></div>
-									</li>
+												</dd>
+											</dl>
+											<div class="clear"></div>
+										</li>
+
+									</c:if>
+
 
 								</c:forEach>
 

@@ -1,5 +1,6 @@
 package com.drivingsys.service;
 
+import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Vehicle;
 import com.drivingsys.dao.BackStageMyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,9 @@ public class BackStageMyServiceImpl implements BackStageMyService
 	}
 
 	@Override
-	public void addpuser(String account, String pass, String sex, int age, String phone, String email, String name, String idcard, String resume, String workexperience)
+	public void addpuser(String drivingid,String account, String pass, String sex, int age, String phone, String email, String name, String idcard, String resume, String workexperience)
 	{
-		backStageMyMapper.addpuser(account, pass, sex, age, phone, email, name, idcard, resume, workexperience);
+		backStageMyMapper.addpuser(drivingid,account, pass, sex, age, phone, email, name, idcard, resume, workexperience);
 	}
 
 	@Override
@@ -54,15 +55,22 @@ public class BackStageMyServiceImpl implements BackStageMyService
 	}
 
 	@Override
-	public void addcar(String num, String brand, String model)
+	public void addcar(String num, String brand, String model,String path,Long drivingid)
 	{
-		backStageMyMapper.addcar(num,brand,model);
+
+		backStageMyMapper.addcar(num,brand,model,path,drivingid);
 	}
 
 	@Override
-	public void updat(String state, String driving, String num)
+	public void backaddcar(String num, String brand, String model, String path)
 	{
-		backStageMyMapper.updat(state,driving,num);
+		backStageMyMapper.backaddcar(num, brand, model, path);
+	}
+
+	@Override
+	public void updat(String state, String ncarnum, String num,String carbrand,String carmodel)
+	{
+		backStageMyMapper.updat(state,ncarnum,num,carbrand,carmodel);
 	}
 
 	@Override
@@ -77,6 +85,20 @@ public class BackStageMyServiceImpl implements BackStageMyService
 	{
 		List<Vehicle> vehicle1=backStageMyMapper.search1(d);
 		return vehicle1;
+	}
+
+	@Override
+	public int count1(Long did)
+	{
+		int i=backStageMyMapper.count1(did);
+		return i;
+	}
+
+	@Override
+	public List<Drivingschool> driving()
+	{
+		List<Drivingschool> drivingschools=backStageMyMapper.driving();
+		return drivingschools;
 	}
 
 

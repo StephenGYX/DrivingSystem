@@ -249,7 +249,7 @@
 						if (msg === "10") {
 							//  如果是报名，跳转到报名页面
 							if ($('#toBaoMing').val()==="baoMing"){
-								window.location = "<%=path%>"+ '/schoolInfo/ShowMyInfo';
+								window.location = "<%=path%>"+ '/schoolInfo/ShowMyInfo/none';
 							}else {
 								layer.msg('学生登录成功', function () {
 									window.location = "http://localhost:8080/personcenter";

@@ -102,6 +102,25 @@
 	editor.customConfig.uploadImgShowBase64 = true;  // 使用 base64 保存图片
 	editor.customConfig.showLinkImg = false;	// 隐藏“网络图片”tab
 	editor.customConfig.qiniu = true;  //开启七牛服务器
+
+	editor.customConfig.menus = [
+		'head',  // 标题
+		'bold',  // 粗体
+		'fontSize',  // 字号
+		'fontName',  // 字体
+		'italic',  // 斜体
+		'underline',  // 下划线
+		'strikeThrough',  // 删除线
+		'foreColor',  // 文字颜色
+		'backColor',  // 背景颜色
+		'link',  // 插入链接
+		'justify',  // 对齐方式
+		'quote',  // 引用
+		'emoticon',  // 表情
+		// 'image',  // 插入图片
+		'undo',  // 撤销
+		'redo'  // 重复
+	];
 	editor.create();
 
 	// 初始化七牛上传
