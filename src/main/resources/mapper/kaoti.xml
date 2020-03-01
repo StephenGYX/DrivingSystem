@@ -11,7 +11,7 @@
     </select>
     <select id="selectRand" parameterType="string" resultType="com.drivingsys.bean.Kaoti" >
     SELECT *
-    FROM ${tableName} AS t1 JOIN (SELECT ROUND(RAND() * (SELECT MAX(iid) FROM ${tableName})) AS id) AS t2
+    FROM ${tableName} AS t1 JOIN (SELECT ROUND(RAND() * (SELECT MAX(iid) FROM ${tableName} )) AS id) AS t2
     WHERE t1.iid >= t2.id
     ORDER BY t1.iid ASC LIMIT
     <if test="tableName=='itembank'">
@@ -20,6 +20,7 @@
         <if test="tableName=='ksbank'">
             50
         </if>
+-- select * from ksbank where iid between 795 and 830
 
 </select>
     <insert id="cuotiAdd" parameterType="com.drivingsys.bean.Cuoti"  >

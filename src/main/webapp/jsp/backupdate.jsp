@@ -102,7 +102,7 @@ To change this template use File | Settings | File Templates.
 					data: {ncarnum:upda,state:prov,num:num,carbrand:cbrand,carmodel:cmodel},
 					dataType: 'text'
 				});
-				layer.msg('修改成功')
+				layer.msg('修改成功');
 
 				setTimeout( function(){
 					window.parent.location.reload();

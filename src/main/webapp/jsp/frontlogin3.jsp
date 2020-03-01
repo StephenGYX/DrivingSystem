@@ -138,38 +138,57 @@
 	</style>
 </head>
 <body>
+<%--点击的报名，走到登录页面  --%>
+<input type="hidden" id="toBaoMing" value="${requestScope.baoMing}">
 <div class="layui-row ">
-
 
 
 	<div id="container">
 
-		<div  class="">
-			<div id="test3"  class="admin-header">
-				<span>layuimini</span>
+		<div class="">
+			<div id="test3" class="admin-header">
+				<span style="color: #3C6E31">三端登陆窗口</span>
 
 			</div>
-			<div id="test2" class="layui-tab" lay-filter="tab-all" >
+			<div id="test2" class="layui-tab" lay-filter="tab-all">
 
-				<ul id="test1" class="layui-tab-title">
-					<li data-status="4" class="layui-this">学员</li>
-					<li data-status="2">驾校</li>
-					<li data-status="3">教练</li>
-				</ul>
+				<%--				<ul id="test1" class="layui-tab-title">--%>
+				<%--					<li data-status="4" >学员</li>--%>
+				<%--					<li data-status="2">驾校</li>--%>
+				<%--					<li data-status="3">教练</li>--%>
+				<%--				</ul>--%>
+				<%--				<legend>按钮组</legend>--%>
+				<%--	<button type="button" class="layui-btn layui-btn-radius">原始按钮1</button>--%>
+				<div class="layui-btn-group  " style="margin-left: 50px">
 
-				<div   class="layui-tab-content" >
-					<form class="layui-form" action="<%=path+"/fact/frontLogin"%>">
+					<button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="btnclick(this)"
+					        value="4">学员
+					</button>
+					<button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="btnclick(this)"
+					        value="2">驾校
+					</button>
+					<button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="btnclick(this)"
+					        value="3">教练
+					</button>
+				</div>
+
+				<div class="layui-tab-content">
+					<form class="layui-form" action="" method="post">
 						<div>
 							<i class="layui-icon layui-icon-username admin-icon"></i>
-							<input type="text" name="account" placeholder="请输入用户名" autocomplete="off" class="layui-input admin-input admin-input-username" value="admin">
+							<input type="text" name="account" placeholder="请输入用户名" autocomplete="off"
+							       class="layui-input admin-input admin-input-username" value="admin">
 						</div>
 						<div>
 							<i class="layui-icon layui-icon-password admin-icon"></i>
-							<input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input admin-input" value="123456">
+							<input type="password" name="password" placeholder="请输入密码" autocomplete="off"
+							       class="layui-input admin-input" value="123456">
 						</div>
 						<div>
-							<input type="text" name="code" placeholder="请输入验证码" autocomplete="off" class="layui-input admin-input admin-input-verify" value="xszg">
-							<img id="codeimg" src="${pageContext.request.contextPath }/fact/getyzm" class="admin-captcha" width="90" height="30" onclick="changeImg()">
+							<input type="text" name="code" placeholder="请输入验证码" autocomplete="off"
+							       class="layui-input admin-input admin-input-verify" value="xszg">
+							<img id="codeimg" src="${pageContext.request.contextPath }/fact/getyzm"
+							     class="admin-captcha" width="90" height="30" onclick="changeImg()">
 						</div>
 						<button class="layui-btn admin-button" lay-submit="" lay-filter="login">登 陆</button>
 					</form>
@@ -178,7 +197,7 @@
 			</div>
 			<div id="test4">
 				还没有账号？
-				<a   class="reg" href="backreg.jsp" id="reg">注册账号</a>
+				<a class="reg" href="backreg.jsp" id="reg">注册账号</a>
 			</div>
 
 		</div>
@@ -196,43 +215,115 @@
 			, form = layui.form,
 			element = layui.element,
 			$ = layui.jquery;
-		element.on('tab(tab-all)', function (data) {
-			// console.log(this);        // 当前Tab标题所在的原始DOM元素
-			// console.log(data.index);  // 得到当前Tab的所在下标
-			// console.log(data.elem);   // 得到当前的Tab大容器
-			// alert("点击选项卡");
 
-			var roleid = $(this).attr('data-status');
-			alert(roleid);
-			$.ajax({
-				// contentType:"application/json",
-				type: "post"
-				, url: '<%=path+"/fact/roleid"%>'
-				//预期服务器返回的数据类型;
-				, datatype: "json"
-				//从该js会发出到服务器的数据
-				, data: {"roleid": roleid}
-				//从servlet接收的数据
-				, success: function (msg) {
-					alert(msg + "suc");
-					layer.msg("已经变更角色id");
-					if (msg == 2) {//2 驾校 3教练 4学员
-						$('#reg').attr('href', "area.jsp");
-					} else if (msg == 3) {
-						$('#reg').attr('href', "backpractisereg.jsp");
-					} else if (msg == 4) {
-						$('#reg').attr('href', "backreg.jsp");
+
+
+
+		form.on('submit(login)', function (data) {
+			alert("点击进入提交");
+			var formData = data.field;
+			var account = formData.account;
+			var password = formData.password;
+			var code = formData.code;
+
+			if (formData.account === '') {
+				layer.msg('用户名不能为空');
+				return false;
+			} else if (formData.password === '') {
+				layer.msg('密码不能为空');
+				return false;
+			} else if (formData.captcha === '') {
+				layer.msg('验证码不能为空');
+				return false;
+			} else {
+				$.ajax({
+					type: "post"
+					, url: "<%=path+"/fact/frontLogin"%>"
+					//预期服务器返回的数据类型;
+					, datatype: "text"
+					//从该js会发出到服务器的数据
+					, data: {"account": account, "password": password, "code": code}
+					//从servlet接收的数据
+					, success: function (msg) {
+						if (msg === "10") {
+							//  如果是报名，跳转到报名页面
+							if ($('#toBaoMing').val()==="baoMing"){
+								window.location = "<%=path%>"+ '/schoolInfo/ShowMyInfo/none';
+							}else {
+								layer.msg('学生登录成功', function () {
+									window.location = "http://localhost:8080/personcenter";
+								});
+
+							}
+
+
+						} else if (msg === "2") {
+							layer.msg("账号或密码有误，请重新输入");
+						} else if (msg === "3") {
+							layer.msg("验证码错误，请重新输入");
+						}else if (msg === "20") {
+							layer.msg(' 教练登录成功', function () {
+								window.location = "<%=path%>"+ '/jsp/PractiseMain.jsp';
+							});
+						}else if (msg === "30") {
+							layer.msg('驾校登录成功', function () {
+								window.location ="<%=path%>"+"/jsp/drivingSchoolMain.jsp";
+							});
+						}
 					}
-				}
-				, error: function (msg) {
-					alert(msg + "error");
-					layer.alert("服务器正忙.....");
-				}
-			});
+					, error: function () {
+						layer.alert("服务器正忙.....");
+					}
+				});
+				return false;
+			}
+		});
 
-		})
+
+
 
 	});
+</script>
+<script type="text/javascript">
+	function btnclick(data) {
+		// console.log(this);        // 当前Tab标题所在的原始DOM元素
+		// console.log(data.index);  // 得到当前Tab的所在下标
+		// console.log(data.elem);   // 得到当前的Tab大容器
+		// alert("点击选项卡");
+		var layer = layui.layer;
+
+		// alert(data.value);
+		var roleid = data.value;
+		alert(roleid);
+		$.ajax({
+			// contentType:"application/json",
+			type: "post"
+			, url: '<%=path+"/fact/roleid"%>'
+			//预期服务器返回的数据类型;
+			, datatype: "json"
+			//从该js会发出到服务器的数据
+			, data: {"roleid": roleid}
+			//从servlet接收的数据
+			, success: function (msg) {
+				// alert(msg + "suc");
+				// layer.msg("已经变更角色id");
+				if (msg == 2) {//2 驾校 3教练 4学员
+					$('#reg').attr('href', "area.jsp");
+				} else if (msg == 3) {
+					$('#reg').attr('href', "backpractisereg.jsp");
+				} else if (msg == 4) {
+					$('#reg').attr('href', "backreg.jsp");
+				}
+			}
+			, error: function (msg) {
+				alert(msg + "error");
+				// layer.alert("服务器正忙.....");
+			}
+		});
+
+	}
+
+
 </script>
 <script type="text/javascript">
 
@@ -244,10 +335,11 @@
 	}</script>
 
 <%
-	if (request.getSession().getAttribute("fmsg")!=null)
+	if (request.getSession().getAttribute("fmsg") != null)
 	{
-		String fmsg=request.getSession().getAttribute("fmsg")+"";
-		switch (fmsg){
+		String fmsg = request.getSession().getAttribute("fmsg") + "";
+		switch (fmsg)
+		{
 			case "yzmcw":
 				out.write("<script>alert('验证码错误')</script>");
 				break;
@@ -261,7 +353,7 @@
 
 
 <script>
-	window.onload=function (ev) {
+	window.onload = function (ev) {
 		$.ajax({
 			type: "POST",
 			url: '<%=path+"/fact/role"%>',

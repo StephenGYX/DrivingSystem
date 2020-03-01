@@ -9,6 +9,16 @@
 	<select id="queryAllCoach" resultType="com.drivingsys.bean.Practise" parameterType="map">
 		select  * from  practise
 		<where>
+			<if test="selectParam.pid!=null and selectParam.pid.trim()!='' ">
+				and  pid like '%${selectParam.pid}%'
+			</if>
+			<if test="selectParam.state!=null and selectParam.state!='' ">
+				and  paccountstate =#{selectParam.state}
+			</if>
+
+			<if test="selectParam.didPSearch!=null and selectParam.didPSearch.trim()!='' ">
+				and  pdrivingid =#{selectParam.didPSearch}
+			</if>
 			<if test="selectParam.driverSchoolId!=null and selectParam.driverSchoolId.trim()!='' ">
 				and  pdrivingid =#{selectParam.driverSchoolId}
 			</if>
@@ -29,6 +39,16 @@
 	<select id="queryAllCoachCount" resultType="long" parameterType="map">
 		select  count(*) from  practise
 		<where>
+			<if test="selectParam.pid!=null and selectParam.pid.trim()!='' ">
+				and  pid like '%${selectParam.pid}%'
+			</if>
+			<if test="selectParam.state!=null and selectParam.state!='' ">
+				and  paccountstate =#{selectParam.state}
+			</if>
+
+			<if test="selectParam.didPSearch!=null and selectParam.didPSearch.trim()!='' ">
+				and  pdrivingid =#{selectParam.didPSearch}
+			</if>
 			<if test="selectParam.driverSchoolId!=null and selectParam.driverSchoolId.trim()!='' ">
 				and  pdrivingid =#{selectParam.driverSchoolId}
 			</if>
@@ -48,4 +68,3 @@
 	</select>
 	<!--后台的教练列表查询-->
 </mapper>
-	

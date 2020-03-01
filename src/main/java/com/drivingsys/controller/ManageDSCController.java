@@ -1,11 +1,8 @@
 package com.drivingsys.controller;
 
 
-import com.drivingsys.bean.Consumer;
-import com.drivingsys.bean.Drivingschool;
-import com.drivingsys.bean.Examination;
+import com.drivingsys.bean.*;
 import com.drivingsys.bean.echartstest.echaretsDSC;
-import com.drivingsys.bean.tableParam;
 import com.drivingsys.service.ManageDSCService;
 import com.google.gson.Gson;
 import net.sf.json.JSONArray;
@@ -19,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -60,8 +58,9 @@ public class ManageDSCController
 		RowBounds rowBounds = createRowBounds(request);
 
 		List<Drivingschool> list = manageDSCService.queryDSC(search, rowBounds);
+		System.out.println("list size" + list.size());
+		long l = manageDSCService.queryDSCcount(search, rowBounds);
 
-		//		manageDSCService.queryDSC(reqMap,rowBounds);
 		tableParam tableParam = new tableParam();
 
 		//0表示成功
@@ -175,6 +174,45 @@ public class ManageDSCController
 	}
 
 
+	@RequestMapping("shenheOperation")
+	@ResponseBody
+	public int shenheOperation(HttpServletRequest request) throws ServletException, IOException
+	{
+
+
+		String operation = request.getParameter("do").trim();
+		String id = request.getParameter("did");
+
+
+		int Did = Integer.valueOf(id);
+		int index = 0;
+
+
+		if (operation.equals("start"))
+		{
+			System.out.println("进入批准审核方法");
+			index = manageDSCService.updateshenheStateByDid(Did, 2);
+			//执行xml的 对应的方法
+			if (index > 0)
+			{
+				manageDSCService.updateqiyongStateByDid(Did);
+			}
+
+		} else if (operation.equals("stop"))
+		{
+			System.out.println("进入拒绝方法");
+			index = manageDSCService.updateshenheStateByDid(Did, 1);
+
+		}
+
+		//
+
+
+		return index;
+
+	}
+
+
 	@RequestMapping("QueryDSCPJ")
 	@ResponseBody
 	public tableParam QueryDSCPJ(@RequestParam Map<String, Object> reqMap, HttpServletRequest request)
@@ -199,6 +237,8 @@ public class ManageDSCController
 		RowBounds rowBounds = createRowBounds(request);
 		//		manageDSCService.queryDSC(reqMap,rowBounds);
 		List<Examination> list = manageDSCService.querySTUpj(Integer.valueOf(did), rowBounds);
+		List<Examination> list2 = manageDSCService.querySTUpj(Integer.valueOf(did),null);
+
 		JSONArray JSO = JSONArray.fromObject(list);
 		System.out.println("********");
 		System.out.println(JSO);
@@ -209,7 +249,7 @@ public class ManageDSCController
 		//0表示成功
 		tableParam.setCode(0);
 		//数据库查询count数量
-		tableParam.setCount(list.size());
+		tableParam.setCount(list2.size());
 		//失败数据
 		tableParam.setMsg("");
 		tableParam.setData(list);
@@ -234,33 +274,173 @@ public class ManageDSCController
 
 	@RequestMapping("queryqianDSC")
 //	@ResponseBody
-	public String queryqianDSC(@RequestParam Map<String, Object> reqMap, HttpServletRequest request)
+	public String queryqianDSC(@RequestParam Map<String, Object> reqMap, HttpServletRequest request, HttpServletResponse response)
 	{
 
 		System.out.println("前端接收驾校列表");
 		System.out.println(reqMap);
 
-
-		RowBounds rowBounds = new RowBounds(0,8);
+		RowBounds rowBounds = new RowBounds(0,10);
 
 		List<Drivingschool> list = manageDSCService.queryqianDSC(reqMap, rowBounds);
 
-         request.getSession().setAttribute("drivingschoollist",list);
+		request.getSession().setAttribute("drivingschoollist",list);
+		request.getSession().setAttribute("area",reqMap);
 
 		return "frontdrivinglist";
 	}
 
 
+	@RequestMapping("QueryDSCshenhe")
+	@ResponseBody
+	public tableParam queryDSCshenhe(@RequestParam Map<String, Object> reqMap, HttpServletRequest request)
+	{
+
+		System.out.println("进入搜索方法");
+		System.out.println(reqMap);
+		System.out.println(reqMap.get("searchParams"));
+
+		String searchParams = request.getParameter("searchParams");
+
+		Map<String, Object> search = new HashMap<String, Object>();
+		;
+		if (searchParams != null)
+		{
+
+			JSONObject a = JSONObject.fromObject(searchParams);
+			search = (Map<String, Object>) a;
+		}
+
+		RowBounds rowBounds = createRowBounds(request);
+
+		List<Drivingschool> list = manageDSCService.QueryDSCshenhe(search, rowBounds);
+
+		long l = manageDSCService.queryDSCshenhecount(search);
+
+		tableParam tableParam = new tableParam();
+
+		//0表示成功
+		tableParam.setCode(0);
+		//数据库查询count数量
+		tableParam.setCount(l);
+		//失败数据
+		tableParam.setMsg("");
+		tableParam.setData(list);
+
+		return tableParam;
+	}
+
+
+	@RequestMapping("QueryDSCkecheng")
+	@ResponseBody
+	public tableParam QueryDSCkecheng(@RequestParam Map<String, Object> reqMap, HttpServletRequest request)
+	{
+
+		System.out.println("进入查找课程方法");
+		System.out.println(reqMap);
+		System.out.println(reqMap.get("searchParams"));
+
+		String did = findDid(request);
+
+				String searchParams = request.getParameter("searchParams");
+
+		Map<String, Object> search = new HashMap<String, Object>();
+		;
+		if (searchParams != null)
+		{
+
+			JSONObject a = JSONObject.fromObject(searchParams);
+			search = (Map<String, Object>) a;
+		}
+		search.put("did", 1);
+		RowBounds rowBounds = createRowBounds(request);
+
+		List<Kecheng> list = manageDSCService.QueryDSCkecheng(search, rowBounds);
+
+		long l = manageDSCService.QueryDSCkechengcount(search);
+
+		tableParam tableParam = new tableParam();
+
+		//0表示成功
+		tableParam.setCode(0);
+		//数据库查询count数量
+		tableParam.setCount(l);
+		//失败数据
+		tableParam.setMsg("");
+		tableParam.setData(list);
+
+		return tableParam;
+	}
+
+
+	public String findDid(HttpServletRequest request){
+
+		String did="";
+		//驾校端登录
+		Object o = request.getSession().getAttribute("drivingschool");
+		if (o != null)
+		{
+			System.out.println("驾校登录------------------");
+			Drivingschool d=(Drivingschool)o;
+			did=d.getDid()+"";
+		}else {
+			System.out.println("后台登录------------------");
+			//后台查询驾校列表
+			did = request.getParameter("did");
+		}
+		return did;
+	}
+
+
+
+	@RequestMapping("Dkechenginfo")
+	@ResponseBody
+	public int Dkechenginfo(@RequestParam Map<String, Object> reqMap ,HttpServletRequest request) throws ServletException, IOException
+	{
+
+		int index = 0;
+		System.out.println("课程reqmap"+reqMap);
+//		String operation =
+			JSONObject J=JSONObject.fromObject(reqMap.get("dscParams"));
+	String	operation=	J.get("xingwei")+"";
+		System.out.println("operation"+operation);
+		Map<String, Object> search = (Map<String, Object>) J;
+		if (operation.trim().equals("instert"))
+		{//执行新增课程方法
+			int i=manageDSCService.instertkecheng(search);
+			if (i>0){return 0;}else {return 1;}
+		}else if (operation.trim().equals("updata")){
+			int i=manageDSCService.updatakecheng(search);
+			if (i>0){return 3;}else {return 4;}
+		};
 
 
 
 
 
 
+		return index;
+
+	}
+
+
+
+	@RequestMapping("delkecheng")
+	@ResponseBody
+	public int delkecheng(HttpServletRequest request) throws ServletException, IOException
+	{
+
+		int index = 0;
+		String kid = request.getParameter("kid");
+		System.out.println(kid);
+
+		index=manageDSCService.delkecheng(kid);
 
 
 
 
 
+		return index;
 
+	}
 }

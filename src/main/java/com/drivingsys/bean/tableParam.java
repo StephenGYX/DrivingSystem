@@ -48,4 +48,10 @@ public class tableParam
 	{
 		this.data = data;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "tableParam{" + "code=" + code + ", msg='" + msg + '\'' + ", count=" + count + ", data=" + data + '}';
+	}
 }

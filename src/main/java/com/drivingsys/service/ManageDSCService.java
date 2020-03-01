@@ -3,6 +3,7 @@ package com.drivingsys.service;
 import com.drivingsys.bean.Consumer;
 import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Examination;
+import com.drivingsys.bean.Kecheng;
 import com.drivingsys.bean.echartstest.echaretsDSC;
 import com.drivingsys.dao.ManageDSCMapper;
 import org.apache.ibatis.session.RowBounds;
@@ -49,6 +50,60 @@ public class ManageDSCService
 	public List<Drivingschool> queryqianDSC(Map<String, Object> reqMap, RowBounds rowBounds)
 	{
 		return manageDSCMapper.queryqianDSC(reqMap,rowBounds);
+	}
+
+	public long queryDSCcount(Map<String, Object> search, RowBounds rowBounds)
+	{
+		return manageDSCMapper.queryDSCcount(search);
+	}
+//查询未经过管理员审核驾校
+	public List<Drivingschool> QueryDSCshenhe(Map<String, Object> search, RowBounds rowBounds)
+	{
+		return manageDSCMapper.QueryDSCshenhe(search,rowBounds);
+	}
+
+	public int updateshenheStateByDid(int did, int i)
+	{
+		return manageDSCMapper.updateshenheStateByDid(did,i);
+	}
+
+	public void updateqiyongStateByDid(int did)
+	{
+		manageDSCMapper.updateqiyongStateByDid(did);
+	}
+
+	public int updatedscinfo(Map<String, Object> updata)
+	{
+		return manageDSCMapper.updatedscinfo(updata);
+	}
+
+	public List<Kecheng> QueryDSCkecheng(Map<String, Object> search, RowBounds rowBounds)
+	{
+		return manageDSCMapper.QueryDSCkecheng(search,rowBounds);
+	}
+
+	public int instertkecheng(Map<String, Object> reqMap)
+	{ return manageDSCMapper.instertkecheng(reqMap);
+	}
+
+	public int updatakecheng(Map<String, Object> reqMap)
+	{
+		return manageDSCMapper.updatakecheng(reqMap);
+	}
+
+	public int delkecheng(String kid)
+	{
+		return manageDSCMapper.delkecheng(kid);
+	}
+
+	public long QueryDSCkechengcount(Map<String, Object> search)
+	{
+		return manageDSCMapper.QueryDSCkechengcount(search);
+	}
+
+	public long queryDSCshenhecount(Map<String, Object> search)
+	{
+		return manageDSCMapper.QueryDSCshenheCount(search);
 	}
 
 	;

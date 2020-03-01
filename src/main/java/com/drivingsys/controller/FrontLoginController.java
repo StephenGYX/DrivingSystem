@@ -5,6 +5,7 @@ import com.drivingsys.bean.*;
 import com.drivingsys.bean.backmenu.BackMenu;
 import com.drivingsys.service.BackMenuService;
 import com.drivingsys.service.FrontLoginService;
+import com.drivingsys.service.ManageDSCService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +36,8 @@ public class FrontLoginController
 
 	@Autowired
 	private FrontLoginService frontLoginService;
-
+	@Resource
+	private ManageDSCService manageDSCService;
 
 
 	@Autowired
@@ -54,7 +57,9 @@ public class FrontLoginController
 	}
 
 
+
 	@RequestMapping("frontLogin")
+	@ResponseBody
 	public String testMain(@RequestParam Map<String, String> reqMap, HttpServletRequest request)
 	{
 		System.out.println(reqMap);
@@ -65,7 +70,7 @@ public class FrontLoginController
 		{
 			System.out.println("验证码错误");
 			request.getSession().setAttribute("fmsg", "yzmcw");
-			return "frontlogin3";
+			return "3";
 
 		}
 		;
@@ -82,12 +87,12 @@ public class FrontLoginController
 			{
 				System.out.println("没找到教练");
 				request.getSession().setAttribute("fmsg", "2");
-				return "frontlogin3";
+				return "2";
 			} else
 			{
 				System.out.println("找到了教练");
 				request.getSession().setAttribute("practise", practise);
-				return "backmenu";
+				return "20";
 			}
 
 
@@ -98,13 +103,13 @@ public class FrontLoginController
 			{
 				System.out.println("没找到驾校");
 				request.getSession().setAttribute("fmsg", "2");
-				return "frontlogin3";
+				return "2";
 			} else
 			{
 				System.out.println("找到了驾校");
 				request.getSession().setAttribute("drivingschool", drivingschool);
 				//				return "DSCHinfo";
-				return "drivingSchoolMain";
+				return "30";
 			}
 		} else if (roleid.equals("4"))
 		{
@@ -113,28 +118,16 @@ public class FrontLoginController
 			{
 				System.out.println("没找到学生");
 				request.getSession().setAttribute("fmsg", "2");
-				return "frontlogin3";
+				return "2";
 			} else
 			{
 				System.out.println("找到了学生");
 				request.getSession().setAttribute("consumer", consumer);
 
-				return "backmenu";
+				return "10";
 			}
 		}
 		return "frontlogin3";
-	}
-
-	@RequestMapping("roleid")
-	@ResponseBody
-	public String testMain(String roleid, HttpServletRequest request)
-	{
-		System.out.println("roleid方法参数" + roleid);
-		String roleid1 = "4";
-		roleid1 = roleid;
-		request.getSession().setAttribute("roleid", roleid1);
-		System.out.println(roleid1);
-		return roleid1;
 	}
 
 
@@ -184,7 +177,7 @@ public class FrontLoginController
 	@ResponseBody
 	public int DSCupdatainfo(@RequestParam Map<String, Object> reqMap, HttpServletRequest request)
 	{
-
+		int i=0;
 		System.out.println("进入更改信息方法");
 		System.out.println(reqMap);
 		System.out.println(reqMap.get("dscParams"));
@@ -199,13 +192,16 @@ public class FrontLoginController
 			JSONObject a = JSONObject.fromObject(dscParams);
 			updata = (Map<String, Object>) a;
 		}
-
+		if (updata != null)
+		{
+			i=manageDSCService.updatedscinfo(updata);
+		}
 
 		//		int i=frontLoginService.instertDSC(del);
 		//
 		//
 		//		System.out.println("操作条数"+i);
-		return 0;
+		return i;
 
 	}
 

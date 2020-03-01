@@ -34,14 +34,14 @@
 
 			<c:forEach items="${evalS}" var="i" begin="0">
 
-				-----教练评价-----<br>
-				 ${i.consumer1.cname} 对 ${i.consumer1.pname} 教练：${i.consumer1.epractisecontent}  <br>
+				-----教练评价-----<br><br>
+				 ${i.consumer1.cname} 对 ${i.consumer1.pname} ：${i.consumer1.epractisecontent}  <br>
 
 				评价时间 ： ${i.consumer1.epractisecontenttime} <br>
 
-				-----驾校评价-----<br>
+				-----驾校评价-----<br><br>
 
-				${i.consumer1.cname} ：${i.consumer1.edrivingcontent}  <br>
+				${i.consumer1.cname} ：对${i.dname}: ${i.consumer1.edrivingcontent}  <br>
 
 				评价时间 ： ${i.consumer1.edrivingcontenttime} <br>
 
