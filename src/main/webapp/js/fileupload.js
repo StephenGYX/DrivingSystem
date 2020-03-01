@@ -4,7 +4,7 @@ var path;
 window.onload = function () {
 	hidNode = document.getElementById("hid");
 	path = hidNode.value;
-	alert(path+'/buttonlink/updateButtonLink');
+	// alert(path+'/buttonlink/updateButtonLink');
 };
 
 layui.use(['upload','layer','form'], function() {

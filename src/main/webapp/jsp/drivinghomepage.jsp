@@ -584,10 +584,10 @@
 										                            href="<%=path+"/homepage/drivingSchool"%>">首页</a></div>
 										<div class="gw-nav-cont" id="school"><a target="_self" class="gw-nav" style=""
 										                                        href="#drivingschool">品牌驾校</a></div>
-										<div class="gw-nav-cont" id="exam1"><a target="_self" class="gw-nav" style=""
-										                                       href="#gw-module-146157">考试攻略</a></div>
 										<div class="gw-nav-cont" id="news1"><a target="_self" class="gw-nav" style=""
 										                                       href="#gw-module-146158">行业资讯</a></div>
+										<div class="gw-nav-cont" id="exam1"><a target="_self" class="gw-nav" style=""
+										                                       href="#gw-module-146157">考试攻略</a></div>
 										<div class="gw-nav-cont"><a target="_self" class="gw-nav" style=""
 										                            href=<%=path + "/homepage/returnSchoolJoinMain"%>>驾校加盟</a></div>
 										<div class="gw-nav-cont"><a target="_self" class="gw-nav" style=""
