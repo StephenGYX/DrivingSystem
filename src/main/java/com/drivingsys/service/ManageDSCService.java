@@ -55,7 +55,7 @@ public class ManageDSCService
 		return manageDSCMapper.queryqianDSC(reqMap, rowBounds);
 	}
 
-	public long queryDSCcount(Map<String, Object> search, RowBounds rowBounds)
+	public long queryDSCcount(Map<String, Object> search)
 	{
 		return manageDSCMapper.queryDSCcount(search);
 	}
