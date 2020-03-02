@@ -104,6 +104,8 @@
 	editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
 	editor.customConfig.uploadImgMaxLength = 5;
 	editor.customConfig.uploadFileName = 'myFileName';
+
+	//上传图片
 	editor.customConfig.uploadImgHooks = {
 		customInsert: function (insertImg, result, editor) {
 
@@ -111,12 +113,24 @@
 			// insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
 
 			// 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
-			var url =result.data;
+			var url = result.data;
 			insertImg(url);
 
 			// result 必须是一个 JSON 格式字符串！！！否则报错
 		}
 	};
+
+	//上传视频
+	editor.customConfig.uploadVideoServer = '<%=path%>/image/uploadVideo';
+
+	editor.customConfig.uploadVideoHooks = {
+		customInsert: function (insertImg, result, editor) {
+			var url = result.data;//获取后台返回的url
+			console.log("video url = " + url);
+			insertImg(url);
+		}
+	};
+
 	editor.customConfig.uploadImgShowBase64 = true;  // 使用 base64 保存图片
 	editor.customConfig.showLinkImg = false;	// 隐藏“网络图片”tab
 	editor.customConfig.menus = [
@@ -134,6 +148,7 @@
 		'quote',  // 引用
 		'emoticon',  // 表情
 		'image',  // 插入图片
+		'video',  // 插入视频
 		'undo',  // 撤销
 		'redo'  // 重复
 	];
@@ -166,7 +181,14 @@
 				datatype: "text"
 				//从该js会发出到服务器的数据
 				,
-				data: {"jtitle": jtitle, "jabstract": jabstract, "jauthor": jauthor, "jliulan": jliulan,"jtype":jtype,"jtext": jtext}
+				data: {
+					"jtitle": jtitle,
+					"jabstract": jabstract,
+					"jauthor": jauthor,
+					"jliulan": jliulan,
+					"jtype": jtype,
+					"jtext": jtext
+				}
 				//从servlet接收的数据
 				,
 				success: function (msg) {
