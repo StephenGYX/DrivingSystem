@@ -17,7 +17,7 @@ layui.use(['upload','layer','form'], function() {
 	upload.render({
 		elem: '#test8'
 		,url: path+'/buttonlink/updateButtonLink' //改成您自己的上传接口
-		,accept:'images'
+		,accept:'file'
 		,auto: false
 		,data:{
 			fixedphone:function () {
@@ -62,7 +62,7 @@ layui.use(['upload','layer','form'], function() {
 
 	//监听提交
 	form.on('submit(demo1)', function(data){
-		console.log("触发了上传文件");
+		console.log(data.field);
 		$('#test9').click();
 		return false;
 	});
