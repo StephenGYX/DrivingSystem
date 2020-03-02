@@ -63,12 +63,12 @@
 			elem: '#test'
 			,height: 272
 			,url: '/springboot/table' //数据接口
-			,parseData:function (res) {
+			,parseData:function (res1) {
 				return{
 					"code":0,
 					"msg":0,
-					"count":res.count,
-					"data":res.data
+					"count":res1.count,
+					"data":res1.data
 				}
 			}
 
@@ -150,20 +150,9 @@
 
 	var $ = layui.$, active = {
 		reload: function(){
-			var demoReload = $('#demoReload');
-			if($("#demoReload").val()==""||$("#brand").val()==""||$("#model").val()==""){
+			if($("#demoReload").val()==""&&$("#brand").val()==""&&$("#model").val()==""){
 				window.parent.location.reload();
 			}else if($("#demoReload").val()!=""){
-
-			}else if($("#brand").val()!=""){
-
-			}else if($("#model").val()!=""){
-
-			}
-
-
-			else{
-
 				//执行重载
 				table.reload('test', {
 					page: {
@@ -172,9 +161,25 @@
 					,where: {	demoReload:$("#demoReload").val()}
 					,url:'/springboot/search'
 				}, 'data');
+			}else if($("#brand").val()!=""){
+				//执行重载
+				table.reload('test', {
+					page: {
+						curr: 1 //重新从第 1 页开始
+					}
+					,where: {	brand:$("#brand").val()}
+					,url:'/springboot/searchbrand'
+				}, 'data');
+			}else if($("#model").val()!=""){
+				//执行重载
+				table.reload('test', {
+					page: {
+						curr: 1 //重新从第 1 页开始
+					}
+					,where: {	model:$("#model").val()}
+					,url:'/springboot/searchmodel'
+				}, 'data');
 			}
-
-
 		}
 	};
 
