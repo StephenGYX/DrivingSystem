@@ -96,7 +96,7 @@ public class OrderController {
 				map.put(string,jsonmap.get(string).toString().replace("[","").replace("]",""));
 			}
 			Calendar calendar= Calendar.getInstance();
-			SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
+			SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
 			map.put("time",dateFormat.format(calendar.getTime()));
 
 			drivingSchoolInfoService.insertBaoMing(map);
