@@ -224,7 +224,7 @@ To change this template use File | Settings | File Templates.
 		upload.render({
 			elem: '#test1'
 			, url: "<%=path+"/fact/upload"%>" //改成您自己的上传接口
-			, multiple: true
+			, multiple: true //是否多文件上传
 			, auto: false //选择文件后不自动上传
 			, bindAction: '#sureup' //指向一个按钮触发上传
 			, number: 3
