@@ -58,7 +58,7 @@
 			<li class="layui-nav-item">
 				<a href="javascript:;">
 					<img src=<%=path+"/images/headphoto.jpg"%> class="layui-nav-img">
-					${sessionScope.practise.name}
+					${sessionScope.practise.pname}
 				</a>
 				<dl class="layui-nav-child">
 					<dd><a href="">基本资料</a></dd>

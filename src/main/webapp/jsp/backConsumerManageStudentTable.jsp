@@ -93,8 +93,8 @@
 		<script type="text/html" id="currentTableBar">
 
 
-            <%--没有教练，还未审核--%>
-			{{#  if(d.cstate == 0 && (d.cpritiseid == null || d.cpritiseid.trim() == '') && d.eorderstate == -1){ }}
+            <%--订单状态为-1，还未审核--%>
+			{{#  if(d.cstate == 0  && d.eorderstate == -1){ }}
 
             <%--如果是进入学员审核的表格--%>
 			<c:if test="${requestScope.doThing=='examine'}" >
@@ -117,7 +117,9 @@
 
 			{{#  }
 			<%-- 没有教练，审核失败--%>
-			else if(d.cstate == 0 && (d.cpritiseid == null || d.cpritiseid.trim() == '') && d.eorderstate == -2){ }}
+			else if(d.cstate == 0 && d.eorderstate == -2){ }}
+
+<%--            && (d.cpritiseid == null || d.cpritiseid.trim() == '')--%>
 
 			<%--			如果是进入学员审核的表格--%>
 			<c:if test="${requestScope.doThing=='examine'}" >
@@ -137,8 +139,8 @@
 			</c:if>
 
 			{{#  }
-			<%--有教练，已经通过审核--%>
-			else if(d.cstate == 0 && d.cpritiseid != null){ }}
+			<%--最少等于0，已经通过审核--%>
+			else if(d.cstate == 0 && d.eorderstate != -2 && d.eorderstate != -1){ }}
 
 			<%--			如果是进入学员审核的表格--%>
 			<c:if test="${requestScope.doThing=='examine'}" >
@@ -162,7 +164,7 @@
 
 
 			{{#  }
-			else if(d.cstate == 1 && (d.cpritiseid == null || d.cpritiseid.trim()  == '') && d.eorderstate == -1 ){ }}
+            else if(d.cstate == 1  && d.eorderstate == -1){ }}
 
 			<%--如果是进入学员审核的表格--%>
 			<c:if test="${requestScope.doThing=='examine'}" >
@@ -182,7 +184,7 @@
 			</c:if>
 
 			{{#  }
-			else if(d.cstate == 1 && (d.cpritiseid == null || d.cpritiseid.trim() == '') && d.eorderstate == -2){ }}
+            else if(d.cstate == 1 && d.eorderstate == -2){ }}
 
 			<%--			如果是进入学员审核的表格--%>
 			<c:if test="${requestScope.doThing=='examine'}" >
@@ -203,7 +205,7 @@
 			{{#  }
 
 
-			else if(d.cstate == 1 && d.cpritiseid != null){ }}
+            else if(d.cstate == 1 && d.eorderstate != -2 && d.eorderstate != -1){ }}
 
 			<%--			如果是进入学员审核的表格--%>
 			<c:if test="${requestScope.doThing=='examine'}" >

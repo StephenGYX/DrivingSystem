@@ -34,12 +34,10 @@ public class DrivingSchoolInfoController
 	@Autowired
      private DrivingSchoolInfoService drivingSchoolInfoService;
 
-
-
-
     //查看驾校
-	@RequestMapping("ShowMyInfo/{id}")
-	public ModelAndView showMyInfo(@PathVariable("id") String id,HttpServletRequest request, HttpServletResponse response)
+	@ResponseBody
+	@RequestMapping("ShowMyInfo")
+	public String showMyInfo(String id,HttpServletRequest request, HttpServletResponse response)
 	{
 
 		System.out.println("id====" +id);
@@ -53,9 +51,7 @@ public class DrivingSchoolInfoController
 
 		String drivingscid = (String) request.getSession().getAttribute("drivingscid");
 
-
 		System.out.println("drivingscid====" +drivingscid);
-
 
 //		int i= 1;
 //		String s = String.valueOf(i);
@@ -64,8 +60,6 @@ public class DrivingSchoolInfoController
 		List<Drivingschool> drivingSchoolInfo = (List<Drivingschool>) drivingSchoolInfoService.querySchoolInfo(drivingscid);
 
 		List<Kecheng> kechengs = drivingSchoolInfoService.querySchoolKeCheng(drivingscid);
-
-
 
 		ModelAndView modelAndView = new ModelAndView();
 //		modelAndView.addObject("kechengs",kechengs);
@@ -89,9 +83,7 @@ public class DrivingSchoolInfoController
 
 //		System.out.println(	"评分            "+drivingSchoolInfo.get(0).getDevaluatescore());
 
-		modelAndView.setViewName("frontDrivingSchoolInfo");
-
-		return modelAndView;
+		return "1";
 	}
 	//跳到前端登录面
 	@RequestMapping("toFrontLogin")

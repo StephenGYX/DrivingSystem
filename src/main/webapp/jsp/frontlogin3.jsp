@@ -335,22 +335,22 @@
 
 	}</script>
 
-<%
-	if (request.getSession().getAttribute("fmsg") != null)
-	{
-		String fmsg = request.getSession().getAttribute("fmsg") + "";
-		switch (fmsg)
-		{
-			case "yzmcw":
-				out.write("<script>alert('验证码错误')</script>");
-				break;
-			case "2":
-				out.write("<script>alert('账号或者密码错误')</script>");
-				break;
-		}
-	}
+<%--<%--%>
+<%--	if (request.getSession().getAttribute("fmsg") != null)--%>
+<%--	{--%>
+<%--		String fmsg = request.getSession().getAttribute("fmsg") + "";--%>
+<%--		switch (fmsg)--%>
+<%--		{--%>
+<%--			case "yzmcw":--%>
+<%--				out.write("<script>alert('验证码错误')</script>");--%>
+<%--				break;--%>
+<%--			case "2":--%>
+<%--				out.write("<script>alert('账号或者密码错误')</script>");--%>
+<%--				break;--%>
+<%--		}--%>
+<%--	}--%>
 
-%>
+<%--%>--%>
 
 
 <script>
