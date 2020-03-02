@@ -120,17 +120,6 @@
 		}
 	};
 
-	//上传视频
-	editor.customConfig.uploadVideoServer = '<%=path%>/image/uploadVideo';
-
-	editor.customConfig.uploadVideoHooks = {
-		customInsert: function (insertImg, result, editor) {
-			var url = result.data;//获取后台返回的url
-			console.log("video url = " + url);
-			insertImg(url);
-		}
-	};
-
 	editor.customConfig.uploadImgShowBase64 = true;  // 使用 base64 保存图片
 	editor.customConfig.showLinkImg = false;	// 隐藏“网络图片”tab
 	editor.customConfig.menus = [
