@@ -14,7 +14,7 @@ To change this template use File | Settings | File Templates.
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>省市县区选择区</title>
+	<title>驾校注册页面</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -34,20 +34,20 @@ To change this template use File | Settings | File Templates.
 
 			<input name="longitude" id="longitude" type="hidden">
 			<input name="latitude" id="latitude" type="hidden">
-			<div  class="layui-form layuimini-form" style="margin-left: 80px;margin-bottom: 20px">
+			<div class="layui-form layuimini-form" style="margin-left: 80px;margin-bottom: 20px">
 
-			<button type="button" class="layui-btn" id="test1">
-				<i class="layui-icon">&#xe67c;</i>身份证正面上传
-			</button>
-<%--				<button type="button" class="layui-btn" id="test2">--%>
-<%--					<i class="layui-icon">&#xe67c;</i>身份证反面上传--%>
-<%--				</button>--%>
+				<%--			<button type="button" class="layui-btn" id="test1">--%>
+				<%--				<i class="layui-icon">&#xe67c;</i>身份证正面上传--%>
+				<%--			</button>--%>
+				<%--				<button type="button" class="layui-btn" id="test2">--%>
+				<%--					<i class="layui-icon">&#xe67c;</i>身份证反面上传--%>
+				<%--				</button>--%>
 
 			</div>
 			<div class="layui-form layuimini-form">
 				<div class="layui-form-item">
 					<label class="layui-form-label required">用户名</label>
-					<div class="layui-input-block">
+					<div class="layui-input-inline">
 						<input type="text" name="username" lay-verify="required" lay-reqtext="用户名不能为空"
 						       placeholder="请输入用户名" value="" class="layui-input">
 						<tip>填写驾校账号信息，该账号具有唯一性。</tip>
@@ -55,7 +55,7 @@ To change this template use File | Settings | File Templates.
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label required">联系人姓名</label>
-					<div class="layui-input-block">
+					<div class="layui-input-inline">
 						<input type="text" id="name" name="dcontacts" lay-verify="required" lay-reqtext="联系人不能为空"
 						       placeholder="请输入联系人姓名" value="" class="layui-input">
 						<tip>填写驾校负责人真实姓名。</tip>
@@ -64,43 +64,51 @@ To change this template use File | Settings | File Templates.
 
 				<div class="layui-form-item">
 					<label class="layui-form-label required">身份证号</label>
-					<div class="layui-input-block">
+					<div class="layui-input-inline">
 						<input type="text" id="number" name="idnumber" lay-verify="required" lay-reqtext="身份证号不能为空"
 						       placeholder="请输入联系人身份证号" value="" class="layui-input">
 						<tip>填写驾校负责人身份证号。</tip>
 					</div>
+					<div class="layui-upload-list">
+						<img class="layui-upload-img" style="width: 150px;height: 150px;padding-left: 100px" id="demo2"
+						     src="">
+					</div>
 				</div>
-
+				<button type="button" class="layui-btn" id="test1">
+					<i class="layui-icon">&#xe67c;</i>身份证正面上传
+				</button>
 
 				<div class="layui-form-item">
 					<label class="layui-form-label">密码</label>
-					<div class="layui-input-block">
-						<input type="password" name="password" lay-verify="required" placeholder="请输入驾校账号密码" value="" class="layui-input">
+					<div class="layui-input-inline">
+						<input type="password" name="password" lay-verify="required" placeholder="请输入驾校账号密码" value=""
+						       class="layui-input">
 					</div>
 				</div>
-<%--				<div class="layui-form-item">--%>
-<%--					<label class="layui-form-label required">性别</label>--%>
-<%--					<div class="layui-input-block">--%>
-<%--						<input type="radio" name="sex" value="男" title="男" checked="">--%>
-<%--						<input type="radio" name="sex" value="女" title="女">--%>
-<%--					</div>--%>
-<%--				</div>--%>
+				<%--				<div class="layui-form-item">--%>
+				<%--					<label class="layui-form-label required">性别</label>--%>
+				<%--					<div class="layui-input-block">--%>
+				<%--						<input type="radio" name="sex" value="男" title="男" checked="">--%>
+				<%--						<input type="radio" name="sex" value="女" title="女">--%>
+				<%--					</div>--%>
+				<%--				</div>--%>
 				<div class="layui-form-item">
 					<label class="layui-form-label required">联系电话</label>
-					<div class="layui-input-block">
+					<div class="layui-input-inline">
 						<input type="number" name="phone" lay-verify="required" lay-reqtext="手机不能为空" placeholder="请输入手机"
 						       value="" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">邮箱</label>
-					<div class="layui-input-block">
-						<input type="email" name="email" lay-verify="email" placeholder="请输入邮箱" value="" class="layui-input">
+					<div class="layui-input-inline">
+						<input type="email" name="email" lay-verify="email" placeholder="请输入邮箱" value=""
+						       class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">驾校名称</label>
-					<div class="layui-input-block">
+					<div class="layui-input-inline">
 						<input type="text" name="dname" placeholder="请输入驾校名称" value="" class="layui-input">
 					</div>
 				</div>
@@ -125,17 +133,20 @@ To change this template use File | Settings | File Templates.
 					<div class="layui-input-inline" style="width: 200px;" id="r-result">
 						<div class="layui-form-label">详细地址:</div>
 						<div class="layui-input-block">
-							<input class="layui-input" type="text" id="suggestId"  value="百度" style="width:260px;" />
-						</div></div>
+							<input class="layui-input" type="text" id="suggestId" value="百度" style="width:260px;"/>
+						</div>
+					</div>
 				</div>
 				<div id="l-map"></div>
 
-				<div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+				<div id="searchResultPanel"
+				     style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
 
 				<div class="layui-form-item">
 					<label class="layui-form-label required">报名费用</label>
-					<div class="layui-input-block">
-						<input type="number" name="cost" lay-verify="required" lay-reqtext="报名费用不能为空" placeholder="报名最低价"
+					<div class="layui-input-inline">
+						<input type="number" name="cost" lay-verify="required" lay-reqtext="报名费用不能为空"
+						       placeholder="报名最低价"
 						       value="" class="layui-input">
 					</div>
 				</div>
@@ -154,10 +165,21 @@ To change this template use File | Settings | File Templates.
 				</div>
 			</div>
 
+			<div class="layui-upload">
+				<button type="button" class="layui-btn" id="sureup" style="width: 200px;display: none">开始上传</button>
+			</div>
+			<%--			<div class="layui-upload-list">--%>
+			<%--				<img class="layui-upload-img" style="width: 150px;height: 150px;padding-left: 100px" id="demo3" src="">--%>
+			<%--			</div>--%>
 
-
+			<input name="upstate" id="upstate" type="yanzheng">
 		</form>
 
+		<div id="" class="layui-layer-content" style="height: 40.4px;"><img id="layui-layim-min"
+		                                                                    src="//tp1.sinaimg.cn/5619439268/180/40030060651/1"
+		                                                                    style="cursor: move;"><span>在线客服二</span>
+		</div>
+		<span class="layui-layer-setwin"></span>
 	</div>
 </div>
 
@@ -170,47 +192,49 @@ To change this template use File | Settings | File Templates.
 	}
 
 	var map = new BMap.Map("l-map");
-	map.centerAndZoom("厦门市",12);                   // 初始化地图,设置城市和地图级别。
+	map.centerAndZoom("厦门市", 12);                   // 初始化地图,设置城市和地图级别。
 
 	var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
-		{"input" : "suggestId"
-			,"location" : map
+		{
+			"input": "suggestId"
+			, "location": map
 		});
 
-	ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+	ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
 		var str = "";
 		var _value = e.fromitem.value;
 		var value = "";
 		if (e.fromitem.index > -1) {
-			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+			value = _value.province + _value.city + _value.district + _value.street + _value.business;
 		}
 		str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
 
 		value = "";
 		if (e.toitem.index > -1) {
 			_value = e.toitem.value;
-			value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+			value = _value.province + _value.city + _value.district + _value.street + _value.business;
 		}
 		str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
 		G("searchResultPanel").innerHTML = str;
 	});
 
 	var myValue;
-	ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+	ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
 		var _value = e.item.value;
-		myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-		G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+		myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+		G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
 
 		setPlace();
 	});
 
-	function setPlace(){
+	function setPlace() {
 		map.clearOverlays();    //清除地图上所有覆盖物
-		function myFun(){
+		function myFun() {
 			var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
 			map.centerAndZoom(pp, 18);
 			map.addOverlay(new BMap.Marker(pp));    //添加标注
 		}
+
 		var local = new BMap.LocalSearch(map, { //智能搜索
 			onSearchComplete: myFun
 		});
@@ -218,47 +242,97 @@ To change this template use File | Settings | File Templates.
 
 		searchByStationName(map)
 	}
+
 	function searchByStationName(map) {
 		var localSearch = new BMap.LocalSearch(map);
 		var keyword = document.getElementById("suggestId").value;
 		localSearch.setSearchCompleteCallback(function (searchResult) {
 			var poi = searchResult.getPoi(0);
-			alert(poi.point.lng + "," + poi.point.lat) ; //获取经度和纬度，将结果显示在文本框中
+			alert(poi.point.lng + "," + poi.point.lat); //获取经度和纬度，将结果显示在文本框中
 			// map.centerAndZoom(poi.point, 13);
-			document.getElementById("longitude").value=poi.point.lng
+			document.getElementById("longitude").value = poi.point.lng
 			// $("#longitude").val(poi.point.lng+"")
-			document.getElementById("latitude").value=poi.point.lat
+			document.getElementById("latitude").value = poi.point.lat
 			// $("#latitude").val(poi.point.lat+"")
 		});
 		localSearch.search(keyword);
 	}
-	layui.use(['layer', 'form', 'layarea','upload'], function () {
+
+	layui.use(['layer', 'form', 'layarea', 'upload'], function () {
 		var layer = layui.layer
 			, form = layui.form,
 			$ = layui.jquery
 			, layarea = layui.layarea;
 		var upload = layui.upload;
+		var upstate = $("#upstate").val();
 		var uploadInst = upload.render({
 			elem: '#test1' //绑定元素
-			,accept:"file"
-			,url: "<%=path+"/idcardScan"%>" //上传接口
-			,done: function(res){
+			// ,accept:"file"
+			, url: function () {
+				if (upstate === "yanzheng") {
+					return "<%=path+"/idcardScan"%>"
+				} else if (upstate === "sureup") {
+					return "<%=path+"/fact/dscregup"%>" + "?"
+				}
+				;
+			}//上传接口
+			, auto: false //选择文件后不自动上传
+			, bindAction: '#sureup' //指向一个按钮触发上传
+			, choose: function (obj) {
+				obj.preview(function (index, file, result) {
+					$('#demo2').attr('src', result) //图片链接（base64）
+					// ,$('#demo3').attr('src', result); //图片链接（base64）
+
+				});
+			}
+
+			, done: function (res) {
 				//上传完毕回调
 				layer.msg("上传成功", {icon: 6});
-				$("#name").val(res.name)
+				$("#name").val(res.name);
 				$("#number").val(res.number)
 				// alert(res.number)
 			}
-			,error: function(){
+			, error: function () {
 				//请求异常回调
 				layer.msg("上传失败", {icon: 5});
 			}
 		});
+
+		<%--var uploadtwo = upload.render({--%>
+		<%--	elem: '#test1' //绑定元素--%>
+		<%--	// ,accept:"file"--%>
+		<%--	,url: function () {--%>
+		<%--		if (true){return "<%=path+"/idcardScan"%>" }--%>
+		<%--		else{return "<%=path+"/sureup"%>" };--%>
+		<%--	}//上传接口--%>
+		<%--	, auto: false //选择文件后不自动上传--%>
+		<%--	, bindAction: '#sureup' //指向一个按钮触发上传--%>
+		<%--	,choose:function (obj) {--%>
+		<%--		obj.preview(function(index, file, result){--%>
+		<%--			$('#demo2').attr('src', result); //图片链接（base64）--%>
+		<%--		});--%>
+		<%--	}--%>
+
+		<%--	,done: function(res){--%>
+		<%--		//上传完毕回调--%>
+		<%--		layer.msg("上传成功", {icon: 6});--%>
+		<%--		$("#name").val(res.name);--%>
+		<%--		$("#number").val(res.number)--%>
+		<%--		// alert(res.number)--%>
+		<%--	}--%>
+		<%--	,error: function(){--%>
+		<%--		//请求异常回调--%>
+		<%--		layer.msg("上传失败", {icon: 5});--%>
+		<%--	}--%>
+		<%--});--%>
+
+
 		//监听提交
 		form.on('submit(saveBtn)', function (data) {
 			var formData = data.field;
-
-
+			$("#upstate").val("sureup");
+			$('#sureup').click();
 			$.ajax({
 				url: "<%=path+"/fact/DSCreg"%>",//后台路径,
 				type: "POST",
@@ -271,14 +345,12 @@ To change this template use File | Settings | File Templates.
 						layer.msg("注册成功", {icon: 6});
 
 					} else {
-						alert("222");
+						// alert("222");
 						layer.msg("注册失败", {icon: 5});
 					}
 				}
 
 			});
-
-
 
 
 			return false;
@@ -287,6 +359,40 @@ To change this template use File | Settings | File Templates.
 			elem: '#area-picker',
 
 		});
+
+
+		layui.use('layim', function (layim) {
+			var layim = layui.layim;
+			layim.config({
+				init: {
+					//配置客户信息
+					mine: {
+						"username": "访客" //我的昵称
+						, "id": "100000123" //我的ID
+						, "status": "online" //在线状态 online：在线、hide：隐身
+						, "remark": "在深邃的编码世界，做一枚轻盈的纸飞机" //我的签名
+						, "avatar": "//res.layui.com/images/fly/avatar/00.jpg" //我的头像
+					}
+				}
+				//开启客服模式
+				, brief: true
+			});
+			//打开一个客服面板
+			layim.chat({
+				name: '在线客服一' //名称
+				, type: 'kefu' //聊天类型
+				, avatar: '//tp1.sinaimg.cn/5619439268/180/40030060651/1' //头像
+				, id: 1111111 //定义唯一的id方便你处理信息
+			}).chat({
+				name: '在线客服二' //名称
+				, type: 'kefu' //聊天类型
+				, avatar: '//tp1.sinaimg.cn/5619439268/180/40030060651/1' //头像
+				, id: 2222222 //定义唯一的id方便你处理信息
+			});
+			layim.setChatMin(); //收缩聊天面板
+		});
+
+
 	});
 </script>
 </body>

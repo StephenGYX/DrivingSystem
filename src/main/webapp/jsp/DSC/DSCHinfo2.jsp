@@ -41,7 +41,7 @@ To change this template use File | Settings | File Templates.
 						<input type="hidden" name="did" id="did" value="${sessionScope.drivingschool.did}">
 						<input type="text" name="username" lay-verify="required" lay-reqtext="用户名不能为空"
 						       placeholder="请输入用户名" value="${sessionScope.drivingschool.daccount}" class="layui-input"
-						       id="username" onfocus="this.blur()">
+						       id="username">
 						<%--						onfocus="this.blur()--%>
 						<%--						<input type="hidden" name="did" value="${sessionScope.drivingschool.did}">--%>
 						<%--						<span name="username">${sessionScope.drivingschool.dname}</span>--%>
@@ -152,7 +152,10 @@ To change this template use File | Settings | File Templates.
 				<%--				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">--%>
 				<%--					<legend>上传多张图片</legend>--%>
 				<%--				</fieldset>--%>
-
+				<div class="layui-upload">
+					<button type="button" class="layui-btn" id="sureup" style="width: 200px;display: none">开始上传</button>
+				</div>
+				<input type="hidden" name="upxingwei" id="upxingwei" value="1">
 
 				<div class="layui-form-item">
 					<div class="layui-input-inline">
@@ -178,26 +181,32 @@ To change this template use File | Settings | File Templates.
 			$ = layui.jquery
 			, layarea = layui.layarea
 			, upload = layui.upload;
+
+		var formData;
 		//监听提交
 		form.on('submit(saveBtn)', function (data) {
-			var formData = data.field;
+			formData = data.field;
 
-
+			$('#sureup').click();
 			$.ajax({
 				url: "<%=path+"/fact/DSCupdatainfo"%>",//后台路径,
 				type: "POST",
-				data: {"dscParams": JSON.stringify(data.field)},
+				// data: {"did": function () {
+				// 		return $('#did').val();
+				// 	}},
+				data: {dscParams: JSON.stringify(formData)},
 				dataType: "text",
+
 				success: function (msg) {
 					alert(msg);
 					if (msg > 0) {
 
-						layer.msg("注册成功", {icon: 6});
+						layer.msg("提交成功", {icon: 6});
 
 
 					} else {
 
-						layer.msg("注册失败", {icon: 5});
+						layer.msg("提交失败", {icon: 5});
 					}
 				}
 
@@ -215,10 +224,16 @@ To change this template use File | Settings | File Templates.
 		upload.render({
 			elem: '#test1'
 			, url: "<%=path+"/fact/upload"%>" //改成您自己的上传接口
-			, multiple: true
+			, multiple: true //是否多文件上传
 			, auto: false //选择文件后不自动上传
-			, bindAction: '#test2' //指向一个按钮触发上传
+			, bindAction: '#sureup' //指向一个按钮触发上传
 			, number: 3
+			, data: {"did": function () {
+					return $('#did').val();
+				}, "jxxx":function () {
+					return $('#upxingwei').val();
+				}
+			}
 			, choose: function (obj) {
 				$('#demo2').height(180);
 				//将每次选择的文件追加到文件队列
@@ -282,7 +297,7 @@ To change this template use File | Settings | File Templates.
 <script type="text/javascript">
 
 	function selectinfo(data) {
-	console.log(data);
+		console.log(data);
 
 		$("#dcontacts").val(data.dcontacts);
 		$("#username").val(data.daccount);
@@ -299,9 +314,9 @@ To change this template use File | Settings | File Templates.
 		$("#dname").val(data.dname);
 		$("#dphone").val(data.dphone);
 
-	
+
 	}
-	
+
 	function xingwei() {
 		$("#xingwei").val("instert");
 	}
@@ -316,15 +331,15 @@ To change this template use File | Settings | File Templates.
 		console.log(param);
 		console.log(strings[0]);
 		console.log(strings[1]);
-		strings=strings[1];
-		if (strings =="see"){
+		strings = strings[1];
+		if (strings == "see") {
 			$("#test2").hide();
 			// $('input').attr("readonly","readonly")//将input元素设置为readonly
-			$('input').attr("disabled","disabled");//将input元素设置为disabled
-			$("#dsynopsis").attr("disabled","disabled");
-			$("#dprovince").attr("disabled","disabled");
-			$("#dcity").attr("disabled","disabled");
-			$("#darea").attr("disabled","disabled");
+			$('input').attr("disabled", "disabled");//将input元素设置为disabled
+			$("#dsynopsis").attr("disabled", "disabled");
+			$("#dprovince").attr("disabled", "disabled");
+			$("#dcity").attr("disabled", "disabled");
+			$("#darea").attr("disabled", "disabled");
 
 		}
 	};

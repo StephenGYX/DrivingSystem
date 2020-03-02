@@ -56,7 +56,7 @@ select  d.*,e.*,c.cname stName from  drivingschool  d left join examination  e o
 
 
  <insert id="insertBaoMing" parameterType="java.util.Map">
-	  insert  into examination(cid,did,evehicletype,eorderstate) values (#{cid},#{did},#{kjiazhaoleixing},-1)
+	  insert  into examination(cid,did,evehicletype,eorderstate,esubmittime) values (${cid},${did},${kjiazhaoleixing},-1,${time})
 
  </insert>
 

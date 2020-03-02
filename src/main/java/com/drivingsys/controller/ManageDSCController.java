@@ -59,14 +59,14 @@ public class ManageDSCController
 
 		List<Drivingschool> list = manageDSCService.queryDSC(search, rowBounds);
 		System.out.println("list size" + list.size());
-		long l = manageDSCService.queryDSCcount(search, rowBounds);
+		long l = manageDSCService.queryDSCcount(search);
 
 		tableParam tableParam = new tableParam();
 
 		//0表示成功
 		tableParam.setCode(0);
 		//数据库查询count数量
-		tableParam.setCount(list.size());
+		tableParam.setCount(l);
 		//失败数据
 		tableParam.setMsg("");
 		tableParam.setData(list);

@@ -30,7 +30,7 @@ To change this template use File | Settings | File Templates.
 <div class="layuimini-container">
 	<div class="layuimini-main">
 
-		<form class="layui-form" action="" style="padding:20px;" method="post">
+		<form class="layui-form" action="<%=path+"/alipay"%>" style="padding:20px;" method="post">
 
 
 			<div class="layui-form layuimini-form">
@@ -116,33 +116,31 @@ To change this template use File | Settings | File Templates.
 		//监听提交
 		form.on('submit(saveBtn)', function (data) {
 			var formData = data.field;
+			<%--$.ajax({--%>
+			<%--	url: "<%=path+"/alipay"%>",//后台路径,--%>
+			<%--	type: "POST",--%>
+			<%--	data:  data.field,--%>
+			<%--	dataType: "text",--%>
+			<%--	success: function (msg) {--%>
+            <%--     alert(msg);--%>
+			<%--		if (msg > 0) {--%>
 
-
-			$.ajax({
-				url: "<%=path+"/schoolInfo/baoMingSure"%>",//后台路径,
-				type: "POST",
-				data: {"baoMingParam": JSON.stringify(data.field)},
-				dataType: "text",
-				success: function (msg) {
-                 alert(msg);
-					if (msg > 0) {
-
-						layer.msg("报名成功！");
+			<%--			layer.msg("报名成功！");--%>
 
 
 
-					} else {
+			<%--		} else {--%>
 
-						layer.msg("报名失败！");
-					}
-				}
+			<%--			layer.msg("报名失败！");--%>
+			<%--		}--%>
+			<%--	}--%>
 
-			});
+			<%--});--%>
 
 
 
 
-			return false;
+			<%--return false;--%>
 		});
 		// layarea.render({
 		// 	elem: '#area-picker',

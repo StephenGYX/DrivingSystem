@@ -48,8 +48,6 @@ public class BackStageController
 		//调用service查找账户的方法
 		Backstage backstage = backStageService.queryBackStageAccount(reqMap);
 
-		//将该用户放入session域中
-		request.getSession().setAttribute("backstage", backstage);
 
 		String CODE = request.getSession().getAttribute("CODE") + "";
 		String code = reqMap.get("code");
@@ -64,6 +62,11 @@ public class BackStageController
 		{
 			if (backstage != null)
 			{
+
+				//先清空session
+				request.getSession().invalidate();
+				//将该用户放入session域中
+				request.getSession().setAttribute("backstage", backstage);
 				msg = "1";
 			} else
 			{
