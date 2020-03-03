@@ -44,10 +44,7 @@ public class OrderController {
 //	String outTradeNo, String subject, String totalAmount, String body
 	public String alipay(HttpServletRequest request) throws AlipayApiException {
 		Map<String, String[]> params=request.getParameterMap();
-		Calendar calendar= Calendar.getInstance();
-		SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
-		String[]timeArr={dateFormat.format(calendar.getTime())};
-		params.put("time",timeArr);
+
 		AlipayBean alipayBean = new AlipayBean();
 		alipayBean.setOut_trade_no(Alipay.getOrdercode());
 //		System.out.println(params.get("kname")[0]);
@@ -91,9 +88,6 @@ public class OrderController {
 		if (tradestate.equals("TRADE_SUCCESS"))
 		{
 
-//			String[] str1 = baominginfo.split(",");
-			//创建Map对象
-
 			JSONObject  jasonObject = JSONObject.fromObject(baominginfo);
 			Map<String,Object> jsonmap = (Map<String,Object>)jasonObject;
 			Map<String,Object> map = new HashMap<>();
@@ -101,6 +95,10 @@ public class OrderController {
 			for (String string : jsonmap.keySet()) {
 				map.put(string,jsonmap.get(string).toString().replace("[","").replace("]",""));
 			}
+			Calendar calendar= Calendar.getInstance();
+			SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
+			map.put("time",dateFormat.format(calendar.getTime()));
+
 			drivingSchoolInfoService.insertBaoMing(map);
 		}
 

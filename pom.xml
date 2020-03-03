@@ -28,7 +28,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.48</version>
+            <version>1.2.41</version>
         </dependency>
         <!--身份证识别包-->
         <dependency>
@@ -124,6 +124,20 @@
             <artifactId>json</artifactId>
             <version>20180813</version><!--注意：20160810版本不支持JSONArray-->
         </dependency>
+
+
+
+
+
+        <!--httpcomponents的包-->
+<!--        构建跨域访问post请求的sevice-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.5</version>
+        </dependency>
+
+
 
 
     </dependencies>

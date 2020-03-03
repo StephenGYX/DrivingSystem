@@ -82,6 +82,12 @@ public class DrivingSchoolInfoController
 
 		return "1";
 	}
+
+	@RequestMapping("toFrontDrivingPage")
+	public String toFrontDrivingPage(){
+		return "frontDrivingSchoolInfo";
+	}
+
 	//跳到前端登录面
 	@RequestMapping("toFrontLogin")
 	@ResponseBody
