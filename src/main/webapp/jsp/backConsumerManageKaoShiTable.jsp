@@ -7,7 +7,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>layui</title>
+	<title>考试安排表</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -186,10 +186,7 @@
 				{field: 'etesttime4', width: 100, title: '科四考试时间', sort: true},
 
 				{field: 'pname', width: 100, title: '教练姓名', sort: true},
-				// {field: 'eclasshour1', width: 50, title: '1', sort: true},
-				// {field: 'eclasshour2', width: 50, title: '2', sort: true},
-				// {field: 'eclasshour3', width: 50, title: '3', sort: true},
-				// {field: 'eclasshour4', width: 50, title: '4', sort: true},
+
 
 				{title: '操作', minWidth: 100, templet: '#currentTableBar', fixed: "right", align: "center"}
 			]],

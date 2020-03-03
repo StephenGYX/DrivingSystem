@@ -148,7 +148,7 @@ public class BackPractiseMannageController
 	@ResponseBody
 	public ModelAndView seeMyStudent(HttpServletRequest request){
 		ModelAndView modelAndView = new ModelAndView();
-		String pid= request.getParameter("pid");
+		String pid= findPid(request);
 		String doThing= request.getParameter("do");
 
 		//确定点开的是什么列表(查看学员，审核学员，学员管理)
@@ -236,6 +236,22 @@ public class BackPractiseMannageController
 		}
 		return did;
 	}
+	public String findPid(HttpServletRequest request){
 
+		String pid="";
+		//驾校端登录
+		Object o = request.getSession().getAttribute("practise");
+		if (o != null)
+		{
+			System.out.println("教练登录------------------");
+			Practise p=(Practise)o;
+			pid=p.getPid()+"";
+		}else {
+			System.out.println("后台登录------------------");
+			//后台查询驾校列表
+			pid = request.getParameter("pid");
+		}
+		return pid;
+	}
 
 }

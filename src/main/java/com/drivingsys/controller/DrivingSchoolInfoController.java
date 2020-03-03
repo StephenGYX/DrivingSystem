@@ -76,11 +76,8 @@ public class DrivingSchoolInfoController
 				count++;
 			};
 		}
-
-		System.out.println("正确的评论人数"+count);
-
 		request.getSession().setAttribute("countEval",count);
-
+//		System.out.println("正确的评论人数"+count);
 //		System.out.println(	"评分            "+drivingSchoolInfo.get(0).getDevaluatescore());
 
 		return "1";
