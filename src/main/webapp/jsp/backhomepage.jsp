@@ -27,7 +27,7 @@
 
 <script type="text/html" id="bar">
 	{{#  if(d.rid == 0){}}
-	<b style="margin-left: 60px">-------- 不可修改 --------</b>
+	<b >-------- 不可修改 --------</b>
 	{{#  } else if(d.rid==1&&d.bstate==1){ }}
 	<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="stop">禁用</a>
 
@@ -42,12 +42,12 @@
 	<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
 			class="layui-icon layui-icon-delete"></i>删除</a>
 	{{#  }else{ }}
-	<b style="margin-left: 60px">-------- 已删除  --------</b>
+	<b >-------- 已删除  --------</b>
 	{{#  }
 	}}
 </script>
 <!-- 增加搜索条件 -->
-<div class="demoTable">
+<div class="demoTable" style="margin-top: 30px;margin-left: 400px">
 	搜索账号：
 	<div class="layui-inline">
 		<input class="layui-input" name="id" id="demoReload" autocomplete="off">
@@ -60,7 +60,7 @@
 
 	<div class="layuimini-container" >
 		<div class="layuimini-main">
-			<div class="layui-form-item" id="area-picker" style="margin-left: 198px">
+			<div class="layui-form-item" id="area-picker" style="margin-left:-35px;margin-top: 10px">
 				<div class="layui-form-label">搜索状态: </div>
 				<div class="layui-input-inline" style="padding-top: 7px;">
 					<select id="prov" name="province" class="province-selector"  lay-filter="province-1">
@@ -75,7 +75,7 @@
 	</div>
 
 </div>
-<button id="pro" type="button" class="layui-btn layui-btn-normal">新增管理员</button>
+<button id="pro" type="button" class="layui-btn layui-btn-normal" style="margin-left: 20px;margin-top: 20px">新增管理员</button>
 <table class="layui-hide" id="test"  lay-filter="test"></table>
 
 <div id="demo11"></div>
@@ -88,7 +88,7 @@
 		//第一个实例
 		table.render({
 			elem: '#test'
-			,height: 272
+			,height: 300
 			,url: '/springboot/tableall' //数据接口
 			,parseData:function (res) {
 				return{
@@ -108,7 +108,7 @@
 				{field: 'bname', title: '名称', width:160
 
 				},
-				{field: 'bstate', title: '状态', width:80,templet: function (item) {
+				{field: 'bstate', title: '状态', width:160,templet: function (item) {
 						if(item.bstate=="1"){
 							return "启用"
 						}else if(item.bstate=="0"){
@@ -126,7 +126,7 @@
 						}
 					}
 				},
-				{fixed: 'right',title: '操作', width:300,toolbar:"#bar"
+				{fixed: 'right',title: '操作', align:'center',width:300,toolbar:"#bar"
 				}
 
 
@@ -284,7 +284,7 @@
 				offset:'20px',
 				title: '新增管理员',
 				content:['/springboot/jsp/backadduser.jsp','no'] ,//不允许出现滚动条
-				area:['900px', '700px']
+				area:['900px', '400px']
 			});
 		});
 	})

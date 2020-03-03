@@ -60,7 +60,7 @@ To change this template use File | Settings | File Templates.
 				</div>
 			</div>
 		</div>
-		<div class="layui-btn" id="layui-btnn" >保存</div>
+		<div class="layui-btn" id="layui-btnn" style="margin-left: 30px">保存</div>
 </div>
 
 </div>

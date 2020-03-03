@@ -65,7 +65,7 @@ public interface BackStageMyMapper
 	@Select("select count(vid) from vehicle where vmodel=#{model} and (vcarstate='正常' or vcarstate='维修中' or vcarstate='使用中')")
 	public int countmodel(String model);
 	//教练注册选择驾校
-	@Select("select * from drivingschool group by dname")
+	@Select("select did,dname from drivingschool")
 	public List<Drivingschool> driving();
 	//管理员用户
 	@Select("select * from backstage limit  #{page,jdbcType=INTEGER},#{limit,jdbcType=INTEGER} ")
@@ -97,4 +97,19 @@ public interface BackStageMyMapper
 	//搜索管理员状态
 	@Select("select * from (select * from backstage where bstate=#{bacc}) a,(select count(bid) as c from backstage where bstate=#{bacc}) b ")
 	public List<Backstage> backsearchstate(String bstate);
+	//查看教练头像
+	@Select("select pphoto from practise where pid=#{pid}")
+	public String selectavatar(Long pid);
+	//修改教练头像
+	@Select("update practise set pphoto=#{avatar} where pid=#{pid}")
+	public void updateavatar(String avatar,Long pid);
+	//修改教练名称
+	@Select("update practise set pname=#{updatename} where pid=#{pid}")
+	public void updatename(String updatename,Long pid);
+	//修改教练密码
+	@Select("update practise set ppassword=#{updatepass} where pid=#{pid}")
+	public void updatepass(String updatepass,Long pid);
+	//修改信息
+	@Select("update practise set pname=#{updatename},ppassword=#{updatepass} where pid=#{pid}")
+	public void updateinfo(String updatename,String updatepass,Long pid);
 }

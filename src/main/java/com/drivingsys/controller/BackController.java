@@ -67,7 +67,7 @@ public class BackController
 				backStageMyService.adduser(account, pass, phone, sex, age, name, email, idcard, wechat);
 				String u = "注册成功";
 				request.setAttribute("cg", u);
-				modelAndView.setViewName("/backlogin");
+				modelAndView.setViewName("/frontlogin3");
 			} else
 			{
 				System.out.println("密码错误");
@@ -90,7 +90,7 @@ public class BackController
 			sex = "女";
 		}
 		backStageMyService.addpuser(driving, account, pass, sex, age, phone, email, name, idcard, resume, workexperience);
-		modelAndView.setViewName("/backlogin");
+		modelAndView.setViewName("/frontlogin3");
 		return modelAndView;
 	}
 
@@ -356,6 +356,30 @@ backStageMyService.addbackuser(bacc, bpass, bname, bstate);
 			backmsgall.setData(backstages);
 		}
 		return backmsgall;
+	}
+	@RequestMapping("/selectavatar")
+	public void selectavatar(HttpServletRequest request,HttpServletResponse response) throws IOException
+	{
+		HttpSession session = request.getSession();
+		Practise id=(Practise)session.getAttribute("practise");
+		String msg=backStageMyService.selectavatar(id.getPid());
+		System.out.println(msg+"头像地址");
+		response.setContentType("text/html; charset =utf-8");
+		response.getWriter().write(new Gson().toJson(msg));
+		response.getWriter().flush();
+	}
+	@RequestMapping("/updateavatar")
+	public void updateavatar(@RequestParam("avatar")String avatar,@RequestParam("updatename")String updatename,@RequestParam("updatepass")String updatepass,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		Practise id=(Practise)session.getAttribute("practise");
+			backStageMyService.updateavatar(avatar,id.getPid());
+		 if(updatepass.equals("")){
+			backStageMyService.updatename(updatename,id.getPid());
+		}else if(updatename.equals("")){
+			backStageMyService.updatepass(updatepass,id.getPid());
+		}else{
+			backStageMyService.updateinfo(updatename,updatepass,id.getPid());
+		}
 	}
 }
 

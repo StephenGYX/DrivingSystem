@@ -40,4 +40,9 @@ public interface BackStageMyService
 	public List<Backstage> backsearchacc(String bacc);
 	public List<Backstage> backsearchname(String bname);
 	public List<Backstage> backsearchstate(String bstate);
+	public String selectavatar(Long pid);
+	public void updateavatar(String avatar,Long pid);
+	public void updatename(String updatename,Long pid);
+	public void updatepass(String updatepass,Long pid);
+	public void updateinfo(String updatename,String updatepass,Long pid);
 }

@@ -203,5 +203,36 @@ return vehicles;
 		return backstages;
 	}
 
+	@Override
+	public String selectavatar(Long pid)
+	{
+		String msg=backStageMyMapper.selectavatar(pid);
+		return msg;
+	}
+
+	@Override
+	public void updateavatar(String avatar, Long pid)
+	{
+		backStageMyMapper.updateavatar(avatar, pid);
+	}
+
+	@Override
+	public void updatename(String updatename, Long pid)
+	{
+		backStageMyMapper.updatename(updatename,pid);
+	}
+
+	@Override
+	public void updatepass(String updatepass, Long pid)
+	{
+		backStageMyMapper.updatepass(updatepass, pid);
+	}
+
+	@Override
+	public void updateinfo(String updatename, String updatepass, Long pid)
+	{
+		backStageMyMapper.updateinfo(updatename, updatepass, pid);
+	}
+
 
 }
