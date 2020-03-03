@@ -48,7 +48,6 @@ public class BackStageController
 		//调用service查找账户的方法
 		Backstage backstage = backStageService.queryBackStageAccount(reqMap);
 
-
 		String CODE = request.getSession().getAttribute("CODE") + "";
 		String code = reqMap.get("code");
 		System.out.println("CODE"+CODE);
