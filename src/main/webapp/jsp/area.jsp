@@ -71,14 +71,17 @@ To change this template use File | Settings | File Templates.
 						       placeholder="请输入联系人身份证号" value="" class="layui-input">
 						<tip>填写驾校负责人身份证号。</tip>
 					</div>
+					<button type="button" class="layui-btn" id="test1">
+						<i class="layui-icon">&#xe67c;</i>身份证正面上传
+					</button>
 					<div class="layui-upload-list">
-						<img class="layui-upload-img" style="width: 150px;height: 150px;padding-left: 100px" id="demo2"
+						<img class="layui-upload-img" style="width: 150px;height: 150px;margin-left: -180px;
+
+margin-top: 20px;" id="demo2"
 						     src="">
 					</div>
 				</div>
-				<button type="button" class="layui-btn" id="test1">
-					<i class="layui-icon">&#xe67c;</i>身份证正面上传
-				</button>
+
 
 				<div class="layui-form-item">
 					<label class="layui-form-label">密码</label>
@@ -139,7 +142,7 @@ To change this template use File | Settings | File Templates.
 						</div>
 					</div>
 				</div>
-				<div id="l-map"></div>
+				<div id="l-map" class="layui-form-item" style="height: 300px;width: 90%;margin-left: 5%;"></div>
 
 				<div id="searchResultPanel"
 				     style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
@@ -161,6 +164,17 @@ To change this template use File | Settings | File Templates.
 				</div>
 
 				<div class="layui-form-item">
+					<label class="layui-form-label">驾校资质图片</label>
+					<div class="layui-upload-list">
+						<img class="layui-upload-img" style="width: 150px;height: 150px;" id="demo3"
+						     src="">
+						<button type="button" class="layui-form-checked" id="test2">
+							<i class="layui-icon">&#xe67c;</i>驾校资质证明
+						</button>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
 					<div class="layui-input-block">
 						<button class="layui-btn" lay-submit lay-filter="saveBtn">确认保存</button>
 					</div>
@@ -170,11 +184,8 @@ To change this template use File | Settings | File Templates.
 			<div class="layui-upload">
 				<button type="button" class="layui-btn" id="sureup" style="width: 200px;display: none">开始上传</button>
 			</div>
-			<%--			<div class="layui-upload-list">--%>
-			<%--				<img class="layui-upload-img" style="width: 150px;height: 150px;padding-left: 100px" id="demo3" src="">--%>
-			<%--			</div>--%>
 
-			<input name="upstate" id="upstate" value="yanzheng"type="hidden">
+			<input name="upstate" id="upstate" value="yanzheng" type="hidden">
 		</form>
 
 
@@ -241,16 +252,17 @@ To change this template use File | Settings | File Templates.
 
 		searchByStationName(map)
 	}
+
 	function searchByStationName(map) {
 		var localSearch = new BMap.LocalSearch(map);
 		var keyword = document.getElementById("suggestId").value;
 		localSearch.setSearchCompleteCallback(function (searchResult) {
 			var poi = searchResult.getPoi(0);
-			alert(poi.point.lng + "," + poi.point.lat) ; //获取经度和纬度，将结果显示在文本框中
+			alert(poi.point.lng + "," + poi.point.lat); //获取经度和纬度，将结果显示在文本框中
 			// map.centerAndZoom(poi.point, 13);
-			document.getElementById("longitude").value=poi.point.lng
+			document.getElementById("longitude").value = poi.point.lng
 			// $("#longitude").val(poi.point.lng+"")
-			document.getElementById("latitude").value=poi.point.lat
+			document.getElementById("latitude").value = poi.point.lat
 			// $("#latitude").val(poi.point.lat+"")
 		});
 		localSearch.search(keyword);
@@ -382,6 +394,7 @@ To change this template use File | Settings | File Templates.
 						alert("注册成功");
 						layer.msg("注册成功", {icon: 6});
 						$('#sureup').click();
+						window.location=="<%=path%>"+"/jsp/frontlogin3.jsp";
 					} else {
 						// alert("222");
 						alert("注册失败");
