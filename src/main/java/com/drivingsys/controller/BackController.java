@@ -1,8 +1,6 @@
 package com.drivingsys.controller;
 
-import com.drivingsys.bean.Drivingschool;
-import com.drivingsys.bean.Vehicle;
-import com.drivingsys.bean.backmsg;
+import com.drivingsys.bean.*;
 import com.drivingsys.service.BackStageMyServiceImpl;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +30,8 @@ import java.util.Map;
 public class BackController
 {
 	ModelAndView modelAndView = new ModelAndView();
+	backmsg a = new backmsg();
+	backmsgall backmsgall=new backmsgall();
 	@Autowired
 	private BackStageMyServiceImpl backStageMyService;
 
@@ -67,7 +67,7 @@ public class BackController
 				backStageMyService.adduser(account, pass, phone, sex, age, name, email, idcard, wechat);
 				String u = "注册成功";
 				request.setAttribute("cg", u);
-				modelAndView.setViewName("/backlogin");
+				modelAndView.setViewName("/frontlogin3");
 			} else
 			{
 				System.out.println("密码错误");
@@ -97,7 +97,6 @@ public class BackController
 	@RequestMapping("/table")
 	public backmsg talbe(@RequestParam("page") int page, @RequestParam("limit") int limit, HttpServletRequest request)
 	{
-		backmsg a = new backmsg();
 		HttpSession session = request.getSession();
 		Drivingschool did = (Drivingschool) session.getAttribute("drivingschool");
 
@@ -126,8 +125,9 @@ public class BackController
 	@RequestMapping("/search")
 	public backmsg search(@RequestParam("demoReload") String demoReload)
 	{
-		backmsg a = new backmsg();
+		int i=backStageMyService.countnum(demoReload);
 		List<Vehicle> vehicle = backStageMyService.search(demoReload);
+		a.setCount(i);
 		a.setData(vehicle);
 		return a;
 	}
@@ -135,7 +135,6 @@ public class BackController
 	@RequestMapping("/search1")
 	public backmsg search1(@RequestParam("demoReload1") String demoReload1)
 	{
-		backmsg a = new backmsg();
 		List<Vehicle> vehicle = backStageMyService.search1(demoReload1);
 		a.setData(vehicle);
 		return a;
@@ -144,6 +143,7 @@ public class BackController
 	@RequestMapping("/del")
 	public void del(@RequestParam("vid") String vid)
 	{
+
 		backStageMyService.del(vid);
 	}
 
@@ -253,7 +253,133 @@ public class BackController
 		response.getWriter().write(new Gson().toJson(drivingschools));
 		response.getWriter().flush();
 	}
+	@RequestMapping("/searchbrand")
+	public backmsg searchbrand(@RequestParam("brand")String brand){
+		int i=backStageMyService.countbrand(brand);
+		List<Vehicle> vehicle = backStageMyService.searchbrand(brand);
+		a.setCount(i);
+		a.setData(vehicle);
+		return a;
+	}
+	@RequestMapping("/searchmodel")
+	public backmsg searchmodel(@RequestParam("model")String model){
+		int i=backStageMyService.countmodel(model);
+		List<Vehicle> vehicle = backStageMyService.searchmodel(model);
+		a.setCount(i);
+		a.setData(vehicle);
+		return a;
+	}
+	@RequestMapping("/tableall")
+	public backmsgall talbleall(@RequestParam("page") int page, @RequestParam("limit") int limit){
+
+		page = (page - 1) * limit;
+		List<Backstage> objects=backStageMyService.tableall(page, limit);
+		int i=backStageMyService.backcount();
+		backmsgall.setCode(0);
+		backmsgall.setCount(i);
+		backmsgall.setMsg(0);
+		backmsgall.setData(objects);
+		return backmsgall;
+	}
+
+	@RequestMapping("/backdel")
+	public void backdel(@RequestParam("bid")String bid){
+		backStageMyService.backdel(bid);
+	}
+	@RequestMapping("/stop")
+	public void stop(@RequestParam("bid")String bid){
+		backStageMyService.stop(bid);
+	}
+	@RequestMapping("/start")
+	public void start(@RequestParam("bid")String bid){
+backStageMyService.start(bid);
+	}
+	@RequestMapping("/edit")
+	public void edit(@RequestParam("bid")String bid){
+backStageMyService.edit(bid);
+	}
+	@RequestMapping("/addbackuser")
+	public void adduser(@RequestParam("bacc")String bacc,@RequestParam("bpass")String bpass,@RequestParam("bname")String bname,@RequestParam("bstate")String bstate){
+backStageMyService.addbackuser(bacc, bpass, bname, bstate);
+	}
+	@RequestMapping("/backsearchacc")
+	public backmsgall backsearchacc(@RequestParam("bacc")String bacc){
+		List<Backstage> backstages=backStageMyService.backsearchacc(bacc);
+		if(backstages.size()==0){
+			System.out.println("进来了");
+			backmsgall.setCode(0);
+			backmsgall.setCount(0);
+			backmsgall.setMsg(0);
+			backmsgall.setData(backstages);
+
+		}else{
+			int i=backstages.get(0).getC();
+			backmsgall.setCode(0);
+			backmsgall.setCount(i);
+			backmsgall.setMsg(0);
+			backmsgall.setData(backstages);
+		}
 
 
+		return backmsgall;
+	}
+	@RequestMapping("/backsearchname")
+	public backmsgall backsearchname(@RequestParam("bname")String bname){
+		List<Backstage> backstages=backStageMyService.backsearchname(bname);
+		if(backstages.size()==0){
+			backmsgall.setCode(0);
+			backmsgall.setCount(0);
+			backmsgall.setMsg(0);
+			backmsgall.setData(backstages);
+		}else{
+			int i=backstages.get(0).getC();
+			backmsgall.setCode(0);
+			backmsgall.setCount(i);
+			backmsgall.setMsg(0);
+			backmsgall.setData(backstages);
+		}
+		return backmsgall;
+	}
+	@RequestMapping("/backsearchstate")
+	public backmsgall backsearchstate(@RequestParam("bstate")String bstate){
+		List<Backstage> backstages=backStageMyService.backsearchstate(bstate);
+		if(backstages.size()==0){
+			backmsgall.setCode(0);
+			backmsgall.setCount(0);
+			backmsgall.setMsg(0);
+			backmsgall.setData(backstages);
+		}else{
+			int i=backstages.get(0).getC();
+			backmsgall.setCode(0);
+			backmsgall.setCount(i);
+			backmsgall.setMsg(0);
+			backmsgall.setData(backstages);
+		}
+		return backmsgall;
+	}
+	@RequestMapping("/selectavatar")
+	public void selectavatar(HttpServletRequest request,HttpServletResponse response) throws IOException
+	{
+		HttpSession session = request.getSession();
+		Practise id=(Practise)session.getAttribute("practise");
+		String msg=backStageMyService.selectavatar(id.getPid());
+		System.out.println(msg+"头像地址");
+		response.setContentType("text/html; charset =utf-8");
+		response.getWriter().write(new Gson().toJson(msg));
+		response.getWriter().flush();
+	}
+	@RequestMapping("/updateavatar")
+	public void updateavatar(@RequestParam("avatar")String avatar,@RequestParam("updatename")String updatename,@RequestParam("updatepass")String updatepass,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		Practise id=(Practise)session.getAttribute("practise");
+			backStageMyService.updateavatar(avatar,id.getPid());
+		 if(updatepass.equals("")){
+			backStageMyService.updatename(updatename,id.getPid());
+		}else if(updatename.equals("")){
+			backStageMyService.updatepass(updatepass,id.getPid());
+		}else{
+			backStageMyService.updateinfo(updatename,updatepass,id.getPid());
+		}
+	}
 }
 

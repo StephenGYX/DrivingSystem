@@ -75,6 +75,7 @@ public class FrontLoginController
 		System.out.println(reqMap);
 		String roleid = request.getSession().getAttribute("roleid") + "";
 		String CODE = request.getSession().getAttribute("CODE") + "";
+		System.out.println(CODE);
 		String code = reqMap.get("code");
 		if (!code.equalsIgnoreCase(CODE))
 		{
@@ -209,7 +210,7 @@ public class FrontLoginController
 		System.out.println("DSCupdatainfo" + reqMap.get("dscParams"));
 
 		String dscParams = request.getParameter("dscParams");
-
+		String dsynopsis = request.getParameter("dsynopsis");
 		Map<String, Object> updata = new HashMap<String, Object>();
 		;
 		if (dscParams != null)
@@ -218,6 +219,7 @@ public class FrontLoginController
 			JSONObject a = JSONObject.fromObject(dscParams);
 			updata = (Map<String, Object>) a;
 		}
+		updata.put("dsynopsis",dsynopsis);
 		if (updata != null)
 		{
 			i = manageDSCService.updatedscinfo(updata);
@@ -246,11 +248,11 @@ public class FrontLoginController
 			did = "default";
 		}
 		;
-		String jxxx = reqMap.get("jxxx");
-		if (jxxx == null || jxxx.equals(""))
-		{
-			jxxx = "error";
-		}
+//		String jxxx = reqMap.get("jxxx");
+//		if (jxxx == null || jxxx.equals(""))
+//		{
+//			jxxx = "error";
+//		}
 
 		System.out.println("reqmap" + reqMap);
 
@@ -279,7 +281,7 @@ public class FrontLoginController
 				;
 				file.transferTo(dest);
 				System.out.println("第" + (i + 1) + "个文件上传成功");
-				manageDSCService.instertimage(did, showFilePath, jxxx);
+				manageDSCService.updatadscimage(did, showFilePath);
 
 
 			} catch (IOException e)
@@ -311,7 +313,8 @@ public class FrontLoginController
 		{
 			daccount = "default";
 		}
-		;	System.out.println("daccount " + daccount);
+		;
+		System.out.println("daccount " + daccount);
 		Drivingschool dsc = manageDSCService.queryDSCbydaccount(daccount);
 		String did = dsc.getDid() + "";
 		System.out.println("reqmap" + reqMap);
@@ -342,7 +345,8 @@ public class FrontLoginController
 				file.transferTo(dest);
 				System.out.println("第" + (i + 1) + "个文件上传成功");
 				//写入数据库
-				manageDSCService.instertimage(did, showFilePath, "2");
+				//				manageDSCService.instertimage(did, showFilePath, "2");
+				manageDSCService.updatezigeimage(did, showFilePath);
 				HashMap<String, String> data = new HashMap<>();
 				data.put("src", filePath);
 				fileUploadMsg.setData(data);
@@ -387,7 +391,7 @@ public class FrontLoginController
 	public int queryaccount(HttpServletRequest req)
 	{
 		String daccount = req.getParameter("daccount");
-		System.out.println("daccount"+daccount);
+		System.out.println("daccount" + daccount);
 		Drivingschool DSC = manageDSCService.queryDSCbydaccount(daccount);
 		System.out.println(DSC);
 		if (DSC == null)

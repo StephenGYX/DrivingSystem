@@ -120,6 +120,15 @@ public class ManageDSCService
 	{return manageDSCMapper.queryDSCbydaccount(daccount);
 	}
 
+	public void updatezigeimage(String did, String showFilePath)
+	{
+		 manageDSCMapper.updatezigeimage(did,showFilePath);
+	}
+
+	public void updatadscimage(String did, String showFilePath)
+	{manageDSCMapper.updatadscimage(did,showFilePath);
+	}
+
 	;
 
 }

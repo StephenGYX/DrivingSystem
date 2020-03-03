@@ -173,9 +173,9 @@ GROUP BY pdrivingid;
         <if test="remark!=null and remark.trim()!=''">
             dsynopsis=#{remark},
         </if>
-<!--        <if test="email!=null and email.trim()!=''">-->
-<!--            demail=#{email},-->
-<!--        </if>-->
+        <if test="dsynopsis!=null and dsynopsis!=''">
+            dsynopsis=#{dsynopsis},
+        </if>
     </set>
     where did=#{did}
 </update>
@@ -229,5 +229,15 @@ GROUP BY pdrivingid;
     select * from drivingschool where daccount=#{daccount};
 </select>
 
+
+    <update id="updatezigeimage" parameterType="map">
+        update drivingschool set zigeimage=#{zigeimage}
+        where did=#{did};
+    </update>
+
+    <update id="updatadscimage" parameterType="map">
+        update drivingschool set dschoolimage=#{dschoolimage}
+        where did=#{did};
+    </update>
 </mapper>
 	

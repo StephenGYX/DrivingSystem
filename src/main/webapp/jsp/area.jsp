@@ -394,7 +394,7 @@ margin-top: 20px;" id="demo2"
 						alert("注册成功");
 						layer.msg("注册成功", {icon: 6});
 						$('#sureup').click();
-						window.location=="<%=path%>"+"/jsp/frontlogin3.jsp";
+						window.location.href=="<%=path%>"+"/jsp/frontlogin3.jsp";
 					} else {
 						// alert("222");
 						alert("注册失败");

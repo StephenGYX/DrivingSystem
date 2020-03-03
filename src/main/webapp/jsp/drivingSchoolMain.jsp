@@ -57,7 +57,7 @@
 		<ul class="layui-nav layui-layout-right">
 			<li class="layui-nav-item">
 				<a href="javascript:;">
-					<img src=<%=path+"/images/headphoto.jpg"%> class="layui-nav-img">
+					<img src='<%=path%>/${sessionScope.drivingschool.dschoolimage}' class="layui-nav-img">
 					${sessionScope.drivingschool.dname}
 				</a>
 				<dl class="layui-nav-child">

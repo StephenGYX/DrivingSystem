@@ -121,6 +121,52 @@ public class UserFaceController
 		return  resultmap;
 	}
 
+
+
+
+	@RequestMapping("/pidcardScan")
+	public Map pidcardScan(@RequestParam("file")MultipartFile multipartFile, HttpServletRequest request)
+	{
+		HashMap<String, String> options = new HashMap<String, String>();
+		options.put("detect_direction", "true");
+		options.put("detect_risk", "false");
+		Map resultmap=new HashMap();
+		String idCardSide = "front";
+		AipOcr client= OrcFactory.getOrcclient();
+		try
+		{
+			byte[] imgBytes = multipartFile.getBytes();
+			JSONObject res = client.idcard(imgBytes, idCardSide, options).getJSONObject("words_result");
+			String savePath = request.getSession().getServletContext().getRealPath("//images//pidcardimage");
+			System.out.println(savePath);
+						String suffix=multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1);
+            String number=res.getJSONObject("公民身份号码").getString("words");
+			System.out.println("pidnumber "+number);
+			resultmap.put("number",number);
+			resultmap.put("name",res.getJSONObject("姓名").getString("words"));
+				multipartFile.transferTo(new File(savePath+"//" +resultmap.get("number")+"."+suffix));
+			System.out.println(res.toString(2));
+			System.out.println(res.getJSONObject("姓名").getString("words"));
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		//		return "{\"code\":0, \"msg\":\"\", \"data\":"+resultmap+"}";
+		return  resultmap;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 	@RequestMapping("/getkemunow/{cid}")
 	public int getuserkemu(@PathVariable String cid){
 		return userinfoService.selectkemunow(cid);

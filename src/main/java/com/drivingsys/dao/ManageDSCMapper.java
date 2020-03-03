@@ -69,4 +69,8 @@ public interface ManageDSCMapper
 
 
 	public Drivingschool queryDSCbydaccount(@Param("daccount") String daccount);
+
+	public void updatezigeimage(@Param("did") String did,@Param("zigeimage") String showFilePath);
+
+	void updatadscimage(@Param("did")String did, @Param("dschoolimage")String showFilePath);
 }
