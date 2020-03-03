@@ -60,22 +60,22 @@ public class UserRealm extends AuthorizingRealm
 			AuthenticationToken authenticationToken) throws AuthenticationException
 	{
 
-		System.out.println("===执行认证===");
+		System.out.println("===UserRealm执行认证===");
 
 		UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
 		Map map = new HashMap();
 		map.put("account",token.getUsername());
 		System.out.println(String.valueOf(token.getPassword()));
 		map.put("password",String.valueOf(token.getPassword()));
-		Consumer bean = userService.queryConsumer(map);
+		Consumer consumer = userService.queryConsumer(map);
 
-		if(null == bean){
+		if(null == consumer){
 			throw new UnknownAccountException();
 		}
 
-		ByteSource credentialsSalt = ByteSource.Util.bytes(bean.getCaccount());
+		ByteSource credentialsSalt = ByteSource.Util.bytes(consumer.getCaccount());
 
-		return new SimpleAuthenticationInfo(bean.getCaccount(), bean.getCpassword(), credentialsSalt, getName());
+		return new SimpleAuthenticationInfo(consumer.getCaccount(), consumer.getCpassword(), credentialsSalt, getName());
 	}
 
 

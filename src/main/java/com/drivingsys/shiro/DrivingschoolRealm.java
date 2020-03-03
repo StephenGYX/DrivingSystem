@@ -56,7 +56,7 @@ public class DrivingschoolRealm extends AuthorizingRealm
 			AuthenticationToken authenticationToken) throws AuthenticationException
 	{
 
-		System.out.println("===执行认证===");
+		System.out.println("===DrivingschoolRealm执行认证===");
 
 		UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
 		Map map = new HashMap();

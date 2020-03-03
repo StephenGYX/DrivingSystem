@@ -65,9 +65,10 @@ public class ShiroConfig {
 		// 设置登录成功跳转Url
 		bean.setSuccessUrl("/");
 		// 设置登录跳转Url
-		bean.setLoginUrl("/");
+		bean.setLoginUrl("/jsp/frontlogin3.jsp");
 		// 设置未授权提示Url
 		bean.setUnauthorizedUrl("/");
+
 
 		/**
 		 * anon：匿名用户可访问
@@ -87,6 +88,7 @@ public class ShiroConfig {
 		filterMap.put("/images/**","anon");
 		filterMap.put("/*reg","anon");
 		filterMap.put("/**/*Login","anon");
+		filterMap.put("/jsp/**","authc");
 		filterMap.put("/user/index","authc");
 		filterMap.put("/vip/index","roles[vip]");
 		filterMap.put("/druid/**", "anon");
@@ -101,6 +103,7 @@ public class ShiroConfig {
 
 	/**
 	 * 注入 securityManager
+	 * 用来链接realms和subject(用户)
 	 */
 	@Bean(name="securityManager")
 	public DefaultWebSecurityManager getDefaultWebSecurityManager(

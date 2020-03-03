@@ -6,7 +6,12 @@ import com.drivingsys.bean.backmenu.BackMenu;
 import com.drivingsys.service.BackMenuService;
 import com.drivingsys.service.FrontLoginService;
 import com.drivingsys.service.ManageDSCService;
+import com.drivingsys.shiro.UserToken;
 import net.sf.json.JSONObject;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,9 +78,11 @@ public class FrontLoginController
 	public String testMain(@RequestParam Map<String, String> reqMap, HttpServletRequest request)
 	{
 		System.out.println(reqMap);
+
 		String roleid = request.getSession().getAttribute("roleid") + "";
 		String CODE = request.getSession().getAttribute("CODE") + "";
 		String code = reqMap.get("code");
+		System.out.println("角色："+roleid);
 		if (!code.equalsIgnoreCase(CODE))
 		{
 			System.out.println("验证码错误");
@@ -88,61 +95,52 @@ public class FrontLoginController
 		{
 			roleid = "4";
 		}
-		System.out.println("roleid=" + roleid);
-		if (roleid.equals("3"))
-		{
+			String roleName="";
+			System.out.println("roleid=" + roleid);
+			if (roleid.equals("3"))
+			{
+				roleName = "Practise";
 
-			Practise practise = frontLoginService.queryPractiseAccount(reqMap);
-			if (practise == null)
+			} else if (roleid.equals("2"))
 			{
-				System.out.println("没找到教练");
-				request.getSession().setAttribute("fmsg", "2");
-				return "2";
-			} else
+				roleName = "Drivingschool";
+
+			} else if (roleid.equals("4"))
 			{
-				System.out.println("找到了教练");
-				//				request.getSession().invalidate();
-				clearanysession(request);
-				request.getSession().setAttribute("practise", practise);
-				return "20";
+				roleName = "User";
+
 			}
+			Subject currentUser = SecurityUtils.getSubject();
+
+				UsernamePasswordToken usernamePasswordToken = new UserToken(reqMap.get("account"), reqMap.get("password"), roleName);
+				try
+				{
+					currentUser.login(usernamePasswordToken);
+					if (roleid.equals("3"))
+					{
+						Practise practise = frontLoginService.queryPractiseAccount(reqMap);
+						request.getSession().setAttribute("practise", practise);
+						return "20";
+					} else if (roleid.equals("2"))
+					{
+						Drivingschool drivingschool = frontLoginService.queryDrivingschool(reqMap);
+						request.getSession().setAttribute("drivingschool", drivingschool);
+						return "30";
+					} else if (roleid.equals("4"))
+					{
+						Consumer consumer = frontLoginService.queryConsumer(reqMap);
+						request.getSession().setAttribute("consumer", consumer);
+						return "10";
+					}
+
+				} catch (AuthenticationException e)
+				{
+
+					return "2";
+				}
 
 
-		} else if (roleid.equals("2"))
-		{
-			Drivingschool drivingschool = frontLoginService.queryDrivingschool(reqMap);
-			if (drivingschool == null)
-			{
-				System.out.println("没找到驾校");
 
-				request.getSession().setAttribute("fmsg", "2");
-				return "2";
-			} else
-			{
-				System.out.println("找到了驾校");
-				clearanysession(request);
-				request.getSession().setAttribute("drivingschool", drivingschool);
-				//				return "DSCHinfo";
-				return "30";
-			}
-		} else if (roleid.equals("4"))
-		{
-			Consumer consumer = frontLoginService.queryConsumer(reqMap);
-			if (consumer == null)
-			{
-				System.out.println("没找到学生");
-				request.getSession().setAttribute("fmsg", "2");
-				return "2";
-			} else
-			{
-				System.out.println("找到了学生");
-				//				request.getSession().invalidate();
-				clearanysession(request);
-				request.getSession().setAttribute("consumer", consumer);
-
-				return "10";
-			}
-		}
 		return "frontlogin3";
 	}
 

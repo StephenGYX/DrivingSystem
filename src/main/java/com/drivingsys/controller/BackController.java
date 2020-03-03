@@ -5,6 +5,8 @@ import com.drivingsys.bean.Vehicle;
 import com.drivingsys.bean.backmsg;
 import com.drivingsys.service.BackStageMyServiceImpl;
 import com.google.gson.Gson;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,10 +66,12 @@ public class BackController
 		{
 			if (pass.equals(pass1))
 			{
-				backStageMyService.adduser(account, pass, phone, sex, age, name, email, idcard, wechat);
+				ByteSource salt=ByteSource.Util.bytes(account);
+				Object md5pwd= new SimpleHash("MD5",pass,salt,2);
+				backStageMyService.adduser(account, md5pwd.toString(), phone, sex, age, name, email, idcard, wechat);
 				String u = "注册成功";
 				request.setAttribute("cg", u);
-				modelAndView.setViewName("/backlogin");
+				modelAndView.setViewName("/frontlogin3");
 			} else
 			{
 				System.out.println("密码错误");
@@ -89,8 +93,10 @@ public class BackController
 		{
 			sex = "女";
 		}
-		backStageMyService.addpuser(driving, account, pass, sex, age, phone, email, name, idcard, resume, workexperience);
-		modelAndView.setViewName("/backlogin");
+		ByteSource salt=ByteSource.Util.bytes(account);
+		Object md5pwd= new SimpleHash("MD5",pass,salt,2);
+		backStageMyService.addpuser(driving, account, md5pwd.toString(), sex, age, phone, email, name, idcard, resume, workexperience);
+		modelAndView.setViewName("/frontlogin3");
 		return modelAndView;
 	}
 
