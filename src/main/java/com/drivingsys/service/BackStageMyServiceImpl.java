@@ -1,5 +1,6 @@
 package com.drivingsys.service;
 
+import com.drivingsys.bean.Backstage;
 import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Vehicle;
 import com.drivingsys.dao.BackStageMyMapper;
@@ -49,6 +50,20 @@ public class BackStageMyServiceImpl implements BackStageMyService
 	}
 
 	@Override
+	public List<Vehicle> searchbrand(String brand)
+	{
+		List<Vehicle> vehicles =backStageMyMapper.searchbrand(brand);
+return vehicles;
+	}
+
+	@Override
+	public List<Vehicle> searchmodel(String model)
+	{
+		List<Vehicle> vehicles=backStageMyMapper.searchmodel(model);
+		return vehicles;
+	}
+
+	@Override
 	public void del(String vid)
 	{
 		backStageMyMapper.del(vid);
@@ -95,10 +110,128 @@ public class BackStageMyServiceImpl implements BackStageMyService
 	}
 
 	@Override
+	public int countnum(String num)
+	{
+		int i =backStageMyMapper.countnum(num);
+		return  i;
+	}
+
+	@Override
+	public int countbrand(String brand)
+	{
+		int i=backStageMyMapper.countbrand(brand);
+		return i;
+
+	}
+
+	@Override
+	public int countmodel(String model)
+	{
+		int i=backStageMyMapper.countmodel(model);
+		return i;
+	}
+
+	@Override
 	public List<Drivingschool> driving()
 	{
 		List<Drivingschool> drivingschools=backStageMyMapper.driving();
 		return drivingschools;
+	}
+
+	@Override
+	public List<Backstage> tableall(int page, int limit)
+	{
+		List<Backstage> objects=backStageMyMapper.tableall(page, limit);
+		return objects;
+	}
+
+	@Override
+	public void backdel(String bid)
+	{
+		backStageMyMapper.backdel(bid);
+	}
+
+	@Override
+	public void stop(String bid)
+	{
+		backStageMyMapper.stop(bid);
+	}
+
+	@Override
+	public void start(String bid)
+	{
+		backStageMyMapper.start(bid);
+	}
+
+	@Override
+	public void edit(String bid)
+	{
+		backStageMyMapper.edit(bid);
+	}
+
+	@Override
+	public void addbackuser(String bacc, String bpass, String bname, String bstate)
+	{
+		backStageMyMapper.addbackuser(bacc, bpass, bname, bstate);
+	}
+
+	@Override
+	public int backcount()
+	{
+		int i=backStageMyMapper.backcount();
+		return i;
+	}
+
+	@Override
+	public List<Backstage> backsearchacc(String bacc)
+	{
+		List<Backstage> backstages=backStageMyMapper.backsearchacc(bacc);
+		return backstages;
+	}
+
+	@Override
+	public List<Backstage> backsearchname(String bname)
+	{
+		List<Backstage> backstages=backStageMyMapper.backsearchname(bname);
+		return backstages;
+	}
+
+	@Override
+	public List<Backstage> backsearchstate(String bstate)
+	{
+		List<Backstage> backstages =backStageMyMapper.backsearchstate(bstate);
+		return backstages;
+	}
+
+	@Override
+	public String selectavatar(Long pid)
+	{
+		String msg=backStageMyMapper.selectavatar(pid);
+		return msg;
+	}
+
+	@Override
+	public void updateavatar(String avatar, Long pid)
+	{
+		backStageMyMapper.updateavatar(avatar, pid);
+	}
+
+	@Override
+	public void updatename(String updatename, Long pid)
+	{
+		backStageMyMapper.updatename(updatename,pid);
+	}
+
+	@Override
+	public void updatepass(String updatepass, Long pid)
+	{
+		backStageMyMapper.updatepass(updatepass, pid);
+	}
+
+	@Override
+	public void updateinfo(String updatename, String updatepass, Long pid)
+	{
+		backStageMyMapper.updateinfo(updatename, updatepass, pid);
 	}
 
 

@@ -1,13 +1,14 @@
 package com.drivingsys.bean;
 
+
 import java.util.List;
 
-public class backmsg
+public class backmsgall
 {
 	private Integer code;
 	private Integer msg;
 	private int count;
-	private List<Vehicle> data;
+	private List<Backstage> data;
 
 	public Integer getCode()
 	{
@@ -39,15 +40,14 @@ public class backmsg
 		this.count = count;
 	}
 
-	public List<Vehicle> getData()
+	public List<Backstage> getData()
 	{
 		return data;
 	}
 
-	public void setData(List<Vehicle> data)
+	public void setData(List<Backstage> data)
 	{
 		this.data = data;
 	}
-
 
 }
