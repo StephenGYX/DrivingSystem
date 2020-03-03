@@ -160,14 +160,6 @@ To change this template use File | Settings | File Templates.
 					</div>
 				</div>
 
-				<div class="layui-upload-list">
-					<button type="button" class="layui-btn" id="test2">
-						<i class="layui-icon">&#xe67c;</i>驾校头像上传
-					</button>
-					<img class="layui-upload-img" style="width: 150px;height: 150px;padding-left: 100px" id="demo3"
-					     src="">
-				</div>
-
 				<div class="layui-form-item">
 					<div class="layui-input-block">
 						<button class="layui-btn" lay-submit lay-filter="saveBtn">确认保存</button>
@@ -249,17 +241,16 @@ To change this template use File | Settings | File Templates.
 
 		searchByStationName(map)
 	}
-
 	function searchByStationName(map) {
 		var localSearch = new BMap.LocalSearch(map);
 		var keyword = document.getElementById("suggestId").value;
 		localSearch.setSearchCompleteCallback(function (searchResult) {
 			var poi = searchResult.getPoi(0);
-			alert(poi.point.lng + "," + poi.point.lat); //获取经度和纬度，将结果显示在文本框中
+			alert(poi.point.lng + "," + poi.point.lat) ; //获取经度和纬度，将结果显示在文本框中
 			// map.centerAndZoom(poi.point, 13);
-			document.getElementById("longitude").value = poi.point.lng
+			document.getElementById("longitude").value=poi.point.lng
 			// $("#longitude").val(poi.point.lng+"")
-			document.getElementById("latitude").value = poi.point.lat
+			document.getElementById("latitude").value=poi.point.lat
 			// $("#latitude").val(poi.point.lat+"")
 		});
 		localSearch.search(keyword);
@@ -324,13 +315,9 @@ To change this template use File | Settings | File Templates.
 			, done: function (res) {
 				var a = $("#upstate").val();
 				//上传完毕回调
-				// if (a === "yanzheng") {
 				layer.msg("上传成功", {icon: 6});
-
 				$("#name").val(res.name);
 				$("#number").val(res.number)
-				// }
-
 				// alert(res.number)
 			}
 			, error: function () {
@@ -373,6 +360,8 @@ To change this template use File | Settings | File Templates.
 		//监听提交
 		form.on('submit(saveBtn)', function (data) {
 			var formData = data.field;
+
+
 			var tip2 = $("#tip2").val();
 			alert("tip2 value " + tip2);
 			$("#upstate").val("sureup");

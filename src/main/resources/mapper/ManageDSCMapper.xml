@@ -173,11 +173,9 @@ GROUP BY pdrivingid;
         <if test="remark!=null and remark.trim()!=''">
             dsynopsis=#{remark},
         </if>
-
-        <!--        <if test="email!=null and email.trim()!=''">-->
-        <!--            demail=#{email},-->
-        <!--        </if>-->
-
+<!--        <if test="email!=null and email.trim()!=''">-->
+<!--            demail=#{email},-->
+<!--        </if>-->
     </set>
     where did=#{did}
 </update>

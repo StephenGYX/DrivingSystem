@@ -223,7 +223,10 @@ public class FrontLoginController
 			i = manageDSCService.updatedscinfo(updata);
 		}
 
-
+		//		int i=frontLoginService.instertDSC(del);
+		//
+		//
+		//		System.out.println("操作条数"+i);
 		return i;
 
 	}
