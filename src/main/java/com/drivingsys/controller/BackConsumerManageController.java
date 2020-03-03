@@ -220,6 +220,10 @@ public class BackConsumerManageController
 		String startTime = request.getParameter("startTime");
 		String stopTime = request.getParameter("stopTime");
 		String cpritiseid = request.getParameter("param");
+		String pidSearch = request.getParameter("pidSearch");
+
+
+		System.out.println("cpritiseid----------------------"+cpritiseid);
 
 		String did = findDid(request);
 
@@ -234,6 +238,7 @@ public class BackConsumerManageController
 		paramMap.put("startTime",startTime);
 		paramMap.put("stopTime",stopTime);
 		paramMap.put("cpritiseid",cpritiseid);
+		paramMap.put("pidSearch",pidSearch);
 		paramMap.put("did",did);
 
 
@@ -417,6 +422,25 @@ public class BackConsumerManageController
 
 		return modelAndView;
 	}
+	@RequestMapping("toPeiXun")
+	@ResponseBody
+	public ModelAndView toPeiXun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+
+		String pid = findPid(request);
+
+		System.out.println();
+		ModelAndView modelAndView = new ModelAndView();
+		List<Practise> practises = drivingSchoolManageService.queryAllPractise();
+		modelAndView.addObject("practises",practises);
+		modelAndView.addObject("findDid",pid);
+		modelAndView.setViewName("backConsumerManagePeiXunTable");
+
+		return modelAndView;
+	}
+
+
+
 
 	@RequestMapping("examPass")
 	@ResponseBody
@@ -456,5 +480,21 @@ public class BackConsumerManageController
 		return jsonStr;
 
 	}
+	public String findPid(HttpServletRequest request){
 
+		String pid="";
+		//驾校端登录
+		Object o = request.getSession().getAttribute("practise");
+		if (o != null)
+		{
+			System.out.println("教练登录------------------");
+			Practise p=(Practise)o;
+			pid=p.getPid()+"";
+		}else {
+			System.out.println("后台登录------------------");
+			//后台查询驾校列表
+			pid = request.getParameter("pid");
+		}
+		return pid;
+	}
 }

@@ -291,31 +291,27 @@ public class FrontLoginController
 	}
 
 
-
-
-
-
-
 	@RequestMapping("dscregup")
 	@ResponseBody
-	public String dscreguploadFile(HttpServletRequest request, @RequestParam Map<String, String> reqMap) throws IOException
+	public FileUploadMsg dscreguploadFile(HttpServletRequest request, @RequestParam Map<String, String> reqMap) throws IOException
 	{
-		System.out.println("进入驾校注册身份证上传方法");
+
+		FileUploadMsg fileUploadMsg = new FileUploadMsg();
+		System.out.println("进入驾校注册驾校资格证上传方法");
 		//获取文件上传的位置:这里文件上传的路径无法确保在工程目录下(所以需要获取tomcat服务器下的路径)
 		String path = request.getSession().getServletContext().getRealPath("/images");
+		System.out.println("reqmap" + reqMap);
 
-		String did = reqMap.get("did");
-		if (did == null || did.equals(""))
-		{
-			did = "default";
-		}
-		;
-		String jxxx = reqMap.get("jxxx");
-		if (jxxx == null || jxxx.equals(""))
-		{
-			jxxx = "error";
-		}
+		String daccount = reqMap.get("account");
 
+		System.out.println("daccount " + daccount);
+		if (daccount == null || daccount.equals(""))
+		{
+			daccount = "default";
+		}
+		;	System.out.println("daccount " + daccount);
+		Drivingschool dsc = manageDSCService.queryDSCbydaccount(daccount);
+		String did = dsc.getDid() + "";
 		System.out.println("reqmap" + reqMap);
 
 		List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
@@ -324,7 +320,7 @@ public class FrontLoginController
 			MultipartFile file = files.get(i);
 			if (file.isEmpty())
 			{
-				return "上传第" + (i++) + "个文件失败";
+				return fileUploadMsg;
 			}
 			String fileName = file.getOriginalFilename();
 			System.out.println("fileName" + fileName);
@@ -343,29 +339,24 @@ public class FrontLoginController
 				;
 				file.transferTo(dest);
 				System.out.println("第" + (i + 1) + "个文件上传成功");
-				manageDSCService.instertimage(did, showFilePath, jxxx);
-
+				//写入数据库
+				manageDSCService.instertimage(did, showFilePath, "2");
+				HashMap<String, String> data = new HashMap<>();
+				data.put("src", filePath);
+				fileUploadMsg.setData(data);
 
 			} catch (IOException e)
 			{
 				//				LOGGER.error(e.toString(), e);
 				System.out.println("异常");
-				return "上传第" + (i++) + "个文件失败";
+				return fileUploadMsg;
 			}
 		}
-		return "全部成功";
+
+
+		return fileUploadMsg;
+		//		return "全部成功";
 	}
-
-
-
-
-
-
-
-
-
-
-
 
 
 	@RequestMapping("/getyzm")
@@ -387,4 +378,24 @@ public class FrontLoginController
 		int height = 40;//高
 		VerifyCodeUtils.outputImage(width, height, resp.getOutputStream(), verifyCode);
 	}
+
+
+	@RequestMapping("/queryaccount")
+	@ResponseBody
+	public int queryaccount(HttpServletRequest req)
+	{
+		String daccount = req.getParameter("daccount");
+		System.out.println("daccount"+daccount);
+		Drivingschool DSC = manageDSCService.queryDSCbydaccount(daccount);
+		System.out.println(DSC);
+		if (DSC == null)
+		{
+			return 1;
+		}
+
+		return 2;
+
+	}
+
+
 }

@@ -19,7 +19,7 @@ To change this template use File | Settings | File Templates.
 	<meta name="format-detection" content="telephone=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<link rel="stylesheet" href="../css/chat.css">
+	<link rel="stylesheet" href="../css/char.css">
 	<script type="text/javascript" src=<%=path+"/lib/jquery-3.4.1/jquery-3.4.1.min.js"%>></script>
 
 

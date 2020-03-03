@@ -34,7 +34,30 @@ public class Drivingschool {
 	private String studentName;
 	private List<Examination> myExaminations;
 	private Examination examination;
+	private String idnumber;
+	private String zigeimage;
 
+
+	public String getIdnumber()
+	{
+		return idnumber;
+	}
+
+	public void setIdnumber(String idnumber)
+	{
+		this.idnumber = idnumber;
+	}
+
+
+	public String getZigeimage()
+	{
+		return zigeimage;
+	}
+
+	public void setZigeimage(String zigeimage)
+	{
+		this.zigeimage = zigeimage;
+	}
 
 	public String getStudentName()
 	{

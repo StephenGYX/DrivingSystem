@@ -106,11 +106,11 @@ public class UserFaceController
 			JSONObject res = client.idcard(imgBytes, idCardSide, options).getJSONObject("words_result");
 			String savePath = request.getSession().getServletContext().getRealPath("//images");
 			System.out.println(savePath);
-			String suffix=multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1);
+//			String suffix=multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1);
 
 			resultmap.put("number",res.getJSONObject("公民身份号码").getString("words"));
 			resultmap.put("name",res.getJSONObject("姓名").getString("words"));
-			multipartFile.transferTo(new File(savePath+"//" +resultmap.get("number")+"."+suffix));
+//			multipartFile.transferTo(new File(savePath+"//" +resultmap.get("number")+"."+suffix));
 			System.out.println(res.toString(2));
 			System.out.println(res.getJSONObject("姓名").getString("words"));
 		} catch (IOException e)

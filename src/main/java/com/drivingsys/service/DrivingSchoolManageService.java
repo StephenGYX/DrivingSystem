@@ -71,4 +71,7 @@ public interface DrivingSchoolManageService
 	//查询全部驾校
 	public List<Drivingschool> queryAllSchool() ;
 
+	//查询全部教练
+	public List<Practise> queryAllPractise() ;
+
 }

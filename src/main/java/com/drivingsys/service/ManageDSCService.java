@@ -116,6 +116,10 @@ public class ManageDSCService
 		manageDSCMapper.instertimage(did, lujing,jxxx);
 	}
 
+	public Drivingschool queryDSCbydaccount(String daccount)
+	{return manageDSCMapper.queryDSCbydaccount(daccount);
+	}
+
 	;
 
 }

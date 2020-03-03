@@ -45,13 +45,15 @@ public interface ManageDSCMapper
 
 	List<Drivingschool> queryqianDSC(Map<String, Object> reqMap, RowBounds rowBounds);
 
-//审核页面查询
+	//审核页面查询
 	List<Drivingschool> QueryDSCshenhe(Map<String, Object> reqMap, RowBounds rowBounds);
-//审核页面查询条数
+
+	//审核页面查询条数
 	long QueryDSCshenheCount(Map<String, Object> reqMap);
 
 	int updatedscinfo(Map<String, Object> updata);
-@Select("select * from kecheng where did=#{did}")
+
+	@Select("select * from kecheng where did=#{did}")
 	List<Kecheng> QueryDSCkecheng(Map<String, Object> search, RowBounds rowBounds);
 
 	int instertkecheng(Map<String, Object> reqMap);
@@ -59,8 +61,12 @@ public interface ManageDSCMapper
 	int updatakecheng(Map<String, Object> reqMap);
 
 	int delkecheng(@Param("kid") String kid);
+
 	@Select("select count(*) from kecheng where did=#{did}")
 	long QueryDSCkechengcount(Map<String, Object> search);
 
-	public void instertimage(@Param("did") String did,@Param("lujing") String lujing, @Param("leixing") String jxxx);
+	public void instertimage(@Param("did") String did, @Param("lujing") String lujing, @Param("leixing") String jxxx);
+
+
+	public Drivingschool queryDSCbydaccount(@Param("daccount") String daccount);
 }

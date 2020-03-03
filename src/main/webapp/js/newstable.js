@@ -7,9 +7,9 @@ window.onload = function () {
 	// alert(path+"/file/filedownload.action");
 };
 
-layui.use(['table','jquery'], function () {
+layui.use(['table', 'jquery'], function () {
 	var table = layui.table;
-	var $=layui.jquery;
+	var $ = layui.jquery;
 
 	table.render({
 		elem: '#test'
@@ -125,7 +125,7 @@ layui.use(['table','jquery'], function () {
 			layer.confirm('是否确认删除该文章？', function (index) {
 				if (data.jstatue === 3) {
 					layer.msg("该文章已被删除，请勿重复点击！");
-				}else{
+				} else {
 					$.ajax({
 						type: "post"
 						, url: path + '/homepage/updateNewsStatue'
@@ -151,22 +151,20 @@ layui.use(['table','jquery'], function () {
 				}
 				layer.close(index);
 			});
-		}
-		else if(obj.event === 'edit'){
+		} else if (obj.event === 'edit') {
 			layer.open({
 				type: 2,
-				area: ['90%','90%'],
+				area: ['90%', '90%'],
 				title: false,
 				offset: '20px',
 				shadeClose: true,
-				scrollbar:true,
+				scrollbar: true,
 				content: ['editdemo.jsp'],
-				success:function (layero,index) {
-					var iframe=window['layui-layer-iframe'+index];
+				success: function (layero, index) {
+					var iframe = window['layui-layer-iframe' + index];
 					iframe.selectinfo(data);
 				}
-			}
-			);
+			});
 		}
 	});
 });
@@ -194,6 +192,5 @@ layui.use(['table', 'layer', 'form', 'laypage', 'laydate'], function () {
 		});
 		return false;//false：阻止表单跳转  true：表单跳转
 	});
-
 });
 
