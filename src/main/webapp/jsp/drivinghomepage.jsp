@@ -14,7 +14,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>教育培训类驾校官网-首页</title>
+	<title>传一驾校官网-首页</title>
 	<meta name="description" content="XX驾驶学校提供优质服务，采用廉政教学，圆您一个学车梦，让学车变得更简单！">
 	<meta name="keywords" content="驾驶学校  优质服务  廉政教学  学车">
 	<link rel="shortcut icon" href="">
@@ -41,6 +41,11 @@
 	<link rel="stylesheet"
 	      href="https://static.xcx.co.ltd/assets/lib/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css?_v=202002231700">
 
+
+	<script type="text/javascript" src=<%=path + "/js/jquery-3.4.1.js"%>></script>
+	<script src="<%=path+"/lib/layer/layer.js"%>"></script>
+
+
 	<script src="https://static.xcx.co.ltd/assets/lib/jquery/3.1.1/jquery.min.js?_v=202002231700"></script>
 	<script src="https://static.xcx.co.ltd/assets/lib/bootstrap/3.3.7/js/bootstrap.min.js?_v=202002231700"></script>
 	<script src="https://static.xcx.co.ltd/assets/lib/jquery_lazyload/1.9.7/jquery.lazyload.min.js?_v=202002231700"></script>
@@ -60,23 +65,39 @@
 
 	<%--	置顶滚轮效果--%>
 	<style>
-		.wraper{
-			width:960px;
-			margin:0 auto
+		.wraper {
+			width: 960px;
+			margin: 0 auto
 		}
-		.top_arrow{
-			border:0 none;
-			bottom:150px;
-			cursor:pointer;
-			display:none;
-			height:auto;
-			margin:0;
-			opacity:0.5;
-			padding:0;
-			position:fixed;
-			right:40px;
-			width:35px;
-			z-index:2147483647;
+
+		.top_arrow {
+			border: 0 none;
+			bottom: 150px;
+			cursor: pointer;
+			display: none;
+			height: auto;
+			margin: 0;
+			opacity: 0.5;
+			padding: 0;
+			position: fixed;
+			right: 40px;
+			width: 35px;
+			z-index: 2147483647;
+		}
+
+		.top_kefu {
+			border: 0 none;
+			bottom: 195px;
+			cursor: pointer;
+			display: none;
+			height: auto;
+			margin: 0;
+			opacity: 0.5;
+			padding: 0;
+			position: fixed;
+			right: 40px;
+			width: 35px;
+			z-index: 2147483647;
 		}
 	</style>
 	<style>
@@ -402,6 +423,9 @@
 </head>
 
 <body class="pc">
+<%--<div>--%>
+<%--	<button id="fancybox" >点击me</button>--%>
+<%--</div>--%>
 
 <input type="hidden" id="hid" value=<%=path%>>
 
@@ -434,10 +458,11 @@
 										}
 
 									</style>
-									<a style="" href="<%=path+"/homepage/drivingSchool"%>"><img class="gw-browse-component-content"
-									                          style="width:93px;max-width:none;height:24px;max-height:none;opacity:1;"
-									                          alt=""
-									                          src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-07/15014676714704.png"/></a>
+									<a style="" href="<%=path+"/homepage/drivingSchool"%>"><img
+											class="gw-browse-component-content"
+											style="width:93px;max-width:none;height:24px;max-height:none;opacity:1;"
+											alt=""
+											src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-07/15014676714704.png"/></a>
 								</div>
 							</div>
 							<div class="nav-component">
@@ -581,7 +606,8 @@
 									<div class="module-145688-components-nav-1501482126373-7437 gw-browse-component-content"
 									     style="background-color: transparent">
 										<div class="gw-nav-cont"><a target="_self" class="gw-nav" style=""
-										                            href="<%=path+"/homepage/drivingSchool"%>">首页</a></div>
+										                            href="<%=path+"/homepage/drivingSchool"%>">首页</a>
+										</div>
 										<div class="gw-nav-cont" id="school"><a target="_self" class="gw-nav" style=""
 										                                        href="#drivingschool">品牌驾校</a></div>
 										<div class="gw-nav-cont" id="news1"><a target="_self" class="gw-nav" style=""
@@ -589,7 +615,8 @@
 										<div class="gw-nav-cont" id="exam1"><a target="_self" class="gw-nav" style=""
 										                                       href="#gw-module-146157">考试攻略</a></div>
 										<div class="gw-nav-cont"><a target="_self" class="gw-nav" style=""
-										                            href=<%=path + "/homepage/returnSchoolJoinMain"%>>驾校加盟</a></div>
+										                            href=<%=path + "/homepage/returnSchoolJoinMain"%>>驾校加盟</a>
+										</div>
 										<div class="gw-nav-cont"><a target="_self" class="gw-nav" style=""
 										                            href=<%=path + "/jsp/frontlogin3.jsp"%>>用户登录</a>
 										</div>
@@ -998,54 +1025,56 @@
 								     id="module-146158-components-article-1501479106113-3181"
 								     style="top:209px;left:399px;width:768px;height:520px;">
 									<div class="gw-browse-component-content row">
-									<c:if test="${sessionScope.newsList !=null}">
-										<c:forEach items="${sessionScope.newsList}" begin="0" end="3" var="newsList">
-										<div class="col-xs-12 article_style_5">
-											<a href="<%=path+"/homepage/queryNewsWithId/"%>${newsList.jid}" target="_blank">
-												<div class="article_style_5_content">
-												<div class="article_date">
+										<c:if test="${sessionScope.newsList !=null}">
+											<c:forEach items="${sessionScope.newsList}" begin="0" end="3"
+											           var="newsList">
+												<div class="col-xs-12 article_style_5">
+													<a href="<%=path+"/homepage/queryNewsWithId/"%>${newsList.jid}"
+													   target="_blank">
+														<div class="article_style_5_content">
+															<div class="article_date">
 														<span class="article_ss"
 														      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">${newsList.jday}</span>
-													<span class="article_yy"
-													      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">${newsList.jyear}</span>
-													<span class="article_xiegang"
-													      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">/</span>
-													<span class="article_yy"
-													      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">${newsList.jmonth}</span>
+																<span class="article_yy"
+																      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">${newsList.jyear}</span>
+																<span class="article_xiegang"
+																      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">/</span>
+																<span class="article_yy"
+																      style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">${newsList.jmonth}</span>
+															</div>
+															<div>
+																<p class="article_title"
+																   style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">
+																		${newsList.jtitle}</p>
+																<p class="article_abstract"
+																   style="font-size:14px;font-family:微软雅黑;font-style:normal;color:rgb(102, 102, 102);">
+																		${newsList.jabstract}
+															</div>
+														</div>
+													</a>
 												</div>
-													<div>
-														<p class="article_title"
-														   style="font-size:16px;font-family:微软雅黑;font-style:normal;color:rgb(51, 51, 51);">
-																${newsList.jtitle}</p>
-														<p class="article_abstract"
-														   style="font-size:14px;font-family:微软雅黑;font-style:normal;color:rgb(102, 102, 102);">
-																${newsList.jabstract}
-													</div>
-												</div>
-											</a>
-										</div>
-										</c:forEach>
-									</c:if>
+											</c:forEach>
+										</c:if>
 
 
 									</div>
 								</div>
 							</div>
-<%--							<div class="images-component">--%>
-<%--								<div class="gw-browse-component" id="module-146158-components-images-1501479541610-1449"--%>
-<%--								     style="top:760px;left:475px;width:218px;height:65px;">--%>
-<%--									<style>--%>
-<%--										#module-146157-components-images-1501479541610-1449 .gw-image-hoverShadow:hover img {--%>
-<%--											box-shadow: 0px 0px 10px 1px #ababab !important;--%>
-<%--										}--%>
+							<%--							<div class="images-component">--%>
+							<%--								<div class="gw-browse-component" id="module-146158-components-images-1501479541610-1449"--%>
+							<%--								     style="top:760px;left:475px;width:218px;height:65px;">--%>
+							<%--									<style>--%>
+							<%--										#module-146157-components-images-1501479541610-1449 .gw-image-hoverShadow:hover img {--%>
+							<%--											box-shadow: 0px 0px 10px 1px #ababab !important;--%>
+							<%--										}--%>
 
-<%--									</style>--%>
-<%--									<a style="" href="<%=path+"/homepage/drivingschool"%>"><img class="gw-browse-component-content animated bounceIn"--%>
-<%--									                               style="width:218px;max-width:none;height:65px;max-height:none;opacity:1;"--%>
-<%--									                               alt=""--%>
-<%--									                               src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-07/15014675213641.png"/></a>--%>
-<%--								</div>--%>
-<%--							</div>--%>
+							<%--									</style>--%>
+							<%--									<a style="" href="<%=path+"/homepage/drivingschool"%>"><img class="gw-browse-component-content animated bounceIn"--%>
+							<%--									                               style="width:218px;max-width:none;height:65px;max-height:none;opacity:1;"--%>
+							<%--									                               alt=""--%>
+							<%--									                               src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-07/15014675213641.png"/></a>--%>
+							<%--								</div>--%>
+							<%--							</div>--%>
 							<div class="images-component">
 								<div class="gw-browse-component" id="module-146158-components-images-1510112053349-7731"
 								     style="top:210px;left:0;width:361px;height:489px;">
@@ -1112,9 +1141,11 @@
 								     style="top:209px;left:399px;width:768px;height:520px;">
 									<div class="gw-browse-component-content row">
 										<c:if test="${sessionScope.strategyList !=null}">
-											<c:forEach items="${sessionScope.strategyList}" begin="0" end="3" var="strategyList">
+											<c:forEach items="${sessionScope.strategyList}" begin="0" end="3"
+											           var="strategyList">
 												<div class="col-xs-12 article_style_5">
-													<a href="<%=path+"/homepage/queryNewsWithId/"%>${strategyList.jid}" target="_blank">
+													<a href="<%=path+"/homepage/queryNewsWithId/"%>${strategyList.jid}"
+													   target="_blank">
 														<div class="article_style_5_content">
 															<div class="article_date">
 														<span class="article_ss"
@@ -1142,21 +1173,21 @@
 									</div>
 								</div>
 							</div>
-<%--							<div class="images-component">--%>
-<%--								<div class="gw-browse-component" id="module-146157-components-images-1501479541610-1449"--%>
-<%--								     style="top:760px;left:475px;width:218px;height:65px;">--%>
-<%--									<style>--%>
-<%--										#module-146157-components-images-1501479541610-1449 .gw-image-hoverShadow:hover img {--%>
-<%--											box-shadow: 0px 0px 10px 1px #ababab !important;--%>
-<%--										}--%>
+							<%--							<div class="images-component">--%>
+							<%--								<div class="gw-browse-component" id="module-146157-components-images-1501479541610-1449"--%>
+							<%--								     style="top:760px;left:475px;width:218px;height:65px;">--%>
+							<%--									<style>--%>
+							<%--										#module-146157-components-images-1501479541610-1449 .gw-image-hoverShadow:hover img {--%>
+							<%--											box-shadow: 0px 0px 10px 1px #ababab !important;--%>
+							<%--										}--%>
 
-<%--									</style>--%>
-<%--									<a style="" href="<%=path+"/homepage/drivingschool"%>"><img class="gw-browse-component-content animated bounceIn"--%>
-<%--									                               style="width:218px;max-width:none;height:65px;max-height:none;opacity:1;"--%>
-<%--									                               alt=""--%>
-<%--									                               src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-07/15014675213641.png"/></a>--%>
-<%--								</div>--%>
-<%--							</div>--%>
+							<%--									</style>--%>
+							<%--									<a style="" href="<%=path+"/homepage/drivingschool"%>"><img class="gw-browse-component-content animated bounceIn"--%>
+							<%--									                               style="width:218px;max-width:none;height:65px;max-height:none;opacity:1;"--%>
+							<%--									                               alt=""--%>
+							<%--									                               src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-07/15014675213641.png"/></a>--%>
+							<%--								</div>--%>
+							<%--							</div>--%>
 							<div class="images-component">
 								<div class="gw-browse-component" id="module-146157-components-images-1510112053349-7731"
 								     style="top:210px;left:0;width:361px;height:489px;">
@@ -1201,10 +1232,11 @@
 										}
 
 									</style>
-									<a style="" href="<%=path+"/homepage/drivingSchool"%>"><img class="gw-browse-component-content animated bounceIn"
-									                          style="width:93px;max-width:none;height:26px;max-height:none;opacity:1;"
-									                          alt=""
-									                          src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-07/15014676714704.png"/></a>
+									<a style="" href="<%=path+"/homepage/drivingSchool"%>"><img
+											class="gw-browse-component-content animated bounceIn"
+											style="width:93px;max-width:none;height:26px;max-height:none;opacity:1;"
+											alt=""
+											src="https://uploadfile.xcx.co.ltd/uploadfile/image/0/0/559/2017-07/15014676714704.png"/></a>
 								</div>
 							</div>
 							<div class="images-component">
@@ -1363,7 +1395,8 @@
 									<div class="gw-browse-component-content animated bounceIn"
 									     style="font-family:微软雅黑;font-size:14px;font-weight:normal;font-style:normal;color:rgb(153, 153, 153);background-color:transparent;line-height:26px;text-decoration:none;text-align:left;">
 										<a target="_blank" style="color:rgb(153, 153, 153);"
-										   href="http://wpa.qq.com/msgrd?v=3&uin=22222&site=qq&menu=yes" class="gw-nav">${sessionScope.buttonlink.workQQ}</a>
+										   href="http://wpa.qq.com/msgrd?v=3&uin=22222&site=qq&menu=yes"
+										   class="gw-nav">${sessionScope.buttonlink.workQQ}</a>
 									</div>
 								</div>
 							</div>
@@ -1644,36 +1677,82 @@
 
 
 <script type="text/javascript">
-	$(function(){
+	$(function () {
 		var $img = $('<img alt="Top_arrow" class="top_arrow" id="top_arrow" src="<%=path+"/images/top.png"%>" />');
 		$("body").append($img);
 		$(window).scroll(
-			function(){
+			function () {
 				$(window).scrollTop() > 20 ? $img.fadeIn(400) : $img.fadeOut(400)
 			});
 		$("body, html").scroll(
-			function(){
+			function () {
 				$("body,html").scrollTop() > 20 ? $img.fadeIn(400) : $img.fadeOut(400)
 			});
 		$img.click(
-			function(){
-				$("body,html").animate({scrollTop:0},400);
+			function () {
+				$("body,html").animate({scrollTop: 0}, 400);
 			});
 
 		$("#top_arrow").hide(),
 			$(window).scroll(
-				function(){
+				function () {
 					$(window).scrollTop() > 20 ? $("#top_arrow").fadeIn(400) : $("#top_arrow").fadeOut(400)
 				}),
 			$("body, html").scroll(
-				function(){
+				function () {
 					$("body,html").scrollTop() > 20 ? $("#top_arrow").fadeIn(400) : $("#top_arrow").fadeOut(400)
 				}),
 			$("#top_arrow").click(
-				function(){
-					$("body,html").animate({scrollTop:0},400);
+				function () {
+					$("body,html").animate({scrollTop: 0}, 400);
 				})
 
+	});
+</script>
+
+<script type="text/javascript">
+	$(function () {
+		var $img = $('<img alt="top_kefu" class="top_kefu" id="top_kefu" src="<%=path+"/images/kefu.png"%>" />');
+		$("body").append($img);
+		$(window).scroll(
+			function () {
+				$(window).scrollTop() > 20 ? $img.fadeIn(400) : $img.fadeOut(400)
+			});
+		$("body, html").scroll(
+			function () {
+				$("body,html").scrollTop() > 20 ? $img.fadeIn(400) : $img.fadeOut(400)
+			});
+		$img.click(
+			function () {
+				// $("body,html").animate({scrollTop:0},400);
+			});
+
+		$("#top_kefu").hide(),
+			$(window).scroll(
+				function () {
+					$(window).scrollTop() > 20 ? $("#top_kefu").fadeIn(400) : $("#top_kefu").fadeOut(400)
+				}),
+			$("body, html").scroll(
+				function () {
+					$("body,html").scrollTop() > 20 ? $("#top_kefu").fadeIn(400) : $("#top_kefu").fadeOut(400)
+				}),
+			$("#top_kefu").click(
+				function () {
+
+					layer.open({
+						type: 2,
+						area: ['42%', '95%'],
+						title: false,
+						offset: '20px',
+						shadeClose: true,
+						scrollbar: true,
+						content: ['returnChattest'],
+						// success: function (layero, index) {
+						// 	var iframe = window['layui-layer-iframe' + index];
+						// 	iframe.selectinfo(data);
+						// }
+					});
+				})
 	});
 </script>
 

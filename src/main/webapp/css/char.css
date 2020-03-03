@@ -42,9 +42,9 @@ body {
 .chat-main {
     position: fixed;
     display: none;
-    right: 100px;
+    right: 10px;
     bottom: 10px;
-    width: 650px;
+    width: 550px;
     height: 800px;
     border-radius: 4px;
     box-shadow: 0 0 5px rgba(0, 0, 0, .4);
@@ -109,7 +109,7 @@ body {
     color: #000;
     border-radius: 50%;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, .2);
-    background-image: url("../images/1/22.jpg");
+    background-image: url("../images/kefuhead.png");
 }
 
 .chat-service-title {
@@ -134,7 +134,7 @@ body {
     display: inline-block;
     position: relative;
     padding: 10px;
-    max-width: 120px;
+    max-width: 250px;
     color:black;
     white-space: pre-wrap;
     border: 1px solid #ffff7d;

@@ -22,7 +22,6 @@ To change this template use File | Settings | File Templates.
 	<link rel="stylesheet" href="../css/char.css">
 	<script type="text/javascript" src=<%=path+"/lib/jquery-3.4.1/jquery-3.4.1.min.js"%>></script>
 
-
 </head>
 <body>
 <div class="chat-wrapper">
@@ -45,8 +44,8 @@ To change this template use File | Settings | File Templates.
 			<div class="chat-service-info">
 				<a class="chat-service-img"></a>
 				<div class="chat-service-title">
-					<p class="chat-service-name">客服1</p>
-					<p class="chat-service-detail">我是您的专属客服</p>
+					<p class="chat-service-name">客服小姐姐</p>
+					<p class="chat-service-detail">传一驾校网专属客服</p>
 				</div>
 			</div>
 		</div>
@@ -62,7 +61,7 @@ To change this template use File | Settings | File Templates.
 			          placeholder="请输入您想对我说的话，按Enter键发送（shift+Enter换行）。"></textarea>
 			<div class="chat-input-tools">
 				<button class="chat-input-button">发送</button>
-				<button class="chat-service-simulator">模拟</button>
+<%--				<button class="chat-service-simulator">模拟</button>--%>
 				<button class="chat-close-button">关闭</button>
 			</div>
 		</div>
@@ -82,7 +81,7 @@ To change this template use File | Settings | File Templates.
 		$('.chat-main').animate({'height': '600px'})
 	}
 
-	// openBody();
+	openBody();
 	// 模拟一些后端传输数据
 	var serviceData = {
 		'robot': {
@@ -165,7 +164,7 @@ To change this template use File | Settings | File Templates.
 		openBody();
 	});
 
-	btnClose.addEventListener('click', closeChat)
+	btnClose.addEventListener('click', closeChat);
 
 	/*创建新消息框*/
 	function createInfo(name, value) {
@@ -189,7 +188,7 @@ To change this template use File | Settings | File Templates.
 		chatContain.scrollTop = chatContain.scrollHeight;
 	}
 
-	createInfo('service', '您好');
+	createInfo('service', '您好,欢迎来到传一驾校网,请问有什么能够帮您~');
 	// createInfo('you', '客户'); /*发送第一句话*/
 	var timer,
 		timerId,
