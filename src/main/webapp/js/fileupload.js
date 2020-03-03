@@ -1,11 +1,11 @@
 var hidNode;
-var path;
-
-window.onload = function () {
-	hidNode = document.getElementById("hid");
-	path = hidNode.value;
-	// alert(path+'/buttonlink/updateButtonLink');
-};
+// var path;
+//
+// window.onload = function () {
+// 	hidNode = document.getElementById("hid");
+// 	path = hidNode.value;
+// 	// alert(path+'/buttonlink/updateButtonLink');
+// };
 
 layui.use(['upload','layer','form'], function() {
 	var $ = layui.jquery
@@ -50,8 +50,9 @@ layui.use(['upload','layer','form'], function() {
 			layer.load(); //上传loading
 		}
 		,done: function(res, index, upload){
-			if(res.code === 0){
-				alert("上传成功");
+			console.log(res);
+			if(res.code === "0"){
+				layer.msg("修改成功");
 			}
 			layer.closeAll('loading'); //关闭loading
 		}
@@ -62,7 +63,6 @@ layui.use(['upload','layer','form'], function() {
 
 	//监听提交
 	form.on('submit(demo1)', function(data){
-		console.log(data.field);
 		$('#test9').click();
 		return false;
 	});
