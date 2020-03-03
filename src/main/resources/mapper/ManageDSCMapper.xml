@@ -226,8 +226,10 @@ GROUP BY pdrivingid;
         INSERT INTO dschoolimages (did, lujing, leixing)
         values (#{did},#{lujing},#{leixing})
     </insert>
-
-
+<!--    @Select("select * from drivingschool where daccount=#{daccount}")-->
+<select id="queryDSCbydaccount" parameterType="map" resultType="com.drivingsys.bean.Drivingschool">
+    select * from drivingschool where daccount=#{daccount};
+</select>
 
 </mapper>
 	

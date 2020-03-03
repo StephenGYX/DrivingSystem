@@ -131,6 +131,20 @@
             <version>1.2.41</version>
         </dependency>
 
+
+
+
+        <!--httpcomponents的包-->
+<!--        构建跨域访问post请求的sevice-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.5</version>
+        </dependency>
+
+
+
+
     </dependencies>
 
     <build>
