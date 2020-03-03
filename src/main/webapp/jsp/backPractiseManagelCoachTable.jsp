@@ -205,7 +205,7 @@
 					},
 
 
-					{field: 'page', title: '年龄', minWidth: 150},
+					{field: 'page', title: '年龄', minWidth: 90},
 					{title: '操作', minWidth: 400, templet: '#currentTableBar', fixed: "right", align: "center"}
 				]],
 				limits: [5, 10, 15],

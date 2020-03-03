@@ -90,6 +90,9 @@
 			<if test="selectParam.cpritiseid!=null and selectParam.cpritiseid.trim()!='' ">
 				and  cpritiseid =#{selectParam.cpritiseid}
 			</if>
+			<if test="selectParam.pidSearch!=null and selectParam.pidSearch.trim()!='' ">
+				and  cpritiseid =#{selectParam.pidSearch}
+			</if>
 			<if test="selectParam.userAccount!=null and selectParam.userAccount.trim()!='' ">
 				and   caccount like '%${selectParam.userAccount}%'
 			</if>
@@ -309,6 +312,12 @@
 	<!--查看全部驾校-->
 	<select id="queryAllSchool" resultType="com.drivingsys.bean.Drivingschool">
 		select * from drivingschool
+
+	</select>
+
+	<!--查看全部驾校-->
+	<select id="queryAllPractise" resultType="com.drivingsys.bean.Practise">
+		select * from practise
 
 	</select>
 
