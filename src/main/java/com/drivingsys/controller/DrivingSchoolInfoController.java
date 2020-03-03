@@ -76,15 +76,18 @@ public class DrivingSchoolInfoController
 				count++;
 			};
 		}
-
-		System.out.println("正确的评论人数"+count);
-
 		request.getSession().setAttribute("countEval",count);
-
+//		System.out.println("正确的评论人数"+count);
 //		System.out.println(	"评分            "+drivingSchoolInfo.get(0).getDevaluatescore());
 
 		return "1";
 	}
+
+	@RequestMapping("toFrontDrivingPage")
+	public String toFrontDrivingPage(){
+		return "frontDrivingSchoolInfo";
+	}
+
 	//跳到前端登录面
 	@RequestMapping("toFrontLogin")
 	@ResponseBody

@@ -135,4 +135,10 @@ public class DrivingSchoolManageServiceImpl implements DrivingSchoolManageServic
 	{
 		return drivingSchoolManageMapper.queryAllSchool();
 	}
+
+	@Override
+	public List<Practise> queryAllPractise()
+	{
+		return drivingSchoolManageMapper.queryAllPractise();
+	}
 }
