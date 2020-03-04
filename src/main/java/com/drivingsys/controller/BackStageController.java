@@ -64,37 +64,37 @@ public class BackStageController
 			msg = "3";
 		} else
 		{
-			Backstage backstage = backStageService.queryBackStageAccount(reqMap);
-			if (backstage != null)
-			{
-
-				//先清空session
-				request.getSession().invalidate();
-				//将该用户放入session域中
-				request.getSession().setAttribute("backstage", backstage);
-				msg = "1";
-			} else
-			{
-				msg = "2";
-			}
-//			Subject currentUser= SecurityUtils.getSubject();
-//			if (!currentUser.isAuthenticated())
+//			Backstage backstage = backStageService.queryBackStageAccount(reqMap);
+//			if (backstage != null)
 //			{
-//				UsernamePasswordToken usernamePasswordToken = new UserToken(reqMap.get("account"), reqMap.get("password"),);
-//				try
-//				{
-//					currentUser.login(usernamePasswordToken);
-//					//调用service查找账户的方法
-//					Backstage backstage = backStageService.queryBackStageAccount(reqMap);
-//					//将该用户放入session域中
-//					request.getSession().setAttribute("backstage", backstage);
-//					msg = "1";
-//				} catch (AuthenticationException e)
-//				{
-//					e.printStackTrace();
-//					msg = "2";
-//				}
+//
+//				//先清空session
+//				request.getSession().invalidate();
+//				//将该用户放入session域中
+//				request.getSession().setAttribute("backstage", backstage);
+//				msg = "1";
+//			} else
+//			{
+//				msg = "2";
 //			}
+			Subject currentUser= SecurityUtils.getSubject();
+			if (!currentUser.isAuthenticated())
+			{
+				UsernamePasswordToken usernamePasswordToken = new UserToken(reqMap.get("account"), reqMap.get("password"),"Backstage");
+				try
+				{
+					currentUser.login(usernamePasswordToken);
+					//调用service查找账户的方法
+					Backstage backstage = backStageService.queryBackStageAccount(reqMap);
+					//将该用户放入session域中
+					request.getSession().setAttribute("backstage", backstage);
+					msg = "1";
+				} catch (AuthenticationException e)
+				{
+					e.printStackTrace();
+					msg = "2";
+				}
+			}
 		}
 
 		return msg;

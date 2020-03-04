@@ -54,6 +54,13 @@ public class ShiroConfig {
 		drivingschoolRealm.setCredentialsMatcher(matcher);
 		return drivingschoolRealm;
 	}
+	@Bean("backstageRealm")
+	public BackstageRealm backstageRealm(@Qualifier("hashedCredentialsMatcher") HashedCredentialsMatcher matcher) {
+
+		BackstageRealm backstageRealm = new BackstageRealm();
+		backstageRealm.setCredentialsMatcher(matcher);
+		return backstageRealm;
+	}
 
 
 	@Bean
@@ -79,6 +86,7 @@ public class ShiroConfig {
 		 **/
 		Map<String, String> filterMap = new LinkedHashMap<>();
 		filterMap.put("/jsp/frontlogin3.jsp","anon");
+		filterMap.put("/jsp/area.jsp","anon");
 		filterMap.put("/js/**","anon");
 		filterMap.put("/css/**","anon");
 		filterMap.put("/lib/**","anon");
@@ -88,9 +96,8 @@ public class ShiroConfig {
 		filterMap.put("/images/**","anon");
 		filterMap.put("/*reg","anon");
 		filterMap.put("/**/*Login","anon");
-		filterMap.put("/jsp/**","authc");
-		filterMap.put("/user/index","authc");
 		filterMap.put("/backPractise/**","roles[practise]");
+		filterMap.put("/jsp/**","authc");
 		filterMap.put("/druid/**", "anon");
 		filterMap.put("/static/**","anon");
 
@@ -116,6 +123,7 @@ public class ShiroConfig {
 		realms.add(drivingschoolRealm(hashedCredentialsMatcher));
 		realms.add(practiseRealm(hashedCredentialsMatcher));
 		realms.add(userRealm(hashedCredentialsMatcher));
+		realms.add(backstageRealm(hashedCredentialsMatcher));
 		securityManager.setRealms(realms);
 
 		return securityManager;
