@@ -97,6 +97,8 @@
 <script type="text/javascript" src="<%=path+"/js/fileupload.js"%>" charset="utf-8"></script>
 
 <script>
+	var path = "<%=path%>";
+
 	layui.use(['form', 'layer', 'laydate', 'jquery'], function () {
 		var form = layui.form,
 			layer = layui.layer,
