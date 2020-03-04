@@ -32,10 +32,10 @@
             // };
             var chartData = [
 
-                <c:forEach items="${chartList}" var="i" begin="0" varStatus="a">
+                <c:forEach items="${studentCountByPid}" var="i" begin="0" varStatus="a">
                 {
                 "country": "${i.pname}",
-                "visits": ${i.num} ,
+                "studentNum": ${i.num} ,
                 "color": '#'+Math.floor(Math.random()*16777215).toString(16)
                 },
 
@@ -62,7 +62,7 @@
 
                 graphs: [{
 
-                    valueField: "visits",
+                    valueField: "studentNum",
                     colorField: "color",
                     type: "column",
                     lineAlpha: 0,
@@ -109,7 +109,7 @@
     </head>
 
     <body>
-		<span style="font-family: Arial; font-size: 10px; color: #CC0000;">
+    <span  style="font-family: Arial;margin-left:40%;font-size:150%; color: #CC0000; ">
             查看教练的学员数<br><br>
 <%--			<p>Warning! Exporting to image works only if you view this file from web server. Exporting works with all modern browsers except IE9 (works fine with IE10)</p>--%>
 		</span>

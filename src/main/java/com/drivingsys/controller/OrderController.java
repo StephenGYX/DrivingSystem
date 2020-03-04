@@ -99,6 +99,7 @@ public class OrderController {
 			SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
 			map.put("time",dateFormat.format(calendar.getTime()));
 
+
 			drivingSchoolInfoService.insertBaoMing(map);
 		}
 
