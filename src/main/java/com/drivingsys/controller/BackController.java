@@ -5,6 +5,10 @@ import com.drivingsys.bean.Vehicle;
 import com.drivingsys.bean.backmsg;
 import com.drivingsys.service.BackStageMyServiceImpl;
 import com.google.gson.Gson;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
+import org.apache.shiro.web.util.SavedRequest;
+import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,10 +68,12 @@ public class BackController
 		{
 			if (pass.equals(pass1))
 			{
-				backStageMyService.adduser(account, pass, phone, sex, age, name, email, idcard, wechat);
+				ByteSource salt=ByteSource.Util.bytes(account);
+				Object md5pwd= new SimpleHash("MD5",pass,salt,2);
+				backStageMyService.adduser(account, md5pwd.toString(), phone, sex, age, name, email, idcard, wechat);
 				String u = "注册成功";
 				request.setAttribute("cg", u);
-				modelAndView.setViewName("/backlogin");
+				modelAndView.setViewName("/frontlogin3");
 			} else
 			{
 				System.out.println("密码错误");
@@ -77,6 +83,24 @@ public class BackController
 			System.out.println("输入有误");
 		}
 		return modelAndView;
+	}
+
+	@RequestMapping("/toLogin")
+	public ModelAndView toLogin(HttpServletRequest request){
+		SavedRequest savedRequest = WebUtils.getSavedRequest(request);
+		String url=savedRequest.getRequestUrl();
+		if (url.contains("back")){
+			modelAndView.setViewName("/backlogin");
+		}else
+		{
+			modelAndView.setViewName("/frontlogin3");
+		}
+		return modelAndView;
+	}
+	@RequestMapping("/nonerole")
+	public String nonerole(HttpServletRequest request){
+
+		return "您当前没有进行该操作的权限！";
 	}
 
 	@RequestMapping("/preg")
@@ -89,8 +113,10 @@ public class BackController
 		{
 			sex = "女";
 		}
-		backStageMyService.addpuser(driving, account, pass, sex, age, phone, email, name, idcard, resume, workexperience);
-		modelAndView.setViewName("/backlogin");
+		ByteSource salt=ByteSource.Util.bytes(account);
+		Object md5pwd= new SimpleHash("MD5",pass,salt,2);
+		backStageMyService.addpuser(driving, account, md5pwd.toString(), sex, age, phone, email, name, idcard, resume, workexperience);
+		modelAndView.setViewName("/frontlogin3");
 		return modelAndView;
 	}
 

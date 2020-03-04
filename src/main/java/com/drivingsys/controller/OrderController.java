@@ -41,13 +41,13 @@ public class OrderController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "alipay")
-//	String outTradeNo, String subject, String totalAmount, String body
+	//	String outTradeNo, String subject, String totalAmount, String body
 	public String alipay(HttpServletRequest request) throws AlipayApiException {
 		Map<String, String[]> params=request.getParameterMap();
 
 		AlipayBean alipayBean = new AlipayBean();
 		alipayBean.setOut_trade_no(Alipay.getOrdercode());
-//		System.out.println(params.get("kname")[0]);
+		//		System.out.println(params.get("kname")[0]);
 		alipayBean.setSubject( params.get("kname")[0]);
 		alipayBean.setTotal_amount(params.get("kprice")[0]);
 		JSONObject jsonObject=JSONObject.fromObject(params);
@@ -62,7 +62,7 @@ public class OrderController {
 	public String payReturn(HttpServletRequest request)
 	{
 		System.out.println("同步请求");
-//		String tradestate=request.getParameter("trade_status");
+		//		String tradestate=request.getParameter("trade_status");
 		Map<String,String> map=getParasmap(request);
 		try
 		{
@@ -79,8 +79,8 @@ public class OrderController {
 	//支付宝异步请求
 	@RequestMapping("/payNotify")
 	public void payNotify(HttpServletRequest request){
-//		String orderid = request.getParameter("out_trade_no");
-//		String money = request.getParameter("total_amount");
+		//		String orderid = request.getParameter("out_trade_no");
+		//		String money = request.getParameter("total_amount");
 		String tradestate=request.getParameter("trade_status");
 		String baominginfo=request.getParameter("body");
 		System.out.println(baominginfo);

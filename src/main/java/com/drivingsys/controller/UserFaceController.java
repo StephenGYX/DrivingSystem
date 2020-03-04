@@ -34,6 +34,7 @@ public class UserFaceController
 	@RequestMapping("/userfaceadd")
 	public String faceadd(@RequestBody Map<String, String> params){
 		String image=params.get("image");
+		String cid=params.get("cid");
 		System.out.println(image);
 		HashMap<String, String> options = new HashMap<String, String>();
 		options.put("user_info", "user's info");
@@ -44,14 +45,14 @@ public class UserFaceController
 //		String image = "取决于image_type参数，传入BASE64字符串或URL字符串或FACE_TOKEN字符串";
 		String imageType = "BASE64";
 		String groupId = "users";
-		String userId = "user1";
+		String userId = cid;
 		AipFace client =getClient();
 		// 人脸注册
 		JSONObject res = client.addUser(image, imageType, groupId, userId, options);
 		System.out.println(res.toString(2));
 		if ("SUCCESS".equals(res.get("error_msg"))){
 			String face_token = res.getJSONObject("result").get("face_token").toString();
-			if (userinfoService.updateuserface("1",face_token)>0)
+			if (userinfoService.updateuserface(cid,face_token)>0)
 			{
 
 				return "succ";
@@ -65,11 +66,16 @@ public class UserFaceController
 	@RequestMapping("/userfacematch")
 	public String facematch(@RequestBody Map<String, String> params){
 		String image1=params.get("image");
+		String cid = params.get("cid");
 		String Socre = "";
 		if (!"".equals(image1))
 		{
 //			String image2 = "cc01556d463b15e89f8cd774d6b65111";
-			String image2=userinfoService.selectFacetoken("1");
+			String image2=userinfoService.selectFacetoken(cid);
+			if (image2==null)
+			{
+				return "noneface";
+			}
 			// image1/image2也可以为url或facetoken, 相应的imageType参数需要与之对应。
 			MatchRequest req1 = new MatchRequest(image1, "BASE64");
 			MatchRequest req2 = new MatchRequest(image2, "FACE_TOKEN");
@@ -141,6 +147,7 @@ public class UserFaceController
 	@RequestMapping("/getclasshours/{cid}")
 	public Map getclasshours(@PathVariable String cid)
 	{
+
 		return userinfoService.selectclasshours(cid);
 	}
 

@@ -53,11 +53,11 @@ To change this template use File | Settings | File Templates.
 						<img class="layui-upload-img" id="pic_1">
 						<p id="picText_1"></p>
 					</div>
-					<button type="button" class="layui-btn" id="upload_1">上传图片</button>
+					<button type="button" class="layui-btn" id="upload_1" style="margin-left: 30px">上传图片</button>
 				</div>
 			</div>
 		</div>
-		<div class="layui-btn" id="layui-btnn" >保存</div>
+		<div class="layui-btn" id="layui-btnn" style="margin-left: 30px">保存</div>
 </div>
 
 </div>
@@ -120,7 +120,7 @@ To change this template use File | Settings | File Templates.
 				}
 				//上传成功
 				var demoText = $('#picText_1');
-				demoText.html('<span style="color: #4cae4c;">上传成功</span>');
+				demoText.html('<span style="color: #4cae4c;">修改成功</span>');
 				//将后台获取的图片地址传到前台存入隐藏控件中，随着表单一起提交
 				document.getElementById("pic_1_src").value = data.src;
 				console.log("图片地址："+data.src);

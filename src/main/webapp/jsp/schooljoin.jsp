@@ -707,7 +707,7 @@
 <div id="schooljoin">
 	<%--驾校加盟--%>
 	<iframe id="mainContent" style="display: none;border: medium none;" src="<%=path+"/homepage/returnSchoolJoin"%>"
-	        scrolling="no" width="100%" height="800px"></iframe>
+	        scrolling="no" width="100%" height="1500px"></iframe>
 </div>
 
 <!-- 微信弹出二维码模态框 -->
