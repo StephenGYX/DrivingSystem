@@ -1,8 +1,6 @@
 package com.drivingsys.service;
 
-import com.drivingsys.bean.Backstage;
-import com.drivingsys.bean.Drivingschool;
-import com.drivingsys.bean.Vehicle;
+import com.drivingsys.bean.*;
 import com.drivingsys.dao.BackStageMyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +18,13 @@ public class BackStageMyServiceImpl implements BackStageMyService
 
 	{
 		backStageMyMapper.adduser(account,pass,phone,sex,age,name,email,idcard,wechat);
+	}
+
+	@Override
+	public List<Consumer> selectallc()
+	{
+		List<Consumer> consumers=backStageMyMapper.selectallc();
+		return consumers;
 	}
 
 	@Override
@@ -204,9 +209,9 @@ return vehicles;
 	}
 
 	@Override
-	public String selectavatar(Long pid)
+	public List<Practise> selectavatar(Long pid)
 	{
-		String msg=backStageMyMapper.selectavatar(pid);
+		List<Practise> msg=backStageMyMapper.selectavatar(pid);
 		return msg;
 	}
 
@@ -229,9 +234,27 @@ return vehicles;
 	}
 
 	@Override
-	public void updateinfo(String updatename, String updatepass, Long pid)
+	public void updatephone(String updatephone, Long pid)
 	{
-		backStageMyMapper.updateinfo(updatename, updatepass, pid);
+		backStageMyMapper.updatephone(updatephone, pid);
+	}
+
+	@Override
+	public void updateemail(String updateemail, Long pid)
+	{
+		backStageMyMapper.updateemail(updateemail, pid);
+	}
+
+	@Override
+	public void updateidcard(String updateidcard, Long pid)
+	{
+		backStageMyMapper.updateidcard(updateidcard, pid);
+	}
+
+	@Override
+	public void updateresume(String updateresume, Long pid)
+	{
+		backStageMyMapper.updateresume(updateresume, pid);
 	}
 
 

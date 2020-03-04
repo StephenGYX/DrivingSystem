@@ -50,7 +50,7 @@ public class BackController
 
 
 	@RequestMapping("/reg")
-	public ModelAndView reg(@RequestParam("username") String account, @RequestParam("password") String pass, @RequestParam("password1") String pass1, @RequestParam("phone") String phone, @RequestParam("sex") String sex, @RequestParam("age") int age, @RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("idcard") String idcard, @RequestParam("wechat") String wechat, HttpServletRequest request)
+	public ModelAndView reg(@RequestParam("username") String account, @RequestParam("password") String pass, @RequestParam("password1") String pass1, @RequestParam("phone") String phone, @RequestParam("sex") String sex, @RequestParam("age") int age, @RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("idcard") String idcard, @RequestParam("wechat") String wechat, HttpServletResponse response) throws IOException
 	{
 		if (sex.equals("1"))
 		{
@@ -59,23 +59,9 @@ public class BackController
 		{
 			sex = "女";
 		}
-
-		if ((account.replaceAll(" ", "") != null && !"".equals(account.replaceAll(" ", "")) && account.replaceAll(" ", "").length() > 0 && account.replaceAll(" ", "").length() < 16) && (pass.replaceAll(" ", "") != null && !"".equals(pass.replaceAll(" ", "")) && pass.replaceAll(" ", "").length() > 0 && pass.replaceAll(" ", "").length() < 21) && (pass1.replaceAll(" ", "") != null && !"".equals(pass1.replaceAll(" ", "")) && pass1.replaceAll(" ", "").length() > 0 && pass1.replaceAll(" ", "").length() < 21))
-		{
-			if (pass.equals(pass1))
-			{
-				backStageMyService.adduser(account, pass, phone, sex, age, name, email, idcard, wechat);
-				String u = "注册成功";
-				request.setAttribute("cg", u);
-				modelAndView.setViewName("/frontlogin3");
-			} else
-			{
-				System.out.println("密码错误");
-			}
-		} else
-		{
-			System.out.println("输入有误");
-		}
+//		List<Consumer> consumers =backStageMyService.selectallc();
+			backStageMyService.adduser(account, pass, phone, sex, age, name, email, idcard, wechat);
+		modelAndView.setViewName("/frontlogin3");
 		return modelAndView;
 	}
 
@@ -362,24 +348,54 @@ backStageMyService.addbackuser(bacc, bpass, bname, bstate);
 	{
 		HttpSession session = request.getSession();
 		Practise id=(Practise)session.getAttribute("practise");
-		String msg=backStageMyService.selectavatar(id.getPid());
-		System.out.println(msg+"头像地址");
+		List<Practise> msg=backStageMyService.selectavatar(id.getPid());
 		response.setContentType("text/html; charset =utf-8");
 		response.getWriter().write(new Gson().toJson(msg));
 		response.getWriter().flush();
 	}
 	@RequestMapping("/updateavatar")
-	public void updateavatar(@RequestParam("avatar")String avatar,@RequestParam("updatename")String updatename,@RequestParam("updatepass")String updatepass,HttpServletRequest request){
+	public void updateavatar(@RequestParam("avatar")String avatar,@RequestParam("updatepass")String updatepass,HttpServletRequest request){
 		HttpSession session = request.getSession();
 		Practise id=(Practise)session.getAttribute("practise");
+		if(updatepass.equals("")){
 			backStageMyService.updateavatar(avatar,id.getPid());
-		 if(updatepass.equals("")){
-			backStageMyService.updatename(updatename,id.getPid());
-		}else if(updatename.equals("")){
-			backStageMyService.updatepass(updatepass,id.getPid());
 		}else{
-			backStageMyService.updateinfo(updatename,updatepass,id.getPid());
+			backStageMyService.updateavatar(avatar,id.getPid());
+			backStageMyService.updatepass(updatepass,id.getPid());
 		}
+
+
+
+	}
+	@RequestMapping("/updatename")
+	public void updatename(@RequestParam("updatename")String updatename,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		Practise id=(Practise)session.getAttribute("practise");
+		backStageMyService.updatename(updatename,id.getPid());
+	}
+	@RequestMapping("/updatephone")
+	public void updatephone(@RequestParam("updatephone")String updatephone,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		Practise id=(Practise)session.getAttribute("practise");
+		backStageMyService.updatephone(updatephone,id.getPid());
+	}
+	@RequestMapping("/updateemail")
+	public void updateemail(@RequestParam("updateemail")String updateemail,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		Practise id=(Practise)session.getAttribute("practise");
+		backStageMyService.updateemail(updateemail,id.getPid());
+	}
+	@RequestMapping("/updateidcard")
+	public void updateidcard(@RequestParam("updateidcard")String updateidcard,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		Practise id=(Practise)session.getAttribute("practise");
+		backStageMyService.updateidcard(updateidcard,id.getPid());
+	}
+	@RequestMapping("/updateresume")
+	public void updateresume(@RequestParam("updateresume")String updateresume,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		Practise id=(Practise)session.getAttribute("practise");
+		backStageMyService.updateresume(updateresume,id.getPid());
 	}
 }
 

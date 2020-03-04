@@ -19,7 +19,6 @@
 	<script src=<%=Path+"/lib/layui-v2.5.5/layui.js"%>></script>
 	<script type="text/javascript" src=<%=Path+"/lib/jquery-3.4.1/jquery-3.4.1.min.js"%>></script>
 	<script type="text/javascript" src=<%=Path+"/js/json2.js"%>></script>
-	<script type="text/javascript" src=<%=Path+"/js/reg.js"%>></script>
 	<script src=<%=Path+"/js/lay-config.js?v=1.0.4"%> charset="utf-8"></script>
 	<title>Title</title>
 </head>
@@ -90,9 +89,10 @@ padding-top: 100px;">
 		</div>
 	</div>
 
-	<button lay-submit="" lay-filter="suu" class="layui-btn layui-btn-normal tijiao" style="margin-left: 160px">提交</button>
+	<button  lay-submit="" lay-filter="suu" class="layui-btn layui-btn-normal tijiao" style="margin-left: 160px">提交</button>
 </form>
 
 </body>
+<script type="text/javascript" src=<%=Path+"/js/reg.js"%>></script>
 
 </html>

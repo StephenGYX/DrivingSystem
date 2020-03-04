@@ -1,9 +1,6 @@
 package com.drivingsys.service;
 
-import com.drivingsys.bean.Backstage;
-import com.drivingsys.bean.Drivingschool;
-import com.drivingsys.bean.Log;
-import com.drivingsys.bean.Vehicle;
+import com.drivingsys.bean.*;
 
 import java.util.List;
 
@@ -12,6 +9,7 @@ public interface BackStageMyService
 {
 
 	public void adduser(String account,String pass,String phone,String sex,int age,String name,String email,String idcard,String wechat);
+	public List<Consumer> selectallc();
 	public void addpuser(String drivingid,String account,String pass,String sex,int age,String phone,String email,String name,String idcard,String resume,String workexperience);
 	public List<Vehicle> table(Long did, int page, int limit);
 	public List<Vehicle> table1(int page,int limit);
@@ -40,9 +38,12 @@ public interface BackStageMyService
 	public List<Backstage> backsearchacc(String bacc);
 	public List<Backstage> backsearchname(String bname);
 	public List<Backstage> backsearchstate(String bstate);
-	public String selectavatar(Long pid);
+	public List<Practise> selectavatar(Long pid);
 	public void updateavatar(String avatar,Long pid);
 	public void updatename(String updatename,Long pid);
 	public void updatepass(String updatepass,Long pid);
-	public void updateinfo(String updatename,String updatepass,Long pid);
+	public void updatephone(String updatephone,Long pid);
+	public void updateemail(String updateemail,Long pid);
+	public void updateidcard(String updateidcard,Long pid);
+	public void updateresume(String updateresume,Long pid);
 }

@@ -62,7 +62,7 @@
 //	public String payReturn(HttpServletRequest request)
 //	{
 //		System.out.println("同步请求");
-////		String tradestate=request.getParameter("trade_status");
+//		String tradestate=request.getParameter("trade_status");
 //		Map<String,String> map=getParasmap(request);
 //		try
 //		{
@@ -79,10 +79,10 @@
 //	//支付宝异步请求
 //	@RequestMapping("/payNotify")
 //	public void payNotify(HttpServletRequest request){
-////		String orderid = request.getParameter("out_trade_no");
-////		String money = request.getParameter("total_amount");
+//		String orderid = request.getParameter("out_trade_no");
+//		String money = request.getParameter("total_amount");
 //		String tradestate=request.getParameter("trade_status");
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //		String baominginfo=request.getParameter("body");
 //		System.out.println(baominginfo);
 //		System.out.println(tradestate);
@@ -121,62 +121,62 @@
 //		return params;
 //	}
 //}
-=======
-		Map<String,String> map=getParasmap(request);
-		try
-		{
-			boolean verify = AlipaySignature.rsaCheckV1(map, AlipayProperties.getPublicKey(), AlipayProperties.getCharset(), AlipayProperties.getSignType());
-			if (verify)
-			{
-				return "news1";//支付成功跳转路径
-			}
-		}catch (AlipayApiException a){
-
-		}
-		return "newstable"; //支付失败跳转路径
-	}
-	//支付宝异步请求
-	@RequestMapping("/payNotify")
-	public void payNotify(HttpServletRequest request){
+//=======
+//		Map<String,String> map=getParasmap(request);
+//		try
+//		{
+//			boolean verify = AlipaySignature.rsaCheckV1(map, AlipayProperties.getPublicKey(), AlipayProperties.getCharset(), AlipayProperties.getSignType());
+//			if (verify)
+//			{
+//				return "news1";//支付成功跳转路径
+//			}
+//		}catch (AlipayApiException a){
+//
+//		}
+//		return "newstable"; //支付失败跳转路径
+//	}
+//	//支付宝异步请求
+//	@RequestMapping("/payNotify")
+//	public void payNotify(HttpServletRequest request){
 //		String orderid = request.getParameter("out_trade_no");
 //		String money = request.getParameter("total_amount");
-		String tradestate=request.getParameter("trade_status");
-		String baominginfo=request.getParameter("body");
-		System.out.println(baominginfo);
-		System.out.println(tradestate);
-		if (tradestate.equals("TRADE_SUCCESS"))
-		{
-
-			JSONObject  jasonObject = JSONObject.fromObject(baominginfo);
-			Map<String,Object> jsonmap = (Map<String,Object>)jasonObject;
-			Map<String,Object> map = new HashMap<>();
-			//循环加入map集合
-			for (String string : jsonmap.keySet()) {
-				map.put(string,jsonmap.get(string).toString().replace("[","").replace("]",""));
-			}
-			Calendar calendar= Calendar.getInstance();
-			SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
-			map.put("time",dateFormat.format(calendar.getTime()));
-
-			drivingSchoolInfoService.insertBaoMing(map);
-		}
-
-	}
-	public Map<String,String> getParasmap(HttpServletRequest request){
-		Map<String, String> params = new HashMap<>();
-		Map requestMap = request.getParameterMap();
-		for (Iterator it=requestMap.keySet().iterator();it.hasNext();)
-		{
-			String key = (String) it.next();
-			String []values=(String[])requestMap.get(key);
-			String valStr = "";
-			for (int i = 0; i < values.length; i++)
-			{
-				valStr=(i==values.length-1)?valStr+values[i]:valStr+values[i]+",";
-			}
-			params.put(key, valStr);
-		}
-		return params;
-	}
-}
->>>>>>> 15cf0fa539e8224541818c32935dabffd16e04d6
+//		String tradestate=request.getParameter("trade_status");
+//		String baominginfo=request.getParameter("body");
+//		System.out.println(baominginfo);
+//		System.out.println(tradestate);
+//		if (tradestate.equals("TRADE_SUCCESS"))
+//		{
+//
+//			JSONObject  jasonObject = JSONObject.fromObject(baominginfo);
+//			Map<String,Object> jsonmap = (Map<String,Object>)jasonObject;
+//			Map<String,Object> map = new HashMap<>();
+//			//循环加入map集合
+//			for (String string : jsonmap.keySet()) {
+//				map.put(string,jsonmap.get(string).toString().replace("[","").replace("]",""));
+//			}
+//			Calendar calendar= Calendar.getInstance();
+//			SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
+//			map.put("time",dateFormat.format(calendar.getTime()));
+//
+//			drivingSchoolInfoService.insertBaoMing(map);
+//		}
+//
+//	}
+//	public Map<String,String> getParasmap(HttpServletRequest request){
+//		Map<String, String> params = new HashMap<>();
+//		Map requestMap = request.getParameterMap();
+//		for (Iterator it=requestMap.keySet().iterator();it.hasNext();)
+//		{
+//			String key = (String) it.next();
+//			String []values=(String[])requestMap.get(key);
+//			String valStr = "";
+//			for (int i = 0; i < values.length; i++)
+//			{
+//				valStr=(i==values.length-1)?valStr+values[i]:valStr+values[i]+",";
+//			}
+//			params.put(key, valStr);
+//		}
+//		return params;
+//	}
+//}
+//>>>>>>> 15cf0fa539e8224541818c32935dabffd16e04d6
