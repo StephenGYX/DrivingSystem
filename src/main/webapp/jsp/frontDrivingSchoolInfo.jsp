@@ -500,6 +500,7 @@
 									}
 								</style>
 
+								<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=qndpvrYqRPHWaspKTGpZcuN2l3FudVgh"></script>
 
 								<!--百度地图容器-->
 								<div id="allmap" style="display: block; width: 700px; height: 400px; overflow: hidden; position: relative; z-index: 0; background-color: rgb(243, 241, 236); color: rgb(0, 0, 0); text-align: left;">
@@ -731,11 +732,22 @@
 <%--						}--%>
 <%--					</style>--%>
 <%--				</div>--%>
-
-
+			<span id="long">${drivingSchoolInfo[0].longitude}</span>
+				<span id="latitude">${drivingSchoolInfo[0].latitude}</span>
 
 			</div>
 		</div>
+		<script>
+			var longitude=document.getElementById("long").innerText
+			var latitude=document.getElementById("latitude").innerText
+			var map = new BMap.Map("allmap");          // 创建地图实例
+			var point = new BMap.Point(longitude,latitude);  // 创建点坐标
+			map.centerAndZoom(point, 15);
+			map.clearOverlays();
+			var marker = new BMap.Marker(point);  // 创建标注
+			map.addOverlay(marker);              // 将标注添加到地图中
+			map.panTo(new_point);
+		</script>
 <%--		<div class="mainrl" style="margin-top: 70px;">--%>
 <%--&lt;%&ndash;			<div class="youhui_box">&ndash;%&gt;--%>
 <%--&lt;%&ndash;				<div class="active_bg3">&ndash;%&gt;--%>

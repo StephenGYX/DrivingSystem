@@ -7,6 +7,8 @@ import com.drivingsys.service.BackStageMyServiceImpl;
 import com.google.gson.Gson;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
+import org.apache.shiro.web.util.SavedRequest;
+import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -81,6 +83,24 @@ public class BackController
 			System.out.println("输入有误");
 		}
 		return modelAndView;
+	}
+
+	@RequestMapping("/toLogin")
+	public ModelAndView toLogin(HttpServletRequest request){
+		SavedRequest savedRequest = WebUtils.getSavedRequest(request);
+		String url=savedRequest.getRequestUrl();
+		if (url.contains("back")){
+			modelAndView.setViewName("/backlogin");
+		}else
+		{
+			modelAndView.setViewName("/frontlogin3");
+		}
+		return modelAndView;
+	}
+	@RequestMapping("/nonerole")
+	public String nonerole(HttpServletRequest request){
+
+		return "您当前没有进行该操作的权限！";
 	}
 
 	@RequestMapping("/preg")

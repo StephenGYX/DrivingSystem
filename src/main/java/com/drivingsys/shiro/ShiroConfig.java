@@ -65,9 +65,9 @@ public class ShiroConfig {
 		// 设置登录成功跳转Url
 		bean.setSuccessUrl("/");
 		// 设置登录跳转Url
-		bean.setLoginUrl("/jsp/frontlogin3.jsp");
+		bean.setLoginUrl("/toLogin");
 		// 设置未授权提示Url
-		bean.setUnauthorizedUrl("/");
+		bean.setUnauthorizedUrl("/nonerole");
 
 
 		/**
@@ -83,18 +83,18 @@ public class ShiroConfig {
 		filterMap.put("/css/**","anon");
 		filterMap.put("/lib/**","anon");
 		filterMap.put("/fact/getyzm","anon");
-		filterMap.put("/jsp/*log.jsp","anon");
+//		filterMap.put("/jsp/**","anon");
 		filterMap.put("/jsp/*reg.jsp","anon");
 		filterMap.put("/images/**","anon");
 		filterMap.put("/*reg","anon");
 		filterMap.put("/**/*Login","anon");
 		filterMap.put("/jsp/**","authc");
 		filterMap.put("/user/index","authc");
-		filterMap.put("/vip/index","roles[vip]");
+		filterMap.put("/backPractise/**","roles[practise]");
 		filterMap.put("/druid/**", "anon");
 		filterMap.put("/static/**","anon");
 
-		filterMap.put("/**","authc");
+		filterMap.put("/**","anon");
 		filterMap.put("/logout", "logout");
 
 		bean.setFilterChainDefinitionMap(filterMap);

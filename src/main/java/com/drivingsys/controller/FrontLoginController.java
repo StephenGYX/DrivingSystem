@@ -130,7 +130,7 @@ public class FrontLoginController
 					{
 						Consumer consumer = frontLoginService.queryConsumer(reqMap);
 						request.getSession().setAttribute("consumer", consumer);
-						return "10";
+						return "cid="+consumer.getCid();
 					}
 
 				} catch (AuthenticationException e)

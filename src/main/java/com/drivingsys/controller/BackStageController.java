@@ -64,18 +64,19 @@ public class BackStageController
 			msg = "3";
 		} else
 		{
-//			if (backstage != null)
-//			{
-//
-//				//先清空session
-//				request.getSession().invalidate();
-//				//将该用户放入session域中
-//				request.getSession().setAttribute("backstage", backstage);
-//				msg = "1";
-//			} else
-//			{
-//				msg = "2";
-//			}
+			Backstage backstage = backStageService.queryBackStageAccount(reqMap);
+			if (backstage != null)
+			{
+
+				//先清空session
+				request.getSession().invalidate();
+				//将该用户放入session域中
+				request.getSession().setAttribute("backstage", backstage);
+				msg = "1";
+			} else
+			{
+				msg = "2";
+			}
 //			Subject currentUser= SecurityUtils.getSubject();
 //			if (!currentUser.isAuthenticated())
 //			{
