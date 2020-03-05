@@ -1,6 +1,7 @@
 package com.drivingsys.service;
 
 import com.drivingsys.bean.*;
+import com.drivingsys.bean.echartstest.bannian;
 import com.drivingsys.bean.echartstest.echaretsDSC;
 import com.drivingsys.dao.ManageDSCMapper;
 import org.apache.ibatis.session.RowBounds;
@@ -141,7 +142,7 @@ public class ManageDSCService
 		return manageDSCMapper.updateCoachStatejiaolianByDid(did,i);
 	}
 
-	public List<echaretsDSC> echartyuefen()
+	public List<bannian> echartyuefen()
 	{
 		return  manageDSCMapper.echartyuefen();
 	}

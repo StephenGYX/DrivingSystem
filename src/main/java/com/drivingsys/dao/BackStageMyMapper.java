@@ -1,8 +1,6 @@
 package com.drivingsys.dao;
 
-import com.drivingsys.bean.Backstage;
-import com.drivingsys.bean.Drivingschool;
-import com.drivingsys.bean.Vehicle;
+import com.drivingsys.bean.*;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -15,11 +13,16 @@ import java.util.List;
 public interface BackStageMyMapper
 {
 	//学员注册
-	@Select("insert into consumer (caccount,cpassword,cphone,csex,cage,cname,cemail,cidcard,cwechat) values(#{account},#{pass},#{phone},#{sex},#{age},#{name},#{email},#{idcard},#{wechat})")
+	@Select("insert into consumer (caccount,cpassword,cphone,csex,cage,cname,cemail,cidcard,rid,cstate,cwechat) values(#{account},#{pass},#{phone},#{sex},#{age},#{name},#{email},#{idcard},4,1,#{wechat})")
 	public void adduser(String account,String pass,String phone,String sex,int age,String name,String email,String idcard,String wechat);
+	//查找所有学员账号，判断是否存在
+	@Select("select caccount from consumer")
+	public List<Consumer> selectallc();
 	//教练注册
-	@Select("insert into practise (pdrivingid,paccount,ppassword,psex,page,pphone,pemail,pname,pidcard,presume,pworkexperience,pidimage) values(#{drivingid},#{account},#{pass},#{sex},#{age},#{phone},#{email},#{name},#{idcard},#{resume},#{workexperience},#{pidimage})")
+	@Select("insert into practise (pdrivingid,paccount,ppassword,psex,page,pphone,pemail,pname,pidcard,presume,pworkexperience,rid,paccountstate,pidimage) values(#{drivingid},#{account},#{pass},#{sex},#{age},#{phone},#{email},#{name},#{idcard},#{resume},#{workexperience},3,1,#{pidimage})")
 	public void addpuser(String drivingid,String account,String pass,String sex,int age,String phone,String email,String name,String idcard,String resume,String workexperience,String pidimage);
+//	@Select("insert into practise (pdrivingid,paccount,ppassword,psex,page,pphone,pemail,pname,pidcard,presume,pworkexperience,pidimage) values(#{drivingid},#{account},#{pass},#{sex},#{age},#{phone},#{email},#{name},#{idcard},#{resume},#{workexperience},#{pidimage})")
+//	public void addpuser(String drivingid,String account,String pass,String sex,int age,String phone,String email,String name,String idcard,String resume,String workexperience,String pidimage);
 	//驾校端查看教练车
 	@Select("select * from vehicle where (vcarstate='正常' or vcarstate='维修中' or vcarstate='使用中') and vdrivingid=(select did from drivingschool where did=#{did}) limit  #{page,jdbcType=INTEGER},#{limit,jdbcType=INTEGER} ")
 	public List<Vehicle> table(Long did,int page,int limit);
@@ -97,9 +100,11 @@ public interface BackStageMyMapper
 	//搜索管理员状态
 	@Select("select * from (select * from backstage where bstate=#{bacc}) a,(select count(bid) as c from backstage where bstate=#{bacc}) b ")
 	public List<Backstage> backsearchstate(String bstate);
-	//查看教练头像
-	@Select("select pphoto from practise where pid=#{pid}")
-	public String selectavatar(Long pid);
+
+	//查看教练信息
+	@Select("select pname,pphoto,pphone,pemail,pidcard,presume from practise where pid=#{pid}")
+	public List<Practise> selectavatar(Long pid);
+
 	//修改教练头像
 	@Select("update practise set pphoto=#{avatar} where pid=#{pid}")
 	public void updateavatar(String avatar,Long pid);

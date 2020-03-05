@@ -27,4 +27,16 @@ public class ChartsServiceImpl implements ChartsService
 
 		return chartsMapper.queryStudentByCoach();
 	}
+
+	@Override
+	public List<echarsParam> querySchoolPrice()
+	{
+		return chartsMapper.querySchoolPrice();
+	}
+
+	@Override
+	public List<echarsParam> newStudentByTime(Map timeMap)
+	{
+		return chartsMapper.newStudentByTime(timeMap);
+	}
 }

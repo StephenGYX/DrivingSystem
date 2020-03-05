@@ -1,6 +1,7 @@
 package com.drivingsys.dao;
 
 import com.drivingsys.bean.*;
+import com.drivingsys.bean.echartstest.bannian;
 import com.drivingsys.bean.echartstest.echaretsDSC;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.session.RowBounds;
@@ -78,5 +79,5 @@ public interface ManageDSCMapper
 	@Update("update practise set paccountstate=#{i} where did=#{did}")
 	int updateCoachStatejiaolianByDid(int did, int i);
 
-	List<echaretsDSC> echartyuefen();
+	List<bannian> echartyuefen();
 }

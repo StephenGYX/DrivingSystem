@@ -69,6 +69,11 @@ public class HomePageController
 		return "newstable";
 	};
 
+	@RequestMapping("/returnChattest")
+	public String returnChattest(){
+		return "chattest";
+	};
+
 	@ResponseBody
 	@RequestMapping("/queryNewsList")
 	public tableParam queryNewsList(@RequestParam Map<String,String> reqMap, HttpServletRequest request){

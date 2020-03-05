@@ -245,10 +245,10 @@ GROUP BY pdrivingid;
         <where>
             and pdrivingid=#{did} and paccountstate!=1
             <if test="psex!=null and psex.trim()!=''">
-              and  psex=#{psex}
+                and psex=#{psex}
             </if>
             <if test="pname!=null and pname.trim()!=''">
-             and   pname like '%${pname}%'
+                and pname like '%${pname}%'
             </if>
 
         </where>
@@ -257,7 +257,7 @@ GROUP BY pdrivingid;
     <select id="Queryjiaolianshenhecount" parameterType="map" resultType="long">
         select count(*) from practise
         <where>
-            and pdrivingid=#{did}  and paccountstate!=1
+            and pdrivingid=#{did} and paccountstate!=1
             <if test="psex!=null and psex.trim()!=''">
                 and psex=#{psex}
             </if>
@@ -269,17 +269,28 @@ GROUP BY pdrivingid;
     </select>
 
 
+    <select id="echartyuefen" resultType="com.drivingsys.bean.echartstest.bannian">
+-- 	SELECT A.dname,CONCAT(YEAR(A.esubmittime),'-',MONTH(A.esubmittime)) AS releaseYearMonth,count(*) as
+-- 	 renshu
+-- 	FROM  (SELECT examination.* ,drivingschool.dname FROM examination,drivingschool WHERE  drivingschool.did=examination.did and
+-- 	esubmittime
+-- 	 BETWEEN DATE_SUB(NOW(),INTERVAL 180 DAY) and NOW() ) AS A
+--
+--
+-- 	GROUP BY releaseYearMonth,dname
 
+    	   		SELECT A.DID,A.dname,A.dd, IFNULL(A.renshu,0) as renshu	FROM
+		 (select d.*, count(e.esubmittime) renshu
+from (
+select d.did, d.dname, SUBSTR(dm.relmouth, 1,7) dd from drivingschool d left join datamouth dm on 1=1
 
-    <select id="echartyuefen" resultType="com.drivingsys.bean.echartstest.echaretsDSC">
-	SELECT A.dname,CONCAT(YEAR(A.esubmittime),'-',MONTH(A.esubmittime)) AS releaseYearMonth,count(*) as
-	 renshu
-	FROM  (SELECT examination.* ,drivingschool.dname FROM examination,drivingschool WHERE  drivingschool.did=examination.did and
-	esubmittime
-	 BETWEEN DATE_SUB(NOW(),INTERVAL 180 DAY) and NOW() ) AS A
+) d
+left join examination e on e.did = d.did and d.dd = SUBSTR(e.esubmittime, 1,7)
 
+group by d.did, d.dname, d.dd) A
+WHERE dd BETWEEN date_format(DATE_SUB(NOW(),INTERVAL 3 MONTH), '%Y-%m')
+and DATE_FORMAT(NOW(),'%Y-%m')
 
-	GROUP BY releaseYearMonth,dname
     </select>
 
 </mapper>

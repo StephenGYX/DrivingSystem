@@ -8,6 +8,11 @@ import com.drivingsys.bean.VerifyCodeUtils;
 import com.drivingsys.bean.backmenu.BackMenu;
 import com.drivingsys.service.BackMenuService;
 import com.drivingsys.service.BackStageService;
+import com.drivingsys.shiro.UserToken;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,8 +51,7 @@ public class BackStageController
 	{
 
 		//调用service查找账户的方法
-		Backstage backstage = backStageService.queryBackStageAccount(reqMap);
-
+//		Backstage backstage = backStageService.queryBackStageAccount(reqMap);
 
 		String CODE = request.getSession().getAttribute("CODE") + "";
 		String code = reqMap.get("code");
@@ -60,17 +64,39 @@ public class BackStageController
 			msg = "3";
 		} else
 		{
-			if (backstage != null)
+//			Backstage backstage = backStageService.queryBackStageAccount(reqMap);
+//			if (backstage != null)
+//			{
+//
+//				//先清空session
+//				request.getSession().invalidate();
+//				//将该用户放入session域中
+//				request.getSession().setAttribute("backstage", backstage);
+//				msg = "1";
+//			} else
+//			{
+//				msg = "2";
+//			}
+			Subject currentUser= SecurityUtils.getSubject();
+			if (!currentUser.isAuthenticated())
 			{
-
-				//先清空session
-				request.getSession().invalidate();
-				//将该用户放入session域中
-				request.getSession().setAttribute("backstage", backstage);
-				msg = "1";
-			} else
-			{
-				msg = "2";
+				UsernamePasswordToken usernamePasswordToken = new UserToken(reqMap.get("account"), reqMap.get("password"),"Backstage");
+				try
+				{
+					currentUser.login(usernamePasswordToken);
+					//调用service查找账户的方法
+					Backstage backstage = backStageService.queryBackStageAccount(reqMap);
+					if (backstage.getBstate().equals("1")){
+						msg="2";
+						return msg;};
+					//将该用户放入session域中
+					request.getSession().setAttribute("backstage", backstage);
+					msg = "1";
+				} catch (AuthenticationException e)
+				{
+					e.printStackTrace();
+					msg = "2";
+				}
 			}
 		}
 

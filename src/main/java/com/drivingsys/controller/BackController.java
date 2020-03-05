@@ -3,6 +3,10 @@ package com.drivingsys.controller;
 import com.drivingsys.bean.*;
 import com.drivingsys.service.BackStageMyServiceImpl;
 import com.google.gson.Gson;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
+import org.apache.shiro.web.util.SavedRequest;
+import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,7 +68,9 @@ public class BackController
 		{
 			if (pass.equals(pass1))
 			{
-				backStageMyService.adduser(account, pass, phone, sex, age, name, email, idcard, wechat);
+				ByteSource salt=ByteSource.Util.bytes(account);
+				Object md5pwd= new SimpleHash("MD5",pass,salt,2);
+				backStageMyService.adduser(account, md5pwd.toString(), phone, sex, age, name, email, idcard, wechat);
 				String u = "注册成功";
 				request.setAttribute("cg", u);
 				modelAndView.setViewName("/frontlogin3");
@@ -130,9 +136,8 @@ public class BackController
 	@RequestMapping("/search")
 	public backmsg search(@RequestParam("demoReload") String demoReload)
 	{
-		int i = backStageMyService.countnum(demoReload);
+		backmsg a = new backmsg();
 		List<Vehicle> vehicle = backStageMyService.search(demoReload);
-		a.setCount(i);
 		a.setData(vehicle);
 		return a;
 	}
@@ -140,6 +145,7 @@ public class BackController
 	@RequestMapping("/search1")
 	public backmsg search1(@RequestParam("demoReload1") String demoReload1)
 	{
+		backmsg a = new backmsg();
 		List<Vehicle> vehicle = backStageMyService.search1(demoReload1);
 		a.setData(vehicle);
 		return a;
@@ -148,34 +154,30 @@ public class BackController
 	@RequestMapping("/del")
 	public void del(@RequestParam("vid") String vid)
 	{
-
 		backStageMyService.del(vid);
 	}
 
 	//新增数据
 	@RequestMapping("/addcar1")
-	public void addcar1(@RequestParam("num") String num, @RequestParam("brand") String brand, @RequestParam("model") String model, @RequestParam("carimages") String path, HttpServletRequest request)
-	{
+	public void addcar1(@RequestParam("num") String num, @RequestParam("brand") String brand, @RequestParam("model") String model,@RequestParam("carimages")String path, HttpServletRequest request){
 		HttpSession session = request.getSession();
 		Drivingschool did = (Drivingschool) session.getAttribute("drivingschool");
-		System.out.println("车牌号" + num);
-		System.out.println("品牌" + brand);
-		System.out.println("型号" + model);
-		System.out.println("地址" + path);
-		if (did != null)
-		{
-			backStageMyService.addcar(num, brand, model, path, did.getDid());
-		} else
-		{
+		System.out.println("车牌号"+num);
+		System.out.println("品牌"+brand);
+		System.out.println("型号"+model);
+		System.out.println("地址"+path);
+		if(did!=null){
+			backStageMyService.addcar(num, brand, model, path,did.getDid());
+		}else{
 			backStageMyService.backaddcar(num, brand, model, path);
 		}
 	}
 
 	//保存图片
 	@RequestMapping("/addcar")
-	public Map<String, Object> addcar(@RequestParam("file") MultipartFile file, HttpServletRequest request)
+	public Map<String, Object> addcar( @RequestParam("file") MultipartFile file, HttpServletRequest request)
 	{
-		//
+//
 		System.out.println("进入了");
 		OutputStream out = null;
 		InputStream fileInput = null;
@@ -185,8 +187,8 @@ public class BackController
 			{
 				String filepath = request.getServletContext().getRealPath("/") + "images\\" + file.getOriginalFilename();
 
-				String path = "..\\images\\" + file.getOriginalFilename();
-				System.out.println("路径" + path);
+				String path="..\\images\\"+file.getOriginalFilename();
+				System.out.println("路径"+path);
 				File files = new File(filepath);
 				if (!files.getParentFile().exists())
 				{
@@ -398,8 +400,8 @@ public class BackController
 	{
 		HttpSession session = request.getSession();
 		Practise id = (Practise) session.getAttribute("practise");
-		String msg = backStageMyService.selectavatar(id.getPid());
-		System.out.println(msg + "头像地址");
+		List<Practise> msg= backStageMyService.selectavatar(id.getPid());
+//		System.out.println(msg + "头像地址");
 		response.setContentType("text/html; charset =utf-8");
 		response.getWriter().write(new Gson().toJson(msg));
 		response.getWriter().flush();
@@ -419,8 +421,33 @@ public class BackController
 			backStageMyService.updatepass(updatepass, id.getPid());
 		} else
 		{
-			backStageMyService.updateinfo(updatename, updatepass, id.getPid());
+//			backStageMyService.updateinfo(updatename, updatepass, id.getPid());
 		}
+	}
+
+
+
+
+
+
+
+
+	@RequestMapping("/toLogin")
+	public ModelAndView toLogin(HttpServletRequest request){
+		SavedRequest savedRequest = WebUtils.getSavedRequest(request);
+		String url=savedRequest.getRequestUrl();
+		if (url.contains("back")){
+			modelAndView.setViewName("/backlogin");
+		}else
+		{
+			modelAndView.setViewName("/frontlogin3");
+		}
+		return modelAndView;
+	}
+	@RequestMapping("nerole")
+	public String nonerole(HttpServletRequest request){
+		System.out.println("没有权限");
+		return "您当前没有进行该操作的权限！";
 	}
 }
 

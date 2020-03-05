@@ -2,6 +2,7 @@ package com.drivingsys.controller;
 
 
 import com.drivingsys.bean.*;
+import com.drivingsys.bean.echartstest.bannian;
 import com.drivingsys.bean.echartstest.echaretsDSC;
 import com.drivingsys.bean.echartstest.yuefen;
 import com.drivingsys.service.ManageDSCService;
@@ -181,14 +182,13 @@ public class ManageDSCController
 	public int updateCoachPwdByDid(HttpServletRequest request) throws ServletException, IOException
 	{
 
-		String id=findDid(request);
+		String id = findDid(request);
 		int Did = Integer.valueOf(id);
-		String password=request.getParameter("newpass");
-	int i= manageDSCService.updateCoachPwdByDid(Did, password);
+		String password = request.getParameter("newpass");
+		int i = manageDSCService.updateCoachPwdByDid(Did, password);
 
 		return i;
 	}
-
 
 
 	@RequestMapping("shenheOperation")
@@ -283,31 +283,54 @@ public class ManageDSCController
 	@ResponseBody
 	public JSONArray echartyuefen()
 	{
+		//		1	中大驾校	2019-12	0
 		JSONArray array = null;
-		List<echaretsDSC> echartyuefen = manageDSCService.echartyuefen();
-		List<yuefen> yuefenList=new ArrayList<>();
-		for (int i = 0; i <echartyuefen.size() ; i++)
+		List<bannian> echartyuefen = manageDSCService.echartyuefen();
+
+		List<yuefen> yuefenList = new ArrayList<>();
+		for (int i = 0; i < echartyuefen.size(); i++)
 		{
-			echaretsDSC ec=echartyuefen.get(i);
-			String dnmae=ec.getDname();
+			bannian bn = echartyuefen.get(i);
+			int renshu = bn.getRenshu();
+			String dname = bn.getDname();
+			System.out.println("dname "+dname);
+			System.out.println(renshu);
+			boolean flag = false;
+//			int k = 1;
+
+			for (int j = 0; j < yuefenList.size(); j++)
+			{
+				if (yuefenList.get(j).getName().equals(dname))
+				{
+
+
+					yuefenList.get(j).getData().add(renshu);
+					flag = true;
+				}
+
+			}
+
+
+			if (flag == false)
+			{
+				System.out.println("dname "+dname);
+				yuefen yuefen = new yuefen();
+				yuefen.setName(dname);
+				if (renshu==0){
+				yuefen.getData().add(0);}
+				else { yuefen.getData().add(renshu);  };
+				yuefenList.add(yuefen);
+			}
+
+
 		}
 
 
-
-
-
-		array = JSONArray.fromObject(echartyuefen);
-
-
-
-
-
-
+		array = JSONArray.fromObject(yuefenList);
+		System.out.println(array);
 
 		return array;
 	}
-
-
 
 
 	@RequestMapping("queryqianDSC")
@@ -414,7 +437,7 @@ public class ManageDSCController
 	public String findDid(HttpServletRequest request)
 	{
 
-		String did ="";
+		String did = "";
 		//驾校端登录
 		Object o = request.getSession().getAttribute("drivingschool");
 		if (o != null)

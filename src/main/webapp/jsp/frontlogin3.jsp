@@ -246,23 +246,26 @@
 					, data: {"account": account, "password": password, "code": code}
 					//从servlet接收的数据
 					, success: function (msg) {
-						if (msg === "10") {
+						if (msg.indexOf("cid") != -1) {
 							//  如果是报名，跳转到报名页面
 							if ($('#toBaoMing').val()==="baoMing"){
 								window.location = "<%=path%>"+ '/schoolInfo/toFrontDrivingPage';
 							}else {
 								layer.msg('学生登录成功', function () {
-									window.location = "http://localhost:8080/personcenter";
+									window.location = "http://localhost:8080/personcenter?"+msg;
 								});
 
 							}
-
 
 						} else if (msg === "2") {
 							layer.msg("账号或密码有误，请重新输入");
 						} else if (msg === "3") {
 							layer.msg("验证码错误，请重新输入");
-						}else if (msg === "20") {
+						} else if (msg === "5") {
+							layer.msg("尚未通过审核或已被禁用，请联系平台管理员");
+						}
+
+						else if (msg === "20") {
 							layer.msg(' 教练登录成功', function () {
 								window.location = "<%=path%>"+ '/jsp/PractiseMain.jsp';
 							});

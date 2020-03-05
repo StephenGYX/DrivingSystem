@@ -73,11 +73,14 @@ public class DrivingSchoolInfoController
 		for (int i = 0; i < drivingSchoolInfo.size(); i++)
 		{
 			if (drivingSchoolInfo.get(i).getExamination()!=null){
-				count++;
+				if (drivingSchoolInfo.get(i).getExamination().getEdrivingcontent()!=null){
+					count++;
+				}
+
 			};
 		}
 		request.getSession().setAttribute("countEval",count);
-//		System.out.println("正确的评论人数"+count);
+		System.out.println("正确的评论人数"+count);
 //		System.out.println(	"评分            "+drivingSchoolInfo.get(0).getDevaluatescore());
 
 		return "1";
