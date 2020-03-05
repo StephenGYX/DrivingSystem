@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("BackStageMyService")
 public class BackStageMyServiceImpl implements BackStageMyService
@@ -255,6 +256,13 @@ return vehicles;
 	public void updateresume(String updateresume, Long pid)
 	{
 		backStageMyMapper.updateresume(updateresume, pid);
+	}
+
+	@Override
+	public List<Practise> chart(Long did)
+	{
+		List<Practise> map=backStageMyMapper.chart(did);
+		return  map;
 	}
 
 

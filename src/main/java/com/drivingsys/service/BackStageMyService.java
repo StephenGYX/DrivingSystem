@@ -3,6 +3,7 @@ package com.drivingsys.service;
 import com.drivingsys.bean.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface BackStageMyService
@@ -46,4 +47,5 @@ public interface BackStageMyService
 	public void updateemail(String updateemail,Long pid);
 	public void updateidcard(String updateidcard,Long pid);
 	public void updateresume(String updateresume,Long pid);
+	public List<Practise> chart(Long did);
 }

@@ -27,6 +27,7 @@ public class Practise {
   private long paccountstate;
   private String premark2;
   private String pphoto;
+  private String pcount;
 
   public String getPphoto()
   {
@@ -235,4 +236,13 @@ public class Practise {
     this.premark2 = premark2;
   }
 
+  public String getPcount()
+  {
+    return pcount;
+  }
+
+  public void setPcount(String pcount)
+  {
+    this.pcount = pcount;
+  }
 }

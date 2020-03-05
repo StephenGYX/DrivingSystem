@@ -1,7 +1,9 @@
 package com.drivingsys.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.drivingsys.bean.*;
 import com.drivingsys.service.BackStageMyServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -363,9 +366,6 @@ backStageMyService.addbackuser(bacc, bpass, bname, bstate);
 			backStageMyService.updateavatar(avatar,id.getPid());
 			backStageMyService.updatepass(updatepass,id.getPid());
 		}
-
-
-
 	}
 	@RequestMapping("/updatename")
 	public void updatename(@RequestParam("updatename")String updatename,HttpServletRequest request){
@@ -396,6 +396,32 @@ backStageMyService.addbackuser(bacc, bpass, bname, bstate);
 		HttpSession session = request.getSession();
 		Practise id=(Practise)session.getAttribute("practise");
 		backStageMyService.updateresume(updateresume,id.getPid());
+	}
+	@RequestMapping("/chart")
+	public void chart(HttpServletRequest request,HttpServletResponse response) throws IOException
+	{
+		HttpSession session = request.getSession();
+		Drivingschool did = (Drivingschool) session.getAttribute("drivingschool");
+//		List<Map<String, Object>> m = backStageMyService.chart(did.getDid());
+//		for (int i = 0; i < m.size(); i++)
+//		{
+//			Map<String, Object> map = m.get(i);
+//			Iterator iterator = map.keySet().iterator();
+//			while (iterator.hasNext())
+//			{
+//				String string = (String) iterator.next();
+//				System.out.println(map.get(string));
+//		}
+//		}
+//		String jsonString = JSON.toJSONString(m);
+//		response.setContentType("text/html; charset =utf-8");
+//		response.getWriter().write(new Gson().toJson(jsonString));
+//		response.getWriter().flush();
+		List<Practise> objects=backStageMyService.chart(did.getDid());
+				response.setContentType("text/html; charset =utf-8");
+				response.getWriter().write(new Gson().toJson(objects));
+				response.getWriter().flush();
+
 	}
 }
 

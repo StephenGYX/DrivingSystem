@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Repository
@@ -53,8 +54,8 @@ public interface BackStageMyMapper
 	@Select("select count(vid) from vehicle where (vcarstate='正常' or vcarstate='维修中' or vcarstate='使用中')")
 	//驾校端表格总条数
 	public int count();
-	@Select("select count(vid) from vehicle where vdrivingid=(select did from drivingschool where did=#{did}) and (vcarstate='正常' or vcarstate='维修中' or vcarstate='使用中')")
 	//后台端表格总条数
+	@Select("select count(vid) from vehicle where vdrivingid=(select did from drivingschool where did=#{did}) and (vcarstate='正常' or vcarstate='维修中' or vcarstate='使用中')")
 	public int count1(Long did);
 	//驾校端搜索车牌总条数
 	@Select("select count(vid) from vehicle where vcarnum=#{num} and (vcarstate='正常' or vcarstate='维修中' or vcarstate='使用中')")
@@ -122,4 +123,7 @@ public interface BackStageMyMapper
 	//修改个人简介
 	@Select("update practise set presume=#{updateresume} where pid=#{pid}")
 	public void updateresume(String updateresume,Long pid);
+	//搜索某个驾校下的所有教练
+	@Select("select c.pname,ifnull(count,0) as pcount from (select * from (select pid,pname from practise where pdrivingid=#{did}) as a left join (select count(cid) as count,cpritiseid from consumer where cpritiseid in (select pid from practise where pdrivingid=#{did}) group by cpritiseid) as b on  a.pid=b.cpritiseid) as c")
+	public List<Practise> chart(Long did);
 }
