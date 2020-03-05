@@ -178,6 +178,8 @@ public class ChartsController
 		String s = gson.toJson(chartList);
 //		request.getSession().setAttribute("newStudent",chartList);
 
+
+		
 		return s;
 	}
 
