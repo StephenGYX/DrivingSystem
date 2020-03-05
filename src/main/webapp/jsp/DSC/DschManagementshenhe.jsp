@@ -100,6 +100,8 @@
 
 	</div>
 </div>
+<script type="text/javascript" src=<%=path+"/lib/jquery-3.4.1/jquery-3.4.1.min.js"%>></script>
+
 <script src="<%=path+"/lib/layui-v2.5.5/layui.js"%>" charset="utf-8"></script>
 <script>
 	layui.use(['form', 'table'], function () {
@@ -125,10 +127,18 @@
 				{field: 'dcontacts', width: 80, title: '驾校联系人', sort: true},
 				{field: 'dtelephone', width: 100, title: '联系电话'},
 				{field: 'demail', title: '邮箱', minWidth: 120},
-				{field: 'dsynopsis', width: 100, title: '概要'},
+				{field: 'dsynopsis', width: 100, title: '简介'},
 				// {field: 'devaluatescore', width: 80, title: '总评分', sort: true},
 				// {field: 'dgraduationnum', width: 100, title: '毕业人数', sort: true},
 				// {field: 'denrollnum', width: 80, title: '注册人数', sort: true},
+				{fixed: 'vphoto',
+					title: '驾校资格证明',width:80,templet: function (d) {
+						return '<div ><img src="../../'+d.zigeimage+'"  width="50px" height="50px" onclick="showBigImage(this)"></a></div>';
+					}
+				},
+
+
+
 				{
 					field: 'dshenhestate', minWidth: 120, title: '账号审核状态'
 					, templet: function (d) {
@@ -247,47 +257,7 @@
 		});
 
 
-		<%--// 监听删除操作--%>
-		<%--$(".data-delete-btn").on("click", function () {--%>
-		<%--	var checkStatus = table.checkStatus('currentTableId')--%>
-		<%--		, data = checkStatus.data;--%>
-		<%--	// layer.alert(JSON.stringify(data));--%>
-		<%--	alert("321");--%>
-		<%--	console.log(JSON.stringify(data));--%>
 
-		<%--	$.ajax({--%>
-		<%--		url: "<%=path+"/dSchool/DelDSC"%>",//后台路径,--%>
-		<%--		type: "POST",--%>
-		<%--		data: {"delParams": JSON.stringify(data)},--%>
-		<%--		dataType: "text",--%>
-		<%--		success: function (msg) {--%>
-
-		<%--			if (msg > 0) {--%>
-
-		<%--				layer.msg("删除成功", {icon: 6});--%>
-		<%--				table.reload('currentTableId', {--%>
-		<%--					page: {--%>
-		<%--						curr:1--%>
-		<%--							// $(".layui-laypage-em").next().html() //重新刷新表格在当前页--%>
-		<%--					}--%>
-		<%--					, where: {--%>
-		<%--						// searchParams: JSON.stringify(data)--%>
-		<%--					}--%>
-		<%--				}--%>
-
-		<%--				);--%>
-		<%--				return false;--%>
-
-
-		<%--			} else {--%>
-		<%--				layer.msg("删除失败", {icon: 5});--%>
-		<%--			}--%>
-		<%--		}--%>
-
-		<%--	});--%>
-
-
-		<%--});--%>
 
 		//监听表格复选框选择
 		table.on('checkbox(currentTableFilter)', function (obj) {
@@ -517,6 +487,37 @@
 </script>
 <script>
 
+
+
+	function showBigImage(e) {
+
+		var width = $(e).width();
+		var height = $(e).height();
+		var scaleWH = width / height;
+		var bigH = 600;
+		var bigW = scaleWH * bigH;
+		if (bigW > 900) {
+			bigW = 900;
+			bigH = bigW / scaleWH;
+		}
+
+		// 放大预览图片
+		layer.open({
+			type: 1,
+			title: false,
+			closeBtn: 1,
+			shadeClose: true,
+			area: [bigW + 'px', bigH + 'px'], //宽高
+			content: "<img width='" + bigW + "' height='" + bigH + "' src=" + $(e).attr('src') + " />"
+		});
+
+
+
+
+
+
+
+	}
 </script>
 
 </body>

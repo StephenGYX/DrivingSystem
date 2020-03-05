@@ -316,11 +316,13 @@
 			<div class="drivsch">
 				<div class="drivsfl">
 					<dl>
-						<dt><a href=""><img src="<%=path+"/"%>${drivingSchoolInfo[0].dschoolimage}" alt="${drivingSchoolInfo[0].dname}"></a><em><i>2.8</i>分</em></dt>
+						<dt><a href=""><img src="<%=path+"/"%>${drivingSchoolInfo[0].dschoolimage}" alt="${drivingSchoolInfo[0].dname}"></a>
+<%--							<em><i>2.8</i>分</em>--%>
+						</dt>
 						<dd>
 							<h1>《${drivingSchoolInfo[0].dname}》 欢迎你！<span style="float:right;font-size: 12px;color:#f08300;">人气指数：39.6万+</span></h1>
 							<div class="commcont">
-								<p>学车价格：<strong>¥${drivingSchoolInfo[0].dprice}</strong><i>原价<b>¥4680 </b></i>
+								<p>学车价格：<strong>¥${drivingSchoolInfo[0].dprice}</strong><i>原价<b>¥8000 </b></i>
 <%--									<q>本价格2020-02-24更新</q>--%>
 								</p>
 								<p>驾校地址：<span>${drivingSchoolInfo[0].daddress}</span>
@@ -328,7 +330,7 @@
 
 
 
-									<a class="map" href="https://www.jiazhao.com/jiaxiao/8624/#ditu">【地图】</a>
+									<a class="map" href="#ditu">【地图】</a>
 
 
 
@@ -336,9 +338,11 @@
 
 								</p>
 								<p>咨询电话：<span style="color:#f08300;font-size:20px;font-weight:bolder;" id="tels">${drivingSchoolInfo[0].dtelephone}</span>&nbsp;
-									&nbsp;<a class="detail_bm" id="telsee" rel="nofollow;" style="width: 100px;">
-									联系驾校
-								</a> </p>
+									&nbsp;
+<%--									<a class="detail_bm" id="telsee" rel="nofollow;" style="width: 100px;">--%>
+<%--									联系驾校--%>
+<%--								    </a> --%>
+								</p>
 								<!--<p style="color: red;">打电话请告知是在驾照网上看到的,有意外惊喜哦！</p>-->
 								<p>招生范围：${drivingSchoolInfo[0].drecruit}&nbsp;</p>
 								<div class="clear"></div>
@@ -358,10 +362,10 @@
 			<div class="drivtolk">
 				<div class="changwz">
 					<ul style="margin-top:0;">
-						<li><a>打电话请告知是在驾照网上看到的,有意外惊喜哦!</a></li>
-						<li><a>打电话请告知是在驾照网上看到的,有意外惊喜哦!</a></li>
-						<li><a>打电话请告知是在驾照网上看到的,有意外惊喜哦!</a></li>
-						<li><a>打电话请告知是在驾照网上看到的,有意外惊喜哦!</a></li>
+						<li><a>打电话请告知是在传一驾照网上看到的,有意外惊喜哦!</a></li>
+<%--						<li><a>打电话请告知是在驾照网上看到的,有意外惊喜哦!</a></li>--%>
+<%--						<li><a>打电话请告知是在驾照网上看到的,有意外惊喜哦!</a></li>--%>
+<%--						<li><a>打电话请告知是在驾照网上看到的,有意外惊喜哦!</a></li>--%>
 					</ul>
 				</div>
 				<div class="clear"></div>
@@ -500,6 +504,7 @@
 									}
 								</style>
 
+								<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=qndpvrYqRPHWaspKTGpZcuN2l3FudVgh"></script>
 
 								<!--百度地图容器-->
 								<div id="allmap" style="display: block; width: 700px; height: 400px; overflow: hidden; position: relative; z-index: 0; background-color: rgb(243, 241, 236); color: rgb(0, 0, 0); text-align: left;">
@@ -651,7 +656,7 @@
 
 								<c:forEach items="${drivingSchoolInfo}" var="i" begin="0">
 
-									<c:if test="${i.examination.edrivingcontent!=null or i.examination.edrivingcontent!=''}">
+									<c:if test="${i.examination.edrivingcontent!=null and  i.examination.edrivingcontent!=''}">
 
 										<li>
 											<dl>
@@ -731,11 +736,22 @@
 <%--						}--%>
 <%--					</style>--%>
 <%--				</div>--%>
-
-
+			<span id="long">${drivingSchoolInfo[0].longitude}</span>
+				<span id="latitude">${drivingSchoolInfo[0].latitude}</span>
 
 			</div>
 		</div>
+		<script>
+			var longitude=document.getElementById("long").innerText
+			var latitude=document.getElementById("latitude").innerText
+			var map = new BMap.Map("allmap");          // 创建地图实例
+			var point = new BMap.Point(longitude,latitude);  // 创建点坐标
+			map.centerAndZoom(point, 15);
+			map.clearOverlays();
+			var marker = new BMap.Marker(point);  // 创建标注
+			map.addOverlay(marker);              // 将标注添加到地图中
+			map.panTo(new_point);
+		</script>
 <%--		<div class="mainrl" style="margin-top: 70px;">--%>
 <%--&lt;%&ndash;			<div class="youhui_box">&ndash;%&gt;--%>
 <%--&lt;%&ndash;				<div class="active_bg3">&ndash;%&gt;--%>

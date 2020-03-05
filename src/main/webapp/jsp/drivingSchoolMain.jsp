@@ -57,12 +57,15 @@
 		<ul class="layui-nav layui-layout-right">
 			<li class="layui-nav-item">
 				<a href="javascript:;">
-					<img src=<%=path+"/images/headphoto.jpg"%> class="layui-nav-img">
+					<img src='<%=path%>/${sessionScope.drivingschool.dschoolimage}' class="layui-nav-img">
 					${sessionScope.drivingschool.dname}
 				</a>
 				<dl class="layui-nav-child">
 <%--					<dd><a href="<%=path+"/jsp/DSC/DSCHinfo2.jsp"%>">基本资料</a></dd>--%>
-					<dd><a href="">安全设置</a></dd>
+					<dd>
+						<a href="javascript:;" data-iframe-tab="<%=path+"/jsp/DSC/dscpassword.jsp"%>" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
+
+					</dd>
 					<dd>
 						<a href="javascript:;" data-iframe-tab="<%=path+"/jsp/DSC/DSCHinfo2.jsp?do=see"%>" data-title="查看资料" data-icon="fa fa-gears">查看资料</a>
 					</dd>

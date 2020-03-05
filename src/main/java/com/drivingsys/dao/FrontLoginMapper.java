@@ -15,13 +15,13 @@ import java.util.Map;
 public interface FrontLoginMapper
 {
 
-	@Select("select * from practise where paccount=#{account} and ppassword=#{password}")
+	@Select("select * from practise where paccount=#{account} ")
 	public Practise queryPractiseAccount(Map<String, String> map);
 
-	@Select("select * from drivingschool where daccount=#{account} and dpassword=#{password}")
+	@Select("select * from drivingschool where daccount=#{account} ")
 	public Drivingschool queryDrivingschool(Map<String, String> map);
 
-	@Select("select * from consumer where caccount=#{account} and cpassword=#{password}")
+	@Select("select * from consumer where caccount=#{account} ")
 	public Consumer queryConsumer(Map<String, String> map);
 
 	@Insert("INSERT INTO drivingschool (daccount, dpassword, dname, dcontacts, dtelephone, dphone, demail, dprovince, dcity, darea, dprice, dsynopsis,longitude,latitude,idnumber) " +

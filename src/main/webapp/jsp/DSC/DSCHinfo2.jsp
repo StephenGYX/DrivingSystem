@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.drivingsys.bean.Drivingschool" %><%--
 Created by IntelliJ IDEA.
 User: Stephen
 Date: 2020/2/14
@@ -9,7 +9,9 @@ To change this template use File | Settings | File Templates.
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String path = application.getContextPath();
-	String roleid = session.getAttribute("roleid") + "";
+	Drivingschool dsc = (Drivingschool) (session.getAttribute("drivingschool"));
+	String wenben = dsc.getDsynopsis();
+	System.out.println("webben+" + wenben);
 %>
 <html>
 <head>
@@ -30,7 +32,7 @@ To change this template use File | Settings | File Templates.
 
 <div class="layuimini-container">
 	<div class="layuimini-main">
-
+		<%--		<input type="hidden" value="${sessionScope.drivingschool.dsynopsis}" id="wb">--%>
 		<form class="layui-form" action="" style="padding:20px;" method="post">
 			<input type="hidden" name="xingwei" id="xingwei" value="see">
 
@@ -67,13 +69,7 @@ To change this template use File | Settings | File Templates.
 						       class="layui-input">
 					</div>
 				</div>
-				<%--				<div class="layui-form-item">--%>
-				<%--					<label class="layui-form-label required">性别</label>--%>
-				<%--					<div class="layui-input-block">--%>
-				<%--						<input type="radio" name="sex" value="男" title="男" checked="">--%>
-				<%--						<input type="radio" name="sex" value="女" title="女">--%>
-				<%--					</div>--%>
-				<%--				</div>--%>
+
 				<div class="layui-form-item">
 					<label class="layui-form-label required">联系电话</label>
 					<div class="layui-input-inline">
@@ -127,31 +123,44 @@ To change this template use File | Settings | File Templates.
 						       value="${sessionScope.drivingschool.dprice}" class="layui-input" id="dprice">
 					</div>
 				</div>
-
-				<div class="layui-form-item layui-form-text">
-					<label class="layui-form-label">招生信息</label>
-					<div class="layui-input-inline">
-						<textarea name="remark" class="layui-textarea" placeholder="请输入驾校简介"
-						          id="dsynopsis">${sessionScope.drivingschool.dsynopsis}</textarea>
-					</div>
-				</div>
+				<%--				${sessionScope.practise.pphoto}--%>
+				<%--				<div class="layui-form-item layui-form-text">--%>
+				<%--					<label class="layui-form-label">招生信息</label>--%>
+				<%--					<div class="layui-input-inline">--%>
+				<%--						<textarea name="remark" class="layui-textarea" placeholder="请输入驾校简介"--%>
+				<%--						          id="dsynopsis">${sessionScope.drivingschool.dsynopsis}</textarea>--%>
+				<%--					</div>--%>
+				<%--				</div>--%>
 				<div class="layui-form-item ">
 					<label class="layui-form-label">图片上传</label>
 					<div class="layui-input-block">
-						<button type="button" id="test1">多图片上传</button>
+						<button type="button" id="test1">驾校图片上传</button>
 						<blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
 							预览图：
-							<div class="layui-upload-list" id="demo2"></div>
+							<%--							<div class="layui-upload-list" id="demo2">--%>
+							<%--&lt;%&ndash;								<img class="layui-upload-img" style="width: 150px;height: 150px;margin-left: -180px;&ndash;%&gt;--%>
+
+							<%--&lt;%&ndash;margin-top: 20px;" id="demo2"&ndash;%&gt;--%>
+							<%--&lt;%&ndash;								     src="">&ndash;%&gt;--%>
+							<%--							</div>--%>
+							<div class="layui-upload-list">
+								<img class="layui-upload-img" style="width: 150px;height: 150px;padding-left: 100px"
+								     id="demo2" src='<%=path%>/${sessionScope.drivingschool.dschoolimage}' onclick="showBigImage(this)">
+								<p id="demoText"></p>
+							</div>
 						</blockquote>
+					</div>
+				</div>
+				<label class="layui-form-label">驾校主页信息设置</label><br>
+				<div style="text-align: left;padding-left: 110px;width: 80%">
+
+					<div id="editor">
+						<p><%=wenben%>
+						</p>
 					</div>
 				</div>
 
 
-				<%--				<div id="zyupload" class="zyupload" name="zyupload"></div>--%>
-
-				<%--				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">--%>
-				<%--					<legend>上传多张图片</legend>--%>
-				<%--				</fieldset>--%>
 				<div class="layui-upload">
 					<button type="button" class="layui-btn" id="sureup" style="width: 200px;display: none">开始上传</button>
 				</div>
@@ -170,11 +179,57 @@ To change this template use File | Settings | File Templates.
 	</div>
 </div>
 <script src="<%=path+"/lib/jquery-3.4.1/jquery-3.4.1.min.js"%>" charset="utf-8"></script>
+<script type="text/javascript" src="<%=path+"/js/wangEditor/wangEditor.js"%>"></script>
 
 <script src="<%=path+"/lib/jq-module/zyupload/zyupload-1.0.0.min.js"%>" charset="utf-8"></script>
 <script src="<%=path+"/lib/layui-v2.5.5/layui.js"%>" charset="utf-8"></script>
 <script src=<%=path+"/js/lay-config.js?v=1.0.4"%> charset="utf-8"></script>
 <script>
+	var E = window.wangEditor;
+	var editor = new E('#editor');
+
+	editor.customConfig.uploadImgServer = '<%=path%>/dscimage/upload'; //上传URL
+	editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
+	editor.customConfig.uploadImgMaxLength = 5;
+	editor.customConfig.uploadFileName = 'myFileName';
+	editor.customConfig.uploadImgHooks = {
+		customInsert: function (insertImg, result, editor) {
+
+			// 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+			// insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+
+			// 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
+			var url = result.data;
+			insertImg(url);
+
+			// result 必须是一个 JSON 格式字符串！！！否则报错
+		}
+	};
+	editor.customConfig.uploadImgShowBase64 = true;  // 使用 base64 保存图片
+	editor.customConfig.showLinkImg = false;	// 隐藏“网络图片”tab
+
+	editor.customConfig.menus = [
+		'head',  // 标题
+		'bold',  // 粗体
+		'fontSize',  // 字号
+		'fontName',  // 字体
+		'italic',  // 斜体
+		'underline',  // 下划线
+		'strikeThrough',  // 删除线
+		'foreColor',  // 文字颜色
+		'backColor',  // 背景颜色
+		'link',  // 插入链接
+		'justify',  // 对齐方式
+		'quote',  // 引用
+		'emoticon',  // 表情
+		'image',  // 插入图片
+		'undo',  // 撤销
+		'redo'  // 重复
+	];
+	<%--editor.txt.html(<%=wenben%>);--%>
+	editor.create();
+
+
 	layui.use(['layer', 'form', 'layarea', 'upload'], function () {
 		var layer = layui.layer
 			, form = layui.form,
@@ -186,7 +241,7 @@ To change this template use File | Settings | File Templates.
 		//监听提交
 		form.on('submit(saveBtn)', function (data) {
 			formData = data.field;
-
+			var jtext = editor.txt.html();
 			$('#sureup').click();
 			$.ajax({
 				url: "<%=path+"/fact/DSCupdatainfo"%>",//后台路径,
@@ -194,7 +249,10 @@ To change this template use File | Settings | File Templates.
 				// data: {"did": function () {
 				// 		return $('#did').val();
 				// 	}},
-				data: {dscParams: JSON.stringify(formData)},
+				data: {
+					dscParams: JSON.stringify(formData)
+					, dsynopsis: jtext
+				},
 				dataType: "text",
 
 				success: function (msg) {
@@ -220,73 +278,84 @@ To change this template use File | Settings | File Templates.
 
 		});
 
-		//多图片上传
+		//多图片上传 现改为单
 		upload.render({
 			elem: '#test1'
 			, url: "<%=path+"/fact/upload"%>" //改成您自己的上传接口
-			, multiple: true
+			// , multiple: true
 			, auto: false //选择文件后不自动上传
 			, bindAction: '#sureup' //指向一个按钮触发上传
-			, number: 3
-			, data: {"did": function () {
+			// , number: 3
+			, data: {
+				"did": function () {
 					return $('#did').val();
-				}, "jxxx":function () {
-					return $('#upxingwei').val();
 				}
+				// , "jxxx":function () {
+				// 	return $('#upxingwei').val();
+				// }
 			}
 			, choose: function (obj) {
-				$('#demo2').height(180);
+				// $('#demo2').height(180);
 				//将每次选择的文件追加到文件队列
 				var files = obj.pushFile();
 				//预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
 				obj.preview(function (index, file, result) {
-					var fileshu = $('#demo2').find('img').length;
-					if (file.size > 0 && fileshu === 0) {
-						$('#demo2').empty();
-					}
-					// if (fileshu)
-					// 添加图片 demo2-预览的dom元素的id
-					$('#demo2').append(
-						'<div  id="container' + index + '" style="margin-top: -12px;float: left;padding-top: 10px"><div class="layui-btn-container">' +
-						'<button id="upload_img_' + index + '" class="layui-btn layui-btn-danger layui-btn<-xs">删除</button></div>' +
-
-						'<img id="showImg' + index + '" style="width: 150px; margin:10px;cursor:pointer" src="' + result + '" alt="' + file.name + '"></div>'
-						// '<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">'
-					);
-					//删除某图片
-					$("#upload_img_" + index).bind('click', function () {
-						delete files[index];
-						$("#container" + index).remove();
-					});
-
+					// var fileshu = $('#demo2').find('img').length;
+					// if (file.size > 0 && fileshu === 0) {
+					// 	$('#demo2').empty();
+					// }
+					// // if (fileshu)
+					// // 添加图片 demo2-预览的dom元素的id
+					// $('#demo2').append(
+					// 	'<div  id="container' + index + '" style="margin-top: -12px;float: left;padding-top: 10px"><div class="layui-btn-container">' +
+					// 	'<button id="upload_img_' + index + '" class="layui-btn layui-btn-danger layui-btn<-xs">删除</button></div>' +
+					//
+					// 	'<img id="showImg' + index + '" style="width: 150px; margin:10px;cursor:pointer" src="' + result + '" alt="' + file.name + '"></div>'
+					// 	// '<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">'
+					// );
+					// //删除某图片
+					// $("#upload_img_" + index).bind('click', function () {
+					// 	delete files[index];
+					// 	$("#container" + index).remove();
+					// });
+					$('#demo2').attr('src', result); //图片链接（base64）
 					//某图片放大预览
-					$("#showImg" + index).bind('click', function () {
-						var width = $("#showImg" + index).width();
-						var height = $("#showImg" + index).height();
-						var scaleWH = width / height;
-						var bigH = 600;
-						var bigW = scaleWH * bigH;
-						if (bigW > 900) {
-							bigW = 900;
-							bigH = bigW / scaleWH;
-						}
-
-						// 放大预览图片
-						layer.open({
-							type: 1,
-							title: false,
-							closeBtn: 1,
-							shadeClose: true,
-							area: [bigW + 'px', bigH + 'px'], //宽高
-							content: "<img width='" + bigW + "' height='" + bigH + "' src=" + result + " />"
-						});
-					});
+					// $("#showImg" + index).bind('click', function () {
+					// 	var width = $("#showImg" + index).width();
+					// 	var height = $("#showImg" + index).height();
+					// 	var scaleWH = width / height;
+					// 	var bigH = 600;
+					// 	var bigW = scaleWH * bigH;
+					// 	if (bigW > 900) {
+					// 		bigW = 900;
+					// 		bigH = bigW / scaleWH;
+					// 	}
+					//
+					// 	// 放大预览图片
+					// 	layer.open({
+					// 		type: 1,
+					// 		title: false,
+					// 		closeBtn: 1,
+					// 		shadeClose: true,
+					// 		area: [bigW + 'px', bigH + 'px'], //宽高
+					// 		content: "<img width='" + bigW + "' height='" + bigH + "' src=" + result + " />"
+					// 	});
+					// }
+					// );
 
 				})
-			},
-
-			done: function (res) {
-				//上传完毕
+			}
+			, before: function (obj) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+				layer.load(); //上传loading
+			}
+			, done: function (res, index, upload) {
+				if (res.code === 0) {
+					alert("上传成功");
+				}
+				layer.closeAll('loading'); //关闭loading
+			}
+			, error: function (index, upload) {
+				layer.closeAll('loading'); //关闭loading
 			}
 		});
 
@@ -307,13 +376,13 @@ To change this template use File | Settings | File Templates.
 		$("#dcity").attr("data-value", data.dcity);
 		$("#darea").attr("data-value", data.darea);
 
-		$("#dsynopsis").text(data.dsynopsis);
+		// $("#dsynopsis").text(data.dsynopsis);
 		$("#dprice").val(data.dprice);
 		$("#dpassword").val(data.dpassword);
 		$("#demail").val(data.demail);
 		$("#dname").val(data.dname);
 		$("#dphone").val(data.dphone);
-
+		editor.txt.html(data.dsynopsis);
 
 	}
 
@@ -325,6 +394,8 @@ To change this template use File | Settings | File Templates.
 	var strings;
 	//加载的时候获取参数(驾校ID)
 	window.onload = function () {
+		<%--editor.txt.html(<%=wenben%>);--%>
+		<%--editor.txt.append(<%=wenben%>);--%>
 		param = location.search;
 		strings = param.split("=");
 
@@ -340,11 +411,39 @@ To change this template use File | Settings | File Templates.
 			$("#dprovince").attr("disabled", "disabled");
 			$("#dcity").attr("disabled", "disabled");
 			$("#darea").attr("disabled", "disabled");
-
+			editor.$textElem.attr('contenteditable', false)
 		}
 	};
 
 
+</script>
+<script>
+
+
+	function showBigImage(e) {
+
+		var width = $(e).width();
+		var height = $(e).height();
+		var scaleWH = width / height;
+		var bigH = 600;
+		var bigW = scaleWH * bigH;
+		if (bigW > 900) {
+			bigW = 900;
+			bigH = bigW / scaleWH;
+		}
+
+		// 放大预览图片
+		layer.open({
+			type: 1,
+			title: false,
+			closeBtn: 1,
+			shadeClose: true,
+			area: [bigW + 'px', bigH + 'px'], //宽高
+			content: "<img width='" + bigW + "' height='" + bigH + "' src=" + $(e).attr('src') + " />"
+		});
+
+
+	}
 </script>
 </body>
 </html>

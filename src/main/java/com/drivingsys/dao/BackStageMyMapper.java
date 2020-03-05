@@ -20,8 +20,10 @@ public interface BackStageMyMapper
 	@Select("select caccount from consumer")
 	public List<Consumer> selectallc();
 	//教练注册
-	@Select("insert into practise (pdrivingid,paccount,ppassword,psex,page,pphone,pemail,pname,pidcard,presume,pworkexperience,rid,paccountstate) values(#{drivingid},#{account},#{pass},#{sex},#{age},#{phone},#{email},#{name},#{idcard},#{resume},#{workexperience},3,1)")
-	public void addpuser(String drivingid,String account,String pass,String sex,int age,String phone,String email,String name,String idcard,String resume,String workexperience);
+	@Select("insert into practise (pdrivingid,paccount,ppassword,psex,page,pphone,pemail,pname,pidcard,presume,pworkexperience,rid,paccountstate,pidimage) values(#{drivingid},#{account},#{pass},#{sex},#{age},#{phone},#{email},#{name},#{idcard},#{resume},#{workexperience},3,1,#{pidimage})")
+	public void addpuser(String drivingid,String account,String pass,String sex,int age,String phone,String email,String name,String idcard,String resume,String workexperience,String pidimage);
+//	@Select("insert into practise (pdrivingid,paccount,ppassword,psex,page,pphone,pemail,pname,pidcard,presume,pworkexperience,pidimage) values(#{drivingid},#{account},#{pass},#{sex},#{age},#{phone},#{email},#{name},#{idcard},#{resume},#{workexperience},#{pidimage})")
+//	public void addpuser(String drivingid,String account,String pass,String sex,int age,String phone,String email,String name,String idcard,String resume,String workexperience,String pidimage);
 	//驾校端查看教练车
 	@Select("select * from vehicle where (vcarstate='正常' or vcarstate='维修中' or vcarstate='使用中') and vdrivingid=(select did from drivingschool where did=#{did}) limit  #{page,jdbcType=INTEGER},#{limit,jdbcType=INTEGER} ")
 	public List<Vehicle> table(Long did,int page,int limit);
@@ -99,9 +101,11 @@ public interface BackStageMyMapper
 	//搜索管理员状态
 	@Select("select * from (select * from backstage where bstate=#{bacc}) a,(select count(bid) as c from backstage where bstate=#{bacc}) b ")
 	public List<Backstage> backsearchstate(String bstate);
+
 	//查看教练信息
 	@Select("select pname,pphoto,pphone,pemail,pidcard,presume from practise where pid=#{pid}")
 	public List<Practise> selectavatar(Long pid);
+
 	//修改教练头像
 	@Select("update practise set pphoto=#{avatar} where pid=#{pid}")
 	public void updateavatar(String avatar,Long pid);
@@ -126,4 +130,8 @@ public interface BackStageMyMapper
 	//搜索某个驾校下的所有教练
 	@Select("select c.pname,ifnull(count,0) as pcount from (select * from (select pid,pname from practise where pdrivingid=#{did}) as a left join (select count(cid) as count,cpritiseid from consumer where cpritiseid in (select pid from practise where pdrivingid=#{did}) group by cpritiseid) as b on  a.pid=b.cpritiseid) as c")
 	public List<Practise> chart(Long did);
+	//修改信息
+	@Select("update practise set pname=#{updatename},ppassword=#{updatepass} where pid=#{pid}")
+	public void updateinfo(String updatename,String updatepass,Long pid);
+
 }

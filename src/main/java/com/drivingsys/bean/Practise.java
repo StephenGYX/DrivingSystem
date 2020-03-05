@@ -16,7 +16,7 @@ public class Practise {
   private long pprovinceid;
   private long pcityid;
   private long pareaid;
-  private long pdrivingid;
+  private String pdrivingid;
   private String presume;
   private String pworkexperience;
   private long penrollnum;
@@ -28,6 +28,17 @@ public class Practise {
   private String premark2;
   private String pphoto;
   private String pcount;
+  private String pidimage;
+
+  public String getPidimage()
+  {
+    return pidimage;
+  }
+
+  public void setPidimage(String pidimage)
+  {
+    this.pidimage = pidimage;
+  }
 
   public String getPphoto()
   {
@@ -147,14 +158,15 @@ public class Practise {
   }
 
 
-  public long getPdrivingid() {
+  public String getPdrivingid()
+  {
     return pdrivingid;
   }
 
-  public void setPdrivingid(long pdrivingid) {
+  public void setPdrivingid(String pdrivingid)
+  {
     this.pdrivingid = pdrivingid;
   }
-
 
   public String getPresume() {
     return presume;

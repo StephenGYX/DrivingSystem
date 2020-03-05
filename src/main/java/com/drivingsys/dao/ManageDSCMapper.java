@@ -1,9 +1,7 @@
 package com.drivingsys.dao;
 
-import com.drivingsys.bean.Consumer;
-import com.drivingsys.bean.Drivingschool;
-import com.drivingsys.bean.Examination;
-import com.drivingsys.bean.Kecheng;
+import com.drivingsys.bean.*;
+import com.drivingsys.bean.echartstest.bannian;
 import com.drivingsys.bean.echartstest.echaretsDSC;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.session.RowBounds;
@@ -69,4 +67,17 @@ public interface ManageDSCMapper
 
 
 	public Drivingschool queryDSCbydaccount(@Param("daccount") String daccount);
+
+	public void updatezigeimage(@Param("did") String did,@Param("zigeimage") String showFilePath);
+
+	void updatadscimage(@Param("did")String did, @Param("dschoolimage")String showFilePath);
+
+	List<Practise> Queryjiaolianshenhe(Map<String, Object> search, RowBounds rowBounds);
+
+	long Queryjiaolianshenhecount(Map<String, Object> search);
+
+	@Update("update practise set paccountstate=#{i} where did=#{did}")
+	int updateCoachStatejiaolianByDid(int did, int i);
+
+	List<bannian> echartyuefen();
 }

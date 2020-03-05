@@ -6,7 +6,12 @@ import com.drivingsys.bean.backmenu.BackMenu;
 import com.drivingsys.service.BackMenuService;
 import com.drivingsys.service.FrontLoginService;
 import com.drivingsys.service.ManageDSCService;
+import com.drivingsys.shiro.UserToken;
 import net.sf.json.JSONObject;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,9 +78,12 @@ public class FrontLoginController
 	public String testMain(@RequestParam Map<String, String> reqMap, HttpServletRequest request)
 	{
 		System.out.println(reqMap);
+
 		String roleid = request.getSession().getAttribute("roleid") + "";
 		String CODE = request.getSession().getAttribute("CODE") + "";
+		System.out.println(CODE);
 		String code = reqMap.get("code");
+		System.out.println("角色："+roleid);
 		if (!code.equalsIgnoreCase(CODE))
 		{
 			System.out.println("验证码错误");
@@ -88,61 +96,57 @@ public class FrontLoginController
 		{
 			roleid = "4";
 		}
-		System.out.println("roleid=" + roleid);
-		if (roleid.equals("3"))
-		{
+			String roleName="";
+			System.out.println("roleid=" + roleid);
+			if (roleid.equals("3"))
+			{
+				roleName = "Practise";
 
-			Practise practise = frontLoginService.queryPractiseAccount(reqMap);
-			if (practise == null)
+			} else if (roleid.equals("2"))
 			{
-				System.out.println("没找到教练");
-				request.getSession().setAttribute("fmsg", "2");
-				return "2";
-			} else
+				roleName = "Drivingschool";
+
+			} else if (roleid.equals("4"))
 			{
-				System.out.println("找到了教练");
-				//				request.getSession().invalidate();
-				clearanysession(request);
-				request.getSession().setAttribute("practise", practise);
-				return "20";
+
+				roleName = "User";
+
 			}
+			Subject currentUser = SecurityUtils.getSubject();
+
+				UsernamePasswordToken usernamePasswordToken = new UserToken(reqMap.get("account"), reqMap.get("password"), roleName);
+				try
+				{
+					currentUser.login(usernamePasswordToken);
+					if (roleid.equals("3"))
+					{
+						Practise practise = frontLoginService.queryPractiseAccount(reqMap);
+						if (practise.getPaccountstate()!=1){return "5";}
+						request.getSession().setAttribute("practise", practise);
+						return "20";
+					} else if (roleid.equals("2"))
+					{
+						Drivingschool drivingschool = frontLoginService.queryDrivingschool(reqMap);
+						if (!drivingschool.getDaccountstate().equals("1")){return "5";}
+						request.getSession().setAttribute("drivingschool", drivingschool);
+						System.out.println("找到驾校");
+						return "30";
+					} else if (roleid.equals("4"))
+					{
+						Consumer consumer = frontLoginService.queryConsumer(reqMap);
+						if (!consumer.getCstate().equals("1")){return "5";}
+						request.getSession().setAttribute("consumer", consumer);
+						return "cid="+consumer.getCid();
+					}
+
+				} catch (AuthenticationException e)
+				{
+
+					return "2";
+				}
 
 
-		} else if (roleid.equals("2"))
-		{
-			Drivingschool drivingschool = frontLoginService.queryDrivingschool(reqMap);
-			if (drivingschool == null)
-			{
-				System.out.println("没找到驾校");
 
-				request.getSession().setAttribute("fmsg", "2");
-				return "2";
-			} else
-			{
-				System.out.println("找到了驾校");
-				clearanysession(request);
-				request.getSession().setAttribute("drivingschool", drivingschool);
-				//				return "DSCHinfo";
-				return "30";
-			}
-		} else if (roleid.equals("4"))
-		{
-			Consumer consumer = frontLoginService.queryConsumer(reqMap);
-			if (consumer == null)
-			{
-				System.out.println("没找到学生");
-				request.getSession().setAttribute("fmsg", "2");
-				return "2";
-			} else
-			{
-				System.out.println("找到了学生");
-				//				request.getSession().invalidate();
-				clearanysession(request);
-				request.getSession().setAttribute("consumer", consumer);
-
-				return "10";
-			}
-		}
 		return "frontlogin3";
 	}
 
@@ -209,7 +213,7 @@ public class FrontLoginController
 		System.out.println("DSCupdatainfo" + reqMap.get("dscParams"));
 
 		String dscParams = request.getParameter("dscParams");
-
+		String dsynopsis = request.getParameter("dsynopsis");
 		Map<String, Object> updata = new HashMap<String, Object>();
 		;
 		if (dscParams != null)
@@ -218,6 +222,7 @@ public class FrontLoginController
 			JSONObject a = JSONObject.fromObject(dscParams);
 			updata = (Map<String, Object>) a;
 		}
+		updata.put("dsynopsis",dsynopsis);
 		if (updata != null)
 		{
 			i = manageDSCService.updatedscinfo(updata);
@@ -246,11 +251,11 @@ public class FrontLoginController
 			did = "default";
 		}
 		;
-		String jxxx = reqMap.get("jxxx");
-		if (jxxx == null || jxxx.equals(""))
-		{
-			jxxx = "error";
-		}
+//		String jxxx = reqMap.get("jxxx");
+//		if (jxxx == null || jxxx.equals(""))
+//		{
+//			jxxx = "error";
+//		}
 
 		System.out.println("reqmap" + reqMap);
 
@@ -279,7 +284,7 @@ public class FrontLoginController
 				;
 				file.transferTo(dest);
 				System.out.println("第" + (i + 1) + "个文件上传成功");
-				manageDSCService.instertimage(did, showFilePath, jxxx);
+				manageDSCService.updatadscimage(did, showFilePath);
 
 
 			} catch (IOException e)
@@ -311,7 +316,8 @@ public class FrontLoginController
 		{
 			daccount = "default";
 		}
-		;	System.out.println("daccount " + daccount);
+		;
+		System.out.println("daccount " + daccount);
 		Drivingschool dsc = manageDSCService.queryDSCbydaccount(daccount);
 		String did = dsc.getDid() + "";
 		System.out.println("reqmap" + reqMap);
@@ -342,7 +348,8 @@ public class FrontLoginController
 				file.transferTo(dest);
 				System.out.println("第" + (i + 1) + "个文件上传成功");
 				//写入数据库
-				manageDSCService.instertimage(did, showFilePath, "2");
+				//				manageDSCService.instertimage(did, showFilePath, "2");
+				manageDSCService.updatezigeimage(did, showFilePath);
 				HashMap<String, String> data = new HashMap<>();
 				data.put("src", filePath);
 				fileUploadMsg.setData(data);
@@ -387,7 +394,7 @@ public class FrontLoginController
 	public int queryaccount(HttpServletRequest req)
 	{
 		String daccount = req.getParameter("daccount");
-		System.out.println("daccount"+daccount);
+		System.out.println("daccount" + daccount);
 		Drivingschool DSC = manageDSCService.queryDSCbydaccount(daccount);
 		System.out.println(DSC);
 		if (DSC == null)
