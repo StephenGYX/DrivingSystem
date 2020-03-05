@@ -279,6 +279,20 @@ public class ManageDSCController
 	}
 
 
+	@RequestMapping("echartshengfen")
+	@ResponseBody
+	public JSONArray echartshengfen()
+	{
+		JSONArray array = null;
+		List<echaretsDSC> echaretsDSCS = manageDSCService.echaretstest();
+		array = JSONArray.fromObject(echaretsDSCS);
+
+
+		return array;
+	}
+
+
+
 	@RequestMapping("echartyuefen")
 	@ResponseBody
 	public JSONArray echartyuefen()
