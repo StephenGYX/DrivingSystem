@@ -46,6 +46,12 @@ public class ExamController
 		System.out.println(cid+","+kemu);
 		return examService.selectWrong(cid,kemu);
 	}
+	@RequestMapping(value = "/selectWrongechart/{cid}/{kemu}",method = {RequestMethod.POST,RequestMethod.GET})
+	public List<Cuotiechart> selectWrongechart(@PathVariable("cid") String cid,@PathVariable("kemu") String kemu){
+		System.out.println(cid+","+kemu);
+		return examService.selectWrongechart(cid,kemu);
+	}
+
 	@GetMapping("/getVideo/{subject}")
 	public List<Videoinfo> selectVideo(@PathVariable String subject){
 		System.out.println(subject);

@@ -3,6 +3,7 @@ package com.drivingsys.shiro;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authc.pam.FirstSuccessfulStrategy;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -91,16 +92,15 @@ public class ShiroConfig {
 		filterMap.put("/css/**","anon");
 		filterMap.put("/lib/**","anon");
 		filterMap.put("/fact/getyzm","anon");
-//		filterMap.put("/jsp/**","anon");
 		filterMap.put("/jsp/*reg.jsp","anon");
 		filterMap.put("/images/**","anon");
 		filterMap.put("/*reg","anon");
 		filterMap.put("/**/*Login","anon");
-		filterMap.put("/backPractise/**","roles[practise]");
-		filterMap.put("/jsp/**","authc");
+		filterMap.put("/**/backPractise/**","roles[practise]");
+
 		filterMap.put("/druid/**", "anon");
 		filterMap.put("/static/**","anon");
-
+		filterMap.put("/jsp/**","authc");
 		filterMap.put("/**","anon");
 		filterMap.put("/logout", "logout");
 
@@ -112,12 +112,15 @@ public class ShiroConfig {
 	 * 注入 securityManager
 	 * 用来链接realms和subject(用户)
 	 */
-	@Bean(name="securityManager")
+	@Bean("securityManager")
 	public DefaultWebSecurityManager getDefaultWebSecurityManager(
 			HashedCredentialsMatcher hashedCredentialsMatcher) {
 
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
 		securityManager.setAuthenticator(myModularRealmAuthenticator());
+		CustomerAuthrizer customModularRealmAuthorizer = new CustomerAuthrizer();
+		securityManager.setAuthorizer(customModularRealmAuthorizer);
+
 		List<Realm> realms = new ArrayList<>();
 		//设置多Realm
 		realms.add(drivingschoolRealm(hashedCredentialsMatcher));
@@ -135,4 +138,15 @@ public class ShiroConfig {
 		authenticator.setAuthenticationStrategy(strategy);
 		return authenticator;
 	}
+	@Bean
+	public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(DefaultWebSecurityManager securityManager){
+		AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+		authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
+		return authorizationAttributeSourceAdvisor;
+	}
+
+
+
+
+
 }

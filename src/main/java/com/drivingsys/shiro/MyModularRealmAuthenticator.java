@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 public class MyModularRealmAuthenticator extends ModularRealmAuthenticator
 {
+
 	@Override
 	protected AuthenticationInfo doAuthenticate(AuthenticationToken authenticationToken)
 			throws AuthenticationException {

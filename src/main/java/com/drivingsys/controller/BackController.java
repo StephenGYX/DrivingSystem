@@ -99,7 +99,7 @@ public class BackController
 	}
 	@RequestMapping("/nonerole")
 	public String nonerole(HttpServletRequest request){
-
+		System.out.println("没有权限");
 		return "您当前没有进行该操作的权限！";
 	}
 
