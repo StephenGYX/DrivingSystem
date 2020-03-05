@@ -1,3 +1,4 @@
+
 package com.drivingsys.controller;
 
 import com.baidu.aip.face.AipFace;
@@ -140,8 +141,10 @@ public class UserFaceController
 			String savePath = request.getSession().getServletContext().getRealPath("//images//pidcardimage");
 			System.out.println(savePath);
 						String suffix=multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1);
+			System.out.println(suffix);
             String number=res.getJSONObject("公民身份号码").getString("words");
 			System.out.println("pidnumber "+number);
+			resultmap.put("houzhui",suffix);
 			resultmap.put("number",number);
 			resultmap.put("name",res.getJSONObject("姓名").getString("words"));
 				multipartFile.transferTo(new File(savePath+"//" +resultmap.get("number")+"."+suffix));
@@ -239,3 +242,4 @@ public class UserFaceController
 
 
 }
+

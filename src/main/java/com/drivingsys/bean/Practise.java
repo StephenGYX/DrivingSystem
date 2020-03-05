@@ -27,6 +27,17 @@ public class Practise {
   private long paccountstate;
   private String premark2;
   private String pphoto;
+  private String pidimage;
+
+  public String getPidimage()
+  {
+    return pidimage;
+  }
+
+  public void setPidimage(String pidimage)
+  {
+    this.pidimage = pidimage;
+  }
 
   public String getPphoto()
   {

@@ -147,7 +147,7 @@
 
 		<div class="">
 			<div id="test3" class="admin-header">
-				<span style="color: #3C6E31">三端登陆窗口</span>
+				<span style="color: #3C6E31;margin-left: 6%">三端登陆窗口</span>
 
 			</div>
 			<div id="test2" class="layui-tab" lay-filter="tab-all">
@@ -159,15 +159,15 @@
 				<%--				</ul>--%>
 				<%--				<legend>按钮组</legend>--%>
 				<%--	<button type="button" class="layui-btn layui-btn-radius">原始按钮1</button>--%>
-				<div class="layui-btn-group  " style="margin-left: 50px">
+				<div class="layui-btn-group " id="loginRoleDiv"  style="width: 52%;margin-left: 10px;">
 
-					<button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="btnclick(this)"
+					<button type="button" id="btn1" class="layui-btn layui-btn-primary layui-btn-radius" style="width: 33.3%"  onclick="btnclick(this)"
 					        value="4">学员
 					</button>
-					<button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="btnclick(this)"
+					<button type="button" id="btn2" class="layui-btn layui-btn-primary layui-btn-radius"  style="width: 33.3%" onclick="btnclick(this)"
 					        value="2">驾校
 					</button>
-					<button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="btnclick(this)"
+					<button type="button" id="btn3" class="layui-btn layui-btn-primary layui-btn-radius" style="width: 33.3%" onclick="btnclick(this)"
 					        value="3">教练
 					</button>
 				</div>
@@ -295,6 +295,12 @@
 
 		// alert(data.value);
 		var roleid = data.value;
+		//
+		$("#btn1").css("color","black");
+		$("#btn2").css("color","black");
+		$("#btn3").css("color","black");
+		data.style.color= "red";
+
 		alert(roleid);
 		$.ajax({
 			// contentType:"application/json",

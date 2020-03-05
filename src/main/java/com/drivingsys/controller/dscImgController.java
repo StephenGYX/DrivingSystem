@@ -64,7 +64,7 @@ public class dscImgController
 		Map<String, String> map = new HashMap<String, String>();
 
 		//这里应该是项目路径
-		map.put("data",request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/images/news/" + uploadFileName);
+		map.put("data",request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/images/dscinfoimages/" + uploadFileName);
 
 		//将图片地址返回
 		return map;

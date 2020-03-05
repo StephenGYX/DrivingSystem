@@ -32,7 +32,7 @@
 			class="layui-icon layui-icon-delete"></i>删除</a>
 	</script>
 <!-- 增加搜索条件 -->
-<div class="demoTable">
+<div class="demoTable" style="margin-top: 30px;margin-left: 400px">
 	搜索车牌：
 	<div class="layui-inline">
 		<input class="layui-input" name="id" id="demoReload" autocomplete="off">
@@ -48,7 +48,7 @@
 	<button class="layui-btn" data-type="reload" >搜索</button>
 
 </div>
-<button id="pro" type="button" class="layui-btn layui-btn-normal">新增车辆</button>
+<button id="pro" type="button" class="layui-btn layui-btn-normal" style="margin-left: 20px;margin-top: 20px">新增车辆</button>
 <table class="layui-hide" id="test"  lay-filter="test"></table>
 
 <div id="demo11"></div>
@@ -61,14 +61,14 @@
 		//第一个实例
 		table.render({
 			elem: '#test'
-			,height: 272
+			,height: 300
 			,url: '/springboot/table' //数据接口
-			,parseData:function (res) {
+			,parseData:function (res1) {
 				return{
 					"code":0,
 					"msg":0,
-					"count":res.count,
-					"data":res.data
+					"count":res1.count,
+					"data":res1.data
 				}
 			}
 
@@ -76,19 +76,19 @@
 				{field: 'vcarnum', title: '车牌', width:160, sort: true, fixed: 'left'}
 				,
 				{fixed: 'vphoto',
-					title: '图片',width:80,templet: function (d) {
+					title: '图片',width:160,templet: function (d) {
 						return '<div ><img src="'+d.vphoto+'"  width="50px" height="50px" onclick="showBigImage(this)"></a></div>';
 					}
 				},
-				{field: 'vmodel', title: '型号', width:80
+				{field: 'vmodel', title: '型号', width:160
 				},
-				{field: 'vcoordinate', title: '坐标', width:80
+				{field: 'vcoordinate', title: '坐标', width:160
 				},
-				{field: 'vdrivingid', title: '驾校', width:80
+				{field: 'vdrivingid', title: '驾校', width:160
 				},
-				{field: 'vcarstate', title: '状态', width: 80
+				{field: 'vcarstate', title: '状态', width: 160
 				},
-				{field: 'vbrand', title: '品牌', width:80
+				{field: 'vbrand', title: '品牌', width:160
 				},
 				{fixed: 'right',title: '操作', width:160,toolbar:"#bar"
 				}
@@ -150,20 +150,9 @@
 
 	var $ = layui.$, active = {
 		reload: function(){
-			var demoReload = $('#demoReload');
-			if($("#demoReload").val()==""||$("#brand").val()==""||$("#model").val()==""){
+			if($("#demoReload").val()==""&&$("#brand").val()==""&&$("#model").val()==""){
 				window.parent.location.reload();
 			}else if($("#demoReload").val()!=""){
-
-			}else if($("#brand").val()!=""){
-
-			}else if($("#model").val()!=""){
-
-			}
-
-
-			else{
-
 				//执行重载
 				table.reload('test', {
 					page: {
@@ -172,9 +161,25 @@
 					,where: {	demoReload:$("#demoReload").val()}
 					,url:'/springboot/search'
 				}, 'data');
+			}else if($("#brand").val()!=""){
+				//执行重载
+				table.reload('test', {
+					page: {
+						curr: 1 //重新从第 1 页开始
+					}
+					,where: {	brand:$("#brand").val()}
+					,url:'/springboot/searchbrand'
+				}, 'data');
+			}else if($("#model").val()!=""){
+				//执行重载
+				table.reload('test', {
+					page: {
+						curr: 1 //重新从第 1 页开始
+					}
+					,where: {	model:$("#model").val()}
+					,url:'/springboot/searchmodel'
+				}, 'data');
 			}
-
-
 		}
 	};
 

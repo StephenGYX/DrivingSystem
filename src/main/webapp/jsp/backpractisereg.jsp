@@ -31,7 +31,7 @@ padding-top: 100px;">
 	<div class="layuimini-container">
 		<div class="layuimini-main">
 
-
+<input  id="houzhui" name="houzhui" value="jpg">
 			<div class="layui-form-item" id="driving">
 				<div class="layui-form-label">选择驾校</div>
 				<div class="layui-input-inline" style="padding-top: -2px;">
@@ -195,7 +195,8 @@ margin-top: 20px;" id="demo2"
 				//上传完毕回调
 				layer.msg("上传成功", {icon: 6});
 				$("#name").val(res.name);
-				$("#number").val(res.number)
+				$("#number").val(res.number);
+				$("#houzhui").val(res.houzhui)
 				// alert(res.number)
 			}
 			, error: function () {

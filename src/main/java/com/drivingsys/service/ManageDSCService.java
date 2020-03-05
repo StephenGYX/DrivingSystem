@@ -1,9 +1,6 @@
 package com.drivingsys.service;
 
-import com.drivingsys.bean.Consumer;
-import com.drivingsys.bean.Drivingschool;
-import com.drivingsys.bean.Examination;
-import com.drivingsys.bean.Kecheng;
+import com.drivingsys.bean.*;
 import com.drivingsys.bean.echartstest.echaretsDSC;
 import com.drivingsys.dao.ManageDSCMapper;
 import org.apache.ibatis.session.RowBounds;
@@ -127,6 +124,26 @@ public class ManageDSCService
 
 	public void updatadscimage(String did, String showFilePath)
 	{manageDSCMapper.updatadscimage(did,showFilePath);
+	}
+
+	public List<Practise> Queryjiaolianshenhe(Map<String, Object> search, RowBounds rowBounds)
+	{
+		return  manageDSCMapper.Queryjiaolianshenhe(search,rowBounds);
+	}
+
+	public long Queryjiaolianshenhecount(Map<String, Object> search)
+	{
+		return manageDSCMapper.Queryjiaolianshenhecount(search);
+	}
+
+	public int updateCoachStatejiaolianByDid(int did, int i)
+	{
+		return manageDSCMapper.updateCoachStatejiaolianByDid(did,i);
+	}
+
+	public List<echaretsDSC> echartyuefen()
+	{
+		return  manageDSCMapper.echartyuefen();
 	}
 
 	;

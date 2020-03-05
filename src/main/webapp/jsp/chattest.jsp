@@ -83,6 +83,7 @@ To change this template use File | Settings | File Templates.
 	}
 
 	// openBody();
+
 	// 模拟一些后端传输数据
 	var serviceData = {
 		'robot': {

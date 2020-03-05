@@ -3,7 +3,7 @@
 
 
 <mapper namespace="com.drivingsys.dao.ManageDSCMapper">
-<!--查驾校数目-->
+    <!--查驾校数目-->
     <select id="queryDSCcount" resultType="long" parameterType="java.lang.Object">
         select count(*) from drivingschool
         <where>
@@ -21,12 +21,11 @@
     </select>
 
 
-
-<!--查驾校信息-->
+    <!--查驾校信息-->
     <select id="queryDSC" resultType="com.drivingsys.bean.Drivingschool" parameterType="java.lang.Object">
         select * from drivingschool
         <where>
-             and daccountstate !=0
+            and daccountstate !=0
             <if test="dname!=null and dname.trim()!=''">
                 and dname like '%${dname}%'
             </if>
@@ -42,29 +41,29 @@
 
     <update id="delDSC" parameterType="java.util.List">
         update drivingschool set daccountstate="3" where did in
-        <foreach collection="list" index="index" item="item" separator=","  open="(" close=")">
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
             #{item.did}
 
         </foreach>
     </update>
 
-<!--    查看对驾校的评价-->
+    <!--    查看对驾校的评价-->
     <select id="querySTUpj" parameterType="map" resultMap="empmap">
-        select  d.did,e.* ,c.cname,c.caccount from  drivingschool d,examination e,consumer c
+        select d.did,e.* ,c.cname,c.caccount from drivingschool d,examination e,consumer c
         <where>
             and d.did=e.did and c.cid=e.cid
             <if test="did!=null and did!='' ">
-                and  d.did =#{did}
+                and d.did =#{did}
             </if>
         </where>
 
     </select>
     <select id="querySTUpjcount" parameterType="map" resultType="long">
-        select count(*) from  drivingschool d,examination e,consumer c
+        select count(*) from drivingschool d,examination e,consumer c
         <where>
             and d.did=e.did and c.cid=e.cid
             <if test="did!=null and did!='' ">
-                and  d.did =#{did}
+                and d.did =#{did}
             </if>
         </where>
 
@@ -75,13 +74,14 @@
         <result property="did" column="did"/>
         <result property="edrivingscore" column="edrivingscore"/>
         <result property="edrivingcontent" column="edrivingcontent"/>
-        <collection property="consumer" column="cid" ofType="com.drivingsys.bean.Consumer"  javaType="java.util.ArrayList">
+        <collection property="consumer" column="cid" ofType="com.drivingsys.bean.Consumer"
+                    javaType="java.util.ArrayList">
             <result property="cname" column="cname"/>
             <result property="caccount" column="caccount"/>
         </collection>
     </resultMap>
 
-<select id="echaretstest" resultType="com.drivingsys.bean.echartstest.echaretsDSC">
+    <select id="echaretstest" resultType="com.drivingsys.bean.echartstest.echaretsDSC">
 
 SELECT COUNT(practise.pid) as renshu
 ,pdrivingid,drivingschool.dname
@@ -109,7 +109,7 @@ GROUP BY pdrivingid;
     <select id="QueryDSCshenhe" resultType="com.drivingsys.bean.Drivingschool" parameterType="java.lang.Object">
         select * from drivingschool
         <where>
-          and  daccountstate =0
+            and daccountstate =0
             <if test="dname!=null and dname.trim()!=''">
                 and dname like '%${dname}%'
             </if>
@@ -126,7 +126,7 @@ GROUP BY pdrivingid;
     <select id="QueryDSCshenheCount" resultType="long" parameterType="java.lang.Object">
         select count(*) from drivingschool
         <where>
-            and  daccountstate =0
+            and daccountstate =0
             <if test="dname!=null and dname.trim()!=''">
                 and dname like '%${dname}%'
             </if>
@@ -140,83 +140,82 @@ GROUP BY pdrivingid;
     </select>
 
 
-<update id="updatedscinfo" parameterType="map">
-    update drivingschool
-    <set>
-        <if test="username!=null and username.trim()!=''">
-            daccount=#{username},
-        </if>
-        <if test="dcontacts!=null and dcontacts.trim()!=''">
-            dcontacts=#{dcontacts},
-        </if>
-        <if test="password!=null and password.trim()!=''">
-            dpassword=#{password},
-        </if>
-        <if test="phone!=null and phone.trim()!=''">
-            dphone=#{phone},
-        </if>
-        <if test="dname!=null and dname.trim()!=''">
-            dname=#{dname},
-        </if>
-        <if test="province!=null and province.trim()!=''">
-            dprovince=#{province},
-        </if>
-        <if test="city!=null and city.trim()!=''">
-            dcity=#{city},
-        </if>
-        <if test="county!=null and county.trim()!=''">
-            darea=#{county},
-        </if>
-        <if test="cost!=null and cost.trim()!=''">
-            dprice=#{cost},
-        </if>
-        <if test="remark!=null and remark.trim()!=''">
-            dsynopsis=#{remark},
-        </if>
-        <if test="dsynopsis!=null and dsynopsis!=''">
-            dsynopsis=#{dsynopsis},
-        </if>
-    </set>
-    where did=#{did}
-</update>
+    <update id="updatedscinfo" parameterType="map">
+        update drivingschool
+        <set>
+            <if test="username!=null and username.trim()!=''">
+                daccount=#{username},
+            </if>
+            <if test="dcontacts!=null and dcontacts.trim()!=''">
+                dcontacts=#{dcontacts},
+            </if>
+            <if test="password!=null and password.trim()!=''">
+                dpassword=#{password},
+            </if>
+            <if test="phone!=null and phone.trim()!=''">
+                dphone=#{phone},
+            </if>
+            <if test="dname!=null and dname.trim()!=''">
+                dname=#{dname},
+            </if>
+            <if test="province!=null and province.trim()!=''">
+                dprovince=#{province},
+            </if>
+            <if test="city!=null and city.trim()!=''">
+                dcity=#{city},
+            </if>
+            <if test="county!=null and county.trim()!=''">
+                darea=#{county},
+            </if>
+            <if test="cost!=null and cost.trim()!=''">
+                dprice=#{cost},
+            </if>
+            <if test="remark!=null and remark.trim()!=''">
+                dsynopsis=#{remark},
+            </if>
+            <if test="dsynopsis!=null and dsynopsis!=''">
+                dsynopsis=#{dsynopsis},
+            </if>
+        </set>
+        where did=#{did}
+    </update>
 
 
-
-<insert id="instertkecheng" parameterType="map">
+    <insert id="instertkecheng" parameterType="map">
     insert into kecheng (kid, did, kname, kjianjie, kprice, kjiazhaoleixing, beizhu, kcosttime, kshijianduan)
     values (null ,#{did},#{kname},#{kjianjie},#{kprice},#{kjiazhaoleixing},#{beizhu},#{kcosttime},#{kshijianduan})
 </insert>
 
 
-<update id="updatakecheng" parameterType="map">
-    update kecheng
-    <set>
-        <if test="kname!=null and kname.trim()!=''">
-            kname=#{kname},
-        </if>
-        <if test="kjianjie!=null and kjianjie.trim()!=''">
-            kjianjie=#{kjianjie},
-        </if>
-        <if test="beizhu!=null and beizhu.trim()!=''">
-            kprice=#{kprice},
-        </if>
-        <if test="kjiazhaoleixing!=null and kjiazhaoleixing.trim()!=''">
-            kjiazhaoleixing=#{kjiazhaoleixing},
-        </if>
-        <if test="beizhu!=null and beizhu.trim()!=''">
-            beizhu=#{beizhu},
-        </if>
-        <if test="kcosttime!=null and kcosttime.trim()!=''">
-            kcosttime=#{kcosttime},
-        </if>
-        <if test="kshijianduan!=null and kshijianduan.trim()!=''">
-            kshijianduan=#{kshijianduan},
-        </if>
-    </set>
-    where kid=#{kid}
-</update>
+    <update id="updatakecheng" parameterType="map">
+        update kecheng
+        <set>
+            <if test="kname!=null and kname.trim()!=''">
+                kname=#{kname},
+            </if>
+            <if test="kjianjie!=null and kjianjie.trim()!=''">
+                kjianjie=#{kjianjie},
+            </if>
+            <if test="beizhu!=null and beizhu.trim()!=''">
+                kprice=#{kprice},
+            </if>
+            <if test="kjiazhaoleixing!=null and kjiazhaoleixing.trim()!=''">
+                kjiazhaoleixing=#{kjiazhaoleixing},
+            </if>
+            <if test="beizhu!=null and beizhu.trim()!=''">
+                beizhu=#{beizhu},
+            </if>
+            <if test="kcosttime!=null and kcosttime.trim()!=''">
+                kcosttime=#{kcosttime},
+            </if>
+            <if test="kshijianduan!=null and kshijianduan.trim()!=''">
+                kshijianduan=#{kshijianduan},
+            </if>
+        </set>
+        where kid=#{kid}
+    </update>
 
-<delete id="delkecheng" parameterType="map">
+    <delete id="delkecheng" parameterType="map">
     DELETE FROM kecheng WHERE kid=#{kid}
 </delete>
 
@@ -224,8 +223,8 @@ GROUP BY pdrivingid;
         INSERT INTO dschoolimages (did, lujing, leixing)
         values (#{did},#{lujing},#{leixing})
     </insert>
-<!--    @Select("select * from drivingschool where daccount=#{daccount}")-->
-<select id="queryDSCbydaccount" parameterType="map" resultType="com.drivingsys.bean.Drivingschool">
+    <!--    @Select("select * from drivingschool where daccount=#{daccount}")-->
+    <select id="queryDSCbydaccount" parameterType="map" resultType="com.drivingsys.bean.Drivingschool">
     select * from drivingschool where daccount=#{daccount};
 </select>
 
@@ -239,5 +238,49 @@ GROUP BY pdrivingid;
         update drivingschool set dschoolimage=#{dschoolimage}
         where did=#{did};
     </update>
+
+
+    <select id="Queryjiaolianshenhe" parameterType="map" resultType="com.drivingsys.bean.Practise">
+        SELECT * FROM practise
+        <where>
+            and pdrivingid=#{did} and paccountstate!=1
+            <if test="psex!=null and psex.trim()!=''">
+              and  psex=#{psex}
+            </if>
+            <if test="pname!=null and pname.trim()!=''">
+             and   pname like '%${pname}%'
+            </if>
+
+        </where>
+    </select>
+
+    <select id="Queryjiaolianshenhecount" parameterType="map" resultType="long">
+        select count(*) from practise
+        <where>
+            and pdrivingid=#{did}  and paccountstate!=1
+            <if test="psex!=null and psex.trim()!=''">
+                and psex=#{psex}
+            </if>
+            <if test="pname!=null and pname.trim()!=''">
+                and pname like '%${pname}%'
+            </if>
+
+        </where>
+    </select>
+
+
+
+
+    <select id="echartyuefen" resultType="com.drivingsys.bean.echartstest.echaretsDSC">
+	SELECT A.dname,CONCAT(YEAR(A.esubmittime),'-',MONTH(A.esubmittime)) AS releaseYearMonth,count(*) as
+	 renshu
+	FROM  (SELECT examination.* ,drivingschool.dname FROM examination,drivingschool WHERE  drivingschool.did=examination.did and
+	esubmittime
+	 BETWEEN DATE_SUB(NOW(),INTERVAL 180 DAY) and NOW() ) AS A
+
+
+	GROUP BY releaseYearMonth,dname
+    </select>
+
 </mapper>
 	

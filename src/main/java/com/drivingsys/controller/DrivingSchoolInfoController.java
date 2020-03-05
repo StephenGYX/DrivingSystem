@@ -1,7 +1,7 @@
 package com.drivingsys.controller;
 
 
-import com.alibaba.fastjson.JSONArray;
+//import com.alibaba.fastjson.JSONArray;
 import com.drivingsys.bean.Drivingschool;
 import com.drivingsys.bean.Examination;
 import com.drivingsys.bean.Kecheng;
@@ -76,11 +76,8 @@ public class DrivingSchoolInfoController
 				count++;
 			};
 		}
-
-		System.out.println("正确的评论人数"+count);
-
 		request.getSession().setAttribute("countEval",count);
-
+//		System.out.println("正确的评论人数"+count);
 //		System.out.println(	"评分            "+drivingSchoolInfo.get(0).getDevaluatescore());
 
 		return "1";

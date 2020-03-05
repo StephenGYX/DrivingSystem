@@ -103,6 +103,7 @@ public class FrontLoginController
 			{
 				System.out.println("找到了教练");
 				//				request.getSession().invalidate();
+				if (practise.getPaccountstate()!=1){return "7";}
 				clearanysession(request);
 				request.getSession().setAttribute("practise", practise);
 				return "20";
