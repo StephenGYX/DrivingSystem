@@ -277,7 +277,7 @@
 					echartsPies.hideLoading();    //隐藏加载动画
 					var optionPies = {
 						title: {
-							text: '玫瑰图',
+							text: '全部教练车状态玫瑰图',
 							left: 'center'
 						},
 						tooltip: {
