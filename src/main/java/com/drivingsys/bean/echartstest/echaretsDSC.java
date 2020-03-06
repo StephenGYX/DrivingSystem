@@ -6,6 +6,17 @@ public class echaretsDSC
 	private String dname;
 	private String did;
 private String releaseYearMonth;
+private String dprovince;
+
+	public String getDprovince()
+	{
+		return dprovince;
+	}
+
+	public void setDprovince(String dprovince)
+	{
+		this.dprovince = dprovince;
+	}
 
 	public long getRenshu()
 	{

@@ -80,4 +80,10 @@ public interface ManageDSCMapper
 	int updateCoachStatejiaolianByDid(int did, int i);
 
 	List<bannian> echartyuefen();
+
+	List<echaretsDSC> echartshengfen();
+
+	List<echaretsDSC> echartcar();
+@Select("select * from drivingschool where dname=#{dname} ")
+	Drivingschool queryDSCbydname(String dname);
 }

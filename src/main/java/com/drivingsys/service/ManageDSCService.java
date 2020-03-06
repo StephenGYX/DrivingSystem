@@ -147,6 +147,20 @@ public class ManageDSCService
 		return  manageDSCMapper.echartyuefen();
 	}
 
+	public List<echaretsDSC> echartshengfen()
+	{
+		return manageDSCMapper.echartshengfen();
+	}
+
+	public List<echaretsDSC> echartcar()
+	{return manageDSCMapper.echartcar();
+	}
+
+	public Drivingschool queryDSCbydname(String dname)
+	{
+		return manageDSCMapper.queryDSCbydname(dname);
+	}
+
 	;
 
 }

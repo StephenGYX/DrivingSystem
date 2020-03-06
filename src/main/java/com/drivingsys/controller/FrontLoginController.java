@@ -147,7 +147,7 @@ public class FrontLoginController
 
 
 
-		return "frontlogin3";
+		return "2";
 	}
 
 	@RequestMapping("roleid")
@@ -405,6 +405,32 @@ public class FrontLoginController
 		return 2;
 
 	}
+
+
+
+
+	@RequestMapping("/querydname")
+	@ResponseBody
+	public int querydname(HttpServletRequest req)
+	{
+		String dname = req.getParameter("dname");
+		System.out.println("dname" + dname);
+		Drivingschool DSC = manageDSCService.queryDSCbydname(dname);
+		System.out.println(DSC);
+		if (DSC == null)
+		{
+			return 1;
+		}
+
+		return 2;
+
+	}
+
+
+
+
+
+
 
 
 }

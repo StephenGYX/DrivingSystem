@@ -293,5 +293,16 @@ and DATE_FORMAT(NOW(),'%Y-%m')
 
     </select>
 
+
+    <select id="echartshengfen" resultType="com.drivingsys.bean.echartstest.echaretsDSC">
+        SELECT COUNT(*) as renshu,dprovince FROM drivingschool
+GROUP BY dprovince
+    </select>
+    <select id="echartcar" resultType="com.drivingsys.bean.echartstest.echaretsDSC">
+    SELECT COUNT(*) as renshu, vcarstate as dname
+    FROM vehicle
+
+    GROUP BY dname</select>
+
 </mapper>
 	
