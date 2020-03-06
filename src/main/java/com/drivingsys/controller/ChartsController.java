@@ -179,7 +179,7 @@ public class ChartsController
 //		request.getSession().setAttribute("newStudent",chartList);
 
 
-		
+
 		return s;
 	}
 

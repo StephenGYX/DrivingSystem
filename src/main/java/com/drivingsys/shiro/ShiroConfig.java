@@ -97,7 +97,7 @@ public class ShiroConfig {
 		filterMap.put("/*reg","anon");
 		filterMap.put("/**/*Login","anon");
 		filterMap.put("/backPractise/**","roles[practise]");
-		filterMap.put("/jsp/**","authc");
+		filterMap.put("/jsp/**","anon");
 		filterMap.put("/druid/**", "anon");
 		filterMap.put("/static/**","anon");
 
