@@ -19,6 +19,9 @@ layui.use(['layer','form'],function(){
 		} else if (password.length > 20 || password1.length > 20) {
 			layer.msg('密码长度超出限制', {icon: 2});
 			return false;
+		}else if(password.length<6){
+			layer.msg('请输入六位以上密码', {icon: 2});
+			return false;
 		} else if (username.length > 15) {
 			layer.msg('账号长度超出限制', {icon: 2});
 			return false;

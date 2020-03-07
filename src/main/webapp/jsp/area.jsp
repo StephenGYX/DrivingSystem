@@ -258,7 +258,6 @@ margin-top: 20px;" id="demo2"
 		var keyword = document.getElementById("suggestId").value;
 		localSearch.setSearchCompleteCallback(function (searchResult) {
 			var poi = searchResult.getPoi(0);
-			alert(poi.point.lng + "," + poi.point.lat); //获取经度和纬度，将结果显示在文本框中
 			// map.centerAndZoom(poi.point, 13);
 			document.getElementById("longitude").value = poi.point.lng
 			// $("#longitude").val(poi.point.lng+"")
@@ -277,7 +276,8 @@ margin-top: 20px;" id="demo2"
 			data: {"daccount": daccount},
 			dataType: "text",
 			success: function (msg) {
-				alert(msg);
+
+
 				if (msg === '1') {
 
 					// layer.msg("账号不存在，可注册", {icon: 6});
@@ -375,7 +375,7 @@ margin-top: 20px;" id="demo2"
 
 
 			var tip2 = $("#tip2").val();
-			alert("tip2 value " + tip2);
+
 			$("#upstate").val("sureup");
 			if (tip2 === 2) {
 				layer.msg("该账号已被注册");
@@ -394,7 +394,13 @@ margin-top: 20px;" id="demo2"
 						alert("注册成功");
 						layer.msg("注册成功", {icon: 6});
 						$('#sureup').click();
-						window.location=="<%=path%>"+"/jsp/frontlogin3.jsp";
+						var url=window.location.href;
+						if (url.indexOf("homepage") !== -1) {
+							window.parent.location.href="<%=path%>"+"/homepage/drivingSchool";
+						}else {
+						// window.location.href="http://www.baidu.com";
+						window.location.href="<%=path%>"+"/jsp/frontlogin3.jsp";
+						}
 					} else {
 						// alert("222");
 						alert("注册失败");

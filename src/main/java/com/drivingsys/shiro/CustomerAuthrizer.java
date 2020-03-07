@@ -14,7 +14,6 @@ public class CustomerAuthrizer extends ModularRealmAuthorizer
 		Object primaryPrincipal = principals.getPrimaryPrincipal();
 
 		for (Realm realm : getRealms()) {
-			System.out.println("jin");
 			if (primaryPrincipal instanceof Practise) {
 				if (realm instanceof PractiseRealm) {
 					return ((PractiseRealm) realm).isPermitted(principals, permission);

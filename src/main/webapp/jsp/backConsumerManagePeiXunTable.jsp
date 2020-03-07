@@ -130,6 +130,8 @@
 				{field: 'cname', width: 110, title: '学员姓名'},
 				{field: 'caccount', width: 110, title: '学员账号', sort: true},
 				{field: 'csex', width: 60, title: '性别'},
+				{field: 'dname', width: 100, title: '所属驾校'},
+				{field: 'pname', width: 100, title: '所属教练'},
 				{field: 'eorderstate', width: 170, title: '学习阶段', sort: true
 					,templet: function (a)
 					{

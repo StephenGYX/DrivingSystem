@@ -3,14 +3,19 @@ package com.drivingsys.service;
 import com.drivingsys.bean.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface BackStageMyService
 {
 
 	public void adduser(String account,String pass,String phone,String sex,int age,String name,String email,String idcard,String wechat);
+
+	public void addpuser(String drivingid,String account,String pass,String sex,int age,String phone,String email,String name,String idcard,String resume,String workexperience,String pidimage);
+
 	public List<Consumer> selectallc();
-	public void addpuser(String drivingid,String account,String pass,String sex,int age,String phone,String email,String name,String idcard,String resume,String workexperience);
+
+
 	public List<Vehicle> table(Long did, int page, int limit);
 	public List<Vehicle> table1(int page,int limit);
 	public List<Vehicle> search(String n);
@@ -46,4 +51,5 @@ public interface BackStageMyService
 	public void updateemail(String updateemail,Long pid);
 	public void updateidcard(String updateidcard,Long pid);
 	public void updateresume(String updateresume,Long pid);
+	public List<Practise> chart(Long did);
 }

@@ -1,3 +1,4 @@
+
 package com.drivingsys.controller;
 
 import com.alipay.api.internal.util.AlipaySignature;
@@ -8,6 +9,7 @@ import com.drivingsys.service.DrivingSchoolInfoService;
 import com.drivingsys.service.PayService;
 import javafx.beans.binding.ObjectExpression;
 import net.sf.json.JSONObject;
+import org.apache.jasper.tagplugins.jstl.core.Redirect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -69,12 +71,13 @@ public class OrderController {
 			boolean verify = AlipaySignature.rsaCheckV1(map, AlipayProperties.getPublicKey(), AlipayProperties.getCharset(), AlipayProperties.getSignType());
 			if (verify)
 			{
-				return "news1";//支付成功跳转路径
+
+				return "redirect:homepage/drivingSchool";//支付成功跳转路径
 			}
 		}catch (AlipayApiException a){
 
 		}
-		return "newstable"; //支付失败跳转路径
+		return "redirect:homepage/drivingSchool"; //支付失败跳转路径
 	}
 	//支付宝异步请求
 	@RequestMapping("/payNotify")
@@ -96,8 +99,9 @@ public class OrderController {
 				map.put(string,jsonmap.get(string).toString().replace("[","").replace("]",""));
 			}
 			Calendar calendar= Calendar.getInstance();
-			SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
+			SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			map.put("time",dateFormat.format(calendar.getTime()));
+
 
 			drivingSchoolInfoService.insertBaoMing(map);
 		}
@@ -120,3 +124,4 @@ public class OrderController {
 		return params;
 	}
 }
+

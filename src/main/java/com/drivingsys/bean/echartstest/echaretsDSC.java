@@ -5,6 +5,7 @@ public class echaretsDSC
 	private long renshu;
 	private String dname;
 	private String did;
+private String releaseYearMonth;
 
 	public long getRenshu()
 	{
@@ -34,5 +35,15 @@ public class echaretsDSC
 	public void setDid(String did)
 	{
 		this.did = did;
+	}
+
+	public String getReleaseYearMonth()
+	{
+		return releaseYearMonth;
+	}
+
+	public void setReleaseYearMonth(String releaseYearMonth)
+	{
+		this.releaseYearMonth = releaseYearMonth;
 	}
 }

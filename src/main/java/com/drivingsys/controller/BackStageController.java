@@ -86,6 +86,9 @@ public class BackStageController
 					currentUser.login(usernamePasswordToken);
 					//调用service查找账户的方法
 					Backstage backstage = backStageService.queryBackStageAccount(reqMap);
+					if (!backstage.getBstate().equals("1")){
+						msg="2";
+						return msg;};
 					//将该用户放入session域中
 					request.getSession().setAttribute("backstage", backstage);
 					msg = "1";

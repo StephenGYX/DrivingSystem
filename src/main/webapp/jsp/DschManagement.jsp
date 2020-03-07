@@ -79,8 +79,6 @@
 		<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
 		<script type="text/html" id="currentTableBar">
-			<%--			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="edit">编辑</a>--%>
-			<%--			<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>--%>
 
 
 			{{#  if(d.daccountstate == 2  ){ }}
@@ -614,14 +612,6 @@
 
 
 
-		// layer.open({
-		// 	type: 1,
-		// 	title: false,
-		// 	closeBtn: 0,
-		// 	shadeClose: true, //点击阴影关闭
-		// 	area: [$(e).width + 'px', $(e).height + 'px'], //宽高
-		// 	content: "<img src=" + $(e).attr('src') + " />"
-		// });
 	}
 </script>
 </body>

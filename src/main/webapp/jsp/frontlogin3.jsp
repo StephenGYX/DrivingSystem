@@ -147,7 +147,7 @@
 
 		<div class="">
 			<div id="test3" class="admin-header">
-				<span style="color: #3C6E31">三端登陆窗口</span>
+				<span style="color: #3C6E31;margin-left: 6%">三端登陆窗口</span>
 
 			</div>
 			<div id="test2" class="layui-tab" lay-filter="tab-all">
@@ -159,15 +159,15 @@
 				<%--				</ul>--%>
 				<%--				<legend>按钮组</legend>--%>
 				<%--	<button type="button" class="layui-btn layui-btn-radius">原始按钮1</button>--%>
-				<div class="layui-btn-group " id="loginRoleDiv" >
+				<div class="layui-btn-group " id="loginRoleDiv"  style="width: 52%;margin-left: 10px;">
 
-					<button type="button" id="btn1" class="layui-btn layui-btn-primary layui-btn-radius" onclick="btnclick(this)"
+					<button type="button" id="btn1" class="layui-btn layui-btn-primary layui-btn-radius" style="width: 33.3%"  onclick="btnclick(this)"
 					        value="4">学员
 					</button>
-					<button type="button" id="btn2" class="layui-btn layui-btn-primary layui-btn-radius" onclick="btnclick(this)"
+					<button type="button" id="btn2" class="layui-btn layui-btn-primary layui-btn-radius"  style="width: 33.3%" onclick="btnclick(this)"
 					        value="2">驾校
 					</button>
-					<button type="button" id="btn3" class="layui-btn layui-btn-primary layui-btn-radius" onclick="btnclick(this)"
+					<button type="button" id="btn3" class="layui-btn layui-btn-primary layui-btn-radius" style="width: 33.3%" onclick="btnclick(this)"
 					        value="3">教练
 					</button>
 				</div>
@@ -197,7 +197,7 @@
 			</div>
 			<div id="test4">
 				还没有账号？
-				<a class="reg" href="backreg.jsp" id="reg">注册账号</a>
+				<a class="reg" href="<%=path%>/jsp/backreg.jsp" id="reg">注册账号</a>
 			</div>
 			<%--点击的报名，走到登录页面  --%>
 			<input type="hidden" value="${requestScope.baoMing}">
@@ -261,7 +261,11 @@
 							layer.msg("账号或密码有误，请重新输入");
 						} else if (msg === "3") {
 							layer.msg("验证码错误，请重新输入");
-						}else if (msg === "20") {
+						} else if (msg === "5") {
+							layer.msg("尚未通过审核或已被禁用，请联系平台管理员");
+						}
+
+						else if (msg === "20") {
 							layer.msg(' 教练登录成功', function () {
 								window.location = "<%=path%>"+ '/jsp/PractiseMain.jsp';
 							});
@@ -314,11 +318,11 @@
 				// alert(msg + "suc");
 				// layer.msg("已经变更角色id");
 				if (msg == 2) {//2 驾校 3教练 4学员
-					$('#reg').attr('href', "area.jsp");
+					$('#reg').attr('href', "<%=path%>/jsp/area.jsp");
 				} else if (msg == 3) {
-					$('#reg').attr('href', "backpractisereg.jsp");
+					$('#reg').attr('href', "<%=path%>/jsp/backpractisereg.jsp");
 				} else if (msg == 4) {
-					$('#reg').attr('href', "backreg.jsp");
+					$('#reg').attr('href', "<%=path%>/jsp/backreg.jsp");
 				}
 			}
 			, error: function (msg) {

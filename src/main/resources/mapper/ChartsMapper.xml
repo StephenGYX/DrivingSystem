@@ -12,6 +12,20 @@
 
     </select>
 
+    <!--查询各个驾校的价格-->
+    <select id="querySchoolPrice" resultType="com.drivingsys.bean.echarsParam" >
+   select  dprice,dname from  drivingschool
 
+    </select>
+
+
+    <!--分时间段统计每个驾校的学员-->
+    <select id="newStudentByTime" resultType="com.drivingsys.bean.echarsParam" parameterType="map">
+     select count(*) num,d.dname dname from examination e left join  consumer c on e.cid=c.cid ,drivingschool d
+      where d.did=e.did and   e.esubmittime &gt;= #{beginDay}  and e.esubmittime &lt;= #{endDay}
+       group  by  e.did
+
+
+    </select>
 </mapper>
 	

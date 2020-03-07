@@ -13,6 +13,9 @@ public interface ChartsService
 {
 	//查询每个用户的教练
 	public List<echarsParam> queryStudentByCoach();
+	//查询各个驾校的价格
+	public List<echarsParam> querySchoolPrice();
 
-
+	//查询各个驾校的价格
+	public List<echarsParam> newStudentByTime(Map timeMap);
 }

@@ -48,6 +48,17 @@ public class Consumer {
   private String epractisecontenttime;
   private String edrivingcontenttime;
   private String pname;
+  private String dname;
+
+  public String getDname()
+  {
+    return dname;
+  }
+
+  public void setDname(String dname)
+  {
+    this.dname = dname;
+  }
 
   public String getPname()
   {
