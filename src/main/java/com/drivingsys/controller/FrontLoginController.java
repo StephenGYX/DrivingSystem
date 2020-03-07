@@ -123,12 +123,14 @@ public class FrontLoginController
 						Practise practise = frontLoginService.queryPractiseAccount(reqMap);
 						if (practise.getPaccountstate()!=1){return "5";}
 						request.getSession().setAttribute("practise", practise);
+
 						return "20";
 					} else if (roleid.equals("2"))
 					{
 						Drivingschool drivingschool = frontLoginService.queryDrivingschool(reqMap);
 						if (!drivingschool.getDaccountstate().equals("1")){return "5";}
 						request.getSession().setAttribute("drivingschool", drivingschool);
+
 						System.out.println("找到驾校");
 						return "30";
 					} else if (roleid.equals("4"))

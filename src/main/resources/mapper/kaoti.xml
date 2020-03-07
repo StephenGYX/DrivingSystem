@@ -114,5 +114,9 @@
     <delete id="deletevideo" parameterType="String" >
         delete from videostore where id=#{id}
     </delete>
+    <select id="selectWrongechart" parameterType="map" resultType="com.drivingsys.bean.Cuotiechart">
+   select iid name, sum  value from wrong where cid=${cid} and kemu=#{kemu} order by value desc limit 0,10
+    </select>
+
 
 </mapper>
