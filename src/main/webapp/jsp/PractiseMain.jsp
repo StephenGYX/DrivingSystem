@@ -57,7 +57,7 @@
 		<ul class="layui-nav layui-layout-right">
 			<li class="layui-nav-item">
 				<a href="javascript:;">
-					<img src=<%=path+"/images/headphoto.jpg"%> class="layui-nav-img">
+					<img src=${sessionScope.practise.pphoto} class="layui-nav-img">
 					${sessionScope.practise.pname}
 				</a>
 				<dl class="layui-nav-child">
@@ -108,13 +108,13 @@
 </div>
 
 
-<!--百度统计代码-开始 正式使用请删除-->
-<script>
-	var _hmt = _hmt || [];
-	(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?d97abf6d61c21d773f97835defbdef4e";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm, s);})();
-</script>
+<%--<!--百度统计代码-开始 正式使用请删除-->--%>
+<%--<script>--%>
+<%--	var _hmt = _hmt || [];--%>
+<%--	(function() {var hm = document.createElement("script");hm.src = "https://hm.baidu.com/hm.js?d97abf6d61c21d773f97835defbdef4e";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm, s);})();--%>
+<%--</script>--%>
 
-<!--百度统计代码-结束-->
+<%--<!--百度统计代码-结束-->--%>
 <script src="<%=path+"/lib/layui-v2.5.5/layui.js?v=1.0.4"%>" charset="utf-8"></script>
 <script src="<%=path+"/js/lay-config.js?v=1.0.4"%>" charset="utf-8"></script>
 <script src="<%=path+"/js/backmenu.js"%>" charset="utf-8"></script>

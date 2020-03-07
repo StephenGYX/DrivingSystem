@@ -31,7 +31,7 @@ padding-top: 100px;">
 	<div class="layuimini-container">
 		<div class="layuimini-main">
 
-
+<input  id="houzhui" name="houzhui" value="jpg">
 			<div class="layui-form-item" id="driving">
 				<div class="layui-form-label">选择驾校</div>
 				<div class="layui-input-inline" style="padding-top: -2px;">
@@ -94,12 +94,31 @@ padding-top: 100px;">
 		</div>
 	</div>
 
-	<div class="layui-form-item" >
-		<label class="layui-form-label">身份证号码</label>
+<%--	<div class="layui-form-item" >--%>
+<%--		<label class="layui-form-label">身份证号码</label>--%>
+<%--		<div class="layui-input-inline">--%>
+<%--			<input type="text" onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')" name="idcard" required lay-verify="required" placeholder="请输入身份证号码" autocomplete="off" class="layui-input" id="idcard" >--%>
+<%--		</div>--%>
+<%--	</div>--%>
+
+	<div class="layui-form-item">
+		<label class="layui-form-label required">身份证号</label>
 		<div class="layui-input-inline">
-			<input type="text" onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')" name="idcard" required lay-verify="required" placeholder="请输入身份证号码" autocomplete="off" class="layui-input" id="idcard" >
+			<input type="text" id="number" name="idcard" onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')" lay-verify="required" lay-reqtext="身份证号不能为空"
+			       placeholder="请输入联系人身份证号" value="" class="layui-input">
+			<tip>填写驾校负责人身份证号。</tip>
+		</div>
+		<button type="button" class="layui-btn" id="test1">
+			<i class="layui-icon">&#xe67c;</i>身份证正面上传
+		</button>
+		<div class="layui-upload-list">
+			<img class="layui-upload-img" style="width: 150px;height: 150px;margin-left: -180px;
+
+margin-top: 20px;" id="demo2"
+			     src="">
 		</div>
 	</div>
+
 
 		<div class="layuimini-container">
 			<div class="layuimini-main">
@@ -144,10 +163,51 @@ padding-top: 100px;">
 </form>
 
 <script>
-	layui.use(['layer', 'form', 'layarea'], function () {
+	layui.use(['layer', 'form', 'layarea', 'upload'], function () {
 		var layer = layui.layer
 			, form = layui.form
 			, layarea = layui.layarea;
+
+		var upload = layui.upload;
+
+
+		var uploadInst = upload.render({
+			elem: '#test1' //绑定元素
+			// ,accept:"file"
+			, url: "<%=Path+"/pidcardScan"%>" //上传接口
+			// , data: {
+			// 	account: function () {
+			// 		return $("#account").val();
+			// 	}
+			// }
+			, auto: true //选择文件后不自动上传
+			// , bindAction: '#sureup' //指向一个按钮触发上传
+			, choose: function (obj) {
+				obj.preview(function (index, file, result) {
+					$('#demo2').attr('src', result) //图片链接（base64）
+					// ,$('#demo3').attr('src', result); //图片链接（base64）
+
+				});
+			}
+
+			, done: function (res) {
+				var a = $("#upstate").val();
+				//上传完毕回调
+				layer.msg("上传成功", {icon: 6});
+				$("#name").val(res.name);
+				$("#number").val(res.number);
+				$("#houzhui").val(res.houzhui)
+				// alert(res.number)
+			}
+			, error: function () {
+				//请求异常回调
+				layer.msg("上传失败", {icon: 5});
+			}
+		});
+
+
+
+
 		layarea.render({
 			elem: '#area-picker',
 			change: function (res) {

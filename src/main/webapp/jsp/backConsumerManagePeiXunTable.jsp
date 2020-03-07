@@ -50,13 +50,12 @@
 								<input type="date" id="stopTime" name="stopTime" autocomplete="off" class="layui-input">
 							</div>
 						</div>
-
 						<%--为空说明是后台登录，可以通过教练名进行查询--%>
 						<div class="layui-inline">
-								<c:if test="${requestScope.findDid==null or requestScope.findDid==''}">
-									<label class="layui-form-label">教练名</label>
-								</c:if>
-							 <div class="layui-input-inline">
+							<c:if test="${requestScope.findDid==null or requestScope.findDid==''}">
+								<label class="layui-form-label">教练名</label>
+							</c:if>
+							<div class="layui-input-inline">
 								<c:if test="${requestScope.findDid==null or requestScope.findDid==''}">
 
 									<select name="practiseName" id="practiseName" lay-filter="practiseName">
@@ -67,8 +66,9 @@
 
 									</select>
 								</c:if>
-						     </div>
+							</div>
 						</div>
+
 
 
 						<div class="layui-inline">

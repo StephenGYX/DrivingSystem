@@ -1,9 +1,9 @@
 package com.drivingsys.controller;
 
-import com.drivingsys.bean.Drivingschool;
-import com.drivingsys.bean.Vehicle;
-import com.drivingsys.bean.backmsg;
+import com.alibaba.fastjson.JSON;
+import com.drivingsys.bean.*;
 import com.drivingsys.service.BackStageMyServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +37,8 @@ import java.util.Map;
 public class BackController
 {
 	ModelAndView modelAndView = new ModelAndView();
+	backmsg a = new backmsg();
+	backmsgall backmsgall = new backmsgall();
 	@Autowired
 	private BackStageMyServiceImpl backStageMyService;
 
@@ -85,26 +88,8 @@ public class BackController
 		return modelAndView;
 	}
 
-	@RequestMapping("/toLogin")
-	public ModelAndView toLogin(HttpServletRequest request){
-		SavedRequest savedRequest = WebUtils.getSavedRequest(request);
-		String url=savedRequest.getRequestUrl();
-		if (url.contains("back")){
-			modelAndView.setViewName("/backlogin");
-		}else
-		{
-			modelAndView.setViewName("/frontlogin3");
-		}
-		return modelAndView;
-	}
-	@RequestMapping("/nonerole")
-	public String nonerole(HttpServletRequest request){
-
-		return "您当前没有进行该操作的权限！";
-	}
-
 	@RequestMapping("/preg")
-	public ModelAndView preg(@RequestParam("mySelect") String driving, @RequestParam("province") String province, @RequestParam("city") String city, @RequestParam("county") String county, @RequestParam("username") String account, @RequestParam("password") String pass, @RequestParam("password1") String pass1, @RequestParam("sex") String sex, @RequestParam("age") int age, @RequestParam("phone") String phone, @RequestParam("email") String email, @RequestParam("name") String name, @RequestParam("idcard") String idcard, @RequestParam("question") String resume, @RequestParam("workexperience") String workexperience)
+	public ModelAndView preg(@RequestParam("mySelect") String driving, @RequestParam("province") String province, @RequestParam("city") String city, @RequestParam("county") String county, @RequestParam("username") String account, @RequestParam("password") String pass, @RequestParam("password1") String pass1, @RequestParam("sex") String sex, @RequestParam("age") int age, @RequestParam("phone") String phone, @RequestParam("email") String email, @RequestParam("name") String name, @RequestParam("idcard") String idcard, @RequestParam("question") String resume, @RequestParam("workexperience") String workexperience, @RequestParam("houzhui") String houzhui)
 	{
 		if (sex.equals("1"))
 		{
@@ -113,9 +98,13 @@ public class BackController
 		{
 			sex = "女";
 		}
+
+		String pidimage = "//images//pidcardimage//" + idcard + "." + houzhui;
+		System.out.println(pidimage);
 		ByteSource salt=ByteSource.Util.bytes(account);
 		Object md5pwd= new SimpleHash("MD5",pass,salt,2);
-		backStageMyService.addpuser(driving, account, md5pwd.toString(), sex, age, phone, email, name, idcard, resume, workexperience);
+		//城市信息未插入
+		backStageMyService.addpuser(driving, account, md5pwd.toString(), sex, age, phone, email, name, idcard, resume, workexperience, pidimage);
 		modelAndView.setViewName("/frontlogin3");
 		return modelAndView;
 	}
@@ -123,7 +112,6 @@ public class BackController
 	@RequestMapping("/table")
 	public backmsg talbe(@RequestParam("page") int page, @RequestParam("limit") int limit, HttpServletRequest request)
 	{
-		backmsg a = new backmsg();
 		HttpSession session = request.getSession();
 		Drivingschool did = (Drivingschool) session.getAttribute("drivingschool");
 
@@ -280,6 +268,216 @@ public class BackController
 		response.getWriter().flush();
 	}
 
+	@RequestMapping("/searchbrand")
+	public backmsg searchbrand(@RequestParam("brand") String brand)
+	{
+		int i = backStageMyService.countbrand(brand);
+		List<Vehicle> vehicle = backStageMyService.searchbrand(brand);
+		a.setCount(i);
+		a.setData(vehicle);
+		return a;
+	}
 
+	@RequestMapping("/searchmodel")
+	public backmsg searchmodel(@RequestParam("model") String model)
+	{
+		int i = backStageMyService.countmodel(model);
+		List<Vehicle> vehicle = backStageMyService.searchmodel(model);
+		a.setCount(i);
+		a.setData(vehicle);
+		return a;
+	}
+
+	@RequestMapping("/tableall")
+	public backmsgall talbleall(@RequestParam("page") int page, @RequestParam("limit") int limit)
+	{
+
+		page = (page - 1) * limit;
+		List<Backstage> objects = backStageMyService.tableall(page, limit);
+		int i = backStageMyService.backcount();
+		backmsgall.setCode(0);
+		backmsgall.setCount(i);
+		backmsgall.setMsg(0);
+		backmsgall.setData(objects);
+		return backmsgall;
+	}
+
+	@RequestMapping("/backdel")
+	public void backdel(@RequestParam("bid") String bid)
+	{
+		backStageMyService.backdel(bid);
+	}
+
+	@RequestMapping("/stop")
+	public void stop(@RequestParam("bid") String bid)
+	{
+		backStageMyService.stop(bid);
+	}
+
+	@RequestMapping("/start")
+	public void start(@RequestParam("bid") String bid)
+	{
+		backStageMyService.start(bid);
+	}
+
+	@RequestMapping("/edit")
+	public void edit(@RequestParam("bid") String bid)
+	{
+		backStageMyService.edit(bid);
+	}
+
+	@RequestMapping("/addbackuser")
+	public void adduser(@RequestParam("bacc") String bacc, @RequestParam("bpass") String bpass, @RequestParam("bname") String bname, @RequestParam("bstate") String bstate)
+	{
+		backStageMyService.addbackuser(bacc, bpass, bname, bstate);
+	}
+
+	@RequestMapping("/backsearchacc")
+	public backmsgall backsearchacc(@RequestParam("bacc") String bacc)
+	{
+		List<Backstage> backstages = backStageMyService.backsearchacc(bacc);
+		if (backstages.size() == 0)
+		{
+			System.out.println("进来了");
+			backmsgall.setCode(0);
+			backmsgall.setCount(0);
+			backmsgall.setMsg(0);
+			backmsgall.setData(backstages);
+
+		} else
+		{
+			int i = backstages.get(0).getC();
+			backmsgall.setCode(0);
+			backmsgall.setCount(i);
+			backmsgall.setMsg(0);
+			backmsgall.setData(backstages);
+		}
+
+
+		return backmsgall;
+	}
+
+	@RequestMapping("/backsearchname")
+	public backmsgall backsearchname(@RequestParam("bname") String bname)
+	{
+		List<Backstage> backstages = backStageMyService.backsearchname(bname);
+		if (backstages.size() == 0)
+		{
+			backmsgall.setCode(0);
+			backmsgall.setCount(0);
+			backmsgall.setMsg(0);
+			backmsgall.setData(backstages);
+		} else
+		{
+			int i = backstages.get(0).getC();
+			backmsgall.setCode(0);
+			backmsgall.setCount(i);
+			backmsgall.setMsg(0);
+			backmsgall.setData(backstages);
+		}
+		return backmsgall;
+	}
+
+	@RequestMapping("/backsearchstate")
+	public backmsgall backsearchstate(@RequestParam("bstate") String bstate)
+	{
+		List<Backstage> backstages = backStageMyService.backsearchstate(bstate);
+		if (backstages.size() == 0)
+		{
+			backmsgall.setCode(0);
+			backmsgall.setCount(0);
+			backmsgall.setMsg(0);
+			backmsgall.setData(backstages);
+		} else
+		{
+			int i = backstages.get(0).getC();
+			backmsgall.setCode(0);
+			backmsgall.setCount(i);
+			backmsgall.setMsg(0);
+			backmsgall.setData(backstages);
+		}
+		return backmsgall;
+	}
+
+	@RequestMapping("/selectavatar")
+	public void selectavatar(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		HttpSession session = request.getSession();
+		Practise id = (Practise) session.getAttribute("practise");
+		List<Practise> msg= backStageMyService.selectavatar(id.getPid());
+//		System.out.println(msg + "头像地址");
+		response.setContentType("text/html; charset =utf-8");
+		response.getWriter().write(new Gson().toJson(msg));
+		response.getWriter().flush();
+	}
+
+	@RequestMapping("/updateavatar")
+	public void updateavatar(@RequestParam("avatar") String avatar, @RequestParam("updatename") String updatename, @RequestParam("updatepass") String updatepass, HttpServletRequest request)
+	{
+		HttpSession session = request.getSession();
+		Practise id = (Practise) session.getAttribute("practise");
+		backStageMyService.updateavatar(avatar, id.getPid());
+		if (updatepass.equals(""))
+		{
+			backStageMyService.updatename(updatename, id.getPid());
+		} else if (updatename.equals(""))
+		{
+			backStageMyService.updatepass(updatepass, id.getPid());
+		} else
+		{
+//			backStageMyService.updateinfo(updatename, updatepass, id.getPid());
+		}
+	}
+
+
+
+
+
+
+
+
+	@RequestMapping("/toLogin")
+	public ModelAndView toLogin(HttpServletRequest request){
+		SavedRequest savedRequest = WebUtils.getSavedRequest(request);
+		String url=savedRequest.getRequestUrl();
+		if (url.contains("back")){
+			modelAndView.setViewName("/backlogin");
+		}else
+		{
+			modelAndView.setViewName("/frontlogin3");
+		}
+		return modelAndView;
+	}
+	@RequestMapping("nerole")
+	public String nonerole(HttpServletRequest request){
+		System.out.println("没有权限");
+		return "您当前没有进行该操作的权限！";
+	}
+	@RequestMapping("/chart")
+	public void chart(HttpServletRequest request,HttpServletResponse response) throws IOException
+	{
+		HttpSession session = request.getSession();
+		Drivingschool did = (Drivingschool) session.getAttribute("drivingschool");
+//		List<Map<String, Object>> m = backStageMyService.chart(did.getDid());
+//		for (int i = 0; i < m.size(); i++)
+//		{
+//			Map<String, Object> map = m.get(i);
+//			Iterator iterator = map.keySet().iterator();
+//			while (iterator.hasNext())
+//			{
+//				String string = (String) iterator.next();
+//				System.out.println(map.get(string));
+//		}
+//		}
+//		String jsonString = JSON.toJSONString(m);
+//		response.setContentType("text/html; charset =utf-8");
+//		response.getWriter().write(new Gson().toJson(jsonString));
+//		response.getWriter().flush();
+		List<Practise> objects=backStageMyService.chart(did.getDid());
+				response.setContentType("text/html; charset =utf-8");
+				response.getWriter().write(new Gson().toJson(objects));
+				response.getWriter().flush();
+
+	}
 }
 

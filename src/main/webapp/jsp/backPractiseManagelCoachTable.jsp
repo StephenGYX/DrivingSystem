@@ -66,7 +66,7 @@
 							<%--为空说明是后台登录，可以通过驾校名进行查询--%>
 							<div class="layui-inline">
 								<c:if test="${requestScope.did==null or requestScope.did==''}">
-								<label class="layui-form-label">驾校名</label>
+									<label class="layui-form-label">驾校名</label>
 								</c:if>
 								<div class="layui-input-inline">
 									<c:if test="${requestScope.did==null or requestScope.did==''}">
@@ -107,7 +107,7 @@
 				<div class="layui-btn-container">
 
 					<c:if test="${requestScope.doThing=='Manage'}" >
-<%--						<button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn"> 删除用户 </button>--%>
+						<button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn"> 删除用户 </button>
 					</c:if>
 				</div>
 			</script>
