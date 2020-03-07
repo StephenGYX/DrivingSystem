@@ -21,7 +21,7 @@ To change this template use File | Settings | File Templates.
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link rel="stylesheet" href="<%=path+"/lib/layui-v2.5.5/css/layui.css"%>" media="all">
 	<link rel="stylesheet" href="<%=path+"/css/public.css"%>" media="all">
-	<link rel="stylesheet" href="<%=path+"/lib/lay-module/step-lay/step.css"%>" media="all">
+
 	<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=qndpvrYqRPHWaspKTGpZcuN2l3FudVgh"></script>
 <%--	<script src="<%=path+"/lib/layer/layer.js"%>"></script>--%>
 </head>
@@ -30,6 +30,7 @@ To change this template use File | Settings | File Templates.
 
 <div class="layuimini-container">
 	<div class="layuimini-main">
+		<input type="hidden" name="xingwei" id="xingwei" value="zhengchang">
 
 		<form class="layui-form" action="" style="padding:20px;" method="post">
 
@@ -462,12 +463,20 @@ margin-top: 20px;" id="demo2"
 				success: function (msg) {
 
 					if (msg > 0) {
-						alert("注册成功");
+						
 						layer.msg("注册成功", {icon: 6});
 						$('#sureup').click();
-						alert("seccond");
+						// alert("seccond");
 						// window.location.href="http://www.baidu.com";
-						window.location.href = "<%=path%>" + "/jsp/frontlogin3.jsp";
+						var xingwei=$("#xingwei").val();
+						if (xingwei==="houtai") {
+							// alert("进入判断");
+
+							window.open("","_top").close()
+						}else {
+							window.location.href = "<%=path%>" + "/jsp/frontlogin3.jsp";
+
+						}
 					} else {
 						// alert("222");
 						alert("注册失败");
@@ -487,6 +496,15 @@ margin-top: 20px;" id="demo2"
 
 
 	});
+</script>
+
+<script src="<%=path+"/lib/jquery-3.4.1/jquery-3.4.1.min.js"%>" charset="utf-8"></script>
+
+<script>
+	function selectinfo() {
+		alert("执行改变行为方法");
+		$("#xingwei").val("houtai");
+	}
 </script>
 </body>
 </html>

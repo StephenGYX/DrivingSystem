@@ -246,7 +246,7 @@ public class ManageDSCController
 		RowBounds rowBounds = createRowBounds(request);
 		//		manageDSCService.queryDSC(reqMap,rowBounds);
 		List<Examination> list = manageDSCService.querySTUpj(Integer.valueOf(did), rowBounds);
-		List<Examination> list2 = manageDSCService.querySTUpj(Integer.valueOf(did), null);
+		long i=manageDSCService.querySTUpjcount(Integer.valueOf(did));
 
 		JSONArray JSO = JSONArray.fromObject(list);
 		System.out.println("********");
@@ -258,7 +258,7 @@ public class ManageDSCController
 		//0表示成功
 		tableParam.setCode(0);
 		//数据库查询count数量
-		tableParam.setCount(list2.size());
+		tableParam.setCount(i);
 		//失败数据
 		tableParam.setMsg("");
 		tableParam.setData(list);
