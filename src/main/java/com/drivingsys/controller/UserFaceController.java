@@ -1,4 +1,3 @@
-
 package com.drivingsys.controller;
 
 import com.baidu.aip.face.AipFace;
@@ -26,16 +25,21 @@ public class UserFaceController
 	@Autowired
 	public UserinfoService userinfoService;
 	private AipFace client;
-	public synchronized AipFace getClient(){
-		if (client==null){
-			client=new AipFace ("18534709","iLYKLGWHwlDqIVGxIBCmSm0Y","K4YXWMrfPaRiSLsXqy8Lr0AczplHl25S");
+
+	public synchronized AipFace getClient()
+	{
+		if (client == null)
+		{
+			client = new AipFace("18534709", "iLYKLGWHwlDqIVGxIBCmSm0Y", "K4YXWMrfPaRiSLsXqy8Lr0AczplHl25S");
 		}
 		return client;
 	}
+
 	@RequestMapping("/userfaceadd")
-	public String faceadd(@RequestBody Map<String, String> params){
-		String image=params.get("image");
-		String cid=params.get("cid");
+	public String faceadd(@RequestBody Map<String, String> params)
+	{
+		String image = params.get("image");
+		String cid = params.get("cid");
 		System.out.println(image);
 		HashMap<String, String> options = new HashMap<String, String>();
 		options.put("user_info", "user's info");
@@ -43,37 +47,42 @@ public class UserFaceController
 		options.put("liveness_control", "LOW");
 		options.put("action_type", "REPLACE");
 
-//		String image = "取决于image_type参数，传入BASE64字符串或URL字符串或FACE_TOKEN字符串";
+		//		String image = "取决于image_type参数，传入BASE64字符串或URL字符串或FACE_TOKEN字符串";
 		String imageType = "BASE64";
 		String groupId = "users";
 		String userId = cid;
-		AipFace client =getClient();
+		AipFace client = getClient();
 		// 人脸注册
 		JSONObject res = client.addUser(image, imageType, groupId, userId, options);
 		System.out.println(res.toString(2));
-		if ("SUCCESS".equals(res.get("error_msg"))){
+		if ("SUCCESS".equals(res.get("error_msg")))
+		{
 			String face_token = res.getJSONObject("result").get("face_token").toString();
-			if (userinfoService.updateuserface(cid,face_token)>0)
+			if (userinfoService.updateuserface(cid, face_token) > 0)
 			{
 
 				return "succ";
-			}else {
+			} else
+			{
 				return "fail";
 			}
-		}else {
+		} else
+		{
 			return "fail";
 		}
 	}
+
 	@RequestMapping("/userfacematch")
-	public String facematch(@RequestBody Map<String, String> params){
-		String image1=params.get("image");
+	public String facematch(@RequestBody Map<String, String> params)
+	{
+		String image1 = params.get("image");
 		String cid = params.get("cid");
 		String Socre = "";
 		if (!"".equals(image1))
 		{
-//			String image2 = "cc01556d463b15e89f8cd774d6b65111";
-			String image2=userinfoService.selectFacetoken(cid);
-			if (image2==null)
+			//			String image2 = "cc01556d463b15e89f8cd774d6b65111";
+			String image2 = userinfoService.selectFacetoken(cid);
+			if (image2 == null)
 			{
 				return "noneface";
 			}
@@ -99,61 +108,25 @@ public class UserFaceController
 	}
 
 	@RequestMapping("/idcardScan")
-	public Map idcardScan(@RequestParam("file")MultipartFile multipartFile, HttpServletRequest request)
+	public Map idcardScan(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request)
 	{
 		HashMap<String, String> options = new HashMap<String, String>();
 		options.put("detect_direction", "true");
 		options.put("detect_risk", "false");
-		Map resultmap=new HashMap();
+		Map resultmap = new HashMap();
 		String idCardSide = "front";
-		AipOcr client= OrcFactory.getOrcclient();
+		AipOcr client = OrcFactory.getOrcclient();
 		try
 		{
 			byte[] imgBytes = multipartFile.getBytes();
 			JSONObject res = client.idcard(imgBytes, idCardSide, options).getJSONObject("words_result");
 			String savePath = request.getSession().getServletContext().getRealPath("//images");
 			System.out.println(savePath);
-//			String suffix=multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1);
+			//			String suffix=multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1);
 
-			resultmap.put("number",res.getJSONObject("公民身份号码").getString("words"));
-			resultmap.put("name",res.getJSONObject("姓名").getString("words"));
-//			multipartFile.transferTo(new File(savePath+"//" +resultmap.get("number")+"."+suffix));
-			System.out.println(res.toString(2));
-			System.out.println(res.getJSONObject("姓名").getString("words"));
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-//		return "{\"code\":0, \"msg\":\"\", \"data\":"+resultmap+"}";
-		return  resultmap;
-	}
-
-
-
-
-	@RequestMapping("/pidcardScan")
-	public Map pidcardScan(@RequestParam("file")MultipartFile multipartFile, HttpServletRequest request)
-	{
-		HashMap<String, String> options = new HashMap<String, String>();
-		options.put("detect_direction", "true");
-		options.put("detect_risk", "false");
-		Map resultmap=new HashMap();
-		String idCardSide = "front";
-		AipOcr client= OrcFactory.getOrcclient();
-		try
-		{
-			byte[] imgBytes = multipartFile.getBytes();
-			JSONObject res = client.idcard(imgBytes, idCardSide, options).getJSONObject("words_result");
-			String savePath = request.getSession().getServletContext().getRealPath("//images//pidcardimage");
-			System.out.println(savePath);
-						String suffix=multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1);
-			System.out.println(suffix);
-            String number=res.getJSONObject("公民身份号码").getString("words");
-			System.out.println("pidnumber "+number);
-			resultmap.put("houzhui",suffix);
-			resultmap.put("number",number);
-			resultmap.put("name",res.getJSONObject("姓名").getString("words"));
-				multipartFile.transferTo(new File(savePath+"//" +resultmap.get("number")+"."+suffix));
+			resultmap.put("number", res.getJSONObject("公民身份号码").getString("words"));
+			resultmap.put("name", res.getJSONObject("姓名").getString("words"));
+			//			multipartFile.transferTo(new File(savePath+"//" +resultmap.get("number")+"."+suffix));
 			System.out.println(res.toString(2));
 			System.out.println(res.getJSONObject("姓名").getString("words"));
 		} catch (IOException e)
@@ -161,38 +134,73 @@ public class UserFaceController
 			e.printStackTrace();
 		}
 		//		return "{\"code\":0, \"msg\":\"\", \"data\":"+resultmap+"}";
-		return  resultmap;
+		return resultmap;
 	}
 
 
+	@RequestMapping("/pidcardScan")
+	public Map pidcardScan(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request)
+	{
+		HashMap<String, String> options = new HashMap<String, String>();
+		options.put("detect_direction", "true");
+		options.put("detect_risk", "false");
+		Map resultmap = new HashMap();
+		String idCardSide = "front";
+		AipOcr client = OrcFactory.getOrcclient();
+		try
+		{
+			byte[] imgBytes = multipartFile.getBytes();
+			JSONObject res = client.idcard(imgBytes, idCardSide, options).getJSONObject("words_result");
+			String savePath = request.getSession().getServletContext().getRealPath("//images//pidcardimage");
+			System.out.println(savePath);
+			String suffix = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".") + 1);
+			System.out.println(suffix);
+			String number = res.getJSONObject("公民身份号码").getString("words");
+			System.out.println("pidnumber " + number);
+			resultmap.put("houzhui", suffix);
+			resultmap.put("number", number);
+			resultmap.put("name", res.getJSONObject("姓名").getString("words"));
 
-
-
-
-
-
-
-
-
+			File f = new File(savePath + "//" + resultmap.get("number") + "." + suffix);
+			if (f.exists() == false)
+			{
+				f.mkdirs();
+			}
+			multipartFile.transferTo(new File(savePath + "//" + resultmap.get("number") + "." + suffix));
+			System.out.println(res.toString(2));
+			System.out.println(res.getJSONObject("姓名").getString("words"));
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		//		return "{\"code\":0, \"msg\":\"\", \"data\":"+resultmap+"}";
+		return resultmap;
+	}
 
 
 	@RequestMapping("/getkemunow/{cid}")
-	public int getuserkemu(@PathVariable String cid){
+	public int getuserkemu(@PathVariable String cid)
+	{
 		return userinfoService.selectkemunow(cid);
 	}
-	@RequestMapping("/updateClassHour")
-	public String updateClassHour(@RequestBody Map<String, String> params){
-		String cid=params.get("cid");
-		String []timeArr=params.get("time").split(":");
-		String kemunow=params.get("kemunow");
 
-		String totaltime=(Integer.parseInt(timeArr[0])+(Integer.parseInt(timeArr[1])/5*0.25))+"";
-		if (userinfoService.updateclasshour(cid,kemunow,totaltime)>0){
+	@RequestMapping("/updateClassHour")
+	public String updateClassHour(@RequestBody Map<String, String> params)
+	{
+		String cid = params.get("cid");
+		String[] timeArr = params.get("time").split(":");
+		String kemunow = params.get("kemunow");
+
+		String totaltime = (Integer.parseInt(timeArr[0]) + (Integer.parseInt(timeArr[1]) / 5 * 0.25)) + "";
+		if (userinfoService.updateclasshour(cid, kemunow, totaltime) > 0)
+		{
 			return "succ";
-		}else {
+		} else
+		{
 			return "fail";
 		}
 	}
+
 	@RequestMapping("/getclasshours/{cid}")
 	public Map getclasshours(@PathVariable String cid)
 	{
@@ -204,23 +212,24 @@ public class UserFaceController
 	public Map getdrivingschool(@PathVariable String cid)
 	{
 
-		Map map=userinfoService.selectdrivingschool(cid);
-		map.putAll(userinfoService.selectorderstate(cid,"school"));
+		Map map = userinfoService.selectdrivingschool(cid);
+		map.putAll(userinfoService.selectorderstate(cid, "school"));
 		return map;
 
 	}
 
 	@RequestMapping("/insertrate")
-	public String insertrate(@RequestBody Map<String, String> params){
+	public String insertrate(@RequestBody Map<String, String> params)
+	{
 		String cid = params.get("cid");
 		String content = params.get("content");
 		String score = params.get("score");
-		String type=params.get("type");
-		System.out.println(score+","+content+"!!!!!!!");
-		if (userinfoService.updaterate(cid, score, content,type) > 0)
+		String type = params.get("type");
+		System.out.println(score + "," + content + "!!!!!!!");
+		if (userinfoService.updaterate(cid, score, content, type) > 0)
 		{
 			return "succ";
-		}else
+		} else
 		{
 			return "fail";
 		}
@@ -231,8 +240,8 @@ public class UserFaceController
 	{
 
 
-		Map map=userinfoService.selectorderstate(cid,"coach");
-		map.put("coach",userinfoService.selectcoach(cid));
+		Map map = userinfoService.selectorderstate(cid, "coach");
+		map.put("coach", userinfoService.selectcoach(cid));
 		return map;
 
 	}
@@ -245,7 +254,6 @@ public class UserFaceController
 		return map;
 
 	}
-
 
 
 }

@@ -284,12 +284,26 @@ public class ManageDSCController
 	public JSONArray echartshengfen()
 	{
 		JSONArray array = null;
-		List<echaretsDSC> echaretsDSCS = manageDSCService.echaretstest();
+		List<echaretsDSC> echaretsDSCS = manageDSCService.echartshengfen();
 		array = JSONArray.fromObject(echaretsDSCS);
 
 
 		return array;
 	}
+
+	@RequestMapping("echartcar")
+	@ResponseBody
+	public JSONArray echartcar()
+	{
+		JSONArray array = null;
+		List<echaretsDSC> echaretsDSCS = manageDSCService.echartcar();
+		array = JSONArray.fromObject(echaretsDSCS);
+
+
+		return array;
+	}
+
+
 
 
 
