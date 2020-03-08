@@ -197,7 +197,7 @@
 			</div>
 			<div id="test4">
 				还没有账号？
-				<a class="reg" href="backreg.jsp" id="reg">注册账号</a>
+				<a class="reg" href="<%=path%>/jsp/backreg.jsp" id="reg">注册账号</a>
 			</div>
 			<%--点击的报名，走到登录页面  --%>
 			<input type="hidden" value="${requestScope.baoMing}">
@@ -318,11 +318,11 @@
 				// alert(msg + "suc");
 				// layer.msg("已经变更角色id");
 				if (msg == 2) {//2 驾校 3教练 4学员
-					$('#reg').attr('href', "area.jsp");
+					$('#reg').attr('href', "<%=path%>/jsp/area.jsp");
 				} else if (msg == 3) {
-					$('#reg').attr('href', "backpractisereg.jsp");
+					$('#reg').attr('href', "<%=path%>/jsp/backpractisereg.jsp");
 				} else if (msg == 4) {
-					$('#reg').attr('href', "backreg.jsp");
+					$('#reg').attr('href', "<%=path%>/jsp/backreg.jsp");
 				}
 			}
 			, error: function (msg) {

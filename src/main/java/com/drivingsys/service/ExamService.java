@@ -165,6 +165,12 @@ public class ExamService implements IExamService
 		return kaoshiMapper.selectexamschedule(cid);
 	}
 
+	@Override
+	public List<Cuotiechart> selectWrongechart(String cid, String kemu)
+	{
+		return kaotiMapper.selectWrongechart(cid, kemu);
+	}
+
 
 	@Override
 	public int insertvideo(String subject, Videoinfo videoinfo)

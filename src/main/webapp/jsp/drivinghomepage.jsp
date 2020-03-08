@@ -617,8 +617,9 @@
 										<div class="gw-nav-cont"><a target="_self" class="gw-nav" style=""
 										                            href=<%=path + "/homepage/returnSchoolJoinMain"%>>驾校加盟</a>
 										</div>
-										<div class="gw-nav-cont"><a target="_self" class="gw-nav" style=""
-										                            href=<%=path + "/jsp/frontlogin3.jsp"%>>用户登录</a>
+										<div class="gw-nav-cont">
+											<a target="_self" class="gw-nav" style="" href=<%=path+"/jsp/frontlogin3.jsp"%>>
+											用户中心</a>
 										</div>
 									</div>
 								</div>

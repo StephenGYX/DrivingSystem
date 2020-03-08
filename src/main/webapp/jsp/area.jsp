@@ -23,7 +23,7 @@ To change this template use File | Settings | File Templates.
 	<link rel="stylesheet" href="<%=path+"/css/public.css"%>" media="all">
 
 	<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=qndpvrYqRPHWaspKTGpZcuN2l3FudVgh"></script>
-<%--	<script src="<%=path+"/lib/layer/layer.js"%>"></script>--%>
+	<%--	<script src="<%=path+"/lib/layer/layer.js"%>"></script>--%>
 </head>
 
 <body>
@@ -89,7 +89,8 @@ margin-top: 20px;" id="demo2"
 				<div class="layui-form-item">
 					<label class="layui-form-label required">密码</label>
 					<div class="layui-input-inline">
-						<input type="password" name="password" lay-verify="required|pass" placeholder="请输入驾校账号密码" value=""
+						<input type="password" name="password" lay-verify="required|pass" placeholder="请输入驾校账号密码"
+						       value=""
 						       class="layui-input">
 					</div>
 				</div>
@@ -103,21 +104,24 @@ margin-top: 20px;" id="demo2"
 				<div class="layui-form-item">
 					<label class="layui-form-label required">联系电话</label>
 					<div class="layui-input-inline">
-						<input type="number" name="phone" lay-verify="required|phone" lay-reqtext="手机不能为空" placeholder="请输入手机"
+						<input type="number" name="phone" lay-verify="required|phone" lay-reqtext="手机不能为空"
+						       placeholder="请输入手机"
 						       value="" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">邮箱</label>
 					<div class="layui-input-inline">
-						<input type="email" name="email" lay-verify="email" lay-reqtext="请输入正确邮箱格式" placeholder="请输入邮箱" value=""
+						<input type="email" name="email" lay-verify="email" lay-reqtext="请输入正确邮箱格式" placeholder="请输入邮箱"
+						       value=""
 						       class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label required">驾校名称</label>
 					<div class="layui-input-inline">
-						<input type="text" name="dname" id="dname"lay-verify="dname" placeholder="请输入驾校名称" value="" class="layui-input"
+						<input type="text" name="dname" id="dname" lay-verify="dname" placeholder="请输入驾校名称" value=""
+						       class="layui-input"
 						       onblur="querydname()">
 						<tip id="tip3"></tip>
 					</div>
@@ -263,7 +267,6 @@ margin-top: 20px;" id="demo2"
 		var keyword = document.getElementById("suggestId").value;
 		localSearch.setSearchCompleteCallback(function (searchResult) {
 			var poi = searchResult.getPoi(0);
-			alert(poi.point.lng + "," + poi.point.lat); //获取经度和纬度，将结果显示在文本框中
 			// map.centerAndZoom(poi.point, 13);
 			document.getElementById("longitude").value = poi.point.lng
 			// $("#longitude").val(poi.point.lng+"")
@@ -330,7 +333,7 @@ margin-top: 20px;" id="demo2"
 		var layer = layui.layer
 			, form = layui.form,
 			$ = layui.jquery
-			, layarea = layui.layarea,layedit = layui.layedit;
+			, layarea = layui.layarea, layedit = layui.layedit;
 		var upload = layui.upload;
 		var upstate = $("#upstate").val();
 
@@ -347,7 +350,6 @@ margin-top: 20px;" id="demo2"
 			, auto: true //选择文件后不自动上传
 			// , bindAction: '#sureup' //指向一个按钮触发上传
 			, choose: function (obj) {
-				// layer.msg("text")
 				obj.preview(function (index, file, result) {
 					$('#demo2').attr('src', result) //图片链接（base64）
 					// ,$('#demo3').attr('src', result); //图片链接（base64）
@@ -400,39 +402,36 @@ margin-top: 20px;" id="demo2"
 		});
 
 
-
-
 		form.verify({
-			username: function(value, item){ //value：表单的值、item：表单的DOM对象
-				if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+			username: function (value, item) { //value：表单的值、item：表单的DOM对象
+				if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)) {
 					return '用户名不能有特殊字符';
 				}
-				if(/(^\_)|(\__)|(\_+$)/.test(value)){
+				if (/(^\_)|(\__)|(\_+$)/.test(value)) {
 					return '用户名首尾不能出现下划线\'_\'';
 				}
-				if(/^\d+\d+\d$/.test(value)){
+				if (/^\d+\d+\d$/.test(value)) {
 					return '用户名不能全为数字';
 				}
 			},
-				dname: function(value, item){ //value：表单的值、item：表单的DOM对象
-					if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
-						return '驾校名不能有特殊字符';
-					}
-					if(/(^\_)|(\__)|(\_+$)/.test(value)){
-						return '驾校名首尾不能出现下划线\'_\'';
-					}
-					if(/^\d+\d+\d$/.test(value)){
-						return '驾校名不能全为数字';
-					}
+			dname: function (value, item) { //value：表单的值、item：表单的DOM对象
+				if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)) {
+					return '驾校名不能有特殊字符';
 				}
+				if (/(^\_)|(\__)|(\_+$)/.test(value)) {
+					return '驾校名首尾不能出现下划线\'_\'';
+				}
+				if (/^\d+\d+\d$/.test(value)) {
+					return '驾校名不能全为数字';
+				}
+			}
 
 
-			,pass: [/^[\S]{6,12}$/,'密码必须6到12位，且不能出现空格']
-			,content: function(value){
+			, pass: [/^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格']
+			, content: function (value) {
 				layedit.sync(editIndex);
 			}
 		});
-
 
 
 		//监听提交
@@ -463,27 +462,34 @@ margin-top: 20px;" id="demo2"
 				success: function (msg) {
 
 					if (msg > 0) {
-						
+						alert("注册成功");
 						layer.msg("注册成功", {icon: 6});
 						$('#sureup').click();
 						// alert("seccond");
+
 						// window.location.href="http://www.baidu.com";
-						var xingwei=$("#xingwei").val();
-						if (xingwei==="houtai") {
+						var xingwei = $("#xingwei").val();
+						if (xingwei === "houtai") {
 							// alert("进入判断");
 
-							window.open("","_top").close()
-						}else {
-							window.location.href = "<%=path%>" + "/jsp/frontlogin3.jsp";
+							window.open("", "_top").close()
+						} else {
+							var url = window.location.href;
+							if (url.indexOf("homepage") !== -1) {
+								window.parent.location.href = "<%=path%>" + "/homepage/drivingSchool";
+							} else {
+								window.location.href = "<%=path%>" + "/jsp/frontlogin3.jsp";
 
+							}
 						}
+
 					} else {
 						// alert("222");
 						alert("注册失败");
 						layer.msg("注册失败", {icon: 5});
 					}
-				}
 
+				}
 			});
 
 
@@ -502,7 +508,7 @@ margin-top: 20px;" id="demo2"
 
 <script>
 	function selectinfo() {
-		alert("执行改变行为方法");
+		// alert("执行改变行为方法");
 		$("#xingwei").val("houtai");
 	}
 </script>

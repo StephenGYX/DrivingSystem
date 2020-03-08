@@ -27,7 +27,7 @@ public class PractiseRealm extends AuthorizingRealm
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 
-				System.out.println("===执行授权===");
+
 
 				Subject subject = SecurityUtils.getSubject();
 //				Practise user = (Practise)subject.getPrincipal();
@@ -35,8 +35,11 @@ public class PractiseRealm extends AuthorizingRealm
 				SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 					// 角色与权限字符串集合
 
-
-				info.addRole("practise");
+		if (subject.getPrincipal() instanceof Practise)
+		{
+			System.out.println("===执行授权===");
+			info.addRole("practise");
+		}
 				return info;
 
 	}

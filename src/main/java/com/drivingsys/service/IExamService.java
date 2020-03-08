@@ -27,5 +27,5 @@ public interface IExamService
 	public tableParam selectmonirecord(String page,String cid, String kemu);
 	public Map selectexamschedule(String cid);
 
-
+	public List<Cuotiechart> selectWrongechart(String cid, String kemu);
 }

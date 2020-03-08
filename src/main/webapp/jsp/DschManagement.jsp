@@ -391,7 +391,8 @@
 			else if(layEvent === 'rePassword'){
 				var layer = layui.layer, $ = layui.jquery;
 				var row_data = data  // 整行的数据
-					,did = row_data.did ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
+					,did = row_data.did
+					,daccount=row_data.daccount; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
 
 				layer.prompt({
 					formType: 2,
@@ -406,6 +407,7 @@
 						url: "<%=path%>"+"/dSchool/CoachTableOperation",
 						data: {
 							"did":did,
+							"daccount":daccount,
 							"do": "rePsw",
 							"password":value
 						},

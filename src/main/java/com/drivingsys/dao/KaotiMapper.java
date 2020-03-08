@@ -1,12 +1,15 @@
 package com.drivingsys.dao;
 
 import com.drivingsys.bean.Cuoti;
+import com.drivingsys.bean.Cuotiechart;
 import com.drivingsys.bean.Kaoti;
 import com.drivingsys.bean.Videoinfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
+
 @Mapper
 public interface KaotiMapper
 {
@@ -25,5 +28,7 @@ public interface KaotiMapper
 	public int videoCount(@Param("subject") String subject,@Param("id") String id,@Param("info") String info);
 	public  int updatevideo(Videoinfo videoinfo);
 	public int deletevideo(String id);
+
+	public List<Cuotiechart> selectWrongechart(@Param("cid") String cid, @Param("kemu") String kemu);
 
 }

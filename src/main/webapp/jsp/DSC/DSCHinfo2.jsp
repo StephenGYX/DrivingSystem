@@ -66,14 +66,14 @@ To change this template use File | Settings | File Templates.
 				</div>
 
 
-				<div class="layui-form-item">
-					<label class="layui-form-label required">密码</label>
-					<div class="layui-input-inline">
-						<input type="password" id="dpassword" name="password" lay-verify="required"
-						       placeholder="请输入驾校账号密码" value="${sessionScope.drivingschool.dpassword}"
-						       class="layui-input">
-					</div>
-				</div>
+<%--				<div class="layui-form-item">--%>
+<%--					<label class="layui-form-label required">密码</label>--%>
+<%--					<div class="layui-input-inline">--%>
+<%--						<input type="password" id="dpassword" name="password" lay-verify="required"--%>
+<%--						       placeholder="请输入驾校账号密码" value="${sessionScope.drivingschool.dpassword}"--%>
+<%--						       class="layui-input">--%>
+<%--					</div>--%>
+<%--				</div>--%>
 
 				<div class="layui-form-item">
 					<label class="layui-form-label required">联系电话</label>
