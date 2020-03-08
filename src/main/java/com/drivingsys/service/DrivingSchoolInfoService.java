@@ -1,6 +1,7 @@
 package com.drivingsys.service;
 
 import com.drivingsys.bean.Drivingschool;
+import com.drivingsys.bean.Examination;
 import com.drivingsys.bean.Kecheng;
 import com.drivingsys.bean.echarsParam;
 import org.apache.ibatis.annotations.Param;
@@ -16,6 +17,7 @@ public interface DrivingSchoolInfoService
 
 	public int insertBaoMing(Map<String, Object> baoMing);
 
+	public Examination queryExamExist(String cid,String evehicletype);
 
-
+	public List<Examination> queryExamListByCid(String cid);
 }

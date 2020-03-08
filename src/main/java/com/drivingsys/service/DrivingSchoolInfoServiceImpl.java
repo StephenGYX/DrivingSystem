@@ -1,6 +1,7 @@
 package com.drivingsys.service;
 
 import com.drivingsys.bean.Drivingschool;
+import com.drivingsys.bean.Examination;
 import com.drivingsys.bean.Kecheng;
 import com.drivingsys.bean.echarsParam;
 import com.drivingsys.dao.BackPractiseManageMapper;
@@ -34,5 +35,17 @@ public class DrivingSchoolInfoServiceImpl implements DrivingSchoolInfoService
 	public int insertBaoMing(Map<String, Object> baoMing)
 	{
 		return drivingSchoolInfoMapper.insertBaoMing(baoMing);
+	}
+
+	@Override
+	public Examination queryExamExist(String cid, String evehicletype)
+	{
+		return drivingSchoolInfoMapper.queryExamExist(cid,evehicletype);
+	}
+
+	@Override
+	public List<Examination> queryExamListByCid(String cid)
+	{
+		return drivingSchoolInfoMapper.queryExamListByCid(cid);
 	}
 }

@@ -63,7 +63,23 @@ select  d.*,e.*,c.cname stName from  drivingschool  d left join examination  e o
  </insert>
 
 
+	<select id="queryExamExist" resultType="com.drivingsys.bean.Examination" parameterType="java.lang.String">
+		select  * from  examination
+		<where>
+			and    cid= #{cid}
+			and    evehicletype= #{evehicletype}
 
+		</where>
+
+	</select>
+
+	<select id="queryExamListByCid" resultType="com.drivingsys.bean.Examination" parameterType="java.lang.String">
+		select  * from  examination
+		<where>
+			and    cid= #{cid}
+	</where>
+
+	</select>
 
 
 </mapper>

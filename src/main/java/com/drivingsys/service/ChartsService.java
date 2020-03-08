@@ -18,4 +18,5 @@ public interface ChartsService
 
 	//查询各个驾校的价格
 	public List<echarsParam> newStudentByTime(Map timeMap);
+
 }

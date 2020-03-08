@@ -177,6 +177,12 @@
 						else if (a.eorderstate==5) {
 							return "毕业";
 						}
+						else if (a.eorderstate==-2) {
+							return "报名失败";
+						}
+						else if (a.eorderstate==-1) {
+							return "学员审核中";
+						}
 					}
 				},
 

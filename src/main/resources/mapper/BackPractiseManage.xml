@@ -9,6 +9,7 @@
 	<select id="queryAllCoach" resultType="com.drivingsys.bean.Practise" parameterType="map">
 		select  * from  practise
 		<where>
+			and  paccountstate !=4 and  paccountstate !=5
 			<if test="selectParam.pid!=null and selectParam.pid.trim()!='' ">
 				and  pid like '%${selectParam.pid}%'
 			</if>
@@ -39,6 +40,7 @@
 	<select id="queryAllCoachCount" resultType="long" parameterType="map">
 		select  count(*) from  practise
 		<where>
+			and  paccountstate !=4 and  paccountstate !=5
 			<if test="selectParam.pid!=null and selectParam.pid.trim()!='' ">
 				and  pid like '%${selectParam.pid}%'
 			</if>
