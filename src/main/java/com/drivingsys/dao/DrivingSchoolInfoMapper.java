@@ -1,6 +1,7 @@
 package com.drivingsys.dao;
 
 import com.drivingsys.bean.Drivingschool;
+import com.drivingsys.bean.Examination;
 import com.drivingsys.bean.Kecheng;
 import com.drivingsys.bean.RoleMenu;
 import com.drivingsys.bean.backmenu.ZtreeMenu;
@@ -23,5 +24,10 @@ public interface DrivingSchoolInfoMapper
  public List<Kecheng> querySchoolKeCheng(@Param("did") String did);
 
  public int insertBaoMing(Map<String, Object> baoMing);
+
+ public Examination queryExamExist(@Param("cid") String cid,@Param("evehicletype") String evehicletype);
+
+
+ public List<Examination> queryExamListByCid(@Param("cid") String cid);
 
 }
