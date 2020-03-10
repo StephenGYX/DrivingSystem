@@ -42,22 +42,22 @@ To change this template use File | Settings | File Templates.
 
 
 
-<div class="layui-form-item" style="margin-left: 590px">
-	<div class="layui-inline">
-		<label class="layui-form-label">修改密码</label>
-		<div class="layui-input-inline">
-			<input type="password" onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="updatepass">
-		</div>
-	</div>
-</div>
-<div class="layui-form-item" style="margin-left: 590px">
-	<div class="layui-inline">
-		<label class="layui-form-label">确认密码</label>
-		<div class="layui-input-inline">
-			<input type="password" onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')" name="password" required lay-verify="required"  autocomplete="off" class="layui-input" id="updatepass1">
-		</div>
-	</div>
-</div>
+<%--<div class="layui-form-item" style="margin-left: 590px">--%>
+<%--	<div class="layui-inline">--%>
+<%--		<label class="layui-form-label">修改密码</label>--%>
+<%--		<div class="layui-input-inline">--%>
+<%--			<input type="password" onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="updatepass">--%>
+<%--		</div>--%>
+<%--	</div>--%>
+<%--</div>--%>
+<%--<div class="layui-form-item" style="margin-left: 590px">--%>
+<%--	<div class="layui-inline">--%>
+<%--		<label class="layui-form-label">确认密码</label>--%>
+<%--		<div class="layui-input-inline">--%>
+<%--			<input type="password" onkeyup="value=value.replace(/[\u4e00-\u9fa5]/ig,'')" name="password" required lay-verify="required"  autocomplete="off" class="layui-input" id="updatepass1">--%>
+<%--		</div>--%>
+<%--	</div>--%>
+<%--</div>--%>
 <div class="layui-form-item" style="margin-left: 590px">
 	<div class="layui-inline">
 		<label class="layui-form-label">名称：</label>
@@ -170,21 +170,17 @@ To change this template use File | Settings | File Templates.
 	$("#layui-btnn").on('click',function(){
 		layui.use('layer', function() {
 			var path=document.getElementById("pic_1_src").value
-			var updatepass=$("#updatepass").val()
-			var updatepass1=$("#updatepass1").val()
+			// var updatepass=$("#updatepass").val()
+			// var updatepass1=$("#updatepass1").val()
 			var image_a=document.getElementById('pic_1');
 			var addres="..\\images\\"+image_a.src.substring(40);
 			if(path==''){
 				path=addres;
 			}
-			if(updatepass!=updatepass1){
-				layer.msg('两次密码不一致',{icon: 2});
-				return false;
-			}else{
 				$.ajax({
 					url: '/springboot/updateavatar',
 					method: 'post',
-					data: {avatar:path,updatepass:updatepass},
+					data: {avatar:path},
 					dataType: 'text'
 				});
 				layer.msg('保存成功')
@@ -192,7 +188,6 @@ To change this template use File | Settings | File Templates.
 				setTimeout( function(){
 					window.parent.location.reload();
 				}, 2000 );//延迟两秒
-			}
 
 
 

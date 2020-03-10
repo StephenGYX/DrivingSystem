@@ -130,8 +130,10 @@ public interface BackStageMyMapper
 	//搜索某个驾校下的所有教练
 	@Select("select c.pname,ifnull(count,0) as pcount from (select * from (select pid,pname from practise where pdrivingid=#{did}) as a left join (select count(cid) as count,cpritiseid from consumer where cpritiseid in (select pid from practise where pdrivingid=#{did}) group by cpritiseid) as b on  a.pid=b.cpritiseid) as c")
 	public List<Practise> chart(Long did);
-	//修改信息
-	@Select("update practise set pname=#{updatename},ppassword=#{updatepass} where pid=#{pid}")
-	public void updateinfo(String updatename,String updatepass,Long pid);
-
+//	//修改信息
+//	@Select("update practise set pname=#{updatename},ppassword=#{updatepass} where pid=#{pid}")
+//	public void updateinfo(String updatename,String updatepass,Long pid);
+	//搜索某个驾校下所有车辆
+	@Select("select count(vid) as pcount,ifnull(vcarstate,'正常')as vcarstate from vehicle where vdrivingid=#{did} and vcarstate='正常' union select count(vid),ifnull(vcarstate,'使用中')as vcarstate from vehicle where vdrivingid=#{did} and vcarstate='使用中' union select count(vid),ifnull(vcarstate,'维修中')as vcarstate from vehicle where vdrivingid=#{did} and vcarstate='维修中' union  select count(vid),ifnull(vcarstate,'报废')as vcarstate from vehicle where vdrivingid=#{did} and vcarstate='报废'")
+	public List<Vehicle> vehiclechart(Long did);
 }

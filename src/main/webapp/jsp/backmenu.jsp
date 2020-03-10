@@ -60,10 +60,10 @@
 					<img src=<%=path+"/images/headphoto.jpg"%> class="layui-nav-img">
 					${sessionScope.backstage.bname}
 				</a>
-				<dl class="layui-nav-child">
-					<dd><a href="">基本资料</a></dd>
-					<dd><a href="">安全设置</a></dd>
-				</dl>
+<%--				<dl class="layui-nav-child">--%>
+<%--					<dd><a href="">基本资料</a></dd>--%>
+<%--					<dd><a href="">安全设置</a></dd>--%>
+<%--				</dl>--%>
 			</li>
 			<li class="layui-nav-item"><a href="<%=path+"/back/logOut"%>">注销</a></li>
 		</ul>

@@ -202,8 +202,13 @@
 				maxmin: true,
 				shadeClose: false,
 				area: ['70%', '70%'],
-				content: 'area.jsp'
+				content: 'area.jsp',
+				success:function (layero,index) {
+					var iframe=window['layui-layer-iframe'+index];
+					iframe.selectinfo();
+				}
 			});
+
 			$(window).on("resize", function () {
 				layer.full(index);
 			});
@@ -386,7 +391,8 @@
 			else if(layEvent === 'rePassword'){
 				var layer = layui.layer, $ = layui.jquery;
 				var row_data = data  // 整行的数据
-					,did = row_data.did ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
+					,did = row_data.did
+					,daccount=row_data.daccount; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
 
 				layer.prompt({
 					formType: 2,
@@ -401,6 +407,7 @@
 						url: "<%=path%>"+"/dSchool/CoachTableOperation",
 						data: {
 							"did":did,
+							"daccount":daccount,
 							"do": "rePsw",
 							"password":value
 						},
@@ -470,7 +477,7 @@
 			else if (layEvent === 'updataa') {
 				var layer = layui.layer;
 				var row_data = data ; // 整行的数据
-				alert("进入修改");
+				// alert("进入修改");
 				var index = layer.open({
 					title: '查看评价',
 					type: 2,
@@ -481,7 +488,7 @@
 					content: 'DSC/DSCHinfo2.jsp',
 					success:function (layero,index) {
 						var iframe=window['layui-layer-iframe'+index];
-						iframe.selectinfo(row_data);
+						iframe.selectinfo(data);
 					}
 				});
 			}

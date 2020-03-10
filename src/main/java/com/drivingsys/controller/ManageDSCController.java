@@ -10,6 +10,8 @@ import com.google.gson.Gson;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -157,6 +159,11 @@ public class ManageDSCController
 		} else if (operation.equals("rePsw"))
 		{
 			String password = request.getParameter("password");
+			String account = request.getParameter("daccount");
+			ByteSource salt = ByteSource.Util.bytes(account);
+			Object md5pwd = new SimpleHash("MD5", password, salt, 2);
+			password = md5pwd + "";
+
 			index = manageDSCService.updateCoachPwdByDid(Did, password);
 
 
@@ -185,6 +192,23 @@ public class ManageDSCController
 		String id = findDid(request);
 		int Did = Integer.valueOf(id);
 		String password = request.getParameter("newpass");
+		String account = request.getParameter("daccount");
+		;
+		Object o = request.getSession().getAttribute("drivingschool");
+		if (o != null)
+		{
+			System.out.println("驾校端操作");
+			Drivingschool d = (Drivingschool) o;
+			account = d.getDaccount();
+		}
+
+
+		//		String pass=del.get("password")+"";
+		ByteSource salt = ByteSource.Util.bytes(account);
+		Object md5pwd = new SimpleHash("MD5", password, salt, 2);
+		password = md5pwd + "";
+
+
 		int i = manageDSCService.updateCoachPwdByDid(Did, password);
 
 		return i;
@@ -246,7 +270,7 @@ public class ManageDSCController
 		RowBounds rowBounds = createRowBounds(request);
 		//		manageDSCService.queryDSC(reqMap,rowBounds);
 		List<Examination> list = manageDSCService.querySTUpj(Integer.valueOf(did), rowBounds);
-		List<Examination> list2 = manageDSCService.querySTUpj(Integer.valueOf(did), null);
+		long i = manageDSCService.querySTUpjcount(Integer.valueOf(did));
 
 		JSONArray JSO = JSONArray.fromObject(list);
 		System.out.println("********");
@@ -258,7 +282,7 @@ public class ManageDSCController
 		//0表示成功
 		tableParam.setCode(0);
 		//数据库查询count数量
-		tableParam.setCount(list2.size());
+		tableParam.setCount(i);
 		//失败数据
 		tableParam.setMsg("");
 		tableParam.setData(list);
@@ -304,9 +328,6 @@ public class ManageDSCController
 	}
 
 
-
-
-
 	@RequestMapping("echartyuefen")
 	@ResponseBody
 	public JSONArray echartyuefen()
@@ -321,10 +342,10 @@ public class ManageDSCController
 			bannian bn = echartyuefen.get(i);
 			int renshu = bn.getRenshu();
 			String dname = bn.getDname();
-			System.out.println("dname "+dname);
+			System.out.println("dname " + dname);
 			System.out.println(renshu);
 			boolean flag = false;
-//			int k = 1;
+			//			int k = 1;
 
 			for (int j = 0; j < yuefenList.size(); j++)
 			{
@@ -341,12 +362,17 @@ public class ManageDSCController
 
 			if (flag == false)
 			{
-				System.out.println("dname "+dname);
+				System.out.println("dname " + dname);
 				yuefen yuefen = new yuefen();
 				yuefen.setName(dname);
-				if (renshu==0){
-				yuefen.getData().add(0);}
-				else { yuefen.getData().add(renshu);  };
+				if (renshu == 0)
+				{
+					yuefen.getData().add(0);
+				} else
+				{
+					yuefen.getData().add(renshu);
+				}
+				;
 				yuefenList.add(yuefen);
 			}
 

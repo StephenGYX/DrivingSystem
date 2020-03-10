@@ -11,7 +11,9 @@ import net.sf.json.JSONObject;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,7 +85,7 @@ public class FrontLoginController
 		String CODE = request.getSession().getAttribute("CODE") + "";
 		System.out.println(CODE);
 		String code = reqMap.get("code");
-		System.out.println("角色："+roleid);
+		System.out.println("角色：" + roleid);
 		if (!code.equalsIgnoreCase(CODE))
 		{
 			System.out.println("验证码错误");
@@ -96,57 +98,70 @@ public class FrontLoginController
 		{
 			roleid = "4";
 		}
-			String roleName="";
-			System.out.println("roleid=" + roleid);
+		String roleName = "";
+		System.out.println("roleid=" + roleid);
+		if (roleid.equals("3"))
+		{
+			roleName = "Practise";
+
+		} else if (roleid.equals("2"))
+		{
+			roleName = "Drivingschool";
+
+		} else if (roleid.equals("4"))
+		{
+
+			roleName = "User";
+
+		}
+		Subject currentUser = SecurityUtils.getSubject();
+
+		UsernamePasswordToken usernamePasswordToken = new UserToken(reqMap.get("account"), reqMap.get("password"), roleName);
+		try
+		{
+			currentUser.login(usernamePasswordToken);
 			if (roleid.equals("3"))
 			{
-				roleName = "Practise";
+				Practise practise = frontLoginService.queryPractiseAccount(reqMap);
+				if (practise.getPaccountstate() != 1)
+				{
+					return "5";
+				}
+				clearanysession(request);
+				request.getSession().setAttribute("practise", practise);
 
+				return "20";
 			} else if (roleid.equals("2"))
 			{
-				roleName = "Drivingschool";
+				Drivingschool drivingschool = frontLoginService.queryDrivingschool(reqMap);
+				if (!drivingschool.getDaccountstate().equals("1"))
+				{
+					return "5";
+				}
+				clearanysession(request);
 
+				request.getSession().setAttribute("drivingschool", drivingschool);
+
+				System.out.println("找到驾校");
+				return "30";
 			} else if (roleid.equals("4"))
 			{
-
-				roleName = "User";
-
-			}
-			Subject currentUser = SecurityUtils.getSubject();
-
-				UsernamePasswordToken usernamePasswordToken = new UserToken(reqMap.get("account"), reqMap.get("password"), roleName);
-				try
+				Consumer consumer = frontLoginService.queryConsumer(reqMap);
+				if (!consumer.getCstate().equals("1"))
 				{
-					currentUser.login(usernamePasswordToken);
-					if (roleid.equals("3"))
-					{
-						Practise practise = frontLoginService.queryPractiseAccount(reqMap);
-						if (practise.getPaccountstate()!=1){return "5";}
-						request.getSession().setAttribute("practise", practise);
-
-						return "20";
-					} else if (roleid.equals("2"))
-					{
-						Drivingschool drivingschool = frontLoginService.queryDrivingschool(reqMap);
-						if (!drivingschool.getDaccountstate().equals("1")){return "5";}
-						request.getSession().setAttribute("drivingschool", drivingschool);
-
-						System.out.println("找到驾校");
-						return "30";
-					} else if (roleid.equals("4"))
-					{
-						Consumer consumer = frontLoginService.queryConsumer(reqMap);
-						if (!consumer.getCstate().equals("1")){return "5";}
-						request.getSession().setAttribute("consumer", consumer);
-						return "cid="+consumer.getCid();
-					}
-
-				} catch (AuthenticationException e)
-				{
-
-					return "2";
+					return "5";
 				}
+				clearanysession(request);
 
+				request.getSession().setAttribute("consumer", consumer);
+				return "cid=" + consumer.getCid();
+			}
+
+		} catch (AuthenticationException e)
+		{
+
+			return "2";
+		}
 
 
 		return "2";
@@ -192,8 +207,17 @@ public class FrontLoginController
 		{
 
 			JSONObject a = JSONObject.fromObject(dscParams);
+
+
+
 			del = (Map<String, Object>) a;
+			String account=del.get("daccount")+"";
+			String pass=del.get("password")+"";
+			ByteSource salt=ByteSource.Util.bytes(account);
+			Object md5pwd= new SimpleHash("MD5",pass,salt,2);
+            del.put("password",md5pwd);
 		}
+
 
 
 		//		RowBounds rowBounds=createRowBounds(request);
@@ -224,7 +248,7 @@ public class FrontLoginController
 			JSONObject a = JSONObject.fromObject(dscParams);
 			updata = (Map<String, Object>) a;
 		}
-		updata.put("dsynopsis",dsynopsis);
+		updata.put("dsynopsis", dsynopsis);
 		if (updata != null)
 		{
 			i = manageDSCService.updatedscinfo(updata);
@@ -253,11 +277,11 @@ public class FrontLoginController
 			did = "default";
 		}
 		;
-//		String jxxx = reqMap.get("jxxx");
-//		if (jxxx == null || jxxx.equals(""))
-//		{
-//			jxxx = "error";
-//		}
+		//		String jxxx = reqMap.get("jxxx");
+		//		if (jxxx == null || jxxx.equals(""))
+		//		{
+		//			jxxx = "error";
+		//		}
 
 		System.out.println("reqmap" + reqMap);
 
@@ -409,8 +433,6 @@ public class FrontLoginController
 	}
 
 
-
-
 	@RequestMapping("/querydname")
 	@ResponseBody
 	public int querydname(HttpServletRequest req)
@@ -427,12 +449,6 @@ public class FrontLoginController
 		return 2;
 
 	}
-
-
-
-
-
-
 
 
 }
