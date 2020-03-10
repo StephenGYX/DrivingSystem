@@ -84,7 +84,8 @@
 			<button data-method="dialog" class="layui-btn" id="test4" lay-event="test4">科目四考试安排</button>
 			{{#  }
 			else if(d.eorderstate == 4){ }}
-			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="takeCertificate">领证安排</a>
+            -----------领证安排-----------------
+<%--			<a class="layui-btn layui-btn-xs data-count-edit" lay-event="takeCertificate">领证安排</a>--%>
 			{{#  }
 
 

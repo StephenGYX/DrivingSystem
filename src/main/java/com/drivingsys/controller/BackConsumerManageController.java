@@ -5,6 +5,8 @@ import com.drivingsys.service.BackPractiseManageService;
 import com.drivingsys.service.DrivingSchoolManageService;
 import com.google.gson.Gson;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -138,6 +140,14 @@ public class BackConsumerManageController
 		} else if (operation.equals("rePsw"))
 		{
 			String password = request.getParameter("password");
+
+			String account = request.getParameter("account");
+
+			ByteSource salt = ByteSource.Util.bytes(account);
+			Object md5pwd = new SimpleHash("MD5", password, salt, 2);
+			password = md5pwd + "";
+
+
 			index=drivingSchoolManageService.updateStudentPwdByCid(cid,password);
 
 

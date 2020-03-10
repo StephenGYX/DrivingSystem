@@ -122,8 +122,8 @@ public class BackPractiseMannageController
 		{
 			String password = request.getParameter("password");
 
-
 			String account = request.getParameter("paccount");
+
 			ByteSource salt = ByteSource.Util.bytes(account);
 			Object md5pwd = new SimpleHash("MD5", password, salt, 2);
 			password = md5pwd + "";

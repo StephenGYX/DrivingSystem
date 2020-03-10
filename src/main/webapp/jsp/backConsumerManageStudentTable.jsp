@@ -221,7 +221,7 @@
             </c:if>
 			<%--			如果是进入学员管理的表格--%>
 			<c:if test="${requestScope.doThing=='Manage'}" >
-				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="start">启用</a>
+				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="stop">禁用</a>
 				<a class="layui-btn layui-btn-xs data-count-edit" lay-event="rePassword">重置密码</a>
 				<a class="layui-btn layui-btn-xs data-count-edit" data-method="dialog" lay-event="Evaluate">所发评价</a>
 				<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
@@ -439,7 +439,7 @@
 				var layer = layui.layer, $ = layui.jquery;
 				var row_data = data  // 整行的数据
 					,cid = row_data.cid ; // 获取行数据的 id 值 对数据进行检索 操作,row_data.X 这个X是你的字段名
-
+				var caccount = row_data.caccount;
 				layer.prompt({
 					formType: 2,
 					value: '',
@@ -454,7 +454,8 @@
 						data: {
 							"cid":cid,
 							"do": "rePsw",
-							"password":value
+							"password":value,
+							"account":caccount
 						},
 						success : function(msg) {
 							if(msg>0){
