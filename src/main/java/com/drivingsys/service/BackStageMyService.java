@@ -51,6 +51,8 @@ public interface BackStageMyService
 	public void updateemail(String updateemail,Long pid);
 	public void updateidcard(String updateidcard,Long pid);
 	public void updateresume(String updateresume,Long pid);
-	public List<Practise> chart(Long did);
-	public List<Vehicle> vehiclechart(Long did);
+	public List<Practise> chart();
+	public List<Vehicle> vehiclechart();
+
+
 }

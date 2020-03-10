@@ -263,19 +263,20 @@ public class BackStageMyServiceImpl implements BackStageMyService
 		backStageMyMapper.updateresume(updateresume, pid);
 	}
 
+
+
 	@Override
-	public List<Practise> chart(Long did)
+	public List<Practise> chart()
 	{
-		List<Practise> map=backStageMyMapper.chart(did);
+		List<Practise> map=backStageMyMapper.chart();
 		return  map;
 	}
 
 	@Override
-	public List<Vehicle> vehiclechart(Long did)
+	public List<Vehicle> vehiclechart()
 	{
-		List<Vehicle> vehicles=backStageMyMapper.vehiclechart(did);
+		List<Vehicle> vehicles=backStageMyMapper.vehiclechart();
 		return vehicles;
 	}
-
 
 }

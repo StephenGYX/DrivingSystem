@@ -479,15 +479,16 @@ public class BackController
 		System.out.println("没有权限");
 		return "您当前没有进行该操作的权限！";
 	}
+
 	@RequestMapping("/chart")
 	public void chart(HttpServletRequest request,HttpServletResponse response) throws IOException
 	{
 		HttpSession session = request.getSession();
-		Drivingschool did = (Drivingschool) session.getAttribute("drivingschool");
-		List<Practise> objects=backStageMyService.chart(did.getDid());
-				response.setContentType("text/html; charset =utf-8");
-				response.getWriter().write(new Gson().toJson(objects));
-				response.getWriter().flush();
+//		Drivingschool did = (Drivingschool) session.getAttribute("drivingschool");
+		List<Practise> objects=backStageMyService.chart();
+		response.setContentType("text/html; charset =utf-8");
+		response.getWriter().write(new Gson().toJson(objects));
+		response.getWriter().flush();
 
 	}
 
@@ -496,12 +497,9 @@ public class BackController
 	{
 		System.out.println("进来了");
 		HttpSession session = request.getSession();
-		Drivingschool did = (Drivingschool) session.getAttribute("drivingschool");
-		List<Vehicle> chart=backStageMyService.vehiclechart(did.getDid());
-		for(int i=0;i<chart.size();i++){
-			System.out.println(chart.get(i).getVcarstate());
-			System.out.println(chart.get(i).getPcount());
-		}
+//		Drivingschool did = (Drivingschool) session.getAttribute("drivingschool");
+		List<Vehicle> chart=backStageMyService.vehiclechart();
+
 		response.setContentType("text/html; charset =utf-8");
 		response.getWriter().write(new Gson().toJson(chart));
 		response.getWriter().flush();

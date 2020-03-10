@@ -38,14 +38,38 @@ public class BackCharController
 	public List<ChartData> queryStudyChart(HttpServletRequest request){
 
 		List<ChartData> chartData = backChartMapper.queryStudyChart();
-		chartData.get(0).setName("驳回审核");
-		chartData.get(1).setName("待通过审核");
-		chartData.get(2).setName("科目一进行中");
-		chartData.get(3).setName("科目二进行中");
-		chartData.get(4).setName("科目三进行中");
-		chartData.get(5).setName("科目四进行中");
-		chartData.get(6).setName("已毕业");
-		chartData.get(7).setName("已拿证");
+
+		for (int i = 0; i <chartData.size() ; i++)
+		{
+			if (chartData.get(i).getName().equals("-2")){
+				chartData.get(i).setName("驳回审核");
+			}else if (chartData.get(i).getName().equals("-1")){
+				chartData.get(i).setName("待通过审核");
+			}else if (chartData.get(i).getName().equals("0")){
+				chartData.get(i).setName("科目一进行中");
+			}else if (chartData.get(i).getName().equals("1")){
+				chartData.get(i).setName("科目二进行中");
+			}else if (chartData.get(i).getName().equals("2")){
+				chartData.get(i).setName("科目三进行中");
+			}else if (chartData.get(i).getName().equals("3")){
+				chartData.get(i).setName("科目四进行中");
+			}else if (chartData.get(i).getName().equals("4")){
+				chartData.get(i).setName("已毕业");
+			}else if (chartData.get(i).getName().equals("5")){
+				chartData.get(i).setName("已拿证");
+			}
+
+		}
+
+
+//		chartData.get(0).setName("驳回审核");
+//		chartData.get(1).setName("待通过审核");
+//		chartData.get(2).setName("科目一进行中");
+//		chartData.get(3).setName("科目二进行中");
+//		chartData.get(4).setName("科目三进行中");
+//		chartData.get(5).setName("科目四进行中");
+//		chartData.get(6).setName("已毕业");
+//		chartData.get(7).setName("已拿证");
 		return chartData;
 	}
 
