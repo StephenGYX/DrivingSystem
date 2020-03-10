@@ -412,28 +412,50 @@ public class BackController
 	}
 
 	@RequestMapping("/updateavatar")
-	public void updateavatar(@RequestParam("avatar") String avatar, @RequestParam("updatename") String updatename, @RequestParam("updatepass") String updatepass, HttpServletRequest request)
+	public void updateavatar(@RequestParam("avatar") String avatar,HttpServletRequest request)
 	{
 		HttpSession session = request.getSession();
 		Practise id = (Practise) session.getAttribute("practise");
 		backStageMyService.updateavatar(avatar, id.getPid());
-		if (updatepass.equals(""))
-		{
-			backStageMyService.updatename(updatename, id.getPid());
-		} else if (updatename.equals(""))
-		{
-			backStageMyService.updatepass(updatepass, id.getPid());
-		} else
-		{
-//			backStageMyService.updateinfo(updatename, updatepass, id.getPid());
-		}
+			backStageMyService.updateavatar(avatar,id.getPid());
+
+
+	}
+
+	@RequestMapping("/updatename")
+	public void updatename(@RequestParam("updatename")String updatename,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		Practise id=(Practise)session.getAttribute("practise");
+		backStageMyService.updatename(updatename,id.getPid());
+	}
+
+	@RequestMapping("/updatephone")
+	public void updatephone(@RequestParam("updatephone")String updatephone,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		Practise id=(Practise)session.getAttribute("practise");
+		backStageMyService.updatephone(updatephone,id.getPid());
+	}
+	@RequestMapping("/updateemail")
+	public void updateemail(@RequestParam("updateemail")String updateemail,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		Practise id=(Practise)session.getAttribute("practise");
+		backStageMyService.updateemail(updateemail,id.getPid());
+	}
+
+	@RequestMapping("/updateidcard")
+	public void updateidcard(@RequestParam("updateidcard")String updateidcard,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		Practise id=(Practise)session.getAttribute("practise");
+		backStageMyService.updateidcard(updateidcard,id.getPid());
 	}
 
 
-
-
-
-
+	@RequestMapping("/updateresume")
+	public void updateresume(@RequestParam("updateresume")String updateresume,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		Practise id=(Practise)session.getAttribute("practise");
+		backStageMyService.updateresume(updateresume,id.getPid());
+	}
 
 
 	@RequestMapping("/toLogin")
@@ -448,6 +470,10 @@ public class BackController
 		}
 		return modelAndView;
 	}
+
+
+
+
 	@RequestMapping("nerole")
 	public String nonerole(HttpServletRequest request){
 		System.out.println("没有权限");
@@ -458,26 +484,27 @@ public class BackController
 	{
 		HttpSession session = request.getSession();
 		Drivingschool did = (Drivingschool) session.getAttribute("drivingschool");
-//		List<Map<String, Object>> m = backStageMyService.chart(did.getDid());
-//		for (int i = 0; i < m.size(); i++)
-//		{
-//			Map<String, Object> map = m.get(i);
-//			Iterator iterator = map.keySet().iterator();
-//			while (iterator.hasNext())
-//			{
-//				String string = (String) iterator.next();
-//				System.out.println(map.get(string));
-//		}
-//		}
-//		String jsonString = JSON.toJSONString(m);
-//		response.setContentType("text/html; charset =utf-8");
-//		response.getWriter().write(new Gson().toJson(jsonString));
-//		response.getWriter().flush();
 		List<Practise> objects=backStageMyService.chart(did.getDid());
 				response.setContentType("text/html; charset =utf-8");
 				response.getWriter().write(new Gson().toJson(objects));
 				response.getWriter().flush();
 
+	}
+
+	@RequestMapping("/vehiclechart")
+	public void vehiclechart(HttpServletRequest request,HttpServletResponse response) throws IOException
+	{
+		System.out.println("进来了");
+		HttpSession session = request.getSession();
+		Drivingschool did = (Drivingschool) session.getAttribute("drivingschool");
+		List<Vehicle> chart=backStageMyService.vehiclechart(did.getDid());
+		for(int i=0;i<chart.size();i++){
+			System.out.println(chart.get(i).getVcarstate());
+			System.out.println(chart.get(i).getPcount());
+		}
+		response.setContentType("text/html; charset =utf-8");
+		response.getWriter().write(new Gson().toJson(chart));
+		response.getWriter().flush();
 	}
 }
 

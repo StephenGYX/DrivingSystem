@@ -13,6 +13,7 @@ public class Vehicle {
   private String vregistertime;
   private String vremark1;
   private String vremark2;
+  private String pcount;
 
 
   public long getVid() {
@@ -113,4 +114,13 @@ public class Vehicle {
     this.vremark2 = vremark2;
   }
 
+  public String getPcount()
+  {
+    return pcount;
+  }
+
+  public void setPcount(String pcount)
+  {
+    this.pcount = pcount;
+  }
 }

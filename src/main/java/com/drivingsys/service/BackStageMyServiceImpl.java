@@ -270,5 +270,12 @@ public class BackStageMyServiceImpl implements BackStageMyService
 		return  map;
 	}
 
+	@Override
+	public List<Vehicle> vehiclechart(Long did)
+	{
+		List<Vehicle> vehicles=backStageMyMapper.vehiclechart(did);
+		return vehicles;
+	}
+
 
 }
