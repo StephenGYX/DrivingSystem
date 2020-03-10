@@ -37,11 +37,17 @@ public class ManageDSCService
 	{
 		return manageDSCMapper.updateCoachPwdByDid(did, password);
 	}
-
+//驾校查看评价
 	public List<Examination> querySTUpj(int did, RowBounds rowBounds)
 	{
 		return manageDSCMapper.querySTUpj(did, rowBounds);
 	}
+
+	public long querySTUpjcount(int did)
+	{
+		return manageDSCMapper.querySTUpjcount(did);
+	}
+
 
 	public List<echaretsDSC> echaretstest()
 	{
@@ -145,6 +151,20 @@ public class ManageDSCService
 	public List<bannian> echartyuefen()
 	{
 		return  manageDSCMapper.echartyuefen();
+	}
+
+	public List<echaretsDSC> echartshengfen()
+	{
+		return manageDSCMapper.echartshengfen();
+	}
+
+	public List<echaretsDSC> echartcar()
+	{return manageDSCMapper.echartcar();
+	}
+
+	public Drivingschool queryDSCbydname(String dname)
+	{
+		return manageDSCMapper.queryDSCbydname(dname);
 	}
 
 	;

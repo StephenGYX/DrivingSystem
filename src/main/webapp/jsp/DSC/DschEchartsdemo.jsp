@@ -141,46 +141,7 @@
 		};
 		echartsRecords.setOption(optionRecords);
 
-		// var optionPies = {
-		// 	title: {
-		// 		text: '指标名称-玫瑰图',
-		// 		left: 'center'
-		// 	},
-		// 	tooltip: {
-		// 		trigger: 'item',
-		// 		formatter: '{a} <br/>{b} : {c} ({d}%)'
-		// 	},
-		// 	legend: {
-		// 		orient: 'vertical',
-		// 		left: 'left',
-		// 		data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
-		// 	},
-		// 	series: [
-		// 		{
-		// 			name: '访问来源',
-		// 			type: 'pie',
-		// 			radius: '55%',
-		// 			center: ['50%', '60%'],
-		// 			roseType: 'radius',
-		// 			data: [
-		// 				{value: 335, name: '直接访问'},
-		// 				{value: 310, name: '邮件营销'},
-		// 				{value: 234, name: '联盟广告'},
-		// 				{value: 135, name: '视频广告'},
-		// 				{value: 368, name: '搜索引擎'}
-		// 			],
-		// 			emphasis: {
-		// 				itemStyle: {
-		// 					shadowBlur: 10,
-		// 					shadowOffsetX: 0,
-		// 					shadowColor: 'rgba(0, 0, 0, 0.5)'
-		// 				}
-		// 			}
-		// 		}
-		// 	]
-		// };
-		//
-		//
+
 
 
 
@@ -190,48 +151,6 @@
 		var nums=[];    //销量数组（实际用来盛放Y坐标值）
 
 
-		<%--$.ajax({--%>
-		<%--	type : "post",--%>
-		<%--	async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）--%>
-		<%--	url : "<%=path+"/dSchool/echartPJ"%>",    //请求发送到TestServlet处--%>
-		<%--	data : {},--%>
-		<%--	dataType : "json",        //返回数据形式为json--%>
-		<%--	success : function(result) {--%>
-		<%--		//请求成功时执行该函数内容，result即为服务器返回的json对象--%>
-		<%--		if (result) {--%>
-		<%--			for(var i=0;i<result.length;i++){--%>
-		<%--				names.push(result[i].dname);    //挨个取出类别并填入类别数组--%>
-		<%--			}--%>
-		<%--			for(var i=0;i<result.length;i++){--%>
-		<%--				var obj = new Object();--%>
-		<%--				    obj.name=result[i].dname;--%>
-		<%--					obj.value=result[i].renshu;--%>
-		<%--				nums.push(obj);    //挨个取出销量并填入销量数组--%>
-		<%--			}--%>
-		<%--			console.log(nums);--%>
-		<%--			// echartsRecords.hideLoading();    //隐藏加载动画--%>
-		<%--			// echartsRecords.setOption({        //加载数据图表--%>
-		<%--			// 	// xAxis: {--%>
-		<%--			// 	// 	data: names--%>
-		<%--			// 	// },--%>
-		<%--			//--%>
-		<%--			// 	series: [{--%>
-		<%--			// 		// 根据名字对应到相应的系列--%>
-		<%--			// 		// name: ['数量'],--%>
-		<%--			// 		// type: 'bar',--%>
-		<%--			// 		data: nums--%>
-		<%--			// 	}]--%>
-		<%--			// });--%>
-
-		<%--		}--%>
-
-		<%--	},--%>
-		<%--	error : function(errorMsg) {--%>
-		<%--		//请求失败时执行该函数--%>
-		<%--		alert("图表请求数据失败!");--%>
-		<%--		echartsRecords.hideLoading();--%>
-		<%--	}--%>
-		<%--});--%>
 
 
 

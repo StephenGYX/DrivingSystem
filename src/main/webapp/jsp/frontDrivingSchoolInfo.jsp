@@ -523,9 +523,9 @@
 												<div style="box-sizing: content-box; overflow: hidden; z-index: 1; position: absolute; left: 171px; top: 62px; width: 34px; height: 50px;">
 													<img style="box-sizing:content-box;border:none;margin:0px;padding:0px;margin-left:-186px;margin-top:-691px;max-width:none; width:690px;height:786px;" src="https://api.map.baidu.com/images/iw3.png">
 												</div>
-												<div style="box-sizing: content-box; width: 343px; height: 55px; position: absolute; left: 16px; top: 16px; z-index: 10; overflow: hidden;"><div class="BMap_bubble_title" style="display: none; overflow: hidden; height: auto; line-height: 24px; white-space: nowrap; width: auto;"></div>
-													<div class="BMap_bubble_content" style="width: auto; height: auto;">厦门德畅驾校<br>厦门市湖里区穆厝路1号（蔡塘、金山、围里、万达、县后首选）</div>
-													<div class="BMap_bubble_max_content" style="display:none;position:relative"></div></div>
+<%--												<div style="box-sizing: content-box; width: 343px; height: 55px; position: absolute; left: 16px; top: 16px; z-index: 10; overflow: hidden;"><div class="BMap_bubble_title" style="display: none; overflow: hidden; height: auto; line-height: 24px; white-space: nowrap; width: auto;"></div>--%>
+<%--													<div class="BMap_bubble_content" style="width: auto; height: auto;">厦门德畅驾校<br>厦门市湖里区穆厝路1号（蔡塘、金山、围里、万达、县后首选）</div>--%>
+<%--													<div class="BMap_bubble_max_content" style="display:none;position:relative"></div></div>--%>
 												<img style="position: absolute; top: 12px; width: 10px; height: 10px; cursor: pointer; z-index: 10000; left: 350px;" src="https://api.map.baidu.com/images/iw_close1d3.gif">
 												<img style="position:absolute;top:12px;width:10px;height:10px;-moz-user-select:none;cursor:pointer;z-index:10000;display:none" src="https://api.map.baidu.com/images/quanjing.png" title="进入全景">
 												<img style="position:absolute;top:10px;width:9px;height:14px;-moz-user-select:none;cursor:pointer;z-index:10000;display:none;" src="https://api.map.baidu.com/images/phone.png" title="发送到手机">

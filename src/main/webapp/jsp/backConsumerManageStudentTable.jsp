@@ -81,7 +81,7 @@
 			<div class="layui-btn-container">
 
 				<c:if test="${requestScope.doThing=='Manage'}" >
-					<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="deleteList">删除</a>
+<%--					<a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="deleteList">删除</a>--%>
 				</c:if>
 
 			</div>
@@ -284,7 +284,7 @@
 				{field: 'cid', width: 70, title: 'ID', sort: true},
 				{field: 'cname', width: 100, title: '学员姓名'},
 				{field: 'caccount', width: 110, title: '学员账号', sort: true},
-				{field: 'cpassword', width: 110, title: '学员密码', sort: true},
+				// {field: 'cpassword', width: 110, title: '学员密码', sort: true},
 				{field: 'csex', width: 50, title: '性别'},
 				{field: 'cphone', width: 120, title: '电话', sort: true},
 				{field: 'cemail', width: 150, title: '邮箱', sort: true},
@@ -553,7 +553,7 @@
 									type:'post',
 									data: formData,
 									success:function(msg){
-										if(msg=="2"){
+										if(msg>="2"){
 
 											layer.alert("用户 ："+row_data.cname+" 已经通过审核！");
 											layer.close(index1);

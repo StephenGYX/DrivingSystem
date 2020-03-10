@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+ <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String path = application.getContextPath();
@@ -28,13 +28,18 @@
 <%--		<div class="layui-col-xs12 layui-col-md3">--%>
 <%--			<div id="echarts-pies" style="background-color:#ffffff;min-height:400px;padding: 10px"></div>--%>
 <%--		</div>--%>
-		<%--		<script type="text/html" id="toolbarDemo">--%>
-		<%--			<div class="layui-btn-container">--%>
-		<%--				<button class="layui-btn layui-btn-sm data-add-btn"> 添加用户</button>--%>
-		<%--				<button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="del"> 删除用户</button>--%>
-		<%--			</div>--%>
-		<%--		</script>--%>
 
+
+		<div class="layui-card">
+			<div class="layui-card-header"><i class="fa fa-line-chart icon"></i>各个驾校拥有的教练数目</div>
+			<div class="layui-card-body">
+				<div id="shengfen" style="width: 100%;min-height:500px"></div>
+			</div>
+		</div>
+
+		<div class="layui-col-xs12 layui-col-md3">
+			<div id="echarts-pies" style="background-color:#ffffff;min-height:400px;padding: 10px"></div>
+		</div>
 
 
 	</div>
@@ -70,9 +75,7 @@
 					}
 				}
 			},
-			// legend: {
-			// 	data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
-			// },
+
 			toolbox: {
 				feature: {
 					saveAsImage: {}
@@ -87,8 +90,7 @@
 			xAxis: [
 				{
 					type: 'category',
-					// boundaryGap: false,
-					// data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+
 				}
 			],
 			yAxis: [
@@ -112,46 +114,7 @@
 
 
 			series: [
-				// {
-				// 	name: '邮件营销',
-				// 	type: 'line',
-				// 	stack: '总量',
-				// 	areaStyle: {},
-				// 	data: [120, 132, 101, 134, 90, 230, 210]
-				// },
-				// {
-				// 	name: '联盟广告',
-				// 	type: 'line',
-				// 	areaStyle: {},
-				// 	data: [220, 182, 191, 234, 290, 330, 310]
-				// },
-				// {
-				// 	name: '视频广告',
-				// 	type: 'line',
-				// 	stack: '总量',
-				// 	areaStyle: {},
-				// 	data: [150, 232, 201, 154, 190, 330, 410]
-				// },
-				// {
-				// 	name: '直接访问',
-				// 	type: 'line',
-				// 	stack: '总量',
-				// 	areaStyle: {},
-				// 	data: [320, 332, 301, 334, 390, 330, 320]
-				// },
-				// {
-				// 	name: '搜索引擎',
-				// 	type: 'line',
-				// 	stack: '总量',
-				// 	label: {
-				// 		normal: {
-				// 			show: true,
-				// 			position: 'top'
-				// 		}
-				// 	},
-				// 	areaStyle: {},
-				// 	data: [820, 932, 901, 934, 1290, 1330, 1320]
-				// }
+
 			]
 		};
 		echartsRecords.setOption(optionRecords);
@@ -182,11 +145,16 @@
 						var obj = new Object();
 						    obj.name=result[i].dname;
 							obj.value=result[i].renshu;
+							obj.color="#"+Math.floor(Math.random()*(256*256*256-1)).toString(16);
 						nums.push(obj);    //挨个取出销量并填入销量数组
 					}
 					console.log(nums);
 					echartsRecords.hideLoading();    //隐藏加载动画
 					echartsRecords.setOption({        //加载数据图表
+						title: {
+							text: '各个驾校教练人数统计'
+						},
+
 						xAxis: {
 							data: names
 						},
@@ -214,6 +182,142 @@
 				echartsRecords.hideLoading();
 			}
 		});
+		var abc= optionRecords;
+		var zhu = echarts.init(document.getElementById('shengfen'),'walden');
+		zhu.setOption(abc);
+		$.ajax({
+			type : "post",
+			async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+			url : "<%=path+"/dSchool/echartshengfen"%>",    //请求发送到TestServlet处
+			data : {},
+			dataType : "json",        //返回数据形式为json
+			success : function(result) {
+				//请求成功时执行该函数内容，result即为服务器返回的json对象
+				var names2=[]; var nums2=[];
+				console.log(result);
+				if (result) {
+					for(var i=0;i<result.length;i++){
+						names2.push(result[i].dprovince);    //挨个取出类别并填入类别数组
+					}
+					for(var i=0;i<result.length;i++){
+						// var obj = new Object();
+						// obj.name=result[i].dprovince;
+						// obj.value=result[i].renshu;
+						nums2.push(result[i].renshu);    //挨个取出销量并填入销量数组
+					}
+					// console.log(nums);
+					zhu.hideLoading();    //隐藏加载动画
+					zhu.setOption({
+						//加载数据图表
+						title: {
+							text: '各个省份驾校数统计'
+						},
+						xAxis: {
+							data: names2
+						},
+						legend: {
+							data: names2	},
+						series: [
+							{
+								// 根据名字对应到相应的系列
+
+								type: 'bar',
+								// areaStyle: {},
+								data: nums2
+							},	{
+								// 根据名字对应到相应的系列
+								// name: ['数量'],
+								type: 'line',
+								// areaStyle: {},
+								data: nums2
+							}
+
+
+						]
+					});
+
+				}
+
+			},
+			error : function(errorMsg) {
+				//请求失败时执行该函数
+				alert("图表请求数据失败!");
+				zhu.hideLoading();
+			}
+		});
+
+
+
+
+		var echartsPies = echarts.init(document.getElementById('echarts-pies'), 'walden');
+
+
+
+		$.ajax({
+			type : "post",
+			async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+			url : "<%=path+"/dSchool/echartcar"%>",    //请求发送到TestServlet处
+			data : {},
+			dataType : "json",        //返回数据形式为json
+			success : function(result) {
+				//请求成功时执行该函数内容，result即为服务器返回的json对象
+				var names3=[]; var nums3=[];
+				console.log(result);
+				if (result) {
+					for(var i=0;i<result.length;i++){
+						names3.push(result[i].dname);    //挨个取出类别并填入类别数组
+					}
+					for(var i=0;i<result.length;i++){
+						var obj = new Object();
+						obj.name=result[i].dname;
+						obj.value=result[i].renshu;
+						nums3.push(obj);    //挨个取出销量并填入销量数组
+					}
+					// console.log(nums);
+					echartsPies.hideLoading();    //隐藏加载动画
+					var optionPies = {
+						title: {
+							text: '全部教练车状态玫瑰图',
+							left: 'center'
+						},
+						tooltip: {
+							trigger: 'item',
+							formatter: '{a} <br/>{b} : {c} ({d}%)'
+						},
+						legend: {
+							orient: 'vertical',
+							left: 'right',
+							data: names3	},
+						series: [
+							{
+								name: '各个状态车辆占比',
+								type: 'pie',
+								radius: '55%',
+								center: ['50%', '60%'],
+								roseType: 'radius',
+								data: nums3
+
+								,emphasis: {
+									itemStyle: {
+										shadowBlur: 10,
+										shadowOffsetX: 0,
+										shadowColor: 'rgba(0, 0, 0, 0.5)'
+									}
+								}
+							}
+						]
+					};
+					echartsPies.setOption(optionPies);
+				}
+
+			},
+			error : function(errorMsg) {
+				//请求失败时执行该函数
+				alert("图表请求数据失败!");
+				zhu.hideLoading();
+			}
+		});
+
 
 
 
@@ -226,6 +330,8 @@
 
 		// echarts 窗口缩放自适应
 		window.onresize = function(){
+			zhu.resize();
+			echartsPies.resize();
 			echartsRecords.resize();
 		}
 

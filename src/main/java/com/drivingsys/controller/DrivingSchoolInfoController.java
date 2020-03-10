@@ -191,5 +191,44 @@ public class DrivingSchoolInfoController
 		return i;
 
 	}
+	@RequestMapping("baoMingPanDuan")
+	@ResponseBody
+	public String 	baoMingPanDuan(HttpServletRequest request)
+	{
+
+		System.out.println("1111111111111111111111111");
+
+		String cid = request.getParameter("cid");
+		String baokaoType = request.getParameter("baokaoType");
+		String did = request.getParameter("did");
+		Examination examination = drivingSchoolInfoService.queryExamExist(cid, baokaoType);
+		//没有学过该课程
+		if (examination==null){
+            //没有学过的话，判断他是否还学习过其他课程
+			List<Examination> examinations = drivingSchoolInfoService.queryExamListByCid(cid);
+			//没学学过任何课程，可以报名
+			if(examinations==null){
+				return "success";
+			//如果学过其他课程，判断是否都已经超过毕业了
+			}else {
+				boolean b=true;
+				for(Examination examination1:examinations){
+					//小于5说明有学科没有毕业，不能在报名
+					if (examination1.getEorderstate()<5){
+						b= false;
+					}
+				}
+                if (b){
+                	return "success";
+                }else {
+	                return "someNoPass";
+                }
+			}
+		}else {
+			return "examExist";
+		}
+
+	}
+
 
 }

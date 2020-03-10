@@ -130,17 +130,6 @@
 						bigary[i]=	result[i]
 						names.push(result[i].name)
 						// for(var j=0;j<bigary.length;j++){
-						//
-						//
-						//
-						// }
-						// 	var obj = new Object();
-						// 	obj.name = result[i].dname;
-						// 	// obj.value=result[i].renshu;
-						// 	obj.type = line;
-						// 	obj.data = new Array();
-						// 	obj.data.push(result[i].renshu);
-						//
 						// nums.push(obj);    //挨个取出销量并填入销量数组
 					}
 					console.log(nums);

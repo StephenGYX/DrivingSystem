@@ -10,9 +10,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>amCharts examples</title>
         <link rel="stylesheet" href="style.css" type="text/css">
+        <link rel="stylesheet" href="<%=path+"/css/newStudentByTimeEchars.css"%>" type="text/css">
+
         <script src="<%=path+"/amchartsTool/amcharts/amcharts.js"%>" type="text/javascript"></script>
         <script src="<%=path+"/amchartsTool/amcharts/serial.js"%>" type="text/javascript"></script>
-
+        <link rel="stylesheet" href="<%=path+"/css/newStudentByTimeEchars.css"%>" type="text/css">
         <!-- scripts for exporting chart as an image -->
         <!-- Exporting to image works on all modern browsers except IE9 (IE10 works fine) -->
         <!-- Note, the exporting will work only if you view the file from web server -->

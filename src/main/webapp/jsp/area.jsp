@@ -11,6 +11,7 @@ To change this template use File | Settings | File Templates.
 	String path = application.getContextPath();
 	String roleid = session.getAttribute("roleid") + "";
 %>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -20,15 +21,16 @@ To change this template use File | Settings | File Templates.
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link rel="stylesheet" href="<%=path+"/lib/layui-v2.5.5/css/layui.css"%>" media="all">
 	<link rel="stylesheet" href="<%=path+"/css/public.css"%>" media="all">
-	<link rel="stylesheet" href="<%=path+"/lib/lay-module/step-lay/step.css"%>" media="all">
-	<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=qndpvrYqRPHWaspKTGpZcuN2l3FudVgh"></script>
 
+	<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=qndpvrYqRPHWaspKTGpZcuN2l3FudVgh"></script>
+	<%--	<script src="<%=path+"/lib/layer/layer.js"%>"></script>--%>
 </head>
 
 <body>
 
 <div class="layuimini-container">
 	<div class="layuimini-main">
+		<input type="hidden" name="xingwei" id="xingwei" value="zhengchang">
 
 		<form class="layui-form" action="" style="padding:20px;" method="post">
 
@@ -48,7 +50,7 @@ To change this template use File | Settings | File Templates.
 				<div class="layui-form-item">
 					<label class="layui-form-label required">用户名</label>
 					<div class="layui-input-inline">
-						<input type="text" name="daccount" lay-verify="required" lay-reqtext="用户名不能为空"
+						<input type="text" name="daccount" lay-verify="required|username"
 						       placeholder="请输入用户名" value="" class="layui-input" id="account" onblur="queryaccount()">
 						<tip>填写驾校账号信息，该账号具有唯一性。</tip>
 						<br>
@@ -67,7 +69,8 @@ To change this template use File | Settings | File Templates.
 				<div class="layui-form-item">
 					<label class="layui-form-label required">身份证号</label>
 					<div class="layui-input-inline">
-						<input type="text" id="number" name="idnumber" lay-verify="required" lay-reqtext="身份证号不能为空"
+						<input type="text" id="number" name="idnumber" lay-verify="required|identity"
+						       lay-reqtext="身份证号不能为空,且为15或18位"
 						       placeholder="请输入联系人身份证号" value="" class="layui-input">
 						<tip>填写驾校负责人身份证号。</tip>
 					</div>
@@ -84,9 +87,10 @@ margin-top: 20px;" id="demo2"
 
 
 				<div class="layui-form-item">
-					<label class="layui-form-label">密码</label>
+					<label class="layui-form-label required">密码</label>
 					<div class="layui-input-inline">
-						<input type="password" name="password" lay-verify="required" placeholder="请输入驾校账号密码" value=""
+						<input type="password" name="password" lay-verify="required|pass" placeholder="请输入驾校账号密码"
+						       value=""
 						       class="layui-input">
 					</div>
 				</div>
@@ -100,21 +104,26 @@ margin-top: 20px;" id="demo2"
 				<div class="layui-form-item">
 					<label class="layui-form-label required">联系电话</label>
 					<div class="layui-input-inline">
-						<input type="number" name="phone" lay-verify="required" lay-reqtext="手机不能为空" placeholder="请输入手机"
+						<input type="number" name="phone" lay-verify="required|phone" lay-reqtext="手机不能为空"
+						       placeholder="请输入手机"
 						       value="" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">邮箱</label>
 					<div class="layui-input-inline">
-						<input type="email" name="email" lay-verify="email" placeholder="请输入邮箱" value=""
+						<input type="email" name="email" lay-verify="email" lay-reqtext="请输入正确邮箱格式" placeholder="请输入邮箱"
+						       value=""
 						       class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
-					<label class="layui-form-label">驾校名称</label>
+					<label class="layui-form-label required">驾校名称</label>
 					<div class="layui-input-inline">
-						<input type="text" name="dname" placeholder="请输入驾校名称" value="" class="layui-input">
+						<input type="text" name="dname" id="dname" lay-verify="dname" placeholder="请输入驾校名称" value=""
+						       class="layui-input"
+						       onblur="querydname()">
+						<tip id="tip3"></tip>
 					</div>
 				</div>
 
@@ -150,7 +159,7 @@ margin-top: 20px;" id="demo2"
 				<div class="layui-form-item">
 					<label class="layui-form-label required">报名费用</label>
 					<div class="layui-input-inline">
-						<input type="number" name="cost" lay-verify="required" lay-reqtext="报名费用不能为空"
+						<input type="number" name="cost" lay-verify="required|number" lay-reqtext="报名费用不能为空"
 						       placeholder="报名最低价"
 						       value="" class="layui-input">
 					</div>
@@ -258,7 +267,6 @@ margin-top: 20px;" id="demo2"
 		var keyword = document.getElementById("suggestId").value;
 		localSearch.setSearchCompleteCallback(function (searchResult) {
 			var poi = searchResult.getPoi(0);
-			alert(poi.point.lng + "," + poi.point.lat); //获取经度和纬度，将结果显示在文本框中
 			// map.centerAndZoom(poi.point, 13);
 			document.getElementById("longitude").value = poi.point.lng
 			// $("#longitude").val(poi.point.lng+"")
@@ -277,18 +285,43 @@ margin-top: 20px;" id="demo2"
 			data: {"daccount": daccount},
 			dataType: "text",
 			success: function (msg) {
-				alert(msg);
+				// alert(msg);
 				if (msg === '1') {
 
-					// layer.msg("账号不存在，可注册", {icon: 6});
+
 					$('#tip2').text("可注册");
 					$('#tip2').val("1");
 				} else {
 
-					// layer.msg("账号已存在，不可注册", {icon: 5});
 					$('#tip2').text("账号已存在，不可注册"),
 						$('#tip2').css("color", "red"),
 						$('#tip2').val("2");
+				}
+			}
+
+		});
+	}
+
+
+	function querydname() {
+		var dname = $('#dname').val();
+		$.ajax({
+			url: "<%=path+"/fact/querydname"%>",//后台路径,
+			type: "POST",
+			data: {"dname": dname},
+			dataType: "text",
+			success: function (msg) {
+				if (msg === '1') {
+
+
+					$('#tip3').text("可注册");
+					$('#tip3').val("1");
+				} else {
+
+
+					$('#tip3').text("驾校名已存在，不可注册"),
+						$('#tip3').css("color", "red"),
+						$('#tip3').val("2");
 				}
 			}
 
@@ -300,7 +333,7 @@ margin-top: 20px;" id="demo2"
 		var layer = layui.layer
 			, form = layui.form,
 			$ = layui.jquery
-			, layarea = layui.layarea;
+			, layarea = layui.layarea, layedit = layui.layedit;
 		var upload = layui.upload;
 		var upstate = $("#upstate").val();
 
@@ -369,16 +402,54 @@ margin-top: 20px;" id="demo2"
 		});
 
 
+		form.verify({
+			username: function (value, item) { //value：表单的值、item：表单的DOM对象
+				if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)) {
+					return '用户名不能有特殊字符';
+				}
+				if (/(^\_)|(\__)|(\_+$)/.test(value)) {
+					return '用户名首尾不能出现下划线\'_\'';
+				}
+				if (/^\d+\d+\d$/.test(value)) {
+					return '用户名不能全为数字';
+				}
+			},
+			dname: function (value, item) { //value：表单的值、item：表单的DOM对象
+				if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)) {
+					return '驾校名不能有特殊字符';
+				}
+				if (/(^\_)|(\__)|(\_+$)/.test(value)) {
+					return '驾校名首尾不能出现下划线\'_\'';
+				}
+				if (/^\d+\d+\d$/.test(value)) {
+					return '驾校名不能全为数字';
+				}
+			}
+
+
+			, pass: [/^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格']
+			, content: function (value) {
+				layedit.sync(editIndex);
+			}
+		});
+
+
 		//监听提交
 		form.on('submit(saveBtn)', function (data) {
 			var formData = data.field;
 
 
 			var tip2 = $("#tip2").val();
-			alert("tip2 value " + tip2);
+			var tip3 = $("#tip3").val();
+
+
 			$("#upstate").val("sureup");
 			if (tip2 === 2) {
 				layer.msg("该账号已被注册");
+				return false;
+			}
+			if (tip3 === 2) {
+				layer.msg("该驾校名称已被使用");
 				return false;
 			}
 
@@ -394,16 +465,31 @@ margin-top: 20px;" id="demo2"
 						alert("注册成功");
 						layer.msg("注册成功", {icon: 6});
 						$('#sureup').click();
-						alert("seccond");
+						// alert("seccond");
+
 						// window.location.href="http://www.baidu.com";
-						window.location.href="<%=path%>"+"/jsp/frontlogin3.jsp";
+						var xingwei = $("#xingwei").val();
+						if (xingwei === "houtai") {
+							// alert("进入判断");
+
+							window.open("", "_top").close()
+						} else {
+							var url = window.location.href;
+							if (url.indexOf("homepage") !== -1) {
+								window.parent.location.href = "<%=path%>" + "/homepage/drivingSchool";
+							} else {
+								window.location.href = "<%=path%>" + "/jsp/frontlogin3.jsp";
+
+							}
+						}
+
 					} else {
 						// alert("222");
 						alert("注册失败");
 						layer.msg("注册失败", {icon: 5});
 					}
-				}
 
+				}
 			});
 
 
@@ -416,6 +502,15 @@ margin-top: 20px;" id="demo2"
 
 
 	});
+</script>
+
+<script src="<%=path+"/lib/jquery-3.4.1/jquery-3.4.1.min.js"%>" charset="utf-8"></script>
+
+<script>
+	function selectinfo() {
+		// alert("执行改变行为方法");
+		$("#xingwei").val("houtai");
+	}
 </script>
 </body>
 </html>

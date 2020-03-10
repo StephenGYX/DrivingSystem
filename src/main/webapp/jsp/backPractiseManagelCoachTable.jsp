@@ -65,7 +65,9 @@
 
 							<%--为空说明是后台登录，可以通过驾校名进行查询--%>
 							<div class="layui-inline">
-								<label class="layui-form-label">驾校名</label>
+								<c:if test="${requestScope.did==null or requestScope.did==''}">
+									<label class="layui-form-label">驾校名</label>
+								</c:if>
 								<div class="layui-input-inline">
 									<c:if test="${requestScope.did==null or requestScope.did==''}">
 

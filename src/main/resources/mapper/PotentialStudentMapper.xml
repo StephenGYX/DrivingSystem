@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drivingsys.dao.PotentialStudentMapper">
+
+    <insert id="insertPontentialContent">
+                insert into getready(gname, gphone, gdesire, gtime, gstate)
+        values (#{gname},#{gphone},#{gdesire},#{gtime},#{gstate})
+    </insert>
+
+    <update id="updatePontentialStatue">
+            update getready set gstate=#{gstate} where gid=#{gid}
+    </update>
+
+    <update id="updatePontentialContent">
+            update getready set gname=#{gname},gphone=#{gphone},gtime=#{gtime},
+            gstate=#{gstate},gdesire=#{gdesire} where gid=#{gid}
+    </update>
+
+    <select id="queryPotentialWithParam" parameterType="java.util.HashMap" resultType="com.drivingsys.bean.Getready">
+        select * from getready
+        <where>
+            <if test="start !=null and start!='' and end !=null and end !=''">
+                and gtime between #{start} and #{end}
+            </if>
+            <if test="gname !=null and gname!=''">
+                and gname like CONCAT('%','${gname}','%')
+            </if>
+            <if test="gphone !=null and gphone!=''">
+                and gphone like CONCAT('%','${gphone}','%')
+            </if>
+            <if test="gstate !=null and gstate!=''">
+                and gstate=#{gstate}
+            </if>
+        </where>
+        order by gtime desc limit ${statrNum},${limit}
+    </select>
+
+    <select id="queryAllPotentialWithLimit" resultType="com.drivingsys.bean.Getready">
+        select * from getready order by gtime desc limit ${start},${limit}
+    </select>
+
+    <select id="queryPotentialWithParamTotalNum" resultType="java.lang.Integer">
+        select count(*) from getready
+        <where>
+            <if test="start !=null and start!='' and end !=null and end !=''">
+                and gtime between #{start} and #{end}
+            </if>
+            <if test="gname !=null and gname!=''">
+                and gname like CONCAT('%','${gname}','%')
+            </if>
+            <if test="gphone !=null and gphone!=''">
+                and gphone like CONCAT('%','${gphone}','%')
+            </if>
+            <if test="gstate !=null and gstate!=''">
+                and gstate=#{gstate}
+            </if>
+        </where>
+    </select>
+
+</mapper>
+	

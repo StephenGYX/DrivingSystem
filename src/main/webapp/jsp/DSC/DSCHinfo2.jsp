@@ -9,9 +9,14 @@ To change this template use File | Settings | File Templates.
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String path = application.getContextPath();
-	Drivingschool dsc = (Drivingschool) (session.getAttribute("drivingschool"));
-	String wenben = dsc.getDsynopsis();
-	System.out.println("webben+" + wenben);
+	String wenben="";
+	if (session.getAttribute("drivingschool")!= null)
+	{
+		Drivingschool dsc = (Drivingschool) (session.getAttribute("drivingschool"));
+		wenben = dsc.getDsynopsis();
+	}
+
+//	System.out.println("webben+" + wenben);
 %>
 <html>
 <head>
@@ -61,14 +66,14 @@ To change this template use File | Settings | File Templates.
 				</div>
 
 
-				<div class="layui-form-item">
-					<label class="layui-form-label required">密码</label>
-					<div class="layui-input-inline">
-						<input type="password" id="dpassword" name="password" lay-verify="required"
-						       placeholder="请输入驾校账号密码" value="${sessionScope.drivingschool.dpassword}"
-						       class="layui-input">
-					</div>
-				</div>
+<%--				<div class="layui-form-item">--%>
+<%--					<label class="layui-form-label required">密码</label>--%>
+<%--					<div class="layui-input-inline">--%>
+<%--						<input type="password" id="dpassword" name="password" lay-verify="required"--%>
+<%--						       placeholder="请输入驾校账号密码" value="${sessionScope.drivingschool.dpassword}"--%>
+<%--						       class="layui-input">--%>
+<%--					</div>--%>
+<%--				</div>--%>
 
 				<div class="layui-form-item">
 					<label class="layui-form-label required">联系电话</label>
@@ -137,12 +142,7 @@ To change this template use File | Settings | File Templates.
 						<button type="button" id="test1">驾校图片上传</button>
 						<blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
 							预览图：
-							<%--							<div class="layui-upload-list" id="demo2">--%>
-							<%--&lt;%&ndash;								<img class="layui-upload-img" style="width: 150px;height: 150px;margin-left: -180px;&ndash;%&gt;--%>
 
-							<%--&lt;%&ndash;margin-top: 20px;" id="demo2"&ndash;%&gt;--%>
-							<%--&lt;%&ndash;								     src="">&ndash;%&gt;--%>
-							<%--							</div>--%>
 							<div class="layui-upload-list">
 								<img class="layui-upload-img" style="width: 150px;height: 150px;padding-left: 100px"
 								     id="demo2" src='<%=path%>/${sessionScope.drivingschool.dschoolimage}' onclick="showBigImage(this)">
@@ -382,6 +382,7 @@ To change this template use File | Settings | File Templates.
 		$("#demail").val(data.demail);
 		$("#dname").val(data.dname);
 		$("#dphone").val(data.dphone);
+		$("#demo2").attr("src","../../"+data.dschoolimage);
 		editor.txt.html(data.dsynopsis);
 
 	}
